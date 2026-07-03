@@ -1,0 +1,21 @@
+name: curtailmentiq
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pandas
+  - numpy
+  - scikit-learn
+  - xgboost
+  - lightgbm
+  - statsmodels
+  - matplotlib
+  - jupyterlab
+  - sqlalchemy
+  - psycopg2
+  - pyarrow
+  - pip
+  - pip:
+      - pot          # Python Optimal Transport (Wasserstein)
+      - mapie        # Conformal prediction
+      - properscoring # CRPS

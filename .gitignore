@@ -1,0 +1,16 @@
+# Datos pesados: se versionan los checksums, no los binarios grandes.
+# Si el equipo decide versionar data-raw completo, usar Git LFS y borrar estas líneas.
+data-raw/*.csv
+data-raw/*.xlsx
+data-raw/*.zip
+data-raw/*.parquet
+!data-raw/CHECKSUMS.sha256
+!data-raw/README.md
+
+# Credenciales y entorno
+.env
+*.env
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+.DS_Store
