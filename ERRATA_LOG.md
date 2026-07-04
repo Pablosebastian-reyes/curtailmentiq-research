@@ -1,20 +1,26 @@
-# Log de erratas — archivos oficiales del CEN
+# Log de erratas — archivos oficiales del CEN (consolidado v1.0)
 
-Registro formal de las erratas detectadas en los archivos públicos de curtailment del Coordinador Eléctrico Nacional, con su regla determinística de detección y corrección. Este log es la base de la contribución del data paper.
+Registro formal de las erratas y límites de fuente detectados en los archivos públicos de curtailment del Coordinador Eléctrico Nacional. Consolidado el 2026-07-04 para el freeze v1.0: fusiona las reglas implementadas en el parser desde la carga original (erratas 1, 3 y 4, antes documentadas solo en código) con los hallazgos de la investigación pre-freeze 2026-07-03/04 (erratas 2, 5, 6 y 7). Este log es la base de la contribución del data paper; cada regla está implementada en el pipeline (`parsers.py`, `cargar_a_neon.py`, `validar_horario.py`).
 
-**Instrucciones:** una fila por errata. El archivo original con la errata debe estar preservado en `data-raw/` con su checksum. Completar TODAS las columnas.
+**Tratamientos:** `corregida` = regla determinística en el parser repara la lectura · `recuperada` = dato ausente reconstruido desde otra hoja oficial del mismo origen (no imputación) · `límite de fuente` = inconsistencia del CEN sin re-publicación disponible; se conserva y documenta.
 
-| # | Archivo original (data-raw/) | Fecha del archivo | Fecha de detección | Campo/columna afectada | Descripción de la errata | Valor(es) errado(s) | Regla determinística de detección | Corrección aplicada | Evidencia de contraste |
-|---|---|---|---|---|---|---|---|---|---|
-| 1 | *(completar)* | | | | | | | | |
-| 2 | *(completar)* | | | | | | | | |
-| 3 | *(completar)* | | | | | | | | |
-| 4 | *(completar)* | | | | | | | | |
-| 5 | *(completar)* | | | | | | | | |
-| 6 | *(completar)* | | | | | | | | |
+| nº | Archivo(s) fuente | Hoja / campo | Regla determinística de detección | Tratamiento | Evidencia de contraste |
+|---|---|---|---|---|---|
+| 1 | Todos los reportes 2022 desde Mayo-2022 (incl. Diciembre-2022, fuente del diario) | Acumulado-Anual-Eólico y -Solar, encabezados de fecha del bloque de mayo-2022 | Set de fechas de un bloque mensual idéntico al del bloque anterior ⇒ el bloque corresponde al mes siguiente (+1 mes); nº de columnas-día < días reales del mes ⇒ día final ausente | corregida (+1 mes) y recuperada (día 2022-05-31, 106.431 MWh, desde la hoja horaria de Mayo-2022; `PARCHES_DIARIO`) | Columna "Total" por central del bloque errado (Total − Σdías): PE-TALTAL +34.086, PFV-LALACKAMA +67.187, PFV-CONEJO +5.158 MWh; coincide al milésimo con la hoja horaria de Mayo-2022 y cierra exacto el Resumen-Mensual de mayo-2022 y el total anual 2022 (1,471.02 GWh) |
+| 2 | Diciembre-25-PE-PFV_Publicar.xlsx | Acumulado-Anual-Solar y -HE, bloque de mayo-2025 | nº de columnas-día (30) < días reales del mes (31) con fechas correctas; la variante HE (día faltante con 0 MWh) demuestra que la detección debe ser estructural, no energética | recuperada (día 2025-05-31: Solar 3,718.971 MWh en ~70 centrales; HE 0.000 estructural; desde hojas horarias de Mayo-25; `PARCHES_DIARIO`) | Columna "Total" por central (Total − Σdías) = +3,718.970 MWh (top: PFV-CEME1 +372.892, PFV-LASSALINAS +287.090, PFV-ANDESIV +249.329); cierra exacto el Resumen-Mensual de mayo-2025 Solar (142.0184 GWh) y elimina el descuadre anual 2025 |
+| 3 | Diciembre-24-PE-PFV_Publicar.xlsx (detectada en la carga original) | Acumulado-Anual-Solar, bloque con fila duplicada de PFV-DONAANTONIA | Central repetida dentro del mismo bloque mensual con todos sus valores en 0 ⇒ fila sobrante del armado del reporte | corregida (la fila duplicada en ceros se descarta; `parse_acumulado_anual`) | La fila retenida de PFV-DONAANTONIA trae los valores no nulos del mes; la clave (fecha, central) queda única y la suma del bloque cuadra con la fila "Total" de la hoja |
+| 4 | Todos los reportes mensuales (hojas horarias) | Resumen-DiarioHorario-*: etiquetas de fecha de los bloques diarios perdidas, repetidas o vacías | Etiqueta de fecha del bloque no confiable ⇒ la fecha se asigna por POSICIÓN del bloque dentro del mes del archivo; bloques que exceden los días del mes se descartan; continuidad verificada antes del commit (1,612 días exactos) | corregida (asignación posicional en `parse_diario_horario` + verificación de continuidad pre-commit) | Validación censal mes a mes vs curtailment_diario: 42 de 53 meses con discrepancia ponderada 0.0000% y 50 de 53 ≤ 1% — imposible si la asignación posicional corriera fechas |
+| 5 | Junio-24_publicar_v2.xlsx | Hojas Resumen-DiarioHorario-HP y -HE ausentes del reporte | Validación mes a mes: centrales hidro presentes solo en el diario en 2024-06 (disc. ponderada 17.97%) | límite de fuente (el detalle horario hidro de jun-2024, 29.15 GWh, no existe en ninguna publicación del CEN; la serie horaria hidro comienza 2024-07-01) | El diario hidro de jun-2024 proviene del cierre anual Diciembre-24; eólica/solar del mismo reporte Junio-24 sí existen (solar cuadra exacto: 81.965 GWh) |
+| 6 | Octubre-2023.xlsx vs Diciembre-2023_v2.xlsx | Mes octubre-2023 completo (restatement del cierre anual) | Validación mes a mes: disc. ponderada 8.96% en 2023-10, con diferencia neta de solo +0.5% (reasignaciones entre centrales que se cancelan) | límite de fuente (tres cifras oficiales para octubre-2023: 337.416 GWh en el resumen del reporte mensual, 330.717 en su hoja horaria, 328.925 en el cierre anual; el diario usa el cierre anual, el horario conserva el único detalle publicado) | Resumen-Mensual de los tres archivos oficiales extraídos con el mismo parser; Diciembre-2023 v1 y v2 coinciden entre sí (328.925), confirmando restatement deliberado y no error de la v2 |
+| 7 | Reportes mensuales Febrero-24 a Octubre-24 | Resumen-DiarioHorario-Eólico | Validación mes a mes: meses 2024 con disc. ponderada 0.3–1.1% concentrada en centrales eólicas, con solar cuadrando exacto | límite de fuente (las hojas horarias eólicas 2024 suman sistemáticamente menos que el cierre anual restateado: mar −2.86, jul −2.45, jun −0.57 GWh, etc.; sin re-publicación horaria) | Solar de los mismos archivos cuadra 0.0000% contra el diario (descarta error de parseo); nov y dic 2024 cuadran 0.0000% |
 
-## Notas
+## Notas menores (no numeradas como errata)
 
-- "Regla determinística" = condición verificable por código que detecta la errata (ej: "suma horaria difiere del total diario reportado en más de X%").
-- "Evidencia de contraste" = fuente independiente que confirma que el valor corregido es el correcto (otro archivo CEN, informe mensual, reconstrucción aritmética).
-- Estas reglas se implementan en `etl/` y se describen en la sección Methods del data paper.
+- **Celdas "-" en Resumen-Mensual** de reportes intermedios (meses aún no publicados del año en curso): no son dato; el parser las descarta (`parse_resumen_mensual`). Detectada en el piloto del backfill (Marzo-24). Los meses futuros que el CEN rellena con 0.0 numérico (jun–dic 2026 en Mayo-26) se cargan tal cual y quedan documentados como placeholders.
+- **Codigos de central con nombre atípico** (CENTRALBONITO-MC1, CENTRALFEO-MC2): no son errata de datos; son la nomenclatura del reporte de reducciones para HP MC1/HP MC2 (HIDROENERSUR, S/E Río Bonito). Resuelto con match manual verificado (cen_id 241/242).
+
+## Uso
+
+- "Regla determinística" = condición verificable por código que detecta la errata; todas están implementadas en `etl/` (copias de `parsers.py`, `cargar_a_neon.py`, `validar_horario.py`).
+- "Evidencia de contraste" = fuente independiente que confirma el tratamiento (otra hoja/archivo oficial CEN o reconstrucción aritmética).
+- Los archivos originales con errata están preservados en `data-raw/` con SHA-256 y fecha en `CHECKSUMS.sha256`.

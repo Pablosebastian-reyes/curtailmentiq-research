@@ -27,7 +27,7 @@ curtailmentiq-research/
 ├── figures/           # Solo salida de scripts (PDF vectorial), nunca a mano
 ├── paper-data/        # Template DiB + anexos
 ├── paper-flagship/    # Copia de respaldo del Overleaf (export semanal)
-├── ERRATA_LOG.md      # La joya: tabla formal de las 6 erratas
+├── ERRATA_LOG.md      # La joya: tabla formal de las 7 erratas (consolidado v1.0)
 ├── DECISIONS.md       # Bitácora de decisiones metodológicas con fecha y porqué
 ├── experiments.csv
 └── environment.yml    # Versiones exactas de todo

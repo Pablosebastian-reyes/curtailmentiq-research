@@ -14,3 +14,8 @@ __pycache__/
 .ipynb_checkpoints/
 *.pyc
 .DS_Store
+
+# Release: se versionan diccionario, errata_log.csv y CHECKSUMS; los datos van a Zenodo.
+release/**/*.parquet
+release/**/curtailment_*.csv
+release/**/plants*.csv

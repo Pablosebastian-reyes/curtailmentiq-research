@@ -13,9 +13,32 @@ Formato: fecha · decisión · alternativas consideradas · justificación · re
 ## 2026-07-03 · Herramientas
 **Decisión:** flagship en Overleaf (elsarticle) · data paper en template Word oficial DiB (obligatorio) · datos en Zenodo con DOI reservado · referencias en Zotero grupal · repo GitHub privado.
 
+## 2026-07-04 · Corte v1.0 y backfill horario completo
+**Decisión:** dataset v1.0 con corte 2026-05-31 en AMBAS tablas (curtailment_diario y curtailment_horario); serie horaria completa con los 53 reportes mensuales del CEN (enero-2022 a mayo-2026).
+**Alternativas:** congelar solo años cerrados 2022-2025; mantener horario parcial (solo diciembres).
+**Justificación:** los 53 reportes mensuales existen y fueron verificados en el portal del CEN; el corte idéntico en ambas tablas evita cortes incoherentes (antes: diario a feb-2026, horario a abr-2026). Junio-2026 aún no publicado al momento del corte.
+**Responsable:** Pablo.
+
+## 2026-07-04 · Política de versiones de archivos CEN: "última publicada gana"
+**Decisión:** cuando el CEN publicó más de una versión de un reporte mensual se usa la última (sufijos v2/_2/Final): Diciembre-2023_v2, Enero-24_v2, Marzo-24_publicar_2, Junio-24_publicar_v2, Agosto/Septiembre/Octubre-24_publicar_v2, Abril-25_Final.
+**Alternativas:** primera versión publicada; comparar y elegir por mes.
+**Justificación:** la versión más reciente incorpora las correcciones del propio CEN; regla simple y determinística.
+**Responsable:** Pablo.
+
+## 2026-07-04 · data-raw/ como fuente canónica del ETL
+**Decisión:** los loaders leen exclusivamente de curtailmentiq-research/data-raw/ (53 archivos, inmutables, SHA-256 + fecha de descarga en CHECKSUMS.sha256).
+**Justificación:** trazabilidad y reproducibilidad para el data paper; las copias dispersas (DATOS/, datos 2022-2026/) quedan como respaldo histórico.
+**Responsable:** Pablo.
+
+## 2026-07-04 · Días faltantes: recuperación determinística en el ETL (no ediciones manuales)
+**Decisión:** los días ausentes del desglose diario por erratas de plantilla del CEN (2022-05-31 todas las tecnologías; 2025-05-31 solo Solar) se recuperan agregando la hoja horaria del reporte mensual del propio mes (PARCHES_DIARIO en parsers.py), con contraste contra la columna "Total" por central del bloque errado. Detalle en ERRATA_LOG.md.
+**Alternativas:** dejar los días ausentes y documentarlos; imputar.
+**Justificación:** el dato existe en otra hoja oficial del mismo origen (no es imputación); dos vías independientes coinciden al milésimo de MWh; la recuperación es código reproducible, no edición manual.
+**Responsable:** Pablo.
+
 ## PENDIENTES (completar en sesión Pablo-Kerven)
 - [ ] Target exacto de predicción (MWh/central/día · prob. de evento · ambos).
 - [ ] Definición de splits temporales train/calibración/test (fechas exactas) considerando tren alcista y quiebre BESS.
 - [ ] Pieza de Kerven: OT/drift, conformal, o ambas. ¿Toma la línea teórica (cobertura bajo no-intercambiabilidad)?
 - [ ] Baselines comprometidos: persistencia, naive estacional, XGBoost punto, GBM cuantílico. ¿LSTM sí/no?
-- [ ] Fecha de corte del dataset v1.0.
+- [x] Fecha de corte del dataset v1.0. → **2026-05-31** (decisión 2026-07-04, arriba).
