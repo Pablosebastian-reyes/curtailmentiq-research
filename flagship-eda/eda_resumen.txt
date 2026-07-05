@@ -1,0 +1,70 @@
+======================================================================
+1. ESTRUCTURA DE CEROS (diario, por central-dia)
+======================================================================
+  Wind                :  28.3% de central-dias en cero (20,794 de 73,554)
+  Reservoir hydro     :  94.6% de central-dias en cero (20,715 de 21,902)
+  Run-of-river hydro  :  78.4% de central-dias en cero (77,919 de 99,400)
+  Solar               :  27.1% de central-dias en cero (26,779 de 98,822)
+  mediana del largo de racha (dias) [sin curtailment / con curtailment]:
+    Solar               :     1 /   3
+    Wind                :     1 /   3
+    Run-of-river hydro  :     2 /   2
+    Reservoir hydro     :     5 /   2
+
+======================================================================
+2. MAGNITUDES POSITIVAS (mwh diario cuando mwh > 0)
+======================================================================
+  central-dias positivos: 147,471 (50.2% del total)
+  percentiles del MWh diario positivo por tecnologia:
+    tecnologia                p50       p90        p99        max
+    Solar                   82.85    484.83    1259.98    3401.72
+    Wind                    39.12    263.18     721.16    4994.61
+    Run-of-river hydro       4.85     45.93     208.78     743.80
+    Reservoir hydro        112.78   1004.84    2019.63    2627.00
+
+======================================================================
+3. PERFIL HORARIO POR ESTACION Y ANIO (media del MWh sistema por hora)
+======================================================================
+  hora pico del perfil solar por anio y estacion:
+    2022: Summer h17 | Autumn h16 | Winter h16 | Spring h16
+    2023: Summer h16 | Autumn h10 | Winter h10 | Spring h10
+    2024: Summer h16 | Autumn h16 | Winter h16 | Spring h16
+    2025: Summer h17 | Autumn h16 | Winter h16 | Spring h17
+    2026: Summer h18 | Autumn h10
+  cuota del MWh solar recortado por bloque horario (manana h8-13 / tarde h14-19):
+    2022: manana 42.8% | tarde 56.9%
+    2023: manana 47.4% | tarde 51.7%
+    2024: manana 41.3% | tarde 58.0%
+    2025: manana 41.7% | tarde 57.7%
+    2026: manana 41.5% | tarde 57.5%
+
+======================================================================
+4. DRIFT INTERANUAL: W1 entre distribuciones hora-del-dia (YoY, mes a mes)
+   (distribucion = en que hora del dia se recorta la energia del mes;
+    peso = MWh por hora; W1 en unidades de horas)
+======================================================================
+  System:
+    forma (h)   : prom 2024 = 0.44 | 2025 = 0.32 | 2026 = 0.24
+    magnitud(MWh): prom 2024 = 409 | 2025 = 161 | 2026 = 134
+  Antofagasta:
+    forma (h)   : prom 2024 = 0.52 | 2025 = 0.33 | 2026 = 0.26
+    magnitud(MWh): prom 2024 = 158 | 2025 = 67 | 2026 = 59
+  Atacama:
+    forma (h)   : prom 2024 = 0.36 | 2025 = 0.22 | 2026 = 0.28
+    magnitud(MWh): prom 2024 = 108 | 2025 = 39 | 2026 = 55
+
+======================================================================
+5. CORRELACION ESPACIAL: diario, top 20 centrales por acumulado
+======================================================================
+  correlacion media intra-region: 0.471 | inter-region: 0.435
+  top 20 concentran 42.5% del curtailment total
+
+======================================================================
+6. PERSISTENCIA: ACF del diario, sistema y 5 centrales grandes (lags 1-30)
+======================================================================
+  ACF sistema: lag1 = 0.845 | lag7 = 0.800 | lag30 = 0.634
+  PFV-CAMPOSDELSOL      : lag1 = 0.671 | lag7 = 0.498
+  PFV-SOLDELDESIERTO    : lag1 = 0.762 | lag7 = 0.632
+  PFV-FINISTERRAE       : lag1 = 0.795 | lag7 = 0.726
+  PFV-GUANCHOI          : lag1 = 0.853 | lag7 = 0.786
+  PFV-CEME1             : lag1 = 0.611 | lag7 = 0.399
