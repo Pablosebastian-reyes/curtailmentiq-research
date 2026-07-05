@@ -7,7 +7,7 @@ Repositorio de investigación para los papers académicos sobre curtailment de e
 ## Papers en curso
 
 1. **Data paper** (Data in Brief): dataset validado de curtailment del SEN 2022-2026 + metodología de detección y corrección de erratas del CEN.
-2. **Flagship** (SEGAN): pronóstico probabilístico de curtailment bajo cambio de régimen — modelo hurdle + predicción conforme + análisis de drift vía transporte óptimo (Wasserstein), con el quiebre BESS 2025 como caso de estudio.
+2. **Flagship** (SEGAN): pronóstico probabilístico de curtailment bajo cambio de régimen: modelo hurdle + predicción conforme + análisis de drift vía transporte óptimo (Wasserstein), con el quiebre BESS 2025 como caso de estudio.
 
 ## Estructura
 

@@ -1,4 +1,4 @@
-# Log de erratas — archivos oficiales del CEN (consolidado v1.0)
+# Log de erratas: archivos oficiales del CEN (consolidado v1.0)
 
 Registro formal de las erratas y límites de fuente detectados en los archivos públicos de curtailment del Coordinador Eléctrico Nacional. Consolidado el 2026-07-04 para el freeze v1.0: fusiona las reglas implementadas en el parser desde la carga original (erratas 1, 3 y 4, antes documentadas solo en código) con los hallazgos de la investigación pre-freeze 2026-07-03/04 (erratas 2, 5, 6 y 7). Este log es la base de la contribución del data paper; cada regla está implementada en el pipeline (`parsers.py`, `cargar_a_neon.py`, `validar_horario.py`).
 

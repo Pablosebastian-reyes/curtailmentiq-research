@@ -1,13 +1,13 @@
-# Data dictionary — Curtailment SEN Chile, dataset v1.0
+# Data dictionary: Curtailment SEN Chile, dataset v1.0
 
 **Corte:** 2022-01-01 a 2026-05-31 (1,612 días continuos, sin días faltantes) · **Congelado:** 2026-07-04
-**Fuente:** reportes mensuales oficiales "Reducciones de Energía Eólica, Solar e Hidro en el SEN" del Coordinador Eléctrico Nacional (CEN), Chile — 53 archivos originales preservados en `data-raw/` con SHA-256.
+**Fuente:** reportes mensuales oficiales "Reducciones de Energía Eólica, Solar e Hidro en el SEN" del Coordinador Eléctrico Nacional (CEN), Chile (53 archivos originales preservados en `data-raw/` con SHA-256).
 **Formatos:** cada tabla se publica en CSV (UTF-8, header, separador coma) y Parquet (compresión zstd) con contenido idéntico y orden determinístico.
 **Convenciones globales:** los ceros son explícitos (un registro con `mwh = 0` significa "sin curtailment ese día/hora", no dato faltante) · la columna `id` de la base de datos (secuencial de carga) se excluye del release: la clave natural de cada tabla se indica abajo · valores de `tecnologia`: `Solar`, `Eólica`, `Hidro Pasada`, `Hidro Embalse` (las hidro se reportan desde 2024-06-01 en la serie diaria y desde 2024-07-01 en la horaria, ver errata nº 5) · separador decimal punto · fechas ISO-8601 (YYYY-MM-DD).
 
 ---
 
-## curtailment_daily.csv / .parquet — 293,678 filas
+## curtailment_daily.csv / .parquet (293,678 filas)
 
 Curtailment diario por central. Clave natural: (`fecha`, `central_codigo`). Orden: `fecha`, `central_codigo`.
 
@@ -21,7 +21,7 @@ Curtailment diario por central. Clave natural: (`fecha`, `central_codigo`). Orde
 
 Nota: serie diaria construida desde el desglose "Acumulado-Anual" del último reporte publicado de cada año (política "última versión gana"; ver DECISIONS.md). Suma total: 19,030,463.14 MWh. Cuadra exacto (±0.001 GWh) con los totales anuales oficiales del CEN 2022-2026.
 
-## curtailment_hourly.csv / .parquet — 6,906,761 filas
+## curtailment_hourly.csv / .parquet (6,906,761 filas)
 
 Curtailment horario por central. Clave natural: (`fecha`, `hora`, `central_codigo`). Orden: `fecha`, `hora`, `central_codigo`.
 
@@ -36,7 +36,7 @@ Curtailment horario por central. Clave natural: (`fecha`, `hora`, `central_codig
 
 Nota: construida desde las hojas "Resumen-DiarioHorario-\*" de los 53 reportes mensuales. Las fechas se asignan por posición del bloque dentro del mes (las etiquetas del CEN vienen dañadas; errata nº 4), validado censalmente contra la serie diaria: 50 de 53 meses con discrepancia ponderada ≤ 1% y 42 en 0.0000%; los 3 meses restantes corresponden a inconsistencias del propio CEN (erratas nº 5, 6 y 7).
 
-## plants.csv / .parquet — 300 filas
+## plants.csv / .parquet (300 filas)
 
 Catálogo mínimo de centrales presentes en las series. Clave: `central_codigo`. Orden: `central_codigo`.
 
@@ -45,7 +45,7 @@ Catálogo mínimo de centrales presentes en las series. Clave: `central_codigo`.
 | central_codigo | string | Código de la central/unidad (75 Solar, 56 Eólica, 140 Hidro Pasada, 29 Hidro Embalse). |
 | tecnologia | string | Clasificación tecnológica más reciente informada por el CEN (si una central fue reclasificada, aquí gana la última). |
 
-## plants_metadata.csv / .parquet — 300 filas
+## plants_metadata.csv / .parquet (300 filas)
 
 Atributos de cada central según el catálogo de instalaciones del CEN (Infotécnica), emparejado por nombre. Clave: `central_codigo`. Orden: `central_codigo`. Cobertura 300/300.
 
@@ -70,7 +70,7 @@ Atributos de cada central según el catálogo de instalaciones del CEN (Infotéc
 | punto_conexion | string | Punto de conexión al sistema. |
 | conv_ernc | string | Clasificación Convencional / ERNC. |
 
-## errata_log.csv — 7 filas
+## errata_log.csv (8 filas)
 
 Las 7 erratas/límites de fuente del CEN detectados, con regla determinística, tratamiento y evidencia. Derivado automáticamente de `ERRATA_LOG.md` (fuente única, con el detalle narrativo completo).
 

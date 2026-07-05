@@ -1,4 +1,4 @@
-# Reporte de verificación post-backfill — dataset v1.0 (corte 2026-05-31)
+# Reporte de verificación post-backfill: dataset v1.0 (corte 2026-05-31)
 
 Generado: 2026-07-04 · Base: neondb (Neon PostgreSQL) · Consultas de solo lectura (scripts en `etl/`, validación en `etl/validar_horario.py`).
 Actualizado tras las compuertas G-A (metadata 300/300) y G-B (ERRATA_LOG consolidado, 7 erratas).

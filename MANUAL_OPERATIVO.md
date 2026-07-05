@@ -1,4 +1,4 @@
-# Manual operativo — Papers CurtailmentIQ (Pablo + Kerven)
+# Manual operativo: Papers CurtailmentIQ (Pablo + Kerven)
 
 Versión 1.0 · Julio 2026 · Documento vivo: actualizar al final de cada sprint.
 
@@ -45,7 +45,7 @@ curtailmentiq-research/
 ## 3. Roles y Sprint 0 (semanas 1-2)
 
 ### Pablo
-- [ ] Enviar consulta formal al CEN (machote en §5) — el reloj de 20 días hábiles corre desde ya.
+- [ ] Enviar consulta formal al CEN (machote en §5): el reloj de 20 días hábiles corre desde ya.
 - [ ] Congelar dataset v1.0 + checksums.
 - [ ] Cargar generación horaria real + costos marginales del CEN a Neon.
 - [ ] Montar repo, Overleaf, Zotero, ORCID.
@@ -56,7 +56,7 @@ curtailmentiq-research/
   - Angelopoulos & Bates, "A Gentle Introduction to Conformal Prediction and Distribution-Free Uncertainty Quantification" (2023).
   - Tibshirani, Barber, Candès, Ramdas, "Conformal Prediction Under Covariate Shift" (NeurIPS 2019).
   - Barber, Candès, Ramdas, Tibshirani, "Conformal Prediction Beyond Exchangeability" (Annals of Statistics, 2023).
-  - Gneiting & Raftery, "Strictly Proper Scoring Rules, Prediction, and Estimation" (JASA 2007) — base de CRPS.
+  - Gneiting & Raftery, "Strictly Proper Scoring Rules, Prediction, and Estimation" (JASA 2007), base de CRPS.
   - Peyré & Cuturi, "Computational Optimal Transport" (Foundations and Trends in ML, 2019).
   - Un review de modelos hurdle / zero-inflated para datos semicontinuos.
 - [ ] Escribir **documento de notación y especificación** (2-3 páginas LaTeX): variables, target, modelo dos-partes, envoltorio conformal, métrica Wasserstein para drift. Es la piedra fundacional; todo lo demás lo hereda.
@@ -76,7 +76,7 @@ curtailmentiq-research/
 
 Guardar la respuesta como PDF en el repo. Se cita en la sección Ethics del data paper.
 
-## 6. Uso de IA (Claude) — reglas de la casa
+## 6. Uso de IA (Claude): reglas de la casa
 
 - Arquitectura de chats: Estrategia (decisiones) · Data Engineering (ETL) · Modelamiento (métodos, outputs para Kerven) · Escritura (inglés, sección por sección). Cada chat reporta al de estrategia: contexto breve + resultados + pregunta.
 - **Ninguna referencia bibliográfica generada por IA entra al paper sin verificarse** en Google Scholar / DOI / Scopus. Sin excepciones.

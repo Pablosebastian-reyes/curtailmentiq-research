@@ -1,4 +1,4 @@
-# data-raw/ — REGLAS
+# Reglas de data-raw/
 
 1. Aquí van los archivos ORIGINALES del CEN tal como se descargaron, INCLUYENDO los que contienen erratas. Son la evidencia del data paper.
 2. Inmutables: nunca editar, nunca renombrar, nunca borrar.
