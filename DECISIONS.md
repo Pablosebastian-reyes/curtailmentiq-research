@@ -36,6 +36,18 @@ Formato: fecha · decisión · alternativas consideradas · justificación · re
 **Justificación:** el dato existe en otra hoja oficial del mismo origen (no es imputación); dos vías independientes coinciden al milésimo de MWh; la recuperación es código reproducible, no edición manual.
 **Responsable:** Pablo.
 
+## 2026-07-18 · Ética y licencia del depósito: respuesta SAIP del CEN
+**Decisión:** con la respuesta SAIP del CEN recibida el 13-jul-2026 (uso académico permitido citando la fuente, sin licencia particular sobre los datos), el depósito en Zenodo se publica bajo licencia CC BY 4.0.
+**Alternativas:** CC0; CC BY-NC 4.0; esperar un pronunciamiento formal adicional del CEN.
+**Justificación:** el CEN no impone licencia y solo exige cita de la fuente; CC BY 4.0 es la licencia estándar recomendada para datasets académicos, maximiza reutilización y hace obligatoria la atribución, coherente con la condición del CEN. Cierra el punto de ética del data paper.
+**Responsable:** Pablo.
+
+## 2026-07-18 · Reformulación del problema del flagship: de cobertura a sharpness
+**Decisión:** a la luz del prototipo conformal sobre datos sintéticos (flagship/conformal_prototype.py), el problema central del flagship se reformula: no es pérdida de cobertura bajo el quiebre BESS, sino pérdida de sharpness.
+**Evidencia (sintética, no citable):** el conformal split estándar mantiene cobertura post-quiebre (97-99% vs 90% nominal) con intervalos sobreanchos; el weighted conformal no corrige por falta de solapamiento entre regímenes (ESS 1.203 de 9.760 en calibración).
+**Justificación:** el quiebre BESS reduce las magnitudes, así que el intervalo calibrado pre-quiebre sobrecubre en vez de subcubrir; la contribución metodológica pasa a ser recuperar intervalos ajustados (sharp) con garantía bajo cambio de régimen, línea que conecta con la pieza OT/drift de Kerven.
+**Responsable:** Pablo.
+
 ## PENDIENTES (completar en sesión Pablo-Kerven)
 - [ ] Target exacto de predicción (MWh/central/día · prob. de evento · ambos).
 - [ ] Definición de splits temporales train/calibración/test (fechas exactas) considerando tren alcista y quiebre BESS.

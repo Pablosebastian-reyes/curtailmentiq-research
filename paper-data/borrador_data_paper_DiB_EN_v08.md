@@ -1,13 +1,13 @@
-# DATA PAPER DRAFT v0.4 — dataset v1.0 FROZEN (2026-07-04, cut-off 2026-05-31)
+# DATA PAPER DRAFT v0.8 (2026-07-18): ethics statement CLOSED with CEN response
 # Maps 1:1 to the official Data in Brief Word template.
 # Purely descriptive: NO conclusions, NO interpretation.
-# Gates G-A and G-B: RESOLVED (metadata 300/300; errata log consolidated = 7).
-# REMAINING [TODO]s before submission:
-#   1. Zenodo reserved DOI + URL (Pablo, manual upload of release/v1.0 data files)
-#   2. SAIP response from CEN (ethics statement) — in progress, ~Aug 2026
-#   3. Exact title of the Fraunhofer Chile 2022 report + compared quantity
-#   4. ORCID iDs (both) + corresponding email
-#   5. Kerven's full review pass (methods wording, competing interests confirmation)
+# Errata log: 8 documented classes (erratum 8 found via visual QA of Figure 1).
+# Figures 1-2 final (figures/ in repo).
+# REMAINING before submission (no [TODO]s left in body):
+#   1. Kerven's review pass + competing-interests confirmation (Tuesday)
+#   2. Publish the Zenodo deposit with licence CC BY 4.0
+#   3. Port this text into the official Data in Brief Word template
+#   4. Corresponding (institutional) email
 # Scope (final): tables `predicciones` and `centrales_ranking_2024_2025` EXCLUDED.
 
 ---
@@ -19,8 +19,8 @@ curtailment in Chile's National Electricity System (2022–2026)
 
 ## AUTHORS
 
-Pablo Reyes Cerda (a,*) — ORCID: [TODO]
-Kerven Cea Morales (b) — ORCID: [TODO]
+Pablo Reyes Cerda (a,*), ORCID: 0009-0009-0621-9146
+Kerven Cea Morales (b), ORCID: 0009-0002-3824-4863
 
 (a) Universidad de Santiago de Chile, Magíster en Gestión de la Innovación y el
     Emprendimiento Tecnológico, Santiago, Chile / Synapta SpA, Concepción, Chile
@@ -52,11 +52,11 @@ fields including official CEN identifier, installed capacity
 commissioning date, connection point and regulatory classification; the
 matching method is recorded per plant. Days and hours without curtailment
 are stored explicitly as zero-valued records (49.8% of daily and 83.6% of
-hourly rows). The processing pipeline documents seven
-classes of errata identified in the original CEN files using deterministic,
-code-verifiable rules — including a structural continuity check that detects
-omitted calendar days even when they carry zero energy — and two omitted
-days were recovered from the corresponding monthly hourly sheets with
+hourly rows). The processing pipeline documents eight
+classes of errata identified in the original CEN publications (monthly
+reports and installation catalogue) using deterministic, code-verifiable
+rules (including a structural continuity check that detects omitted calendar
+days even when they carry zero energy), and two omitted days were recovered from the corresponding monthly hourly sheets with
 independent cross-checks against the source files' total columns. Every
 rule, affected file and treatment is documented in an accompanying errata
 log, and the original unmodified source files are preserved with SHA-256
@@ -68,8 +68,8 @@ against daily totals, 50 of 53 months agree within 1% (42 exactly); the
 three remaining months reflect documented inconsistencies within the CEN's
 own publications. The dataset totals 19,030 GWh of recorded curtailment
 (1,471 GWh in 2022; 2,667 in 2023; 6,224 in 2024; 6,205 in 2025; 2,463 in
-January–May 2026). The data are available at Zenodo [TODO: reserved DOI] in
-CSV and Parquet formats, together with a data dictionary, the errata log,
+January–May 2026). The data are available at Zenodo (DOI: 10.5281/zenodo.21198817) in CSV and
+Parquet formats, together with a data dictionary, the errata log,
 the processing scripts and integrity checksums. The data enable research on
 renewable energy integration, curtailment forecasting, uncertainty
 quantification and distribution-shift analysis in a national power system
@@ -82,9 +82,9 @@ that experienced large-scale battery energy storage deployment during 2025.
 | Subject | Energy: Renewable Energy, Sustainability and the Environment |
 | Specific subject area | Curtailment of utility-scale solar, wind and hydropower generation in a national power system (Chile's SEN) |
 | Type of data | Tables (CSV, Parquet); errata log (CSV); data dictionary (Markdown); processing scripts (Python) |
-| Data collection | All 53 monthly curtailment reports covering January 2022 – May 2026 were retrieved from the CEN public information portal (www.coordinador.cl) [TODO: first/last download dates] using a versioned download script; where multiple versions of a monthly report exist, the most recently published version was used. Files were parsed and loaded into PostgreSQL; plant codes were matched against the CEN installation catalogue (method recorded per plant). Errata were detected with deterministic rules, including a structural continuity check per technology; corrections were applied only in the curated tables, each with an independent cross-check. Original files preserved unmodified with SHA-256 checksums. |
-| Data source location | Coordinador Eléctrico Nacional (CEN), Chile — public information portal. Country: Chile. System: Sistema Eléctrico Nacional (SEN), spanning 14 administrative regions in the dataset. |
-| Data accessibility | Repository name: Zenodo. Data identification number: [TODO: reserved DOI]. Direct URL: [TODO]. Original CEN source files listed in the data dictionary; provenance recorded per row (`archivo_origen`). |
+| Data collection | All 53 monthly curtailment reports covering January 2022 – May 2026 were retrieved from the CEN public information portal (www.coordinador.cl) between 14 May and 4 July 2026 using a versioned download script; where multiple versions of a monthly report exist, the most recently published version was used. Files were parsed and loaded into PostgreSQL; plant codes were matched against the CEN installation catalogue (method recorded per plant). Errata were detected with deterministic rules, including a structural continuity check per technology; corrections were applied only in the curated tables, each with an independent cross-check. Original files preserved unmodified with SHA-256 checksums. |
+| Data source location | Coordinador Eléctrico Nacional (CEN), Chile: public information portal. Country: Chile. System: Sistema Eléctrico Nacional (SEN), spanning 14 administrative regions in the dataset. |
+| Data accessibility | Repository name: Zenodo. Data identification number: 10.5281/zenodo.21198817. Direct URL: https://doi.org/10.5281/zenodo.21198817. Original CEN source files listed in the data dictionary; provenance recorded per row (`archivo_origen`). |
 | Related research article | None |
 
 ## VALUE OF THE DATA
@@ -103,8 +103,8 @@ that experienced large-scale battery energy storage deployment during 2025.
 - The 2022–2026 span covers the large-scale deployment of battery energy
   storage systems in the SEN during 2025, enabling research on distribution
   shift, regime change and model recalibration in power systems.
-- The documented errata-detection rules — including structural checks that
-  identify omitted calendar days even when they carry zero energy — are
+- The documented errata-detection rules, including structural checks that
+  identify omitted calendar days even when they carry zero energy, are
   reusable by any practitioner or researcher working with CEN public files.
 - Asset owners, regulators and system planners can use the data to benchmark
   curtailment exposure by plant, technology, owner and region.
@@ -116,7 +116,7 @@ that experienced large-scale battery energy storage deployment during 2025.
 
 The Zenodo deposit contains the following files.
 
-1. `curtailment_daily` (.parquet / .csv) — 293,678 records, one per plant per
+1. `curtailment_daily` (.parquet / .csv): 293,678 records, one per plant per
    day, 2022-01-01 to 2026-05-31 (1,612 continuous days, no missing days).
    Columns: `fecha` (date), `central_codigo` (CEN plant/unit code),
    `tecnologia` (Solar / Eólica / Hidro Pasada / Hidro Embalse), `mwh`
@@ -124,16 +124,16 @@ The Zenodo deposit contains the following files.
    Key (`fecha`, `central_codigo`) unique; no NULL values. Days without
    curtailment stored explicitly with `mwh` = 0 (49.8% of rows). Includes
    186 rows restored through documented errata recovery (see Methods).
-2. `curtailment_hourly` (.parquet, zstd-compressed / .csv) — 6,906,761 records, one per plant
+2. `curtailment_hourly` (.parquet, zstd-compressed / .csv): 6,906,761 records, one per plant
    per hour, 2022-01-01 to 2026-05-31, built from the hourly sheets of all
    53 monthly CEN reports. Columns: as above plus `hora` (hour of day,
    convention 1–24). Key (`fecha`, `hora`, `central_codigo`) unique; no NULL
    values. Hours without curtailment stored explicitly with `mwh` = 0
    (83.6% of rows). Hourly hydropower detail begins July 2024 (see
    Limitations).
-3. `plants` (.csv) — registry of 300 plants: 75 solar photovoltaic, 56 wind,
+3. `plants` (.csv): registry of 300 plants: 75 solar photovoltaic, 56 wind,
    140 run-of-river hydro, 29 reservoir hydro.
-4. `plants_metadata` (.csv) — all 300 plants matched to the CEN
+4. `plants_metadata` (.csv): all 300 plants matched to the CEN
    installation catalogue with 19 fields at 100% coverage except
    commissioning date (97.3%): CEN catalogue id and official name, match
    method (exact / unit-level / contained / fuzzy / manual), region (14
@@ -141,20 +141,23 @@ The Zenodo deposit contains the following files.
    capacity (MW), commissioning date, owner, coordinated entity, operational
    status, technology type, energy conversion type, connection point, and
    conventional/ERNC classification.
-5. `errata_log.csv` — one row per documented erratum: source file, file
+5. `errata_log.csv`: one row per documented erratum: source file, file
    date, affected sheet/field, detection rule, treatment (corrected /
    recovered / documented as source limitation), cross-check evidence.
-   Seven documented erratum classes (see Methods).
-6. `data_dictionary.md` — column-by-column description, units, types and
+   Eight documented erratum classes (see Methods).
+6. `data_dictionary.md`: column-by-column description, units, types and
    provenance of every table.
-7. `CHECKSUMS.sha256` — SHA-256 of every original CEN file (53 files) and
+7. `CHECKSUMS.sha256`: SHA-256 of every original CEN file (53 files) and
    every published file, with download/creation dates.
-8. `scripts/` — Python pipeline that regenerates the curated tables from the
+8. `scripts/`: Python pipeline that regenerates the curated tables from the
    original files, including the month-by-month reconciliation script.
 
-[Figure 1 (descriptive): map of plant locations coloured by technology and
-sized by cumulative curtailed energy. Figure 2 (descriptive): temporal
-coverage diagram per table and technology.]
+Figure 1. Geographic distribution of the 300 power plants in the dataset,
+colored and shaped by technology, with marker area proportional to each
+plant's cumulative curtailed energy over January 2022–May 2026 (GWh).
+Figure 2. Monthly temporal coverage of the daily and hourly curtailment
+tables by technology from January 2022 to May 2026; hydropower records begin
+in June 2024 (daily table) and July 2024 (hourly table).
 
 ## EXPERIMENTAL DESIGN, MATERIALS AND METHODS
 
@@ -170,12 +173,15 @@ to the CEN installation catalogue; the method for each plant is recorded in
 `match_metodo` (exact 129, unit-level 146, contained 10, fuzzy 4, manual
 11). Two plant codes absent from the catalogue were matched manually to their operator's registered mini-hydro
 units using capacity, technology and connection-point concordance; the
-inference is documented in the deposit.
+inference is documented in the deposit. Geographic coordinates were
+validated with a region-vs-longitude consistency check across all 300
+plants, which uncovered one catalogue record with a truncated UTM northing
+and an incorrect UTM zone (erratum class 8); no other outliers were found.
 
-**Errata detection and correction.** Seven classes of errata were
-documented in the original CEN files; of these, the first four were corrected
-or recovered deterministically in the curated tables, and the last three are
-limitations of the source, documented without correction. (1) *Repeated-header
+**Errata detection and correction.** Eight classes of errata were
+documented in the original CEN publications; five were corrected or
+recovered deterministically in the curated tables, and three are limitations
+of the source, documented without correction. (1) *Repeated-header
 month block (2022 reports)*: annual-accumulated sheets repeat the April header
 for the May block, whose 30-day template also omits 31 May 2022; detected by
 identical consecutive block headers and by a structural continuity check
@@ -186,9 +192,9 @@ hourly sheet of the May 2022 monthly report, cross-checked to the millesimal
 against the difference between each plant's total column and the sum of its
 day columns. (2) *Omitted day in the December 2025 report*: 31 May 2025
 absent from the Solar and reservoir-hydro sheets; recovered from the May 2025
-report (3,718.971 MWh across ~70 solar plants; structurally zero for
-reservoir hydro — a case detectable only by the structural check, since the
-omitted day carries zero energy). (3) *Duplicated zero-valued plant row*
+report (3,718.971 MWh across ~70 solar plants; structurally zero for reservoir
+hydro, a case detectable only by the structural check since the omitted day
+carries zero energy). (3) *Duplicated zero-valued plant row*
 (PFV-DONAANTONIA, December 2024 report): removed by key-based deduplication.
 (4) *Inconsistent date labels in hourly sheets*: dates are assigned by block
 position and validated by a continuity check requiring all 1,612 calendar
@@ -197,7 +203,11 @@ hydropower sheets in the June 2024 report*: the hourly hydropower series
 therefore begins in July 2024. (6) *October 2023 restatement*: three mutually
 inconsistent official figures for the same month across CEN publications.
 (7) *Systematic deficit of 2024 wind hourly sheets* relative to the restated
-annual closing (February–October 2024). Original files are never modified;
+annual closing (February–October 2024). (8) *Defective geolocation in one
+installation-catalogue record* (truncated UTM northing and incorrect UTM
+zone): detected by a region-vs-longitude consistency check and corrected
+with a documented manual zone assignment, after which the coordinates fall
+within the plant's declared municipality. Original files are never modified;
 corrections apply to the curated tables only, and every class is documented
 in the errata log with its detection rule, treatment and cross-check
 evidence.
@@ -218,9 +228,8 @@ even if it carries zero energy.
 
 **External validation.** Annual totals from the daily table match the CEN
 official monthly summary exactly (difference 0.000 GWh) in every year
-2022–2026. Aggregate 2022 curtailment reproduces the figures reported by
-Fraunhofer Chile (2022) with a deviation of 0.07% [ref; TODO: exact report
-title and compared quantity].
+2022–2026. Aggregate 2022 wind and solar curtailment reproduces the total reported by
+Fraunhofer Chile for that year [4] with a deviation of 0.07%.
 
 **Tooling.** Python 3.12.3 with pandas, openpyxl, psycopg2, pyproj and
 pyarrow; PostgreSQL (Neon). The pipeline
@@ -259,10 +268,14 @@ Data in Brief and confirm that the current work does not involve human
 subjects, animal experiments, or any data collected from social media
 platforms. The dataset is derived from public information published by the
 Coordinador Eléctrico Nacional under Chile's public-information regime for
-the electricity sector (Law No. 20,936, art. 212-2). [Update upon SAIP
-response: "Redistribution for research purposes with attribution was
-confirmed by the CEN in response to a formal public-information request
-(ref. No. [TODO], dated [TODO])."]
+the electricity sector (Law No. 20,936, art. 212-2). In response to a formal
+enquiry submitted by the authors through the CEN's public contact channel,
+the CEN confirmed on 13 July 2026 that the information published on its
+website is available to users for the academic purposes they deem
+appropriate, citing the website as the source, and that no specific licence
+or exclusive-use terms apply to the curtailment information. The dataset is
+accordingly distributed under a CC BY 4.0 licence with attribution to the
+CEN as the original source.
 
 ## CREDIT AUTHOR STATEMENT
 
@@ -301,6 +314,8 @@ full responsibility for the content of the published article.
 [3] [SGCC descriptor] Solar and wind power data from the Chinese State Grid
     Renewable Energy Generation Forecasting Competition, Scientific Data 9
     (2022). [VERIFY authors + DOI]
-[4] Fraunhofer Chile Research, [TODO: exact 2022 report title].
+[4] Fraunhofer Chile Research, Vertimiento de energía de centrales eólicas
+    y solares fotovoltaicas del Sistema Eléctrico Nacional (SEN) en Chile
+    durante 2022, Fraunhofer Chile, 2022.
 [5] Coordinador Eléctrico Nacional, public information portal,
-    www.coordinador.cl (accessed [TODO dates]).
+    www.coordinador.cl (accessed May–July 2026).
