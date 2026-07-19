@@ -13,7 +13,8 @@ Historia que demuestra:
      persistencia AR(1) 0.85, ciclo semanal, quiebre BESS desde fines 2024.
   2. Modelo hurdle: ocurrencia (clasificador) + magnitud (lognormal).
   3. Conformal split one-sided: intervalo [0, U] con cobertura garantizada.
-  4. LA COBERTURA SE CUMPLE pre-quiebre y COLAPSA post-quiebre.
+  4. LA COBERTURA SE CUMPLE pre-quiebre y SOBRECUBRE post-quiebre con
+     intervalos sobreanchos e inutiles: se pierde sharpness, no cobertura.
   5. Weighted conformal (Tibshirani et al. 2019) como intento de reparacion.
   6. Metricas: cobertura, ancho (sharpness), CRPS.
 """
@@ -175,11 +176,15 @@ if __name__ == '__main__':
           f"(EDA real: 15x)")
 
     # ---- Splits temporales (el diseno que discutiremos con Kerven)
-    tr   = df[df.fecha <  '2024-01-01']                                  # entrena
-    cal  = df[(df.fecha >= '2024-01-01') & (df.fecha < '2024-09-01')]    # calibra
-    tpre = df[(df.fecha >= '2024-09-01') & (df.fecha < '2025-01-01')]    # test MISMO regimen
-    tpos = df[df.fecha >= '2025-01-01']                                  # test POST-quiebre
-    for n, d in [('train', tr), ('calib', cal), ('test_pre', tpre), ('test_post', tpos)]:
+    # Audit Kerven (pto 3): la rampa BESS parte el 1-oct-2024, asi que el test
+    # de mismo regimen termina el 2024-09-30; oct-dic 2024 es rampa temprana.
+    tr    = df[df.fecha <  '2024-01-01']                                  # entrena
+    cal   = df[(df.fecha >= '2024-01-01') & (df.fecha < '2024-09-01')]    # calibra
+    tpre  = df[(df.fecha >= '2024-09-01') & (df.fecha < '2024-10-01')]    # test MISMO regimen
+    tramp = df[(df.fecha >= '2024-10-01') & (df.fecha < '2025-01-01')]    # rampa BESS temprana
+    tpos  = df[df.fecha >= '2025-01-01']                                  # test POST-quiebre
+    for n, d in [('train', tr), ('calib', cal), ('test_pre', tpre),
+                 ('test_ramp', tramp), ('test_post', tpos)]:
         print(f"  {n:10s} {len(d):7,} filas  {d.fecha.min().date()} .. {d.fecha.max().date()}")
 
     # ---- Ajuste del hurdle
@@ -191,6 +196,7 @@ if __name__ == '__main__':
     print("PASO 1 - Modelo solo, sin garantia (cuantil 90% del hurdle)")
     print("-"*74)
     filas = [evaluar('test_pre  (mismo regimen)', tpre.y.values, m.upper(tpre[FEATS].values, ALPHA)),
+             evaluar('test_ramp (rampa temprana)', tramp.y.values, m.upper(tramp[FEATS].values, ALPHA)),
              evaluar('test_post (post-quiebre)', tpos.y.values, m.upper(tpos[FEATS].values, ALPHA))]
     print(pd.DataFrame(filas).to_string(index=False))
 
@@ -203,7 +209,8 @@ if __name__ == '__main__':
     qhat = q_conformal(s_cal, ALPHA)
     print(f"Correccion conformal qhat = {qhat:+.1f} MWh  (n_calib={len(cal):,})")
     filas = []
-    for nombre, d in [('test_pre  (mismo regimen)', tpre), ('test_post (post-quiebre)', tpos)]:
+    for nombre, d in [('test_pre  (mismo regimen)', tpre), ('test_ramp (rampa temprana)', tramp),
+                      ('test_post (post-quiebre)', tpos)]:
         U = np.maximum(0, m.upper(d[FEATS].values, ALPHA) + qhat)
         filas.append(evaluar(nombre, d.y.values, U))
     print(pd.DataFrame(filas).to_string(index=False))
@@ -219,6 +226,9 @@ if __name__ == '__main__':
     r = tmp.groupby('periodo').agg(cobertura=('cubierto', lambda x: round(100*x.mean(), 1)),
                                    ancho=('U', lambda x: round(x.mean(), 1)),
                                    n=('y', 'size'))
+    # Audit Kerven (pto 3): 2024-S1 es el propio set de calibracion evaluado
+    # in-sample; se marca para que no se lea como cobertura out-of-sample.
+    r = r.rename(index={'2024-S1': '2024-S1 (calib, in-sample)'})
     print(r.to_string())
 
     # ---- PASO 4: weighted conformal

@@ -48,6 +48,13 @@ Formato: fecha · decisión · alternativas consideradas · justificación · re
 **Justificación:** el quiebre BESS reduce las magnitudes, así que el intervalo calibrado pre-quiebre sobrecubre en vez de subcubrir; la contribución metodológica pasa a ser recuperar intervalos ajustados (sharp) con garantía bajo cambio de régimen, línea que conecta con la pieza OT/drift de Kerven.
 **Responsable:** Pablo.
 
+## 2026-07-19 · Diseño metodológico del flagship definido por el audit de Kerven
+**Decisión:** el diseño de trabajo del flagship queda definido por el audit metodológico de Kerven (flagship/AUDIT_METODOLOGICO.md): score distribucional/PIT como geometría del score de no-conformidad, ventana deslizante de 60 días como mecanismo de recalibración, y ACI sobre scores transportados (mapa monótono OT) como contribución teórica; el weighted conformal en su versión por-punto correcta (intervalos infinitos en ~46% de los casos) queda como negative result que motiva el paper.
+**Alternativas:** mantener el weighted conformal pooled del prototipo (descartado: es un artefacto que oculta el fallo del método); calibración estática recalibrada una vez (descartada: el quiebre BESS es una rampa de 15 meses y ninguna calibración estática la rastrea).
+**Justificación:** el audit verificó empíricamente sobre el panel sintético (mismo seed) que la ventana deslizante con score multiplicativo/PIT restaura cobertura y sharpness (91.5% de cobertura, ancho 212), mientras toda alternativa estática deriva con la rampa. Ratificación formal y calendario en la sesión del martes.
+**Adicional:** por la dependencia transversal detectada en el audit (las 40 centrales comparten el estado sistémico diario, ~244 bloques efectivos en calibración), los errores estándar de toda cobertura reportada se clusterizan por fecha.
+**Responsable:** Kerven (diseño) + Pablo (implementación del prototipo v2); pendiente ratificación martes.
+
 ## PENDIENTES (completar en sesión Pablo-Kerven)
 - [ ] Target exacto de predicción (MWh/central/día · prob. de evento · ambos).
 - [ ] Definición de splits temporales train/calibración/test (fechas exactas) considerando tren alcista y quiebre BESS.

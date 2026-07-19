@@ -7,7 +7,8 @@ Ceros: 22.8%  (EDA solar real: 27.1%)
 Magnitud>0 p50=62 p90=332 p99=1276 MWh | razon p99/p50=20.7x (EDA real: 15x)
   train       29,160 filas  2022-01-02 .. 2023-12-31
   calib        9,760 filas  2024-01-01 .. 2024-08-31
-  test_pre     4,880 filas  2024-09-01 .. 2024-12-31
+  test_pre     1,200 filas  2024-09-01 .. 2024-09-30
+  test_ramp    3,680 filas  2024-10-01 .. 2024-12-31
   test_post   20,640 filas  2025-01-01 .. 2026-05-31
 
 Hurdle ajustado. sigma (dispersion log-magnitud) = 0.839
@@ -15,28 +16,30 @@ Hurdle ajustado. sigma (dispersion log-magnitud) = 0.839
 --------------------------------------------------------------------------
 PASO 1 - Modelo solo, sin garantia (cuantil 90% del hurdle)
 --------------------------------------------------------------------------
-                 conjunto  cobertura  ancho_medio     n
-test_pre  (mismo regimen)       86.2        357.0  4880
- test_post (post-quiebre)       97.7        420.2 20640
+                  conjunto  cobertura  ancho_medio     n
+ test_pre  (mismo regimen)       87.2        162.0  1200
+test_ramp (rampa temprana)       85.9        420.5  3680
+  test_post (post-quiebre)       97.7        420.2 20640
 
 --------------------------------------------------------------------------
 PASO 2 - Conformal split (garantia >=90% SI hay intercambiabilidad)
 --------------------------------------------------------------------------
 Correccion conformal qhat = +12.4 MWh  (n_calib=9,760)
-                 conjunto  cobertura  ancho_medio     n
-test_pre  (mismo regimen)       87.8        369.4  4880
- test_post (post-quiebre)       97.9        432.6 20640
+                  conjunto  cobertura  ancho_medio     n
+ test_pre  (mismo regimen)       89.2        174.5  1200
+test_ramp (rampa temprana)       87.3        432.9  3680
+  test_post (post-quiebre)       97.9        432.6 20640
 
 --------------------------------------------------------------------------
 PASO 3 - Cobertura conformal por semestre (el quiebre en camara lenta)
 --------------------------------------------------------------------------
-         cobertura  ancho     n
-periodo                        
-2024-S1       88.8  452.4  7280
-2024-S2       89.8  311.2  7360
-2025-S1       94.7  455.4  7240
-2025-S2       99.4  445.3  7360
-2026-S1       99.8  389.8  6040
+                            cobertura  ancho     n
+periodo                                           
+2024-S1 (calib, in-sample)       88.8  452.4  7280
+2024-S2                          89.8  311.2  7360
+2025-S1                          94.7  455.4  7240
+2025-S2                          99.4  445.3  7360
+2026-S1                          99.8  389.8  6040
 
 --------------------------------------------------------------------------
 PASO 4 - Weighted conformal (reponderar la calibracion hacia el test)
@@ -56,11 +59,11 @@ resto post-quiebre, recalibrado       97.7        397.7 18240
 --------------------------------------------------------------------------
 CRPS (menor es mejor) - grado global del pronostico probabilistico
 --------------------------------------------------------------------------
-  test_pre : CRPS =  103.55 MWh
-  test_post: CRPS =   72.14 MWh
+  test_pre : CRPS =   44.51 MWh
+  test_post: CRPS =   72.09 MWh
 
 Baseline persistencia (y_lag1 como pronostico puntual, MAE):
-  test_pre : MAE =  208.98 MWh
+  test_pre : MAE =   95.11 MWh
   test_post: MAE =  101.92 MWh
 
 ==========================================================================
