@@ -1,0 +1,89 @@
+==============================================================================
+EXPERIMENTO CENTRAL - PREDICCIONES REALES (dataset v1.0)
+Diseno: Kerven Cea. Insumo real: pred_hurdle.csv. NO es sintetico.
+==============================================================================
+
+sigma hurdle REAL = 1.702  (sintetico era 0.839: el doble)
+Cortes: calibracion [2024-01-01, 2024-09-01)  26,552 filas, 244 dias
+  test_pre   [2024-09-01, 2024-10-01)    3,390 filas    30 dias
+  test_ramp  [2024-10-01, 2025-01-01)   10,607 filas    92 dias
+  2025-S1    [2025-01-01, 2025-07-01)   21,784 filas   181 dias
+  2025-S2    [2025-07-01, 2026-01-01)   22,941 filas   184 dias
+  2026-S1    [2026-01-01, 2026-06-01)   19,146 filas   151 dias
+
+------------------------------------------------------------------------------
+1. Conformal estatico PIT (referencia)
+------------------------------------------------------------------------------
+qhat PIT = 0.9242
+
+------------------------------------------------------------------------------
+2. Ventana deslizante 60d / refresco 7d, score PIT
+------------------------------------------------------------------------------
+  listo (92 refrescos)
+
+------------------------------------------------------------------------------
+3. ACI sobre score PIT
+------------------------------------------------------------------------------
+  gamma=0.020: alpha_t final=0.1340
+  gamma=0.050: alpha_t final=0.1411
+
+------------------------------------------------------------------------------
+4. Transporte de scores + ACI, con banda de bootstrap
+------------------------------------------------------------------------------
+  gamma=0.020: alpha_t final=0.1081  (banda en ramp: sd_cola=0.003 lam_cola=1.00)
+  gamma=0.050: alpha_t final=0.1217  (banda en ramp: sd_cola=0.003 lam_cola=1.00)
+
+==============================================================================
+TABLA UNICA (DATOS REALES): metodo x periodo
+cobertura y se_cluster en %; ancho_medio en MWh sobre intervalos finitos;
+se_cluster = error estandar de la cobertura diaria, CLUSTERIZADO POR FECHA
+==============================================================================
+                metodo   periodo  cobertura  se_cluster  ancho_medio  pct_infinito  n_dias     n
+        1_estatico_pit  test_pre       93.5        1.03        799.1           0.0      30  3390
+        1_estatico_pit test_ramp       95.3        0.45       1203.3           0.0      92 10607
+        1_estatico_pit   2025-S1       89.4        1.04        454.8           0.0     181 21784
+        1_estatico_pit   2025-S2       94.0        0.45        750.1           0.0     184 22941
+        1_estatico_pit   2026-S1       92.5        0.58        534.9           0.0     151 19146
+      2_ventana60d_pit  test_pre       92.5        1.07        704.2           0.0      30  3390
+      2_ventana60d_pit test_ramp       91.9        0.69        810.7           0.0      92 10607
+      2_ventana60d_pit   2025-S1       85.9        1.15        343.4           0.0     181 21784
+      2_ventana60d_pit   2025-S2       92.8        0.50        614.3           0.0     184 22941
+      2_ventana60d_pit   2026-S1       89.7        0.74        426.4           0.0     151 19146
+         3_aci_pit_g02  test_pre       93.0        1.06        737.6           0.0      30  3390
+         3_aci_pit_g02 test_ramp       93.4        0.55        891.1           0.0      92 10607
+         3_aci_pit_g02   2025-S1       86.2        1.12        352.5           0.0     181 21784
+         3_aci_pit_g02   2025-S2       93.1        0.49        614.8           0.0     184 22941
+         3_aci_pit_g02   2026-S1       89.2        0.75        401.5           0.0     151 19146
+         3_aci_pit_g05  test_pre       92.3        1.18        687.7           0.0      30  3390
+         3_aci_pit_g05 test_ramp       91.9        0.61        785.6           0.0      92 10607
+         3_aci_pit_g05   2025-S1       88.0        1.02        409.8           1.1     181 21784
+         3_aci_pit_g05   2025-S2       91.3        0.55        517.2           0.0     184 22941
+         3_aci_pit_g05   2026-S1       89.7        0.74        423.4           0.0     151 19146
+4_transporte_banda_g02  test_pre       92.0        1.20        668.4           0.0      30  3390
+4_transporte_banda_g02 test_ramp       91.1        0.70        753.3           0.0      92 10607
+4_transporte_banda_g02   2025-S1       87.2        1.12        512.7           0.0     181 21784
+4_transporte_banda_g02   2025-S2       91.9        0.58        648.7           0.0     184 22941
+4_transporte_banda_g02   2026-S1       90.2        0.72        446.9           0.0     151 19146
+4_transporte_banda_g05  test_pre       91.4        1.29        638.3           0.0      30  3390
+4_transporte_banda_g05 test_ramp       90.7        0.68        732.4           0.0      92 10607
+4_transporte_banda_g05   2025-S1       88.8        1.00        557.2           1.1     181 21784
+4_transporte_banda_g05   2025-S2       90.5        0.59        507.5           0.0     184 22941
+4_transporte_banda_g05   2026-S1       90.4        0.71        455.8           0.0     151 19146
+
+------------------------------------------------------------------------------
+CRPS del modelo base REAL por periodo (propiedad del hurdle, no del
+metodo conformal). Con sigma=1.70 la predictiva es de cola muy pesada:
+el CRPS es grande y sensible a la cola, se reporta tal cual.
+------------------------------------------------------------------------------
+  test_pre   CRPS =    96.07 MWh  (n=3,390)
+  test_ramp  CRPS =   133.47 MWh  (n=10,607)
+  2025-S1    CRPS =    70.46 MWh  (n=21,784)
+  2025-S2    CRPS =    94.49 MWh  (n=22,941)
+  2026-S1    CRPS =    78.98 MWh  (n=19,146)
+
+------------------------------------------------------------------------------
+Figura: cobertura rodante 90d (datos reales)
+------------------------------------------------------------------------------
+  guardado conformal_v3_cobertura_rodante.pdf y .png
+
+==============================================================================

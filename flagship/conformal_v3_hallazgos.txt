@@ -1,0 +1,149 @@
+HALLAZGOS - PASO A DATOS REALES (conformal v3) Y CIERRE SINTETICO (v2 cierre)
+=============================================================================
+Kerven Cea (diseno metodologico) mas implementacion (esta corrida).
+Insumo real: flagship/predicciones/pred_hurdle.csv (modelo base hurdle sobre
+el dataset congelado v1.0, entrenado solo hasta 2023-12-31). Codigo de
+metodos compartido con el cierre sintetico (conformal_metodos.py), asi lo
+unico que cambia entre sintetico y real son los datos.
+
+Distincion clara: la Parte A es SINTETICA (cierre de la tabla comparativa,
+no citable). Las Partes B a E son REALES (experimento central del paper).
+Corridas completas: conformal_v2_cierre_salida.txt (sintetico) y
+conformal_v3_salida.txt (real). Tablas: conformal_v2_cierre_tabla.csv y
+conformal_v3_tabla.csv. Figura real: conformal_v3_cobertura_rodante.{pdf,png}.
+
+
+PARTE A. CIERRE DE LAS TRES DECISIONES (SINTETICO, Tarea 1)
+-----------------------------------------------------------
+a) Pesos de recencia (Barber et al. 2023). El pool DESLIZANTE resuelve el
+   colapso del pool fijo. Con semivida 30 dias, el pool deslizante da en
+   2026-S1 cobertura 89.3% y ancho 123.5 MWh, contra el pool fijo que
+   entrega 100% de intervalos infinitos en 2025-S2 y 2026-S1 (todo el peso
+   de calibracion se desvanece antes de llegar a esas fechas). El colapso
+   del pool fijo queda documentado como limitacion conocida del pool fijo,
+   no como benchmark descartado: con pool deslizante el metodo es competitivo
+   con la ventana y el ACI.
+
+b) Transporte + ACI con banda de bootstrap. La banda NO reduce el ancho de
+   la transicion (test_ramp): con banda 525.4 MWh, sin banda 525.5 MWh, es
+   decir identico. El diagnostico explica por que: la desviacion estandar
+   bootstrap del mapa en la cola es 0.003 en unidades PIT, muy por debajo de
+   la escala de regularizacion (lambda_cola = 0.99, casi transporte pleno).
+   Con una ventana reciente de miles de puntos, los cuantiles empiricos son
+   estables, de modo que no hay ruido de sampling que encoger. Reencuadre
+   importante: el ancho de la transicion NO es un artefacto de varianza
+   muestral, es el costo legitimo de restaurar coverage (el transporte sube
+   la cobertura de test_ramp de 87.6% a 91.2%). El lever correcto para la
+   transicion no es una banda de incertidumbre, es el diseno de la ventana
+   (mixing de regimenes en la ventana trailing), ver pregunta 3.
+
+c) Weighted conformal por punto con score PIT queda como negative result
+   definitivo: ESS de calibracion entre 1298 y 3629 de 9760, con 76.0% de
+   intervalos infinitos en test_ramp y 71.9% en 2026-S1. El fallo por falta
+   de solapamiento en las X (no por el score) es robusto: se reproduce con
+   score PIT y ya se habia verificado con score aditivo en el audit y en v2.
+
+
+PARTE B. QUE SE CONFIRMA AL PASAR DE SINTETICO A REAL
+-----------------------------------------------------
+1. La maquinaria PIT funciona de extremo a extremo sobre datos reales: score
+   en [0,1], inversion estable, intervalos finitos en casi el 100% de los
+   casos (a lo sumo 1.1% de infinitos en un periodo para ACI y transporte con
+   gamma alto). Contraste nitido con el weighted por punto (46% a 76% de
+   infinitos en sintetico): el score PIT no colapsa.
+
+2. En el periodo de la rampa (test_ramp) se confirma la historia del audit:
+   los metodos adaptativos recuperan sharpness manteniendo coverage cerca del
+   nominal. El estatico da 95.3% de cobertura con ancho 1203 MWh; la ventana
+   60d baja a 91.9% con 811 MWh; el transporte + ACI (gamma 0.05) baja a
+   90.7% con 732 MWh, es decir 39% mas angosto que el estatico a cambio de
+   ceder 4.6 puntos de sobrecobertura. En la rampa, la adaptatividad paga.
+
+3. La banda del transporte tampoco se activa en real (sd_cola 0.003,
+   lam_cola 1.00): mismo diagnostico que en sintetico, el ancho no es ruido
+   de sampling.
+
+
+PARTE C. QUE CAMBIA CON SIGMA = 1.70 (Y CON DATOS REALES)
+---------------------------------------------------------
+1. Los intervalos reales son mucho mas anchos. sigma pasa de 0.839
+   (sintetico) a 1.70 (real, out-of-fold), lo que por si solo ensancha el
+   percentil 90 de la magnitud en un factor cercano a 3. Los anchos reales
+   van de 455 a 1203 MWh (en sintetico eran 120 a 525). El problema de
+   sharpness es mas severo en terminos absolutos, y es primero un problema
+   del MODELO BASE (su dispersion sigma), y solo despues un problema de
+   adaptacion de regimen. La capa conformal calibra la dispersion, no la
+   reduce: no puede ser mas sharp que la predictiva del hurdle.
+
+2. La sobrecobertura monotona y dramatica del sintetico NO aparece en real.
+   En sintetico el estatico trepaba a 99.8% en 2026-S1; en real el estatico
+   se queda entre 89% y 95% en todos los periodos (test_pre 93.5, test_ramp
+   95.3, 2025-S1 89.4, 2025-S2 94.0, 2026-S1 92.5). El modelo base real
+   absorbe el quiebre BESS mucho mejor que el DGP sintetico, probablemente
+   porque los features de lag y media movil trasladan buena parte del cambio
+   de regimen. Consecuencia: fuera de la rampa, la tension coverage vs
+   sharpness que motivo los metodos adaptativos es MUCHO mas leve en real.
+
+3. Como el estatico ya esta cerca del nominal en los periodos post rampa, ahi
+   los metodos adaptativos sobre todo CANJEAN coverage por ancho, y pueden
+   subcubrir. En 2025-S1: estatico 89.4% con 455 MWh, ventana 85.9% con 343,
+   transporte gamma 0.05 88.8% pero con 557 (mas ANCHO que el estatico). En
+   2026-S1 el canje si es favorable y leve: estatico 92.5% con 535, ventana y
+   ACI cerca de 90% con 423 a 426. La adaptatividad es claramente util en la
+   rampa, ambigua despues.
+
+4. El ACI cuantifica lo anterior: su alpha_t apenas deriva, de 0.10 a 0.13
+   (gamma 0.02) o 0.14 (gamma 0.05), contra 0.45 a 0.55 en sintetico. La
+   senal de sobrecobertura que el ACI persigue es debil en real.
+
+5. Estructura real no vista en sintetico: hay una caida de cobertura rodante
+   comun a todos los metodos alrededor de mayo a julio de 2025 (todos bajan a
+   ~85%, ver figura), que ningun metodo anticipa. Sugiere un evento o cambio
+   de regimen real de segundo orden en esa ventana, distinto de la rampa BESS
+   principal.
+
+
+PARTE D. TABLA RESUMEN REAL (periodos clave)
+---------------------------------------------
+test_ramp (la rampa, donde la adaptatividad paga):
+  metodo                        cobertura   ancho (MWh)
+  estatico PIT (referencia)        95.3        1203
+  ventana 60d PIT                  91.9         811
+  ACI PIT (gamma 0.05)             91.9         786
+  transporte + ACI banda (0.05)    90.7         732
+
+2025-S1 (post rampa, el estatico ya esta en nominal):
+  estatico PIT (referencia)        89.4         455
+  ventana 60d PIT                  85.9         343
+  ACI PIT (gamma 0.05)             88.0         410
+  transporte + ACI banda (0.05)    88.8         557
+
+Todos los se de cobertura estan clusterizados por fecha (columna se_cluster
+de conformal_v3_tabla.csv); en 2025-S1 rondan 1.0 a 1.1 puntos, de modo que
+las diferencias de 1 a 3 puntos de cobertura entre metodos estan cerca del
+ruido y no deben sobreinterpretarse.
+
+
+PARTE E. TRES PREGUNTAS METODOLOGICAS PARA LA PROXIMA ITERACION
+----------------------------------------------------------------
+1. Embargo de horizonte. Los metodos online y de ventana usan calibracion
+   hasta la fecha t sin el embargo de 7 dias que implica un pronostico a 7
+   dias (la calibracion para el target t solo deberia usar outcomes conocidos
+   en t-7). Falta cuantificar cuanto optimismo introduce esta omision, comun
+   a v2 y v3 por comparabilidad. Es la primera correccion a evaluar.
+
+2. Techo de sharpness fijado por sigma = 1.70. La capa conformal no puede ser
+   mas sharp que la predictiva del modelo base. La palanca de mayor impacto
+   para el ancho no esta en el conformal sino en el modelo base: sigma
+   heterocedastico sigma(x), o un modelo de magnitud mas rico, antes de la
+   capa de incertidumbre. Conviene medir cuanto del ancho de 455 a 1203 MWh
+   es irreducible dado el hurdle actual y cuanto bajaria con sigma(x).
+
+3. Adaptacion consciente del cambio de regimen. La banda del transporte es
+   inerte porque el ancho de la transicion no es ruido de sampling, sino
+   mixing de regimenes en la ventana trailing (Parte A.b y B.3). Sumado a la
+   caida real de mayo a julio de 2025 (Parte C.5) y al canje ambiguo post
+   rampa (Parte C.3), esto apunta a una adaptacion condicional al regimen o
+   con deteccion de change point (ventana mas corta o gatillada por quiebre),
+   en vez de ventana o ACI uniformes. Es la linea con mayor retorno teorico
+   para la pieza de transporte optimo.
