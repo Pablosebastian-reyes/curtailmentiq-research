@@ -94,3 +94,34 @@ todo (CSVs y este README). Versiones usadas: python 3.12.3,
 pandas 3.0.3, numpy 2.4.6, scikit-learn 1.9.0,
 xgboost 3.2.0. Seed 42 en todos los componentes con azar
 (XGBoost `hist`, KFold); `n_jobs=4` fijo.
+
+## Modelo base heterocedastico (`pred_hurdle_hetero.csv`)
+
+Generado por `flagship/entrenar_hurdle_hetero.py` (seed 42). Reemplaza la
+dispersion constante del hurdle (`sigma` = 1.7016) por una
+`sigma_x` condicional, para bajar el techo de sharpness. Misma disciplina de
+split que el resto: `sigma(x)` se estima solo con datos hasta 2023-12-31,
+out-of-fold, y jamas ve 2024-2026. Mismas claves que `pred_hurdle.csv`; el
+co-autor enchufa su capa conformal cambiando solo el archivo de entrada
+(usa `sigma_x` en vez de `sigma`).
+
+Etapas: la 1 (clasificador `p_occ` y regresor `mu_log`) es identica a
+`pred_hurdle.csv` (verificado por asercion). La 2 es un GBM que predice la
+dispersion: target = log de los residuos out-of-fold de la etapa 1 al
+cuadrado; `sigma_raw(x) = exp(pred/2)`, escala global c = 2.0908 para
+que `E[(r/sigma)^2] = 1` en OOF de train, y piso 0.9345 (percentil
+5 de `sigma(x)` en train; clipa 9.1%
+de las filas de prediccion). Features de `sigma(x)`: `log_potencia_mw`,
+`tecnologia`, `doy_target`, `p_occ` (out-of-fold en train), y `vol_garch`
+(desviacion estandar de la log-magnitud positiva de la central en 60
+dias trailing, con shift >= 7).
+
+Columnas: `fecha`, `central_codigo`, `tecnologia`, `y_real`, `p_occ`,
+`mu_log`, `sigma_x`.
+
+Reporte descriptivo (sin conclusiones): KS del PIT crudo a la uniforme
+0.1667 (constante) contra 0.1724 (`sigma(x)`); CRPS 81.77
+contra 79.06 MWh; NLL 4.9924 contra 4.9819. Detalle de
+importancia de features y tabla por tercil en
+`flagship/entrenar_hurdle_hetero_salida.txt`; histograma PIT en
+`flagship/hurdle_hetero_pit.{pdf,png}`.
