@@ -1,0 +1,162 @@
+==============================================================================
+PROTOTIPO CONFORMAL v2 - DATOS SINTETICOS (no son resultados reales)
+Diseno: Kerven Cea. Panel: mismo generador y semilla que v1.
+==============================================================================
+
+------------------------------------------------------------------------------
+TEST NUMERICO: inversion del score PIT (verificacion previa al resto)
+------------------------------------------------------------------------------
+  (i) uniformidad de s bajo el modelo oraculo:
+      nivel 0.10  cuantil empirico de s = 0.0999
+      nivel 0.50  cuantil empirico de s = 0.5010
+      nivel 0.90  cuantil empirico de s = 0.9004
+      nivel 0.99  cuantil empirico de s = 0.9902
+  (ii) cobertura oraculo tras invertir (formula unificada por clip):
+      alpha=0.10  U=   45.52  cobertura oraculo=90.00%  (objetivo 90%)
+      alpha=0.20  U=   30.05  cobertura oraculo=80.00%  (objetivo 80%)
+      alpha=0.02  U=   89.94  cobertura oraculo=98.00%  (objetivo 98%)
+  PASA: inversion PIT verificada numericamente.
+
+Panel: 64,440 filas | train 29,160 | calib 9,760 | sigma hurdle = 0.839
+  test_pre     1,200 filas  [2024-09-01, 2024-10-01)
+  test_ramp    3,680 filas  [2024-10-01, 2025-01-01)
+  2025-S1      7,240 filas  [2025-01-01, 2025-07-01)
+  2025-S2      7,360 filas  [2025-07-01, 2026-01-01)
+  2026-S1      6,040 filas  [2026-01-01, 2026-06-01)
+
+------------------------------------------------------------------------------
+(a) Conformal split estatico, score ADITIVO (referencia v1)
+------------------------------------------------------------------------------
+qhat aditivo = +12.4 MWh
+
+------------------------------------------------------------------------------
+(b) Conformal split estatico, score PIT (recomendacion central)
+------------------------------------------------------------------------------
+qhat PIT = 0.9121  (escala [0,1], vs +12.4 MWh del aditivo)
+
+------------------------------------------------------------------------------
+(c) Weighted conformal POR-PUNTO (negative result)
+------------------------------------------------------------------------------
+  test_pre   ESS=  1732/9,760  %infinito=  0.0%  cobertura= 87.4%
+  test_ramp  ESS=  3629/9,760  %infinito= 76.0%  cobertura= 97.9%
+  2025-S1    ESS=  1338/9,760  %infinito= 49.3%  cobertura= 98.7%
+  2025-S2    ESS=  1298/9,760  %infinito= 19.9%  cobertura= 99.4%
+  2026-S1    ESS=  1606/9,760  %infinito= 71.9%  cobertura=100.0%
+  post_total ESS=  1203/9,760  %infinito= 46.2%  cobertura= 99.3%
+
+------------------------------------------------------------------------------
+(d) Pesos de recencia fijos (Barber, Candes, Ramdas, Tibshirani 2023)
+------------------------------------------------------------------------------
+  semivida  30 dias: listo (638 fechas evaluadas)
+  semivida  90 dias: listo (638 fechas evaluadas)
+  semivida 180 dias: listo (638 fechas evaluadas)
+
+------------------------------------------------------------------------------
+(e) Ventana deslizante 60 dias / refresco 7 dias (resultado positivo del audit)
+------------------------------------------------------------------------------
+  score aditivo: listo (92 refrescos)
+  score pit: listo (92 refrescos)
+
+------------------------------------------------------------------------------
+(f) ACI (Gibbs & Candes 2021), score PIT, pool estatico
+------------------------------------------------------------------------------
+  gamma=0.005: alpha_t final=0.2755  (rango observado [0.088, 0.275])
+  gamma=0.020: alpha_t final=0.4475  (rango observado [0.071, 0.498])
+  gamma=0.050: alpha_t final=0.4038  (rango observado [0.060, 0.551])
+
+------------------------------------------------------------------------------
+(g) Transporte de scores (mapa monotono 1D) + ACI
+------------------------------------------------------------------------------
+  gamma=0.020: alpha_t final=0.0485
+  gamma=0.050: alpha_t final=0.0288
+
+==============================================================================
+TABLA UNICA: metodo x periodo
+(cobertura y se_cluster en %; ancho_medio en MWh sobre intervalos finitos;
+ se_cluster = error estandar de la cobertura diaria promediada por fecha)
+==============================================================================
+              metodo    periodo  cobertura  se_cluster  ancho_medio  pct_infinito  n_dias     n  ess_calib
+  a_estatico_aditivo   test_pre       89.2        0.86        174.5           0.0      30  1200        NaN
+  a_estatico_aditivo  test_ramp       87.3        0.77        432.9           0.0      92  3680        NaN
+  a_estatico_aditivo    2025-S1       94.7        0.37        455.4           0.0     181  7240        NaN
+  a_estatico_aditivo    2025-S2       99.4        0.10        445.3           0.0     184  7360        NaN
+  a_estatico_aditivo    2026-S1       99.8        0.05        389.8           0.0     151  6040        NaN
+      b_estatico_pit   test_pre       88.2        0.84        172.9           0.0      30  1200        NaN
+      b_estatico_pit  test_ramp       87.6        0.75        447.5           0.0      92  3680        NaN
+      b_estatico_pit    2025-S1       95.0        0.36        471.4           0.0     181  7240        NaN
+      b_estatico_pit    2025-S2       99.4        0.10        460.6           0.0     184  7360        NaN
+      b_estatico_pit    2026-S1       99.8        0.05        401.6           0.0     151  6040        NaN
+c_weighted_por_punto   test_pre       87.4        0.88        162.6           0.0      30  1200     1732.0
+c_weighted_por_punto  test_ramp       97.9        0.46        545.2          76.0      92  3680     3629.0
+c_weighted_por_punto    2025-S1       98.7        0.17        448.2          49.3     181  7240     1338.0
+c_weighted_por_punto    2025-S2       99.4        0.09        342.9          19.9     184  7360     1298.0
+c_weighted_por_punto    2026-S1      100.0        0.02        227.8          71.9     151  6040     1606.0
+c_weighted_por_punto post_total       99.3        0.08        319.0          46.2     516 20640     1203.0
+    d_recencia_hl180   test_pre       87.8        0.85        167.9           0.0      30  1200        NaN
+    d_recencia_hl180  test_ramp       86.7        0.77        435.2           0.0      92  3680        NaN
+    d_recencia_hl180    2025-S1       94.7        0.37        459.2           0.0     181  7240        NaN
+    d_recencia_hl180    2025-S2       99.3        0.11        449.9           0.0     184  7360        NaN
+    d_recencia_hl180    2026-S1       99.8        0.05        393.3           0.0     151  6040        NaN
+     d_recencia_hl30   test_pre       86.3        0.95        153.7           0.0      30  1200        NaN
+     d_recencia_hl30  test_ramp       84.9        0.80        406.9           0.0      92  3680        NaN
+     d_recencia_hl30    2025-S1       97.0        0.33        667.2          42.0     181  7240        NaN
+     d_recencia_hl30    2025-S2      100.0        0.00          NaN         100.0     184  7360        NaN
+     d_recencia_hl30    2026-S1      100.0        0.00          NaN         100.0     151  6040        NaN
+     d_recencia_hl90   test_pre       87.5        0.90        164.3           0.0      30  1200        NaN
+     d_recencia_hl90  test_ramp       86.1        0.75        426.8           0.0      92  3680        NaN
+     d_recencia_hl90    2025-S1       94.4        0.38        451.0           0.0     181  7240        NaN
+     d_recencia_hl90    2025-S2       99.3        0.11        452.8           0.0     184  7360        NaN
+     d_recencia_hl90    2026-S1       99.9        0.05        414.3           0.0     151  6040        NaN
+e_ventana60d_aditivo   test_pre       86.8        0.92        160.5           0.0      30  1200        NaN
+e_ventana60d_aditivo  test_ramp       89.0        0.79        462.2           0.0      92  3680        NaN
+e_ventana60d_aditivo    2025-S1       90.8        0.72        415.6           0.0     181  7240        NaN
+e_ventana60d_aditivo    2025-S2       97.5        0.27        386.4           0.0     184  7360        NaN
+e_ventana60d_aditivo    2026-S1       79.4        2.18        255.6           0.0     151  6040        NaN
+    e_ventana60d_pit   test_pre       86.7        0.93        157.8           0.0      30  1200        NaN
+    e_ventana60d_pit  test_ramp       90.1        0.67        502.2           0.0      92  3680        NaN
+    e_ventana60d_pit    2025-S1       92.1        0.41        391.8           0.0     181  7240        NaN
+    e_ventana60d_pit    2025-S2       91.4        0.46        182.0           0.0     184  7360        NaN
+    e_ventana60d_pit    2026-S1       88.3        0.82        120.4           0.0     151  6040        NaN
+      f_aci_pit_g005   test_pre       88.4        0.86        174.3           0.0      30  1200        NaN
+      f_aci_pit_g005  test_ramp       88.7        0.73        467.9           0.0      92  3680        NaN
+      f_aci_pit_g005    2025-S1       94.7        0.36        458.3           0.0     181  7240        NaN
+      f_aci_pit_g005    2025-S2       98.3        0.19        326.9           0.0     184  7360        NaN
+      f_aci_pit_g005    2026-S1       98.7        0.15        245.9           0.0     151  6040        NaN
+       f_aci_pit_g02   test_pre       88.6        0.83        178.4           0.0      30  1200        NaN
+       f_aci_pit_g02  test_ramp       90.1        0.67        494.3           0.0      92  3680        NaN
+       f_aci_pit_g02    2025-S1       93.2        0.38        415.0           0.0     181  7240        NaN
+       f_aci_pit_g02    2025-S2       94.7        0.36        214.8           0.0     184  7360        NaN
+       f_aci_pit_g02    2026-S1       92.2        0.70        146.6           0.0     151  6040        NaN
+       f_aci_pit_g05   test_pre       89.1        0.80        184.8           0.0      30  1200        NaN
+       f_aci_pit_g05  test_ramp       90.3        0.62        497.9           0.0      92  3680        NaN
+       f_aci_pit_g05    2025-S1       91.9        0.42        381.4           0.0     181  7240        NaN
+       f_aci_pit_g05    2025-S2       91.8        0.45        182.7           0.0     184  7360        NaN
+       f_aci_pit_g05    2026-S1       89.5        0.72        123.0           0.0     151  6040        NaN
+g_transporte_aci_g02   test_pre       87.7        0.90        168.9           0.0      30  1200        NaN
+g_transporte_aci_g02  test_ramp       91.2        0.61        524.5           0.0      92  3680        NaN
+g_transporte_aci_g02    2025-S1       90.8        0.44        360.2           0.0     181  7240        NaN
+g_transporte_aci_g02    2025-S2       89.5        0.52        167.4           0.0     184  7360        NaN
+g_transporte_aci_g02    2026-S1       87.7        0.67        110.1           0.0     151  6040        NaN
+g_transporte_aci_g05   test_pre       88.6        0.89        181.2           0.0      30  1200        NaN
+g_transporte_aci_g05  test_ramp       91.0        0.60        513.6           0.0      92  3680        NaN
+g_transporte_aci_g05    2025-S1       90.2        0.45        354.1           0.0     181  7240        NaN
+g_transporte_aci_g05    2025-S2       89.9        0.50        173.3           0.0     184  7360        NaN
+g_transporte_aci_g05    2026-S1       88.7        0.57        108.6           0.0     151  6040        NaN
+
+------------------------------------------------------------------------------
+CRPS del modelo base por periodo (no varia por metodo conformal)
+------------------------------------------------------------------------------
+  test_pre   CRPS =   44.51 MWh  (n=1,200)
+  test_ramp  CRPS =  123.21 MWh  (n=3,680)
+  2025-S1    CRPS =   85.77 MWh  (n=7,240)
+  2025-S2    CRPS =   67.20 MWh  (n=7,360)
+  2026-S1    CRPS =   60.26 MWh  (n=6,040)
+
+------------------------------------------------------------------------------
+Figura: cobertura rodante 90 dias
+------------------------------------------------------------------------------
+  guardado /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/flagship/conformal_v2_cobertura_rodante.pdf y .png
+
+Tabla tambien guardada en /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/flagship/conformal_v2_tabla.csv
+
+==============================================================================

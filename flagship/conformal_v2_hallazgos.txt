@@ -1,0 +1,116 @@
+HALLAZGOS - PROTOTIPO CONFORMAL v2
+===================================
+Kerven Cea (diseno) + implementacion (esta corrida). Datos sinteticos,
+mismo generador y semilla que v1 (conformal_prototype.py). No citable.
+Corrida completa en conformal_v2_salida.txt, tabla en conformal_v2_tabla.csv,
+figura en conformal_v2_cobertura_rodante.{pdf,png}.
+
+VERIFICACION PREVIA (punto 1)
+------------------------------
+La inversion PIT es correcta: bajo el modelo oraculo, s ~ Uniforme(0,1)
+exacto (cuantiles empiricos calzan con el nivel teorico a 4 decimales,
+n=500k) y la formula invertida recupera cobertura oraculo casi exacta en
+alpha=0.10/0.20/0.02. Sin correcciones al diseno. Nota de implementacion:
+tu formula de dos ramas es equivalente a un unico np.clip(...,0,1) antes
+de norm.ppf (los limites -inf/+inf en los bordes dan U=0 y U=inf solos);
+la vectorice asi, sin cambiar la matematica.
+
+QUE CONFIRMA EL AUDIT
+----------------------
+1. El split de v1 estaba mal etiquetado: separar test_pre (solo sep-2024)
+   de test_ramp (oct-dic 2024) muestra que "mismo regimen" en v1 en
+   realidad promediaba dos regimenes. Con el split corregido, test_pre
+   SI cubre cerca del 90% nominal en casi todos los metodos (86-89%).
+
+2. Weighted conformal por-punto sigue siendo un negative result, y mas
+   severo que en el audit original: %infinito llega a 76.0% en
+   test_ramp y 71.9% en 2026-S1 (vs 46.2% pooled del audit sobre
+   test_post completo; aqui post_total da 46.2% tambien, consistente).
+   Confirmado ademas con el score PIT, no solo el aditivo del audit
+   original: el fallo es de las X, no del score.
+
+3. La ventana deslizante con score PIT es sensiblemente mejor que con
+   score aditivo, y la brecha CRECE con el tiempo, no es constante.
+   En 2026-S1: PIT cobertura 88.3% ancho 120.4 MWh vs aditivo cobertura
+   79.4% (SE clusterizado 2.18, la mayor inestabilidad de toda la
+   tabla) ancho 255.6 MWh. La ventana aditiva no solo es menos sharp:
+   se vuelve inestable con muestras chicas (~2,400 filas por ventana de
+   60 dias). Hipotesis (no probada aqui, queda para el paper): el score
+   PIT, acotado en [0,1], estima cuantiles de orden con mucha mas
+   estabilidad en muestras chicas que un score en MWh con cola pesada;
+   seria valioso una figura de varianza del cuantil por bootstrap para
+   confirmarlo.
+
+4. ACI sobre PIT SI funciona como mecanismo de control de cobertura:
+   alpha_t deriva hacia arriba (0.09 a ~0.45-0.55 segun gamma) porque el
+   error diario observado esta sistematicamente por debajo del alpha
+   nominal (sobrecobertura persistente post-quiebre) -- eso es la
+   retroalimentacion funcionando, no una falla. La cobertura por periodo
+   se mantiene mucho mas cerca de 90% que los metodos estaticos: en
+   2026-S1, ACI gamma=0.02 da 92.2% con ancho 146.6 MWh, contra 99.8%
+   y 401.6 MWh del estatico PIT.
+
+QUE MATIZA O CONTRADICE EL AUDIT
+----------------------------------
+5. Transporte + ACI (tu propuesta teorica) SI mejora sobre ACI solo,
+   pero el margen es mas chico de lo que el audit dejaba anticipar.
+   En 2026-S1: transporte+ACI (g02) da ancho 110.1 MWh vs 146.6 de ACI
+   solo (f02) -- una mejora real de ~25%, con cobertura 87.7% vs 92.2%
+   (mas cerca del nominal 90%, de hecho). Pero en test_ramp, justo al
+   INICIO del quiebre, transporte+ACI da el intervalo MAS ANCHO de
+   toda la tabla para ese periodo (524.5 MWh, peor que el estatico
+   447.5 y que ACI solo 494.3). Lectura: el mapa de transporte
+   estimado con una ventana nueva de 60 dias que todavia mezcla
+   regimen viejo y rampa reciente es ruidoso, sobre todo en la cola
+   superior del cuantil (pocos puntos mas alla del percentil 95 en
+   ~2,400 filas). El mecanismo ayuda una vez que el nuevo regimen esta
+   establecido, pero durante la transicion misma puede ser PEOR que no
+   transportar. Esto no invalida la idea, pero sugiere que el mapa de
+   transporte necesita su propia banda de confianza o un peso que lo
+   apague cuando la ventana nueva es demasiado chica o demasiado
+   mixta -- un problema abierto para la pieza teorica, no resuelto por
+   este prototipo.
+
+6. Los pesos de recencia fijos (Barber et al. 2023) tal como los
+   implemente aqui -- decaimiento aplicado sobre el pool de calibracion
+   FIJO (ene-ago 2024), evaluado en fechas cada vez mas lejanas -- se
+   rompen para semividas cortas: con 30 dias, en 2025-S2 y 2026-S1 el
+   100% de los intervalos es infinito (todo el peso de calibracion se
+   desvanece exponencialmente antes de llegar a esas fechas). Con
+   semividas de 90-180 dias sobrevive pero converge al comportamiento
+   del estatico (98-100% de cobertura, mismo problema de sharpness).
+   Esto es una limitacion REAL del metodo de Barber et al. tal como esta
+   pensado (para deployment con pool que se desliza hacia adelante, no
+   para un pool fijo evaluado lejos en el futuro) y no un error de
+   implementacion -- pero vale la pena decidir con vos si en el paper
+   se prueba la version con pool deslizante (equivalente a combinar (d)
+   con (e)) antes de reportar (d) como benchmark descartado.
+
+RESUMEN PARA LA TABLA DEL PAPER (2026-S1, el periodo mas alejado del
+quiebre y el mas dificil)
+------------------------------------------------------------------------
+metodo                  cobertura   ancho medio (MWh)
+estatico aditivo (v1)      99.8%         389.8
+estatico PIT                99.8%         401.6
+ventana 60d aditivo         79.4%         255.6   (inestable, SE=2.18)
+ventana 60d PIT              88.3%         120.4
+ACI PIT (gamma=0.02)         92.2%         146.6
+transporte + ACI (g=0.02)    87.7%         110.1
+
+Los tres metodos adaptativos con score PIT (ventana, ACI, transporte+ACI)
+restauran sharpness sustancialmente (ancho 3-3.6x menor que el estatico)
+manteniendose cerca del 90% nominal; transporte+ACI es el mas sharp de
+los tres en el periodo mas lejano, a costa de ser el mas fragil durante
+la transicion misma (test_ramp).
+
+PENDIENTE PARA DECIDIR CON KERVEN
+-----------------------------------
+- Si (d) se reporta como esta (pool fijo, negative result parcial) o se
+  rehace con pool deslizante.
+- Si vale la pena una banda de incertidumbre sobre el mapa de transporte
+  en (g) antes de la siguiente iteracion, dado el pico de ancho en
+  test_ramp.
+- Que score usar en (c) para la version final del paper (aqui se uso
+  PIT por consistencia con el resto de v2; el audit original uso
+  aditivo). El hallazgo cualitativo -- colapso por falta de solapamiento
+  -- es el mismo con ambos.
