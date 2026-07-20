@@ -147,3 +147,36 @@ PARTE E. TRES PREGUNTAS METODOLOGICAS PARA LA PROXIMA ITERACION
    con deteccion de change point (ventana mas corta o gatillada por quiebre),
    en vez de ventana o ACI uniformes. Es la linea con mayor retorno teorico
    para la pieza de transporte optimo.
+
+
+PARTE F. SENSIBILIDAD AL EMBARGO DE HORIZONTE DE 7 DIAS (implementado)
+----------------------------------------------------------------------
+El embargo de 7 dias YA ESTA implementado en conformal_v3_real.py (constante
+EMBARGO_DIAS): las ventanas de calibracion online (ventana deslizante y ventana
+reciente del transporte) terminan 7 dias antes del target, y la retroalimenta-
+cion de alpha del ACI se retrasa 7 pasos. Deja de ser el pendiente 1 de la
+Parte E: pasa a ser el diseno vigente (decision de alcance 2026-07-20). El
+conformal estatico (metodo 1) no usa calibracion online, asi que queda IDENTICO
+(delta de cobertura y de ancho = 0.0 en todos los periodos), lo que sirve de
+control de la implementacion.
+
+Delta = version CON embargo menos version SIN embargo, por periodo, tomado
+sobre los metodos online (ventana 60d, ACI g02/g05, transporte g02/g05). Rango
+de delta de cobertura (pts) y de ancho (MWh):
+  periodo     d_cobertura (rango)   d_ancho (rango, MWh)
+  test_pre       0.0 a +0.6            +22 a +45
+  test_ramp      0.0 a +0.2            +23 a +73
+  2025-S1       -1.4 a -0.5           -112 a  -5
+  2025-S2       +0.4 a +1.2            +54 a +337
+  2026-S1       -0.1 a +0.1             +3 a +33
+
+Lectura: el efecto sobre la cobertura es pequeno y sin sesgo direccional (todos
+los deltas caen en -1.4 a +1.2 pts; solo 1 de 25 celdas online supera +-1.96
+veces su se clusterizado por fecha, consistente con ruido). El embargo no
+degrada sistematicamente la cobertura: quita un optimismo leve. Sobre el ancho
+el efecto es mixto y algo mayor en 2025-S2 para el transporte (hasta +337 MWh),
+donde el retraso de la retroalimentacion deja derivar alpha y sube la fraccion
+de intervalos infinitos; es un efecto del metodo mas fragil (transporte con
+banda), no de la referencia. Conclusion de alcance: el embargo ENTRA como
+requisito de validez del backtesting; su costo empirico esta dentro del error
+estandar clusterizado y no cambia ninguna de las conclusiones de las Partes A a E.

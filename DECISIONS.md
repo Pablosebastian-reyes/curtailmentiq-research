@@ -63,6 +63,13 @@ Formato: fecha · decisión · alternativas consideradas · justificación · re
 3. Detección de change-point. Hay una caída de cobertura rodante común a todos los métodos alrededor de mayo a julio de 2025 (todos bajan a cerca de 85%) que ningún método anticipa; apunta a una adaptación condicional al régimen o gatillada por quiebre, en vez de ventana o ACI uniformes.
 **Responsable:** Pablo (implementación) + Kerven (diseño); los tres asuntos se deciden en sesión conjunta.
 
+## 2026-07-20 · Cierre de alcance del flagship sobre las tres cuestiones abiertas
+**Decisión:** tras el análisis del co-autor sobre las tres cuestiones abiertas del 2026-07-20 (embargo de horizonte, detección de change-point, modelo base heterocedástico), se cierra el alcance del paper metodológico:
+1. **Embargo de horizonte de 7 días: ENTRA.** Es un requisito de validez del backtesting, no una opción: la calibración para el target t solo puede usar outcomes conocidos en t menos 7 (el pronóstico se emite a 7 días). Se implementa en flagship/conformal_v3_real.py (constante EMBARGO_DIAS): las ventanas de calibración online terminan 7 días antes del target y la retroalimentación de alpha del ACI se retrasa 7 pasos. Su efecto empírico está dentro del error estándar clusterizado por fecha y sin sesgo direccional (delta de cobertura en el rango -1.4 a +1.2 puntos sobre los métodos online, estático idéntico), ver Parte F de conformal_v3_hallazgos.txt.
+2. **Detección de change-point para la caída de mayo a julio de 2025: TRABAJO FUTURO.** Se reporta en el paper como limitación caracterizada, acompañada de un diagnóstico corto del episodio (caída de cobertura rodante común a todos los métodos alrededor de mayo a julio de 2025, que ningún método anticipa; ver Parte C.5 de los hallazgos). No entra en el alcance de esta iteración.
+3. **Modelo base heterocedástico sigma(x): ENTRA condicionalmente.** Entra si el equipo del modelo base lo entrega dentro del plazo del paper; si no, queda como el trabajo futuro de mayor prioridad (el techo de sharpness lo fija sigma = 1.70, y la capa conformal no puede ser más sharp que la predictiva base). La especificación queda en flagship/ESPECIFICACION_SIGMA_X.md. La decisión de compromiso (entra ahora o pasa a futuro) queda pendiente de la sesión de coordinación.
+**Responsable:** Pablo (implementación) + Kerven (diseño y análisis); el punto 3 se resuelve en la sesión de coordinación.
+
 ## PENDIENTES (completar en sesión Pablo-Kerven)
 - [ ] Target exacto de predicción (MWh/central/día · prob. de evento · ambos).
 - [ ] Definición de splits temporales train/calibración/test (fechas exactas) considerando tren alcista y quiebre BESS.

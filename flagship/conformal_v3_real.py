@@ -22,7 +22,13 @@ Metodos (los que quedaron mejor en sintetico):
 
 Usa el modulo compartido conformal_metodos (codigo identico al del cierre
 sintetico): asi lo unico que cambia entre sintetico y real son los datos.
+
+Embargo de horizonte (7 dias): los metodos online respetan el desfase de un
+pronostico a 7 dias. Las ventanas de calibracion terminan 7 dias antes del
+target y la retroalimentacion de alpha del ACI se retrasa 7 pasos. Ver
+EMBARGO_DIAS y la entrada de DECISIONS.md del 2026-07-20.
 """
+from collections import deque
 from pathlib import Path
 import sys
 
@@ -34,6 +40,12 @@ sys.path.insert(0, str(FLAGSHIP))
 import conformal_metodos as cm   # noqa: E402
 
 ALPHA = 0.10
+# Embargo de horizonte: el modelo base pronostica a 7 dias, asi que el outcome
+# del target t solo se conoce en t, pero el pronostico se emitio en t-7 con
+# datos hasta t-7. Para no filtrar el futuro en el backtesting, toda ventana de
+# calibracion online termina 7 dias antes del target, y la retroalimentacion de
+# alpha en el ACI se retrasa 7 pasos. Decision de alcance 2026-07-20.
+EMBARGO_DIAS = 7
 RNG = np.random.default_rng(20260720)  # misma semilla de aleatorizacion que el cierre sintetico
 CSV = FLAGSHIP / 'predicciones' / 'pred_hurdle.csv'
 
@@ -102,8 +114,9 @@ def main():
     refrescos = pd.date_range('2024-09-01', '2026-05-31', freq='7D')
     fechas_h = h.fecha.values
     for t0 in refrescos:
-        ini = np.datetime64((t0 - pd.Timedelta(days=60)).date())
-        fin = np.datetime64(t0.date())
+        # embargo de 7 dias: la ventana de 60 dias termina en t0-7, no en t0
+        ini = np.datetime64((t0 - pd.Timedelta(days=60 + EMBARGO_DIAS)).date())
+        fin = np.datetime64((t0 - pd.Timedelta(days=EMBARGO_DIAS)).date())
         win = (fechas_h >= ini) & (fechas_h < fin)
         obj = (f_t >= np.datetime64(t0.date())) & (f_t < np.datetime64((t0 + pd.Timedelta(days=7)).date()))
         if obj.sum() == 0 or win.sum() < 100:
@@ -195,13 +208,19 @@ def gstr(g):
 def correr_aci(pool_ord, test, p_t, mu_t, y_t, f_t, fechas_test, sigma, gamma):
     alpha_t = ALPHA
     U = np.empty(len(test))
+    # embargo: el error del target f solo esta disponible 7 pasos despues, asi
+    # que la actualizacion de alpha se retrasa EMBARGO_DIAS pasos.
+    pendientes = deque()
     for f in fechas_test:
         mask = f_t == f
         q_t = cm.q_desde_pool(pool_ord, alpha_t)
         U_t = cm.pit_upper(p_t[mask], mu_t[mask], sigma, q_t)
         U[mask] = U_t
         err_t = 1 - (y_t[mask] <= U_t).mean()
-        alpha_t = np.clip(alpha_t + gamma * (ALPHA - err_t), -1.0, 2.0)
+        pendientes.append(err_t)
+        if len(pendientes) > EMBARGO_DIAS:
+            err_fb = pendientes.popleft()
+            alpha_t = np.clip(alpha_t + gamma * (ALPHA - err_fb), -1.0, 2.0)
     return U, alpha_t
 
 
@@ -213,11 +232,14 @@ def correr_transporte_aci(h, test, s_cal, p_t, mu_t, y_t, f_t, fechas_test,
     pool = np.sort(s_cal)
     prox = pd.Timestamp('2024-09-01')
     diag_ramp = dict(sd_cola=np.nan, lam_cola=np.nan)
+    # embargo: la retroalimentacion de alpha se retrasa EMBARGO_DIAS pasos.
+    pendientes = deque()
     for f in fechas_test:
         f_ts = pd.Timestamp(f)
         if f_ts >= prox:
-            ini = np.datetime64((f_ts - pd.Timedelta(days=ventana_dias)).date())
-            fin = np.datetime64(f_ts.date())
+            # embargo: la ventana reciente termina en f-7, no en f
+            ini = np.datetime64((f_ts - pd.Timedelta(days=ventana_dias + EMBARGO_DIAS)).date())
+            fin = np.datetime64((f_ts - pd.Timedelta(days=EMBARGO_DIAS)).date())
             reciente = (fechas_h >= ini) & (fechas_h < fin)
             s_new = h.s.values[reciente]
             if len(s_new) >= 100:
@@ -231,7 +253,10 @@ def correr_transporte_aci(h, test, s_cal, p_t, mu_t, y_t, f_t, fechas_test,
         U_t = cm.pit_upper(p_t[mask], mu_t[mask], sigma, q_t)
         U[mask] = U_t
         err_t = 1 - (y_t[mask] <= U_t).mean()
-        alpha_t = np.clip(alpha_t + gamma * (ALPHA - err_t), -1.0, 2.0)
+        pendientes.append(err_t)
+        if len(pendientes) > EMBARGO_DIAS:
+            err_fb = pendientes.popleft()
+            alpha_t = np.clip(alpha_t + gamma * (ALPHA - err_fb), -1.0, 2.0)
     return U, alpha_t, diag_ramp
 
 
