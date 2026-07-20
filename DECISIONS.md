@@ -55,6 +55,14 @@ Formato: fecha · decisión · alternativas consideradas · justificación · re
 **Adicional:** por la dependencia transversal detectada en el audit (las 40 centrales comparten el estado sistémico diario, ~244 bloques efectivos en calibración), los errores estándar de toda cobertura reportada se clusterizan por fecha.
 **Responsable:** Kerven (diseño) + Pablo (implementación del prototipo v2); pendiente ratificación martes.
 
+## 2026-07-20 · Cierre del experimento central del flagship (datos reales) e inicio de redacción
+**Decisión:** el experimento central del flagship sobre datos reales (predicciones/pred_hurdle.csv del dataset v1.0, corridas en flagship/conformal_v3_real.py, consolidado en flagship/RESULTADOS_REALES.md) queda cerrado; el paper entra en fase de redacción. Los hallazgos: el pronóstico de punto está agotado (gana el naive estacional, MAE total 85.10 MWh); la sobrecobertura severa del sintético no aparece en real porque el modelo base absorbe el quiebre BESS (estático entre 89% y 95% en todos los periodos); la adaptatividad paga sobre todo en la rampa (transporte + ACI baja el ancho de 1203 a 732 MWh con 90.7% de cobertura) y es ambigua fuera de ella; con sigma = 1.70 buena parte de la falta de sharpness es del modelo base, no del conformal; y las diferencias de 1 a 3 puntos entre métodos están dentro del error estándar clusterizado por fecha.
+**Asuntos técnicos abiertos (a decidir con el co-autor):**
+1. Embargo de horizonte. Los métodos online y de ventana usan calibración hasta la fecha t sin el embargo de 7 días que implica un pronóstico a 7 días (la calibración para el target t solo debería usar outcomes conocidos en t menos 7); falta cuantificar el optimismo que introduce esta omisión, común a v2 y v3 por comparabilidad. Primera corrección a evaluar.
+2. Modelo base heterocedástico sigma(x). El techo de sharpness lo fija sigma = 1.70; la capa conformal no puede ser más sharp que la predictiva del hurdle. Conviene medir cuánto del ancho (455 a 1203 MWh) es irreducible dado el hurdle actual y cuánto bajaría con un sigma heterocedástico o una predictiva de magnitud más rica.
+3. Detección de change-point. Hay una caída de cobertura rodante común a todos los métodos alrededor de mayo a julio de 2025 (todos bajan a cerca de 85%) que ningún método anticipa; apunta a una adaptación condicional al régimen o gatillada por quiebre, en vez de ventana o ACI uniformes.
+**Responsable:** Pablo (implementación) + Kerven (diseño); los tres asuntos se deciden en sesión conjunta.
+
 ## PENDIENTES (completar en sesión Pablo-Kerven)
 - [ ] Target exacto de predicción (MWh/central/día · prob. de evento · ambos).
 - [ ] Definición de splits temporales train/calibración/test (fechas exactas) considerando tren alcista y quiebre BESS.
