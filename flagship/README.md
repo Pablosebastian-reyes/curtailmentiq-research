@@ -39,3 +39,4 @@ La salida de referencia está en `conformal_prototype_salida.txt` (semilla fija,
 - `conformal_prototype_salida.txt`: salida de la ejecución de referencia (2026-07-19, tras las correcciones del audit).
 - `HANDOFF_KERVEN.md`: documento de traspaso sobre conformal bajo cambio de régimen vía OT.
 - `AUDIT_METODOLOGICO.md`: audit metodológico de Kerven Cea (2026-07-19); define el diseño de trabajo del flagship.
+- `ESPECIFICACION_TECNICA.md`: documento de referencia del sistema completo (capa A de datos y capa B de incertidumbre), versión de trabajo.

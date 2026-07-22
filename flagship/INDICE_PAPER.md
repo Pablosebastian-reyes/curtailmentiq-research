@@ -1,6 +1,6 @@
 # Índice del paper metodológico (flagship)
 
-Estructura de secciones propuesta para el manuscrito, en formato IMRyD extendido. Sirve de esqueleto para la redacción y de mapa entre cada sección y los artefactos ya producidos en flagship/. El alcance está cerrado (ver DECISIONS.md 2026-07-20): el resultado positivo es la adaptación por ventana deslizante y transporte de scores más ACI bajo el quiebre BESS; el resultado negativo es el weighted conformal por punto; el modelo base heterocedástico sigma(x) entra condicionalmente.
+Estructura de secciones propuesta para el manuscrito, en formato IMRyD extendido. Sirve de esqueleto para la redacción y de mapa entre cada sección y los artefactos ya producidos en flagship/. El alcance está cerrado (ver DECISIONS.md 2026-07-20 y la reetiquetación de sigma(x) del 2026-07-22): el resultado positivo es la adaptación por ventana deslizante y transporte de scores más ACI bajo el quiebre BESS; el resultado negativo es el weighted conformal por punto; el modelo base heterocedástico sigma(x) se reporta como un estudio del trade-off entre sharpness marginal y cobertura condicional (se mantiene sigma constante como modelo base por confiabilidad por central).
 
 Objetivo de venue: revista o conferencia de métodos aplicados a energía o de predicción con cuantificación de incertidumbre (línea SEGAN según DECISIONS.md 2026-07-03).
 
@@ -68,7 +68,10 @@ Cierre de la tabla comparativa sobre el panel sintético (no citable como eviden
 La maquinaria PIT funciona de extremo a extremo (intervalos finitos en casi el 100% de los casos); la sobrecobertura severa del sintético no aparece porque el modelo base absorbe el quiebre; la adaptatividad paga sobre todo en la rampa (transporte más ACI baja el ancho de 1203 a 732 MWh con 90.7% de cobertura) y es ambigua fuera de ella; el techo de sharpness lo fija sigma = 1.70; las diferencias de 1 a 3 puntos entre métodos están dentro del error estándar clusterizado. Sensibilidad al embargo de horizonte (dentro del error estándar, sin sesgo direccional).
 
 ### 5.3 Resultado negativo: weighted conformal por punto
-El weighted conformal por punto con score PIT entrega intervalos infinitos en una fracción alta de los casos (ESS de calibración colapsado); el fallo es por falta de solapamiento en las X (no por el score) y es robusto entre score aditivo y PIT. Es el resultado negativo que motiva la adaptación por recencia y transporte.
+El weighted conformal por punto con score PIT entrega intervalos infinitos en una fracción alta de los casos (ESS de calibración colapsado); el fallo es por falta de solapamiento en las X (no por el score) y es robusto entre score aditivo y PIT. Es el resultado negativo que motiva la adaptación por recencia y transporte. Es el único negative result del paper; el estudio de sigma(x) de la subsección 5.4 no lo es.
+
+### 5.4 Modelo base heterocedástico sigma(x): trade-off entre sharpness marginal y cobertura condicional
+No es un resultado negativo, sino un estudio de trade-off. Las métricas del modelo base sugieren una ganancia marginal (CRPS y log-score levemente mejores, calibración global apenas peor), pero la capa conformal la amplifica: intervalos 17 a 36% más angostos en todos los periodos a cobertura marginal preservada (agregada de 92.5% a 90.9%; rampa de 95.3% con 1203 MWh a 91.7% con 769 MWh). El costo es condicional: sub-cobertura concentrada en las centrales grandes (tercil grande 91.1% a 87.8%, spread condicional de 4.1 puntos) y un CRPS que retrocede en la rampa, más ACI agresivo con intervalos infinitos. El diagnóstico condicional explica el porqué: el quiebre es un shift de ubicación, no de dispersión, y sigma(x) transfiere peor justo donde el quiebre pega. Se mantiene sigma constante como modelo base oficial por confiabilidad por central (razón operacional, no estadística).
 
 ## 6. Discussion
 
@@ -78,14 +81,14 @@ El weighted conformal por punto con score PIT entrega intervalos infinitos en un
 
 ## 7. Limitations and future work
 
-- Modelo base heterocedástico sigma(x): entra condicionalmente al plazo del paper; especificación en ESPECIFICACION_SIGMA_X.md; si no llega, es el trabajo futuro de mayor prioridad.
+- Modelo base heterocedástico sigma(x): evaluado end-to-end y reportado en resultados (subsección 5.4) como trade-off; se mantiene sigma constante por confiabilidad por central. El trabajo futuro es cerrar el gap de cobertura condicional en las centrales grandes bajo el quiebre (dispersión consciente del régimen o por central), no la especificación de la varianza en sí.
 - Detección de change-point: la caída de cobertura común a todos los métodos alrededor de mayo a julio de 2025 no es anticipada por ningún método; se reporta como limitación caracterizada con un diagnóstico corto del episodio.
 - Validez exacta de muestra finita del transporte: se pierde por ser el mapa dato-dependiente; se recupera vía cota TV o vía control online.
 - Alcance del panel sintético: banco de pruebas, no evidencia empírica.
 
 ## 8. Conclusion
 
-Síntesis sobria: bajo un quiebre en rampa, la calibración estática pierde sharpness; la adaptación por recencia y el transporte de scores más ACI la recuperan a cobertura sostenida en la transición; el weighted conformal por punto es el comparador negativo; y el mayor margen restante de mejora está en el modelo base.
+Síntesis sobria: bajo un quiebre en rampa, la calibración estática pierde sharpness; la adaptación por recencia y el transporte de scores más ACI la recuperan a cobertura sostenida en la transición; el weighted conformal por punto es el comparador negativo; y enriquecer la varianza del modelo base (sigma(x)) da una mejora de sharpness real pero con costo de cobertura condicional en las centrales grandes, así que la dificultad operativa sigue siendo el shift de régimen y la palanca correcta es la adaptación conformal, no la especificación de la varianza.
 
 ## 9. Reproducibility
 

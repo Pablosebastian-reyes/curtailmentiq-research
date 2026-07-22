@@ -14,16 +14,13 @@ La maquinaria PIT funciona de extremo a extremo; la sobrecobertura severa del si
 El weighted conformal por punto con score PIT entrega intervalos infinitos en una fraccion alta de los casos (ESS de calibracion colapsado); el fallo es por falta de solapamiento en las X y es robusto entre score aditivo y PIT.
 - Material: `../conformal_v2_cierre_salida.txt` (parte A.c), `../conformal_v3_hallazgos.txt` (parte A.c y B.1), `../AUDIT_METODOLOGICO.md` (punto 4).
 
-## 5.4 Heteroscedastic base model: end to end evaluation
+## 5.4 Heteroscedastic base model $\sigma(x)$: marginal sharpness versus conditional coverage
 
-Nota de framing para los co autores: el indice archivaba esto como resultado
-negativo secundario. La prueba end to end (conformal_v3_hetero.py, con embargo)
-lo matiza: es un resultado mixto, no un negativo plano. sigma(x) entrega una
-ganancia de sharpness sustancial que las metricas del modelo base subestiman, a
-cambio de un deficit de cobertura condicional concentrado en las centrales
-grandes y en la rampa. La etiqueta final (negativo, mixto, o mejora
-condicional) es una decision de los autores. El texto siguiente se ajusta a la
-evidencia.
+This is not a negative result but a trade-off study (label fixed by the authors,
+see `../../DECISIONS.md`, 2026-07-22). The base model metrics suggest a marginal
+gain, but the conformal layer amplifies it into substantially sharper intervals
+at preserved marginal coverage, at the cost of a conditional coverage deficit
+concentrated on the largest plants and in the ramp.
 
 ### Motivation
 
@@ -114,4 +111,4 @@ to deploy $\sigma(x)$ then depends on whether a four point conditional coverage
 spread on large plants is acceptable in exchange for one fifth narrower intervals
 overall.
 
-- Material: `../conformal_v3_hetero.py`, `../conformal_v3_hetero_salida.txt`, `../conformal_v3_hetero_comparacion.csv`, `../entrenar_hurdle_hetero_salida.txt`, `../hurdle_hetero_pit.png`, `../predicciones/pred_hurdle_hetero.csv`, `../../DECISIONS.md` (2026-07-20).
+- Material: `../conformal_v3_hetero.py`, `../conformal_v3_hetero_salida.txt`, `../conformal_v3_hetero_comparacion.csv`, `../entrenar_hurdle_hetero_salida.txt`, `../hurdle_hetero_pit.png`, `../predicciones/pred_hurdle_hetero.csv`, `../../DECISIONS.md` (2026-07-22, reetiquetación de sigma(x)).
