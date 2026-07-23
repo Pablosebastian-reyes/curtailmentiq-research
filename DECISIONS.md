@@ -84,6 +84,14 @@ Formato: fecha · decisión · alternativas consideradas · justificación · re
 **Decisión (autor principal, a informar al co-autor):** se mantiene sigma constante (predicciones/pred_hurdle.csv) como modelo base del experimento central, no por razones estadísticas sino operacionales: los usuarios del pronóstico evalúan cada central por separado, y un método más angosto en promedio pero menos confiable en las centrales grandes no cumple el requisito de confiabilidad por central.
 **Responsable:** Pablo (decisión), Kerven (prueba end-to-end).
 
+## 2026-07-23 · Publicación del depósito Zenodo y política de versionado del dataset
+**Decisión:** el dataset v1.0 se publica en Zenodo con licencia CC BY 4.0 (DOI 10.5281/zenodo.21198817), con la descripción del depósito corregida. El manuscrito del data paper avanza al v09 (paper-data/borrador_data_paper_DiB_EN_v09.md), que reemplaza al v08.
+**Corrección:** el conteo de campos del registro de metadata (plants_metadata) se corrige de 19 a 18, detectado al verificar el manuscrito contra el release regenerado. Queda en 18 en las dos menciones del cuerpo.
+**Política de versionado acordada:** el depósito v1.0 no se modifica mientras el artículo esté en revisión, para preservar la trazabilidad de lo revisado. Los meses posteriores a mayo de 2026 entrarán como una versión nueva de Zenodo (nuevo DOI de versión bajo el mismo DOI concept), no como una actualización del paper.
+**Alternativas:** actualizar el depósito v1.0 in situ con los meses nuevos (descartada: rompe la correspondencia entre el DOI citado y lo revisado); esperar a más meses antes de publicar (descartada: el DOI citable desriesga el envío).
+**Justificación:** el CEN solo exige cita de la fuente (respuesta SAIP, decisión 2026-07-18), y CC BY 4.0 hace obligatoria la atribución; congelar v1.0 durante la revisión y versionar hacia adelante es la práctica estándar de datasets académicos. Pendientes del data paper: traspaso al template Word oficial de Data in Brief y envío.
+**Responsable:** Pablo.
+
 ## PENDIENTES (completar en sesión Pablo-Kerven)
 - [ ] Target exacto de predicción (MWh/central/día · prob. de evento · ambos).
 - [ ] Definición de splits temporales train/calibración/test (fechas exactas) considerando tren alcista y quiebre BESS.

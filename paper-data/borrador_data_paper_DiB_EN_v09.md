@@ -1,4 +1,4 @@
-# DATA PAPER DRAFT v0.8 (2026-07-18): ethics statement CLOSED with CEN response
+# DATA PAPER DRAFT v0.9 (2026-07-23): metadata field count corrected (18, not 19)
 # Maps 1:1 to the official Data in Brief Word template.
 # Purely descriptive: NO conclusions, NO interpretation.
 # Errata log: 8 documented classes (erratum 8 found via visual QA of Figure 1).
@@ -46,7 +46,7 @@ across four technologies: solar photovoltaic (75 plants), wind (56),
 run-of-river hydropower (140) and reservoir hydropower (29); hydropower
 curtailment records are present from June 2024 onward, with hourly
 hydropower detail from July 2024. Each plant is linked to a metadata registry
-fully matched to the CEN installation catalogue (300 of 300 plants) with 19
+fully matched to the CEN installation catalogue (300 of 300 plants) with 18
 fields including official CEN identifier, installed capacity
 (MW), owner, region, province, municipality, geographic coordinates,
 commissioning date, connection point and regulatory classification; the
@@ -134,7 +134,7 @@ The Zenodo deposit contains the following files.
 3. `plants` (.csv): registry of 300 plants: 75 solar photovoltaic, 56 wind,
    140 run-of-river hydro, 29 reservoir hydro.
 4. `plants_metadata` (.csv): all 300 plants matched to the CEN
-   installation catalogue with 19 fields at 100% coverage except
+   installation catalogue with 18 fields at 100% coverage except
    commissioning date (97.3%): CEN catalogue id and official name, match
    method (exact / unit-level / contained / fuzzy / manual), region (14
    distinct), province, municipality, latitude, longitude, installed
