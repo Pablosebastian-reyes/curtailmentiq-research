@@ -1,11 +1,20 @@
 import calendar
+import os
 from datetime import date
 from pathlib import Path
 
 import pandas as pd
 from dateutil.relativedelta import relativedelta
 
-BASE = Path("/Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT")
+# Raiz de este repo (curtailmentiq-research/), deducida de la ubicacion del
+# archivo: etl/parsers.py -> parents[1]. No depende del directorio de trabajo.
+REPO = Path(__file__).resolve().parents[1]
+
+# Carpeta que contiene este repo junto a los recursos hermanos que el pipeline
+# necesita pero que NO se versionan aqui: las credenciales en
+# curtailmentiq-model/.env y el CSV de ranking. Por defecto es el directorio
+# padre del repo; CURTAILMENTIQ_BASE permite reubicarlos en otra maquina.
+BASE = Path(os.environ.get("CURTAILMENTIQ_BASE") or REPO.parent)
 
 MESES_ES = {
     "Enero": 1, "Febrero": 2, "Marzo": 3, "Abril": 4, "Mayo": 5, "Junio": 6,
@@ -24,7 +33,7 @@ def periodo_de_origen(origen):
 # cuando el CEN publico mas de una version de un mes, se usa la ULTIMA
 # (v2/_2/Final sobre la original). Ver DECISIONS.md.
 # ---------------------------------------------------------------------------
-RAW = BASE / "curtailmentiq-research" / "data-raw"
+RAW = Path(os.environ.get("CURTAILMENTIQ_DATA_RAW") or REPO / "data-raw")
 
 # Un archivo por año calendario para el desglose diario acumulado: el reporte
 # de diciembre de cada año cerrado, y el ultimo mes publicado del año en curso.
@@ -43,7 +52,10 @@ SHEET_TECNOLOGIA = {
     "Acumulado-Anual-HE": "Hidro Embalse",
 }
 
-CSV_RANKING = BASE / "centrales_curtailment_2024_2025_full.csv"
+CSV_RANKING = Path(
+    os.environ.get("CURTAILMENTIQ_CSV_RANKING")
+    or BASE / "centrales_curtailment_2024_2025_full.csv"
+)
 
 # ---------------------------------------------------------------------------
 # Datos HORARIOS: las hojas "Resumen-DiarioHorario-*" solo traen UN mes por
