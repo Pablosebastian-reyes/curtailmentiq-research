@@ -4,6 +4,8 @@ Consolidación en prosa de los hallazgos del experimento central del flagship so
 
 El tono de este documento es deliberadamente sobrio: las diferencias reportadas son pequeñas y se interpretan a la luz de su error estándar.
 
+> **Nota de vigencia (2026-07-28):** los valores válidos son los de `conformal_v3_tabla.csv`, generados con EMBARGO_DIAS=7 en `conformal_v3_real.py`. El embargo de 7 días es requisito de validez del backtest a 7 días, según la decisión de alcance del 2026-07-20 (ver `DECISIONS.md`).
+
 ## 1. El pronóstico de punto está agotado
 
 Sobre el conjunto común de evaluación, el mejor pronóstico puntual es el baseline más simple. El MAE total (MWh) por modelo es:
@@ -24,7 +26,7 @@ En el panel sintético, el conformal estático trepaba de forma monótona hasta 
 
 ## 3. La adaptatividad paga sobre todo en la rampa BESS
 
-Donde la adaptatividad rinde con claridad es en la transición (test_ramp, octubre a diciembre de 2024). Ahí el estático da 95.3% de cobertura con un ancho medio de 1203 MWh; la ventana deslizante de 60 días baja a 91.9% con 811 MWh; y el transporte de scores más ACI (gamma 0.05) baja a 90.7% con 732 MWh. Es decir, el transporte más ACI entrega intervalos 39% más angostos que el estático a cambio de ceder 4.6 puntos de sobrecobertura, acercándose al nominal. En este periodo la adaptatividad recupera sharpness sin sacrificar cobertura por debajo de lo aceptable.
+Donde la adaptatividad rinde con claridad es en la transición (test_ramp, octubre a diciembre de 2024). Ahí el estático da 95.3% de cobertura con un ancho medio de 1203 MWh; la ventana deslizante de 60 días baja a 91.9% con 811 MWh; y el transporte de scores más ACI (gamma 0.05) baja a 90.9% con 806 MWh. Es decir, el transporte más ACI entrega intervalos 33% más angostos que el estático a cambio de ceder 4.4 puntos de sobrecobertura, acercándose al nominal. En este periodo la adaptatividad recupera sharpness sin sacrificar cobertura por debajo de lo aceptable.
 
 Fuera de la rampa el balance es ambiguo. En 2025-S1, con el estático ya cerca del nominal (89.4% con 455 MWh), los métodos adaptativos sobre todo canjean cobertura por ancho y pueden subcubrir: la ventana baja a 85.9% con 343 MWh, y el transporte (gamma 0.05) queda en 88.8% pero con 557 MWh, más ancho que el estático. En 2026-S1 el canje vuelve a ser favorable y leve (ventana y ACI cerca de 90% con 423 a 426 MWh, frente a 92.5% y 535 MWh del estático). El resumen honesto es que la adaptatividad es útil en la rampa y ambigua después.
 
@@ -36,7 +38,7 @@ La dispersión de la log-magnitud del hurdle real, estimada out-of-fold, es sigm
 
 ## 5. Las diferencias de 1 a 3 puntos están dentro del error estándar
 
-Todos los errores estándar de cobertura de la tabla real están clusterizados por fecha (columna `se_cluster` de `conformal_v3_tabla.csv`), en reconocimiento de la dependencia transversal entre centrales el mismo día. En los periodos post rampa esos errores rondan 1.0 a 1.1 puntos porcentuales. En consecuencia, las diferencias de cobertura de 1 a 3 puntos entre métodos están cerca del ruido y no deben sobreinterpretarse: las comparaciones sólidas son las de orden de magnitud del ancho en la rampa (732 frente a 1203 MWh) y la dirección del canje cobertura por ancho, no el ranking fino entre variantes de gamma.
+Todos los errores estándar de cobertura de la tabla real están clusterizados por fecha (columna `se_cluster` de `conformal_v3_tabla.csv`), en reconocimiento de la dependencia transversal entre centrales el mismo día. En los periodos post rampa esos errores rondan 1.0 a 1.1 puntos porcentuales. En consecuencia, las diferencias de cobertura de 1 a 3 puntos entre métodos están cerca del ruido y no deben sobreinterpretarse: las comparaciones sólidas son las de orden de magnitud del ancho en la rampa (806 frente a 1203 MWh) y la dirección del canje cobertura por ancho, no el ranking fino entre variantes de gamma.
 
 ## 6. El sigma(x) heterocedástico: mejora de sharpness con costo de cobertura condicional
 

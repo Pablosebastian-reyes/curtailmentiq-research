@@ -12,6 +12,11 @@ Corridas completas: conformal_v2_cierre_salida.txt (sintetico) y
 conformal_v3_salida.txt (real). Tablas: conformal_v2_cierre_tabla.csv y
 conformal_v3_tabla.csv. Figura real: conformal_v3_cobertura_rodante.{pdf,png}.
 
+NOTA DE VIGENCIA (2026-07-28): los valores validos son los de
+conformal_v3_tabla.csv, generados con EMBARGO_DIAS=7 en conformal_v3_real.py.
+El embargo de 7 dias es requisito de validez del backtest a 7 dias, segun la
+decision de alcance del 2026-07-20 (ver DECISIONS.md).
+
 
 PARTE A. CIERRE DE LAS TRES DECISIONES (SINTETICO, Tarea 1)
 -----------------------------------------------------------
@@ -56,8 +61,8 @@ PARTE B. QUE SE CONFIRMA AL PASAR DE SINTETICO A REAL
    los metodos adaptativos recuperan sharpness manteniendo coverage cerca del
    nominal. El estatico da 95.3% de cobertura con ancho 1203 MWh; la ventana
    60d baja a 91.9% con 811 MWh; el transporte + ACI (gamma 0.05) baja a
-   90.7% con 732 MWh, es decir 39% mas angosto que el estatico a cambio de
-   ceder 4.6 puntos de sobrecobertura. En la rampa, la adaptatividad paga.
+   90.9% con 806 MWh, es decir 33% mas angosto que el estatico a cambio de
+   ceder 4.4 puntos de sobrecobertura. En la rampa, la adaptatividad paga.
 
 3. La banda del transporte tampoco se activa en real (sd_cola 0.003,
    lam_cola 1.00): mismo diagnostico que en sintetico, el ancho no es ruido
@@ -110,7 +115,7 @@ test_ramp (la rampa, donde la adaptatividad paga):
   estatico PIT (referencia)        95.3        1203
   ventana 60d PIT                  91.9         811
   ACI PIT (gamma 0.05)             91.9         786
-  transporte + ACI banda (0.05)    90.7         732
+  transporte + ACI banda (0.05)    90.9         806
 
 2025-S1 (post rampa, el estatico ya esta en nominal):
   estatico PIT (referencia)        89.4         455

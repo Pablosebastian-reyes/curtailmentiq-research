@@ -92,6 +92,11 @@ Formato: fecha · decisión · alternativas consideradas · justificación · re
 **Justificación:** el CEN solo exige cita de la fuente (respuesta SAIP, decisión 2026-07-18), y CC BY 4.0 hace obligatoria la atribución; congelar v1.0 durante la revisión y versionar hacia adelante es la práctica estándar de datasets académicos. Pendientes del data paper: traspaso al template Word oficial de Data in Brief y envío.
 **Responsable:** Pablo.
 
+## 2026-07-28 · Corrección de números pre-embargo en la documentación
+**Decisión:** se corrigen dos archivos de documentación (`flagship/RESULTADOS_REALES.md` y `flagship/conformal_v3_hallazgos.txt`) que habían quedado con los números del par estático-transporte+ACI en la rampa (test_ramp) previos a la implementación del embargo de 7 días: transporte + ACI bajaba el ancho de 1203 a 732 MWh con 90.7% de cobertura (reducción del 39%). Los valores oficiales, con embargo activo, son de 1203 a 806 MWh con 90.9% de cobertura (reducción del 33%). Se agregó una nota de vigencia en ambos archivos señalando que los valores válidos son los de `conformal_v3_tabla.csv`.
+**Justificación:** los resultados oficiales del paper son los de `conformal_v3_tabla.csv`, generados con EMBARGO_DIAS=7, requisito de validez del backtest a 7 días según la decisión de alcance del 2026-07-20. El manuscrito para SEGAN (`flagship/segan/SEGAN_paper_v2.tex`) quedó alineado con esos valores.
+**Responsable:** Pablo.
+
 ## PENDIENTES (completar en sesión Pablo-Kerven)
 - [ ] Target exacto de predicción (MWh/central/día · prob. de evento · ambos).
 - [ ] Definición de splits temporales train/calibración/test (fechas exactas) considerando tren alcista y quiebre BESS.
