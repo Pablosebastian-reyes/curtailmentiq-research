@@ -1,7 +1,9 @@
 %% SEGAN manuscript - CurtailmentIQ
 %% Elsevier elsarticle template. Compile with pdfLaTeX in Overleaf.
-%% VERSION 2.0 - integra la revision metodologica completa de K. Cea (2026-07-27)
-%% Referencias verificadas con DOI. Pendiente: insertar figuras.
+%% VERSION 5.0 (FINAL) - auditoria de consistencia aplicada, DOI de concepto,
+%% repositorio publico enlazado. Requiere las 4 figuras PDF en la carpeta del proyecto.
+%% Requiere en la carpeta del proyecto: fig1_plants_map.pdf, fig2_distribution.pdf,
+%% fig3_rolling_coverage.pdf, fig4_coverage_width.pdf
 \documentclass[preprint,3p,times]{elsarticle}
 
 \usepackage{amsmath,amssymb,amsfonts}
@@ -70,21 +72,35 @@ Conformal prediction constructs prediction sets with finite-sample, distribution
 
 \subsection{Source and scope}
 
-The dataset consolidates the curtailment records published monthly by Chile's National Electricity Coordinator (Coordinador El\'ectrico Nacional, CEN) into two validated relational tables. The daily table contains 293{,}678 records and the hourly table 6{,}906{,}761 records, both covering the continuous period from 1 January 2022 to 31 May 2026, that is 1{,}612 days built from all 53 monthly reports, with no missing days. Records span 300 generation plants across four technologies: solar photovoltaic (75 plants), wind (56), run-of-river hydropower (140) and reservoir hydropower (29). Hydropower curtailment records are present from June 2024 onward, with hourly hydropower detail from July 2024, following the coverage of the underlying public reports.
+The dataset consolidates the curtailment records published monthly by Chile's National Electricity Coordinator (Coordinador El\'ectrico Nacional, CEN) into two validated relational tables. The daily table contains 293{,}678 records and the hourly table 6{,}906{,}761 records, both covering the continuous period from 1 January 2022 to 31 May 2026, that is 1{,}612 days built from all 53 monthly reports, with no missing days. Records span 300 generation plants across four technologies: solar photovoltaic (75 plants), wind (56), run-of-river hydropower (140) and reservoir hydropower (29). Twelve hydropower plants are labelled inconsistently across the operator's monthly reports, alternating between the run-of-river and reservoir categories; the plant registry resolves each of them to a single canonical technology, so that a count of distinct plant-technology pairs in the raw daily table returns 312 rather than 300. Hydropower curtailment records are present from June 2024 onward, with hourly hydropower detail from July 2024, following the coverage of the underlying public reports.
 
-Each plant is linked to a metadata registry matched to the CEN installation catalogue, with 18 fields including the official identifier, installed capacity, owner, region, province, municipality, geographic coordinates, commissioning date, connection point and regulatory classification; the matching method is recorded for every plant. Days and hours without curtailment are stored explicitly as zero-valued records, which represent 49.8\% of daily and 83.6\% of hourly rows. This explicit encoding of zeros is deliberate: it preserves the zero-inflated structure of the quantity, which is essential for the modelling in Section~\ref{sec:methods}.
+Each plant is linked to a metadata registry matched to the CEN installation catalogue, with 18 fields including the official identifier, installed capacity, owner, region, province, municipality, geographic coordinates, commissioning date, connection point and regulatory classification; the matching method is recorded for every plant. Days and hours without curtailment are stored explicitly as zero-valued records, which represent 49.8\% of daily and 83.6\% of hourly rows. This explicit encoding of zeros is deliberate: it preserves the zero-inflated structure of the quantity, which is essential for the modelling in Section~\ref{sec:methods}. Figure~\ref{fig:map} shows the geographic distribution of the plants, with the concentration of solar capacity in the northern regions and of hydropower in the south.
+
+\begin{figure}[tp]
+\centering
+\includegraphics[width=0.45\textwidth]{fig1_plants_map.pdf}
+\caption{Geographic distribution of the 300 power plants in the dataset, coloured and shaped by technology, with marker area proportional to each plant's cumulative curtailed energy over January 2022 to May 2026.}
+\label{fig:map}
+\end{figure}
 
 \subsection{Construction and validation}
 
 The 53 monthly reports were retrieved from the CEN public portal with a versioned download script, parsed and loaded into a relational database, and the original files were preserved unmodified with SHA-256 checksums. During construction we identified eight classes of errata in the original publications. Five were corrected or recovered deterministically in the curated tables and three are limitations of the source that we document without correction. Among the corrections, two omitted calendar days were recovered from the corresponding monthly hourly sheets and cross-checked to the millesimal against the source files' own total columns; one of these was detectable only by a structural continuity check, since the omitted day carried zero energy and was therefore invisible to any energy-based validation.
 
-Two independent checks establish the fidelity of the result. Annual totals from the daily table match the CEN official summary exactly, to a difference of 0.000~GWh, in every year from 2022 to 2026, and aggregate 2022 wind and solar curtailment reproduces an independent estimate published by Fraunhofer Chile with a deviation of 0.07\%. At monthly resolution the agreement is close but not exact: in a census month-by-month reconciliation of hourly sums against daily totals over all 53 months, 50 months agree within 1\% and 42 agree exactly, while the three remaining months correspond to documented inconsistencies within the operator's own publications. The dataset totals 19{,}030~GWh of recorded curtailment over the period.
+Two independent checks establish the fidelity of the result. Annual totals from the daily table match the CEN official summary exactly, to a difference of 0.000~GWh, in every year from 2022 to 2026, and aggregate 2022 wind and solar curtailment reproduces the 1.47~TWh independently reported by Fraunhofer Chile for that year. At monthly resolution the agreement is close but not exact: in a census month-by-month reconciliation of hourly sums against daily totals over all 53 months, 50 months agree within 1\% and 35 agree exactly, while the three remaining months correspond to documented inconsistencies within the operator's own publications. The residual sub-percent differences arise from the operator reassigning the same monthly energy differently across sister run-of-river units between its monthly hourly sheets and its annual closing, with a net effect of zero at system level, which is the same mechanism as errata classes six and seven. The dataset totals 19{,}030~GWh of recorded curtailment over the period.
 
-The dataset is publicly available on Zenodo under a CC~BY~4.0 licence~\cite{dataset2026}, together with the data dictionary, the errata log, the integrity checksums and the processing pipeline that regenerates every curated table.
+The dataset is publicly available on Zenodo under a CC~BY~4.0 licence~\cite{dataset2026}, together with the data dictionary, the errata log and the integrity checksums. The processing pipeline that regenerates every curated table is available in the companion code repository.
 
 \subsection{Exploratory characterisation}
 
-Three features of the data govern the modelling choices that follow. First, curtailment is strongly zero-inflated and the occurrence of curtailment is persistent in time, with a daily lag-one autocorrelation of roughly 0.85 at system level and a marked weekly cycle. Second, the positive magnitudes are heavy-tailed and approximately lognormal, with a ratio between the 99th and 50th percentiles of the order of fifteen. Third, the 2025 storage deployment shifted the distribution of hourly curtailment magnitudes substantially while leaving the intraday shape and the occurrence probability almost unchanged, so that the regime change is felt in scale rather than in timing. These three facts, zero inflation, heavy tails and a scale-type regime shift, motivate respectively the two-part model, the choice of evaluation metric and the adaptive calibration described next.
+Three features of the data govern the modelling choices that follow. First, curtailment is strongly zero-inflated and the occurrence of curtailment is persistent in time, with a daily lag-one autocorrelation of roughly 0.85 at system level and a marked weekly cycle. Second, the positive magnitudes are heavy-tailed and approximately lognormal, with a ratio between the 99th and 50th percentiles of the order of twenty-five across technologies, and of about fifteen for solar alone. Third, the 2025 storage deployment shifted the distribution of hourly curtailment magnitudes substantially while leaving the intraday shape and the occurrence probability almost unchanged, so that the regime change is felt in scale rather than in timing. Figure~\ref{fig:dist} illustrates the first two of these features. These three facts, zero inflation, heavy tails and a scale-type regime shift, motivate respectively the two-part model, the choice of evaluation metric and the adaptive calibration described next.
+
+\begin{figure}[tp]
+\centering
+\includegraphics[width=0.75\textwidth]{fig2_distribution.pdf}
+\caption{Distributional structure of plant-level curtailment. Top: share of zero-valued plant-days by technology. Bottom: distribution of positive magnitudes on a logarithmic scale, with the 50th, 90th and 99th percentiles marked. The combination of a large point mass at zero and a heavy right tail motivates the two-part model of Section~\ref{sec:methods}.}
+\label{fig:dist}
+\end{figure}
 
 %==================================================================
 \section{Methods}
@@ -114,12 +130,12 @@ following the distributional-conformal construction of Chernozhukov et al.~\cite
 
 This score has a further property that is decisive under regime change. For a positive observation the score is a monotone transform of the standardised log-magnitude $z=(\log y-\mu(x))/\sigma$, namely $s=(1-p)+p\,\Phi(z)$. A change of scale of the magnitude distribution by a factor $c$ is a location shift $\log c$ of $\log Y$, hence a translation of $z$ by $\delta=\log c/\sigma$. It is therefore a \emph{translation on the latent Gaussian (probit) scale}, and only a monotone displacement of the law of $s$ on $[0,1]$; it is not a translation of $s$ itself. This low-dimensional structure, established under the empirically supported assumption that the storage-driven shift rescales the positive magnitudes while leaving the occurrence probability and the intraday timing essentially unchanged (Section~\ref{sec:data}), is what lets the displacement be estimated from a short recent window while the shape of the tail is inherited from the large calibration set.
 
-Given a calibration set of size $n$, the conformal quantile is the order statistic $\hat q=s_{(k)}$ with $k=\lceil (n+1)(1-\alpha)\rceil$, which yields the finite-sample marginal guarantee $\mathbb{P}(Y \le U(x)) \ge 1-\alpha$ under exchangeability; when $k>n$ the quantile is $+\infty$ and the interval is the whole line. The upper prediction limit $U(x)=F_x^{-1}(\hat q)$ is recovered by inverting the mixture: it is zero when $\hat q\le 1-p(x)$ (the quantile falls in the atom), it is $+\infty$ when $\hat q\ge 1$, and otherwise
+Given a calibration set of size $n$ scored by~\eqref{eq:pit}, the conformal quantile is the order statistic $\hat q=s_{(k)}$ with $k=\lceil (n+1)(1-\alpha)\rceil$, which yields the finite-sample marginal guarantee $\mathbb{P}(Y \le U(x)) \ge 1-\alpha$ under exchangeability; when $k>n$ the quantile is $+\infty$ and the interval is the whole line. The upper prediction limit $U(x)=F_x^{-1}(\hat q)$ is recovered by inverting the mixture: it is zero when $\hat q\le 1-p(x)$ (the quantile falls in the atom), it is $+\infty$ when $\hat q\ge 1$, and otherwise
 \begin{equation}
 U(x) \;=\; \exp\!\Big(\mu(x) + \sigma\,\Phi^{-1}\!\big(\textstyle\frac{\hat q-(1-p(x))}{p(x)}\big)\Big).
 \label{eq:invert}
 \end{equation}
-The two boundary cases are the two ends of the clipped argument $\big(\hat q-(1-p)\big)/p\in[0,1]$ in~\eqref{eq:invert}. A short proof of the inversion is given in Appendix~\ref{app:inversion}, and it was additionally checked numerically against oracle coverage.
+The two boundary cases are the two ends of the clipped argument $\big(\hat q-(1-p)\big)/p\in[0,1]$ in~\eqref{eq:invert}. A short proof of the inversion is given in \ref{app:inversion}, and it was additionally checked numerically against oracle coverage.
 
 \subsection{Coverage under regime change}
 
@@ -131,7 +147,7 @@ Exchangeability fails when the system changes regime, and the storage-driven shi
 
 \emph{Adaptive conformal inference (ACI).} We update the effective miscoverage level online~\cite{gibbs2021}, $\alpha_{t+1}=\alpha_t+\gamma(\alpha-\mathrm{err}_t)$ with $\mathrm{err}_t=\mathbb{1}\{Y_t>U_t\}$, where the error feedback is delayed by the same 7-day embargo. This yields long-run average coverage without exchangeability, at the cost of the finite-sample guarantee of the static split.
 
-\emph{Transport of scores.} Motivated by the monotone-displacement structure above, we transport the calibration scores from the old regime onto the new one before conformalising. Let $\hat F_{\mathrm{old}}$ and $\hat F_{\mathrm{new}}$ be the empirical CDFs of the calibration scores and of the scores in the recent window; the monotone one-dimensional optimal-transport map is the increasing rearrangement $T=\hat F_{\mathrm{new}}^{-1}\circ\hat F_{\mathrm{old}}$, estimated nonparametrically by interpolation between empirical quantiles. In the upper tail, where the short window is noisy, the map is shrunk towards the identity in proportion to a bootstrap estimate of its variance, so that a noisy new quantile is replaced by the stable old one rather than extrapolated. Because the transport map is data-dependent it breaks the exchangeability of the transported scores with the test score; we therefore restore validity by wrapping the transported scores in the online adaptive scheme, so that coverage is controlled by the ACI update and the transport contributes only sharpness. An idealised validity argument, exact under an oracle map and controlled through the total-variation framework of~\cite{barber2023} under an estimated map, is given in Appendix~\ref{app:coverage}.
+\emph{Transport of scores.} Motivated by the monotone-displacement structure above, we transport the calibration scores from the old regime onto the new one before conformalising. Let $\hat F_{\mathrm{old}}$ and $\hat F_{\mathrm{new}}$ be the empirical CDFs of the calibration scores and of the scores in the recent window; the monotone one-dimensional optimal-transport map is the increasing rearrangement $T=\hat F_{\mathrm{new}}^{-1}\circ\hat F_{\mathrm{old}}$, estimated nonparametrically by interpolation between empirical quantiles. In the upper tail, where the short window is noisy, the map is shrunk towards the identity in proportion to a bootstrap estimate of its variance, so that a noisy new quantile is replaced by the stable old one rather than extrapolated. Because the transport map is data-dependent it breaks the exchangeability of the transported scores with the test score; we therefore restore validity by wrapping the transported scores in the online adaptive scheme, so that coverage is controlled by the ACI update and the transport contributes only sharpness. An idealised validity argument, exact under an oracle map and controlled through the total-variation framework of~\cite{barber2023} under an estimated map, is given in \ref{app:coverage}.
 
 \subsection{Evaluation}
 
@@ -164,9 +180,16 @@ Hurdle (mixture median)      & 104.4 & 104.8 & 101.6 & 104.1 \\
 
 \subsection{Calibration under the regime change}
 
-On real data the storage shift does not break coverage; it inflates it. Under a static conformal split, empirical coverage stays between 89\% and 95\% in every period (Table~\ref{tab:results}), so the severe over-coverage seen on synthetic data is absent, because the base forecaster, through its lagged and moving-average features, absorbs much of the shift into its own predictive. The cost of the shift is therefore paid in width rather than in coverage, and it is concentrated in the ramp: the static split reaches 95.3\% coverage with a mean width of 1203~MWh during October to December 2024.
+On real data the storage shift does not break coverage; it inflates it. Under a static conformal split, empirical coverage stays between 89\% and 95\% in every period (Table~\ref{tab:results}), so the severe over-coverage seen on synthetic data is absent, because the base forecaster, through its lagged and moving-average features, absorbs much of the shift into its own predictive. The cost of the shift is therefore paid in width rather than in coverage, and it is concentrated in the ramp: the static split reaches 95.3\% coverage with a mean width of 1203~MWh during October to December 2024. Figure~\ref{fig:rolling} traces this behaviour over time: the static split drifts above the nominal level as the ramp advances, while the adaptive schemes track it more closely.
 
-The adaptive schemes pay off precisely there. Transport of the calibration scores wrapped in online adaptation ($\gamma=0.05$) brings the ramp intervals down to 806~MWh at 90.9\% coverage, a reduction of about a third at a coverage within one point of nominal, and the sliding window gives 834~MWh at 92.0\%. Outside the ramp the trade-off is ambiguous: with the static split already near nominal, the adaptive methods mostly exchange coverage for width and can under-cover, as in 2025-S1, and their gains are small and within the date-clustered standard error. Two honest limitations frame the result. First, the base dispersion is large on real data ($\hat\sigma=1.70$), so a substantial part of every width originates in the base model rather than in the calibration layer, which calibrates that dispersion rather than removing it; the sharpness floor is a property of the hurdle, not of the conformal step. Second, the weighted-conformal failure that motivates the adaptive schemes is established on the synthetic panel, where covariate shift can be isolated: the per-point implementation returns infinite intervals for the majority of test points during the ramp. It is a negative result about the tool, not about the data, and it is reported as such.
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig3_rolling_coverage.pdf}
+\caption{Rolling empirical coverage (90-day window) of the conformal methods on real data, computed with the 7-day horizon embargo. The dashed line marks the 90\% nominal level and the shaded band marks the storage ramp of October to December 2024. The static split drifts into over-coverage as the ramp advances, whereas the adaptive schemes remain close to nominal.}
+\label{fig:rolling}
+\end{figure*}
+
+The adaptive schemes pay off precisely there. Transport of the calibration scores wrapped in online adaptation ($\gamma=0.05$) brings the ramp intervals down to 806~MWh at 90.9\% coverage, a reduction of about a third at a coverage within one point of nominal, and the sliding window gives 834~MWh at 92.0\%. Outside the ramp the trade-off is ambiguous: with the static split already near nominal, the adaptive methods mostly exchange coverage for width and can under-cover, as in 2025-S1, and their gains are small and within the date-clustered standard error. Figure~\ref{fig:tradeoff} makes this trade-off explicit across methods and periods. Two honest limitations frame the result. First, the base dispersion is large on real data ($\hat\sigma=1.70$), so a substantial part of every width originates in the base model rather than in the calibration layer, which calibrates that dispersion rather than removing it; the sharpness floor is a property of the hurdle, not of the conformal step. Second, the weighted-conformal failure that motivates the adaptive schemes is established on the synthetic panel, where covariate shift can be isolated: the per-point implementation returns infinite intervals for the majority of test points during the ramp. It is a negative result about the tool, not about the data, and it is reported as such.
 
 \begin{table*}[t]
 \centering
@@ -189,6 +212,13 @@ Base-model CRPS (MWh)   & 96.1 & 133.5 & 70.5 & 94.5 & 79.0 \\
 \bottomrule
 \end{tabular}
 \end{table*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig4_coverage_width.pdf}
+\caption{Coverage and sharpness by method and period. Left: empirical coverage with date-clustered standard errors against the 90\% nominal level. Right: mean interval width. Asterisks mark bars whose mean width is computed over finite intervals only, because the corresponding configuration returns at least 1\% of infinite intervals. The adaptive schemes reduce width during the ramp while holding coverage near nominal.}
+\label{fig:tradeoff}
+\end{figure*}
 
 %==================================================================
 \section{Discussion}
@@ -217,7 +247,7 @@ Pablo Reyes Cerda is the founder of Synapta SpA and of CurtailmentIQ, a commerci
 During the preparation of this work the authors used an AI-based assistant to improve the readability and language of the manuscript. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the article.
 
 \section*{Data availability}
-The dataset is openly available on Zenodo (DOI: 10.5281/zenodo.21198817). The processing and modelling code is available in the companion repository.
+The dataset is openly available on Zenodo under a CC~BY~4.0 licence (DOI: 10.5281/zenodo.21198816, which resolves to the latest version of the deposit). The processing pipeline, the modelling code and the scripts that regenerate every table and figure in this article are available in the companion repository at \url{https://github.com/Pablosebastian-reyes/curtailmentiq-research}.
 
 %==================================================================
 \appendix
@@ -291,7 +321,7 @@ doi:10.1002/for.3980040305.
 \bibitem{dataset2026}
 P.~Reyes~Cerda, K.~Cea~Morales,
 An errata-corrected, plant-level dataset of solar, wind and hydropower curtailment in Chile's National Electricity System (2022--2026) [Data set],
-Zenodo (2026). doi:10.5281/zenodo.21198817.
+Zenodo (2026). doi:10.5281/zenodo.21198816.
 
 \end{thebibliography}
 

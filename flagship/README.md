@@ -19,7 +19,7 @@ Código y experimentos del paper metodológico (SEGAN). El pipeline completo, de
 **3. Figuras y manuscrito:**
 
 - `generar_figuras_paper.py`: figuras 1 a 4 del manuscrito, en `segan/figuras/`. La fig. 3 recomputa las series conformal con el mismo orden de RNG que la corrida oficial y se autochequea contra `conformal_v3_tabla.csv`. Detalle en `segan/REPORTE_FIGURAS.md`.
-- `segan/SEGAN_paper_v2.tex`: manuscrito LaTeX (copia de trabajo del Overleaf).
+- `segan/SEGAN_paper_FINAL.tex`: manuscrito LaTeX vigente (copia de trabajo del Overleaf).
 - `draft/`: borradores en markdown de las secciones del paper; `INDICE_PAPER.md` es el índice.
 
 **4. Banco de pruebas sintético** (etapa de prototipado, NO citable):
