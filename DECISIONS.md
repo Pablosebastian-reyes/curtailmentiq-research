@@ -98,6 +98,12 @@ Formato: fecha · decisión · alternativas consideradas · justificación · re
 **Justificación:** los resultados oficiales del paper son los de `conformal_v3_tabla.csv`, generados con EMBARGO_DIAS=7, requisito de validez del backtest a 7 días según la decisión de alcance del 2026-07-20. El manuscrito para SEGAN (`flagship/segan/SEGAN_paper_v2.tex`) ya usaba los valores correctos, lo que sirvió de referencia cruzada para esta segunda pasada.
 **Responsable:** Pablo.
 
+## 2026-07-28 · Licencia MIT para el código del repositorio
+**Decisión:** el código de este repositorio se publica bajo licencia MIT (archivo LICENSE, copyright Pablo Reyes Cerda y Kerven Cea Morales), como parte de dejar el repo presentable para la revisión del artículo. La estructura de licenciamiento queda en tres capas separadas: (1) el CÓDIGO bajo MIT; (2) el DATASET curado bajo CC BY 4.0 en el depósito Zenodo (decisión 2026-07-18, DOI concept 10.5281/zenodo.21198816); (3) los DATOS ORIGINALES, propiedad del Coordinador Eléctrico Nacional (CEN), que exigen atribución al CEN como fuente según su respuesta SAIP (uso académico permitido citando la fuente, sin licencia particular).
+**Alternativas:** Apache-2.0 y BSD-3 (equivalentes en la práctica para este caso; MIT es la más simple y la más usada en código companion académico); no declarar licencia (descartada: sin licencia explícita un revisor o lector no tiene permiso legal de ejecutar ni reutilizar el código, y el manuscrito promete el código como disponible en el repositorio companion).
+**Justificación:** MIT es permisiva, compatible con la CC BY 4.0 del depósito y no interfiere con la condición de atribución del CEN, que aplica a los datos y no al código; la nota final del archivo LICENSE deja explícita la separación de las tres capas para que la licencia del código no se lea como licencia de los datos.
+**Responsable:** Pablo.
+
 ## PENDIENTES (completar en sesión Pablo-Kerven)
 - [ ] Target exacto de predicción (MWh/central/día · prob. de evento · ambos).
 - [ ] Definición de splits temporales train/calibración/test (fechas exactas) considerando tren alcista y quiebre BESS.

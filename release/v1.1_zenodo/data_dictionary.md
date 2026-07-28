@@ -1,4 +1,4 @@
-# Data dictionary: Curtailment SEN Chile, dataset v1.0
+# Data dictionary: Curtailment SEN Chile, dataset v1.1
 
 **Corte:** 2022-01-01 a 2026-05-31 (1,612 días continuos, sin días faltantes) · **Congelado:** 2026-07-04
 **Fuente:** reportes mensuales oficiales "Reducciones de Energía Eólica, Solar e Hidro en el SEN" del Coordinador Eléctrico Nacional (CEN), Chile (53 archivos originales preservados en `data-raw/` con SHA-256).

@@ -70,7 +70,7 @@ The narrative consolidation of the real-data findings is in [flagship/RESULTADOS
 
 ## Requirements
 
-Python 3.11 or later (reference runs: 3.12.3). Main libraries: pandas, numpy, scikit-learn, xgboost, scipy, matplotlib, pyarrow; plus POT, MAPIE and properscoring for the drift and conformal tooling. A ready-made environment is provided:
+Python 3.12 (reference runs: 3.12.3). Main libraries: pandas, numpy, scikit-learn, xgboost, scipy, matplotlib, pyarrow; plus POT, MAPIE and properscoring for the drift and conformal tooling. A ready-made environment is provided:
 
 ```bash
 conda env create -f environment.yml
