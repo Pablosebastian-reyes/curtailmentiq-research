@@ -1,42 +1,44 @@
-# Flagship: prototipo de la capa de incertidumbre
+# Flagship: modelo base + capa de incertidumbre conforme
 
-## Advertencia
+Código y experimentos del paper metodológico (SEGAN). El pipeline completo, del dataset congelado v1.0 a las figuras del manuscrito, se regenera con los comandos de la sección "Reproducing the results" del README raíz.
 
-`conformal_prototype.py` corre sobre DATOS SINTETICOS calibrados a las características del EDA del release v1.0 (proporción de ceros, cola lognormal, persistencia AR(1) 0.85, ciclo semanal, quiebre BESS desde fines de 2024). Sus resultados NO son citables. Es un banco de pruebas de la metodología, no evidencia empírica.
+## Etapas y archivos
 
-## Hallazgo que documenta
+**1. Modelo base** (insumo de la capa conformal, ver `predicciones/README.md`):
 
-Bajo el quiebre BESS, el conformal split estándar mantiene la cobertura (97-99% frente al 90% nominal) pero pierde sharpness: los intervalos quedan sistemáticamente sobreanchos porque el régimen post-quiebre tiene magnitudes menores que la ventana de calibración. El weighted conformal (Tibshirani et al. 2019) no repara el problema por falta de solapamiento entre regímenes: el tamaño efectivo de muestra (ESS) cae a 1.203 sobre 9.760 observaciones de calibración. El problema del flagship se reformula, por tanto, de cobertura a sharpness bajo cambio de régimen (ver DECISIONS.md, entrada 2026-07-18).
+- `entrenar_baselines.py` (seed 42): persistencia, naive estacional, XGBoost punto, GBM cuantílico y hurdle, entrenados solo hasta 2023-12-31. Salidas en `predicciones/`.
+- `entrenar_hurdle_hetero.py` (seed 42): variante heterocedástica sigma(x) del hurdle, especificada en `ESPECIFICACION_SIGMA_X.md`. Salida `predicciones/pred_hurdle_hetero.csv` y diagnóstico PIT (`hurdle_hetero_pit.pdf`).
 
-## Diseño de trabajo (audit Kerven)
+**2. Capa conformal sobre datos reales** (experimento central):
 
-El audit metodológico de Kerven (`AUDIT_METODOLOGICO.md`, 2026-07-19) define los cuatro pilares del flagship:
+- `conformal_metodos.py`: módulo compartido de métodos (score PIT, estático, ventana deslizante, ACI, transporte OT + ACI, weighted conformal). Código idéntico para sintético y real: entre ambos solo cambian los datos.
+- `conformal_v3_real.py` (seed 20260720, EMBARGO_DIAS = 7): experimento oficial sobre `predicciones/pred_hurdle.csv`. Salidas: `conformal_v3_tabla.csv` (tabla oficial de cobertura y ancho del paper), `conformal_v3_cobertura_rodante.{pdf,png}`, `conformal_v3_salida.txt` y `conformal_v3_hallazgos.txt`.
+- `conformal_v3_hetero.py` (seed 20260720): corre el pipeline completo dos veces (sigma constante contra sigma(x)) con protocolo idéntico. Salida `conformal_v3_hetero_comparacion.csv`, el estudio del trade-off sharpness contra cobertura condicional.
+- `RESULTADOS_REALES.md`: consolidación en prosa de los hallazgos reales. Los valores vigentes son los de `conformal_v3_tabla.csv` (corrida con embargo; ver nota de vigencia y DECISIONS.md 2026-07-28).
 
-1. **Weighted conformal como negative result.** La versión pooled del prototipo es un artefacto: sustituye el peso del punto de test (mediana 166) por la media de los pesos de calibración (0.228), tres órdenes de magnitud menos. La versión por-punto correcta (Tibshirani et al. 2019) entrega intervalos infinitos [0, ∞) en ~46% de los casos de test post-quiebre: esa es la respuesta honesta del método ante el colapso del ESS, y es el negative result que motiva el paper.
-2. **El quiebre BESS es una rampa de 15 meses, no un escalón.** Ninguna calibración estática lo rastrea: la cobertura del intervalo recalibrado con 60 días deriva 94.1% a 98.6% a 99.4% semestre a semestre, en paralelo con la rampa, sin importar la geometría del score.
-3. **Resultado positivo: ventana deslizante de 60 días con score de geometría multiplicativa/PIT.** En el sintético restaura cobertura y sharpness a la vez: 91.5% de cobertura con ancho medio 212, contra ~400 a 415 de las alternativas estáticas.
-4. **Contribución teórica: transporte del score.** Mapa monótono OT 1D (T = F_new⁻¹∘F_old) aplicado a los scores de calibración viejos, envuelto en conformal adaptativo (ACI) para que la validez venga del control online y el transporte aporte sharpness; alternativa: cota del gap de cobertura en distancia TV (Barber et al. 2023).
+**3. Figuras y manuscrito:**
 
-Nota: `audit_experiments.py` (los seis experimentos de verificación del audit) llegará desde Kerven y se agregará a esta carpeta.
+- `generar_figuras_paper.py`: figuras 1 a 4 del manuscrito, en `segan/figuras/`. La fig. 3 recomputa las series conformal con el mismo orden de RNG que la corrida oficial y se autochequea contra `conformal_v3_tabla.csv`. Detalle en `segan/REPORTE_FIGURAS.md`.
+- `segan/SEGAN_paper_v2.tex`: manuscrito LaTeX (copia de trabajo del Overleaf).
+- `draft/`: borradores en markdown de las secciones del paper; `INDICE_PAPER.md` es el índice.
 
-## Reemplazo por datos reales
+**4. Banco de pruebas sintético** (etapa de prototipado, NO citable):
 
-La sección 1 del script (generación del panel sintético) se reemplazará por predicciones reales del modelo hurdle sobre el dataset v1.0. El resto del pipeline (hurdle, conformal split, weighted conformal, recalibración, métricas de cobertura, ancho y CRPS) corre igual sin cambios.
+- `conformal_prototype.py`, `conformal_v2.py`, `conformal_v2_cierre.py` (seed 20260720): panel sintético calibrado al EDA del v1.0. Sus resultados no son evidencia empírica; documentan la metodología y el negative result del weighted conformal pooled. Salidas de referencia en los `*_salida.txt` y `*_tabla.csv` correspondientes.
+
+## Documentación metodológica
+
+- `AUDIT_METODOLOGICO.md`: audit de Kerven Cea (2026-07-19); define los cuatro pilares del diseño (weighted conformal por punto como negative result, la rampa BESS de 15 meses, ventana deslizante 60d con score PIT, transporte del score + ACI).
+- `ESPECIFICACION_TECNICA.md`: referencia del sistema completo (capa A de datos, capa B de incertidumbre).
+- `ESPECIFICACION_SIGMA_X.md`: especificación del modelo base heterocedástico.
+- `HANDOFF_KERVEN.md`: traspaso sobre conformal bajo cambio de régimen vía OT.
+
+## Decisiones de alcance vigentes
+
+- Embargo de horizonte de 7 días activo en todos los métodos online (requisito de validez del backtest a 7 días; DECISIONS.md 2026-07-20).
+- Modelo base oficial: hurdle con sigma constante (`predicciones/pred_hurdle.csv`). El sigma(x) queda como estudio del trade-off, no como modelo base (DECISIONS.md 2026-07-22).
+- Errores estándar de cobertura clusterizados por fecha en toda tabla reportada.
 
 ## Ejecución
 
-Requiere numpy, pandas, scipy y scikit-learn. Verificado con el venv de `../curtailmentiq-model` (numpy 2.4.6, pandas 3.0.3, scipy 1.17.1, scikit-learn 1.9.0):
-
-```bash
-../curtailmentiq-model/venv/bin/python conformal_prototype.py
-```
-
-La salida de referencia está en `conformal_prototype_salida.txt` (semilla fija, ejecución determinística salvo cambios de versión de librerías).
-
-## Archivos
-
-- `conformal_prototype.py`: prototipo hurdle + conformal sobre panel sintético.
-- `conformal_prototype_salida.txt`: salida de la ejecución de referencia (2026-07-19, tras las correcciones del audit).
-- `HANDOFF_KERVEN.md`: documento de traspaso sobre conformal bajo cambio de régimen vía OT.
-- `AUDIT_METODOLOGICO.md`: audit metodológico de Kerven Cea (2026-07-19); define el diseño de trabajo del flagship.
-- `ESPECIFICACION_TECNICA.md`: documento de referencia del sistema completo (capa A de datos y capa B de incertidumbre), versión de trabajo.
+Todos los scripts corren desde la raíz del repo, con el entorno de `environment.yml` o el venv de `../curtailmentiq-model`. Versiones de referencia: python 3.12.3, pandas 3.0.3, numpy 2.4.6, scikit-learn 1.9.0, xgboost 3.2.0. Las salidas de referencia (tablas, logs y figuras) están versionadas junto a cada script.

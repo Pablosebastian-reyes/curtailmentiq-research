@@ -1,10 +1,13 @@
 # etl/
 
-Scripts de descarga y procesamiento. Convenciones:
-- `01_download_*.py`: descarga desde el CEN (registrar URL y fecha en el log del script).
-- `02_clean_*.py`: limpieza y corrección de erratas (cada regla referencia su fila en ERRATA_LOG.md).
-- `03_build_*.py`: construcción de tablas analíticas / carga a Neon.
-Todo script debe correr de punta a punta sin intervención manual.
+Scripts de procesamiento: del archivo CEN original a las tablas curadas en la base de datos. La descarga de los originales vive en `scripts/descargar_cen.sh`.
+
+- `parsers.py`: parseo de los xlsx del CEN y reglas de corrección de erratas (cada regla referencia su fila en ERRATA_LOG.md).
+- `cargar_a_neon.py` / `cargar_horario_a_neon.py`: carga de las tablas diaria y horaria, con chequeos de continuidad pre-commit.
+- `validar_horario.py`: validación de la tabla horaria contra la diaria.
+- `matchear_centrales.py` / `enriquecer_centrales.py`: matching del censo de centrales contra el maestro del CEN y enriquecimiento de metadata.
+
+Todo script corre de punta a punta sin intervención manual. Requieren credenciales de base de datos (`.env` no versionado); no son necesarios para reproducir los resultados del paper desde el dataset público.
 
 ## Rutas
 
