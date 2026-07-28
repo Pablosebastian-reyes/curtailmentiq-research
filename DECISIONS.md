@@ -104,6 +104,12 @@ Formato: fecha · decisión · alternativas consideradas · justificación · re
 **Justificación:** MIT es permisiva, compatible con la CC BY 4.0 del depósito y no interfiere con la condición de atribución del CEN, que aplica a los datos y no al código; la nota final del archivo LICENSE deja explícita la separación de las tres capas para que la licencia del código no se lea como licencia de los datos.
 **Responsable:** Pablo.
 
+## 2026-07-28 · Publicación de la versión 1.1 del depósito Zenodo
+**Decisión:** se publica la versión 1.1 del depósito en Zenodo (registro 21652187, DOI de versión 10.5281/zenodo.21652187), bajo el mismo DOI de concepto 10.5281/zenodo.21198816, que ahora resuelve a v1.1. Es una corrección solo de documentación: `data_dictionary.md` y `errata_log.csv` incorporan la corrección del censo mensual (35 de 53 meses con coincidencia exacta, no 42, con la causa anotada: el operador reasigna la misma energía mensual entre unidades hidro de pasada hermanas entre su hoja horaria mensual y su cierre anual, efecto neto cero a nivel de sistema; mismo mecanismo de las erratas 6 y 7), y el encabezado del diccionario pasa a v1.1. Los 8 archivos de datos son byte a byte idénticos a los de v1.0 (verificado por SHA-256: mismos hashes en `release/v1.1_zenodo/CHECKSUMS.sha256`).
+**Compatibilidad con la política de versionado (2026-07-23):** no se modifica el depósito v1.0, que sigue accesible bajo su DOI de versión 10.5281/zenodo.21198817; la corrección entra como versión nueva, tal como establece la política. Como los datos no cambian, la trazabilidad de lo enviado a revisión se preserva íntegra: el manuscrito cita el DOI de concepto, y cualquier verificación numérica contra v1.0 o v1.1 da el mismo resultado.
+**Justificación:** dejar publicada la descripción incorrecta del censo mensual (42 exactos) mientras el repositorio y el manuscrito dicen 35 sería una inconsistencia visible para un revisor; una versión nueva de documentación corrige el registro sin tocar los datos revisados.
+**Responsable:** Pablo.
+
 ## PENDIENTES (completar en sesión Pablo-Kerven)
 - [ ] Target exacto de predicción (MWh/central/día · prob. de evento · ambos).
 - [ ] Definición de splits temporales train/calibración/test (fechas exactas) considerando tren alcista y quiebre BESS.

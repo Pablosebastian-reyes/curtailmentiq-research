@@ -10,8 +10,8 @@ The repository contains the full data pipeline (from the raw CEN monthly reports
 
 The curated dataset is published on Zenodo under a **CC BY 4.0** license:
 
-- Concept DOI (all versions): [10.5281/zenodo.21198816](https://doi.org/10.5281/zenodo.21198816)
-- Version 1.0 (frozen 2026-07-04, the version used in the article): [10.5281/zenodo.21198817](https://doi.org/10.5281/zenodo.21198817)
+- Concept DOI, the one cited in the article (always resolves to the latest version): [10.5281/zenodo.21198816](https://doi.org/10.5281/zenodo.21198816)
+- Current version: v1.1 ([10.5281/zenodo.21652187](https://doi.org/10.5281/zenodo.21652187)), a documentation-only correction; its data files are byte-identical to v1.0 ([10.5281/zenodo.21198817](https://doi.org/10.5281/zenodo.21198817), frozen 2026-07-04)
 
 It covers plant-level curtailment of solar, wind and hydropower in the SEN from 2022-01-01 to 2026-05-31 (1,612 continuous days): a daily table (293,678 rows), an hourly table (6,906,761 rows), the plant census and metadata, a documented errata log, and SHA-256 checksums. The [data dictionary](release/v1.0/data_dictionary.md) and the [errata log](release/v1.0/errata_log.csv) are also versioned in this repository.
 
@@ -29,7 +29,7 @@ It covers plant-level curtailment of solar, wind and hydropower in the SEN from 
 | [data-raw/](data-raw/) | Original CEN monthly reports ("Reducciones de Energía"), immutable, erratas included: they are the evidence base of the errata log. The 53 `.xlsx` binaries are not versioned for size; their SHA-256 checksums are in [data-raw/CHECKSUMS.sha256](data-raw/CHECKSUMS.sha256). |
 | [etl/](etl/) | Parsers for the CEN spreadsheets, errata-aware cleaning, database loaders with pre-commit continuity checks, plant matching and metadata enrichment. |
 | [scripts/](scripts/) | [descargar_cen.sh](scripts/descargar_cen.sh) (re-download of the original CEN files), [make_checksums.py](scripts/make_checksums.py), [exportar_release.py](scripts/exportar_release.py) (deterministic release export), [generar_figuras_data_paper.py](scripts/generar_figuras_data_paper.py) (data descriptor figures). |
-| [release/](release/) | Frozen dataset releases. `v1.0/` is the version published on Zenodo; `v1.1_zenodo/` is the staging of the next deposit version (data files byte-identical to v1.0, documentation updated). Data files live on Zenodo; the data dictionary, errata log and checksums are versioned here. |
+| [release/](release/) | Frozen dataset releases, matching the deposit versions published on Zenodo: `v1.0/` and `v1.1_zenodo/` (data files byte-identical between the two; v1.1 corrects the documentation). Data files live on Zenodo; the data dictionary, errata log and checksums are versioned here. |
 | [flagship/](flagship/) | Code and experiments of the methods article: baseline training, the conformal experiments (synthetic testbed and the real-data experiment), figure generation, methodological documentation, the LaTeX manuscript ([flagship/segan/](flagship/segan/)) and section drafts ([flagship/draft/](flagship/draft/)). |
 | [flagship/predicciones/](flagship/predicciones/) | Frozen baseline predictions (2024-01 to 2026-05), the input of the conformal layer. Fully regenerable, see its [README](flagship/predicciones/README.md). |
 | [flagship-eda/](flagship-eda/) | Exploratory data analysis: script and six figures (zero structure, magnitudes, seasonality, Wasserstein drift, spatial correlation, persistence). |
@@ -44,7 +44,7 @@ Root documents: [DECISIONS.md](DECISIONS.md) (dated log of every methodological 
 
 All scripts run from the repository root, are deterministic under fixed seeds, and read only the frozen release plus files versioned here. The reference runs used Python 3.12.3 with pandas 3.0.3, numpy 2.4.6, scikit-learn 1.9.0 and xgboost 3.2.0; small numerical differences may appear with other library versions.
 
-**1. Get the data.** Download the v1.0 files from Zenodo ([10.5281/zenodo.21198817](https://doi.org/10.5281/zenodo.21198817)) into `release/v1.0/` and verify their integrity:
+**1. Get the data.** Download the data files from Zenodo ([10.5281/zenodo.21198816](https://doi.org/10.5281/zenodo.21198816); byte-identical in v1.0 and v1.1) into `release/v1.0/`, the path the scripts read, and verify their integrity:
 
 ```bash
 grep 'release/v1.0' release/v1.0/CHECKSUMS.sha256 | shasum -a 256 -c
@@ -91,7 +91,7 @@ If you use the dataset, please cite:
 
 > Reyes Cerda, P., & Cea Morales, K. (2026). *An errata-corrected, plant-level dataset of solar, wind and hydropower curtailment in Chile's National Electricity System (2022-2026)* [Data set]. Zenodo. https://doi.org/10.5281/zenodo.21198816
 
-The research article is currently under peer review; its citation will be added here upon acceptance.
+This concept DOI covers all versions of the deposit and resolves to the current one (v1.1). The research article is currently under peer review; its citation will be added here upon acceptance.
 
 ## License and attribution
 
