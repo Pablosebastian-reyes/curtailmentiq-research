@@ -52,10 +52,14 @@ c) Weighted conformal por punto con score PIT queda como negative result
 PARTE B. QUE SE CONFIRMA AL PASAR DE SINTETICO A REAL
 -----------------------------------------------------
 1. La maquinaria PIT funciona de extremo a extremo sobre datos reales: score
-   en [0,1], inversion estable, intervalos finitos en casi el 100% de los
-   casos (a lo sumo 1.1% de infinitos en un periodo para ACI y transporte con
-   gamma alto). Contraste nitido con el weighted por punto (46% a 76% de
-   infinitos en sintetico): el score PIT no colapsa.
+   en [0,1], inversion estable, intervalos finitos en la gran mayoria de los
+   casos. Con el embargo de 7 dias la fraccion de infinitos es 0 en la mayor
+   parte de las celdas y sube solo en los metodos online con gamma alto en
+   los periodos post rampa: maximo 11.8% (ACI gamma 0.05 en 2025-S2), 10.7%
+   y 9.9% (transporte gamma 0.05 en 2025-S2 y 2025-S1); el resto de las
+   celdas queda entre 0 y 2.8% (ver conformal_v3_tabla.csv). Contraste
+   nitido con el weighted por punto (46% a 76% de infinitos en sintetico):
+   el score PIT no colapsa.
 
 2. En el periodo de la rampa (test_ramp) se confirma la historia del audit:
    los metodos adaptativos recuperan sharpness manteniendo coverage cerca del
