@@ -60,7 +60,7 @@ PARTE B. QUE SE CONFIRMA AL PASAR DE SINTETICO A REAL
 2. En el periodo de la rampa (test_ramp) se confirma la historia del audit:
    los metodos adaptativos recuperan sharpness manteniendo coverage cerca del
    nominal. El estatico da 95.3% de cobertura con ancho 1203 MWh; la ventana
-   60d baja a 91.9% con 811 MWh; el transporte + ACI (gamma 0.05) baja a
+   60d baja a 92.0% con 834 MWh; el transporte + ACI (gamma 0.05) baja a
    90.9% con 806 MWh, es decir 33% mas angosto que el estatico a cambio de
    ceder 4.4 puntos de sobrecobertura. En la rampa, la adaptatividad paga.
 
@@ -91,10 +91,10 @@ PARTE C. QUE CAMBIA CON SIGMA = 1.70 (Y CON DATOS REALES)
 
 3. Como el estatico ya esta cerca del nominal en los periodos post rampa, ahi
    los metodos adaptativos sobre todo CANJEAN coverage por ancho, y pueden
-   subcubrir. En 2025-S1: estatico 89.4% con 455 MWh, ventana 85.9% con 343,
-   transporte gamma 0.05 88.8% pero con 557 (mas ANCHO que el estatico). En
+   subcubrir. En 2025-S1: estatico 89.4% con 455 MWh, ventana 85.4% con 323,
+   transporte gamma 0.05 87.4% con 446 (apenas mas ANGOSTO que el estatico). En
    2026-S1 el canje si es favorable y leve: estatico 92.5% con 535, ventana y
-   ACI cerca de 90% con 423 a 426. La adaptatividad es claramente util en la
+   ACI cerca de 90% con 419 a 446. La adaptatividad es claramente util en la
    rampa, ambigua despues.
 
 4. El ACI cuantifica lo anterior: su alpha_t apenas deriva, de 0.10 a 0.13
@@ -113,15 +113,15 @@ PARTE D. TABLA RESUMEN REAL (periodos clave)
 test_ramp (la rampa, donde la adaptatividad paga):
   metodo                        cobertura   ancho (MWh)
   estatico PIT (referencia)        95.3        1203
-  ventana 60d PIT                  91.9         811
-  ACI PIT (gamma 0.05)             91.9         786
+  ventana 60d PIT                  92.0         834
+  ACI PIT (gamma 0.05)             92.1         822
   transporte + ACI banda (0.05)    90.9         806
 
 2025-S1 (post rampa, el estatico ya esta en nominal):
   estatico PIT (referencia)        89.4         455
-  ventana 60d PIT                  85.9         343
-  ACI PIT (gamma 0.05)             88.0         410
-  transporte + ACI banda (0.05)    88.8         557
+  ventana 60d PIT                  85.4         323
+  ACI PIT (gamma 0.05)             86.6         405
+  transporte + ACI banda (0.05)    87.4         446
 
 Todos los se de cobertura estan clusterizados por fecha (columna se_cluster
 de conformal_v3_tabla.csv); en 2025-S1 rondan 1.0 a 1.1 puntos, de modo que
