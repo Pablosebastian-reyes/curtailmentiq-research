@@ -192,7 +192,11 @@ def figura_1():
         t.set_color(TINTA_2)
     ax.add_artist(l1)
 
-    refs_gwh = [10, 100, 400]
+    # referencias visibles a tamano real: la mas chica (10 GWh) daba un marcador
+    # de ~2.9 pt, invisible en el PDF compilado, y su etiqueta "10" quedaba
+    # flotando dentro del mapa. Se usan referencias cuyo circulo se ve con
+    # claridad (>= 6 pt) y que cubren el rango hasta el maximo (~745 GWh).
+    refs_gwh = [100, 400, 700]
     leg_tam = [Line2D([], [], linestyle="", marker="o",
                       markersize=np.sqrt(S_MIN + g * 1000 * escala),
                       markerfacecolor="none", markeredgecolor=TINTA_MUTED,
@@ -201,7 +205,7 @@ def figura_1():
     l2 = ax.legend(handles=leg_tam, title="Cumulative curtailment\n2022–2026 (GWh)",
                    loc="upper left", bbox_to_anchor=(0.015, 0.60),
                    frameon=False, title_fontsize=8, alignment="left",
-                   labelspacing=1.1, handletextpad=0.7, borderaxespad=0.0)
+                   labelspacing=2.2, handletextpad=0.9, borderaxespad=0.0)
     l2.get_title().set_color(TINTA_2)
     for t in l2.get_texts():
         t.set_color(TINTA_2)
@@ -247,14 +251,18 @@ def figura_2():
                 zorder=2)
     p50, p90, p99 = np.percentile(pos, [50, 90, 99])
     ymax = ax_bot.get_ylim()[1]
-    # etiqueta vertical a la derecha de cada linea: fina en horizontal, asi P90 y
-    # P99 (a media decada de distancia) no colisionan
+    # etiquetas horizontales en la parte superior, escalonadas en altura para que
+    # P90 y P99 (a media decada de distancia) no se solapen; cada una se apoya
+    # sobre su linea guia con un recuadro blanco que la mantiene legible
+    alturas = {"P50": 0.955, "P90": 0.83, "P99": 0.705}
     for p, etq in [(p50, "P50"), (p90, "P90"), (p99, "P99")]:
         xp = np.log10(p)
         ax_bot.axvline(xp, color=TINTA_2, linewidth=0.9, linestyle=(0, (4, 2)),
                        zorder=3)
-        ax_bot.text(xp + 0.06, ymax * 0.44, f"{etq} = {p:,.0f} MWh", rotation=90,
-                    ha="left", va="bottom", fontsize=6.8, color=TINTA_2, zorder=4)
+        ax_bot.text(xp, alturas[etq] * ymax, f"{etq} = {p:,.0f} MWh",
+                    ha="center", va="center", fontsize=6.8, color=TINTA_2, zorder=4,
+                    bbox=dict(boxstyle="round,pad=0.2", facecolor="white",
+                              edgecolor=HAIRLINE, linewidth=0.4, alpha=0.95))
     ax_bot.set_xlabel("Positive daily curtailment (MWh, log scale)")
     ax_bot.set_ylabel("Plant-days")
     ticks = [-1, 0, 1, 2, 3, 4]
