@@ -142,8 +142,19 @@ no de desempeño.
 | Entrenamiento | hasta 2023-12-31 | Ajuste de la capa A |
 | Calibración | ene a ago 2024 | Ajuste de la capa B |
 | test_pre | sep 2024 | Régimen estable |
-| test_ramp | oct a dic 2024 | Inicio de la rampa BESS |
-| test_post | 2025-S1 en adelante | Post quiebre, por semestre |
+| test_ramp | oct a dic 2024 | Ventana de máxima divergencia respecto de la calibración (W1 = 1,25 contra 0,28 a 0,76 de las demás) |
+| test_post | 2025-S1 en adelante | Posterior a esa ventana, por semestre |
+
+> **Nota sobre la etiqueta `test_ramp`.** El nombre de la clave se conserva por
+> compatibilidad con los CSV de resultados ya generados, pero la ventana **no**
+> se define por la entrada de almacenamiento. La verificación de agosto de 2026
+> mostró que el desplazamiento distribucional es una rampa gradual con quiebres
+> en may-2023 y ene-2024, ninguno en octubre de 2024 ni en 2025, y que entre el
+> 61% y el 76% del salto de esa ventana es estacionalidad austral. Además había
+> 318 a 573 MW de BESS ya operando en Antofagasta y Atacama durante oct-dic 2024,
+> que es el trimestre de mayor vertimiento de toda la serie, de modo que la
+> atribución causal al almacenamiento queda descartada para esta ventana. Ver
+> `SUPPLEMENTARY_storage_registry.md` en `flagship/segan/`.
 
 **Métricas.**
 

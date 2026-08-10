@@ -13,10 +13,17 @@ Genera en flagship/segan/figuras/ (PDF vectorial para LaTeX + PNG 300 dpi):
                         Justifica visualmente el modelo hurdle.
   fig3_rolling_coverage ancho doble. Cobertura rodante 90d en el tiempo (datos
                         reales, corrida CON embargo de 7 dias) para static split,
-                        ventana 60d, ACI y transporte+ACI; banda de la rampa BESS.
+                        ventana 60d, ACI y transporte+ACI; banda de la ventana de
+                        maxima divergencia respecto de la calibracion.
   fig4_coverage_width   ancho doble, dos paneles. Trade-off cobertura (con se
                         clusterizado por fecha) vs ancho medio, por metodo y
                         periodo.
+  fig5_regime_changepoints  ancho doble, dos paneles. Media mensual de
+                        log(Y|Y>0) para solar de Antofagasta y Atacama, cruda y
+                        desestacionalizada, con los puntos de cambio detectados
+                        (may-2023, ene-2024) y las ventanas de evaluacion
+                        sombreadas. Sostiene la Seccion 3.3: el desplazamiento es
+                        una rampa de ~18 meses, sin quiebre en oct-2024 ni en 2025.
 
 Fuentes de datos (ver flagship/segan/REPORTE_FIGURAS.md):
   fig1, fig2  release/v1.0/*.parquet  (dataset congelado, corte 2026-05-31)
@@ -103,14 +110,20 @@ METODOS = {
 }
 # periodos en orden, con etiqueta legible para el eje
 PERIODOS_ETQ = {
-    "test_pre":  "Pre-ramp\n(Sep '24)",
-    "test_ramp": "Ramp\n(Oct–Dec '24)",
+    "test_pre":  "Stable\n(Sep '24)",
+    "test_ramp": "Max. divergence\n(Oct–Dec '24)",
     "2025-S1":   "2025-H1",
     "2025-S2":   "2025-H2",
     "2026-S1":   "2026-H1",
 }
-RAMPA_INI = pd.Timestamp("2024-10-01")
-RAMPA_FIN = pd.Timestamp("2025-01-01")
+# Ventana de maxima divergencia respecto de la distribucion de calibracion
+# (W1 = 1.25 contra 0.28-0.76 de las demas). Las fronteras NO cambian: son las
+# mismas de conformal_metodos.PERIODOS; solo cambia como se rotulan.
+TRANS_INI = pd.Timestamp("2024-10-01")
+TRANS_FIN = pd.Timestamp("2025-01-01")
+# ventana de calibracion, para sombrearla en la figura 5
+CAL_INI = pd.Timestamp("2024-01-01")
+CAL_FIN = pd.Timestamp("2024-09-01")
 
 
 def _despejar(ax, izq=True):
@@ -354,8 +367,8 @@ def figura_3(ventana=90):
     fig, ax = plt.subplots(figsize=(COL_DOBLE, 3.1))
 
     # banda de la rampa BESS
-    ax.axvspan(RAMPA_INI, RAMPA_FIN, color=GRIS_TENUE, zorder=0)
-    ax.text(RAMPA_INI + (RAMPA_FIN - RAMPA_INI) / 2, 99.4, "BESS ramp",
+    ax.axvspan(TRANS_INI, TRANS_FIN, color=GRIS_TENUE, zorder=0)
+    ax.text(TRANS_INI + (TRANS_FIN - TRANS_INI) / 2, 99.4, "Max. divergence",
             ha="center", va="top", fontsize=7, color=TINTA_MUTED)
     # nominal 90%
     ax.axhline(90, color=TINTA_MUTED, linewidth=0.9, linestyle=(0, (1, 2)), zorder=1)
@@ -444,10 +457,144 @@ def figura_4():
     _guardar(fig, "fig4_coverage_width")
 
 
+# ============================ FIGURA 5: REGIMEN Y PUNTOS DE CAMBIO (ancho doble)
+def _costo_l2(y):
+    """Suma de desviaciones cuadraticas al promedio del segmento."""
+    return float(((y - y.mean()) ** 2).sum()) if len(y) else 0.0
+
+
+def _segmentacion_binaria(y, pen, min_size=3):
+    """Segmentacion binaria exacta con coste L2 y penalizacion por quiebre.
+
+    Equivalente a ruptures.Binseg(model='l2', min_size=3, jump=1) con la misma
+    penalizacion; se implementa aqui en numpy para no agregar una dependencia
+    al entorno del repositorio. Sobre la serie desestacionalizada de solar norte
+    devuelve los mismos dos quiebres que PELT (2023-05 y 2024-01), lo que se
+    verifica con la asercion al final de figura_5().
+    """
+    quiebres = []
+
+    def recorrer(a, b):
+        if b - a < 2 * min_size:
+            return
+        base = _costo_l2(y[a:b])
+        mejor, mejor_ganancia = None, 0.0
+        for k in range(a + min_size, b - min_size + 1):
+            ganancia = base - _costo_l2(y[a:k]) - _costo_l2(y[k:b])
+            if ganancia > mejor_ganancia:
+                mejor_ganancia, mejor = ganancia, k
+        if mejor is not None and mejor_ganancia > pen:
+            quiebres.append(mejor)
+            recorrer(a, mejor)
+            recorrer(mejor, b)
+
+    recorrer(0, len(y))
+    return sorted(quiebres)
+
+
+def figura_5():
+    """Serie mensual de la media de log(Y|Y>0) para solar del norte, cruda y
+    desestacionalizada, con los puntos de cambio y las ventanas de evaluacion.
+
+    Sostiene la afirmacion de la Seccion 3.3 de que el desplazamiento es una
+    rampa de ~18 meses (quiebres en may-2023 y ene-2024) y que no hay quiebre
+    ni en octubre de 2024 ni en 2025.
+    """
+    daily = pd.read_parquet(RELEASE / "curtailment_daily.parquet",
+                            columns=["fecha", "central_codigo", "mwh"])
+    daily["fecha"] = pd.to_datetime(daily["fecha"])
+    plants = pd.read_parquet(RELEASE / "plants.parquet")
+    meta = pd.read_parquet(RELEASE / "plants_metadata.parquet",
+                           columns=["central_codigo", "region"])
+    df = daily.merge(plants, on="central_codigo").merge(meta, on="central_codigo")
+
+    # solar del norte: es donde se concentra el vertimiento del sistema
+    norte = df[(df["tecnologia"] == "Solar")
+               & (df["region"].isin(["Antofagasta", "Atacama"]))
+               & (df["mwh"] > 0)]
+    serie = (norte.groupby(norte["fecha"].values.astype("datetime64[M]"))["mwh"]
+             .apply(lambda x: np.log(x).mean()))
+    fechas = pd.to_datetime(serie.index)
+    cruda = serie.values
+
+    # desestacionalizacion robusta: mediana por mes calendario
+    moy = fechas.month
+    efecto = pd.Series(cruda, index=moy).groupby(level=0).median()
+    resid = cruda - efecto.reindex(moy).values
+
+    # quiebres sobre la serie desestacionalizada, penalizacion tipo BIC
+    n = len(resid)
+    sigma2 = np.var(np.diff(resid)) / 2
+    pen = 3 * sigma2 * np.log(n)
+    bk = _segmentacion_binaria(resid, pen)
+
+    fig, (axa, axb) = plt.subplots(2, 1, figsize=(COL_DOBLE, 4.6), sharex=True)
+
+    for ax in (axa, axb):
+        ax.axvspan(CAL_INI, CAL_FIN, color=GRIS_TENUE, zorder=0)
+        ax.axvspan(TRANS_INI, TRANS_FIN, color="#f3e2c8", zorder=0)
+        _despejar(ax)
+
+    # ---- panel superior: serie cruda, dominada por el ciclo anual
+    axa.plot(fechas, cruda, color=TINTA_1, linewidth=1.3, zorder=3)
+    axa.plot(fechas, cruda, color=TINTA_1, marker="o", markersize=2.2,
+             linestyle="none", zorder=4)
+    axa.set_ylabel("Mean $\\log Y$ (raw)")
+    axa.text(CAL_INI + (CAL_FIN - CAL_INI) / 2, axa.get_ylim()[1], "calibration",
+             ha="center", va="top", fontsize=6.8, color=TINTA_MUTED)
+    axa.text(TRANS_INI + (TRANS_FIN - TRANS_INI) / 2, axa.get_ylim()[1],
+             "max. div.", ha="center", va="top", fontsize=6.8, color=TINTA_MUTED)
+
+    # ---- panel inferior: desestacionalizada, con quiebres y niveles por tramo
+    axb.plot(fechas, resid, color=TINTA_1, linewidth=1.3, zorder=3)
+    axb.plot(fechas, resid, color=TINTA_1, marker="o", markersize=2.2,
+             linestyle="none", zorder=4)
+
+    bordes = [0] + list(bk) + [n]
+    for j in range(len(bordes) - 1):
+        a, b = bordes[j], bordes[j + 1]
+        nivel = resid[a:b].mean()
+        fin = fechas[b - 1] + pd.offsets.MonthEnd(1)
+        axb.hlines(nivel, fechas[a], fin, color="#eb6834", linewidth=1.6,
+                   linestyle=(0, (4, 1.6)), zorder=5)
+
+    for j, i in enumerate(bk):
+        antes = resid[bordes[j]:i].mean()
+        despues = resid[i:bordes[j + 2]].mean()
+        axb.axvline(fechas[i], color="#eb6834", linewidth=0.9, zorder=2)
+        axb.annotate(f"{fechas[i].strftime('%b %Y')}\n{despues - antes:+.2f}",
+                     xy=(fechas[i], axb.get_ylim()[0]),
+                     xytext=(4, 4), textcoords="offset points",
+                     ha="left", va="bottom", fontsize=6.8, color="#eb6834")
+
+    axb.axhline(0, color=HAIRLINE, linewidth=0.8, zorder=1)
+    axb.set_ylabel("Mean $\\log Y$ (deseasonalised)")
+
+    handles = [Line2D([], [], color=TINTA_1, marker="o", markersize=2.6,
+                      linewidth=1.3, label="Monthly mean"),
+               Line2D([], [], color="#eb6834", linewidth=1.6,
+                      linestyle=(0, (4, 1.6)), label="Segment level"),
+               Line2D([], [], color="#eb6834", linewidth=0.9,
+                      label="Change point")]
+    leg = axa.legend(handles=handles, loc="upper left", frameon=False,
+                     ncol=1, handletextpad=0.5, borderpad=0.1,
+                     labelspacing=0.35)
+    for t in leg.get_texts():
+        t.set_color(TINTA_2)
+
+    fig.subplots_adjust(hspace=0.14)
+
+    fechas_bk = [str(pd.Period(fechas[i], freq="M")) for i in bk]
+    assert fechas_bk == ["2023-05", "2024-01"], fechas_bk
+    print(f"  fig5: quiebres {fechas_bk}, penalizacion {pen:.4f}")
+    _guardar(fig, "fig5_regime_changepoints")
+
+
 if __name__ == "__main__":
     print("Generando figuras SEGAN en", OUT)
     figura_1()
     figura_2()
     figura_3()
     figura_4()
+    figura_5()
     print("Listo.")
