@@ -110,8 +110,8 @@ METODOS = {
 }
 # periodos en orden, con etiqueta legible para el eje
 PERIODOS_ETQ = {
-    "test_pre":  "Stable\n(Sep '24)",
-    "test_ramp": "Max. divergence\n(Oct–Dec '24)",
+    "test_pre":  "Pre-transition\n(Sep '24)",
+    "test_ramp": "Transition\n(Oct–Dec '24)",
     "2025-S1":   "2025-H1",
     "2025-S2":   "2025-H2",
     "2026-S1":   "2026-H1",
@@ -366,7 +366,7 @@ def figura_3(ventana=90):
 
     fig, ax = plt.subplots(figsize=(COL_DOBLE, 3.1))
 
-    # banda de la rampa BESS
+    # banda de la ventana de maxima divergencia respecto de la calibracion
     ax.axvspan(TRANS_INI, TRANS_FIN, color=GRIS_TENUE, zorder=0)
     ax.text(TRANS_INI + (TRANS_FIN - TRANS_INI) / 2, 99.4, "Max. divergence",
             ha="center", va="top", fontsize=7, color=TINTA_MUTED)
@@ -422,7 +422,9 @@ def figura_4():
                    yerr=err, error_kw=dict(ecolor=TINTA_2, elinewidth=0.7,
                                            capsize=1.6, capthick=0.7))
         ax.set_xticks(x)
-        ax.set_xticklabels([PERIODOS_ETQ[p] for p in periodos], fontsize=6.8)
+        # 6.0 pt: "Pre-transition" y "Transition" son etiquetas largas y contiguas;
+        # a 6.8 pt sus cajas se tocan y el eje deja de leerse
+        ax.set_xticklabels([PERIODOS_ETQ[p] for p in periodos], fontsize=6.0)
         _despejar(ax)
         ax.tick_params(axis="x", length=0)
 
