@@ -19,3 +19,15 @@ __pycache__/
 release/**/*.parquet
 release/**/curtailment_*.csv
 release/**/plants*.csv
+
+# Compilacion LaTeX: se versionan los PDF finales, no los auxiliares.
+build/*.aux
+build/*.log
+build/*.out
+build/*.toc
+build/*.synctex.gz
+
+# entrega_revision/ son copias de archivos que ya estan en el repo,
+# armadas para compartir. No se versionan.
+entrega_revision/
+build/*.spl

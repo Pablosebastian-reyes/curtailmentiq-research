@@ -28,7 +28,7 @@ Código y experimentos del paper metodológico (SEGAN). El pipeline completo, de
 
 ## Documentación metodológica
 
-- `AUDIT_METODOLOGICO.md`: audit de Kerven Cea (2026-07-19); define los cuatro pilares del diseño (weighted conformal por punto como negative result, la rampa BESS de 15 meses, ventana deslizante 60d con score PIT, transporte del score + ACI).
+- `AUDIT_METODOLOGICO.md`: audit de Kerven Cea (2026-07-19); define los cuatro pilares del diseño (weighted conformal por punto como negative result, la ventana de transicion de 15 meses, ventana deslizante 60d con score PIT, transporte del score + ACI).
 - `ESPECIFICACION_TECNICA.md`: referencia del sistema completo (capa A de datos, capa B de incertidumbre).
 - `ESPECIFICACION_SIGMA_X.md`: especificación del modelo base heterocedástico.
 - `HANDOFF_KERVEN.md`: traspaso sobre conformal bajo cambio de régimen vía OT.

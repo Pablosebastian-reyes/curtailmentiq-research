@@ -1,0 +1,58 @@
+==============================================================================
+MODELO BASE HETEROCEDASTICO sigma(x) - dataset v1.0 (solar y eolica)
+Disciplina de split identica a entrenar_baselines. NO aplica conformal.
+==============================================================================
+
+Train: 67,032 filas (target <= 2023-12-31) | prediccion: 104,420 filas (2024-01-01 a 2026-05-31)
+Cobertura del feature vol_garch en prediccion: 91.7% de filas (NaN lo maneja XGBoost)
+
+Verificacion etapa 1 vs pred_hurdle.csv: max|dp_occ|=5.00e-07 max|dmu_log|=5.00e-07 | sigma_const=1.7016 (ref 1.7016)
+
+Etapa 2 (sigma(x)): escala c=2.0908  piso=0.9345 (percentil 5 de train, clipa 9.1% de prediccion)
+sigma(x) en prediccion: min=0.935 p10=0.957 mediana=1.629 p90=2.453 max=6.990  (constante = 1.702)
+
+Escrito /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/flagship/predicciones/pred_hurdle_hetero.csv (104,420 filas)
+
+------------------------------------------------------------------------------
+1. Importancia de features de sigma(x) (etapa 2, ganancia normalizada)
+------------------------------------------------------------------------------
+  log_potencia_mw   16.8%
+  tecnologia        20.6%
+  doy_target        18.7%
+  p_occ_feat        23.1%
+  vol_garch         20.8%
+
+------------------------------------------------------------------------------
+2. Diagnostico PIT crudo (antes de conformal): distancia KS a la uniforme
+------------------------------------------------------------------------------
+  sigma constante : KS = 0.1667
+  sigma(x)        : KS = 0.1724   (menor es mas plano, mejor calibrado)
+
+------------------------------------------------------------------------------
+2b. PIT condicional sobre positivos, Phi((log y - mu)/sigma): aisla la
+    dispersion. Compara train (OOF, SIN quiebre) vs OOS (CON quiebre).
+------------------------------------------------------------------------------
+                            KS_const  KS_sig(x)
+  train OOF (sin quiebre)     0.0966     0.0944
+  OOS 2024-2026 (quiebre)     0.1829     0.1822
+
+------------------------------------------------------------------------------
+3. Metricas de la predictiva base (menor es mejor), OOS 2024-2026
+------------------------------------------------------------------------------
+                     CRPS (MWh)    NLL (log-score)
+  sigma constante        81.77        4.9924
+  sigma(x)               79.06        4.9819
+
+------------------------------------------------------------------------------
+4. Robustez por tercil de tamano de central (potencia_mw)
+   KS del PIT y cobertura del cuantil 90% propio del modelo (nominal 90)
+------------------------------------------------------------------------------
+  tercil         n  KS_const  KS_sig(x)  cob90_const  cob90_sig(x)
+  chica     34,995    0.1274     0.1338        89.2%         87.3%
+  media     34,904    0.1697     0.1717        89.7%         87.5%
+  grande    34,521    0.2061     0.2134        87.4%         83.0%
+
+  guardado hurdle_hetero_pit.pdf y .png
+  seccion agregada a /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/flagship/predicciones/README.md
+
+==============================================================================

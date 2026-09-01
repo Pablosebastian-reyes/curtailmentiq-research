@@ -1,0 +1,9 @@
+estrato,algoritmo,fecha,crec_antes_segmento,crec_antes_acumulado,crec_despues
+solar_norte,pelt,2023-08,0.455,0.455,1.07
+solar_norte,pelt,2025-01,1.07,0.891,0.088
+solar_norte,binseg,2023-08,0.455,0.455,1.07
+solar_norte,binseg,2025-01,1.07,0.891,0.088
+sistema_sol_eol,pelt,2023-12,0.322,0.322,0.9
+sistema_sol_eol,pelt,2024-12,0.9,0.623,0.01
+sistema_sol_eol,binseg,2023-12,0.322,0.322,0.9
+sistema_sol_eol,binseg,2024-12,0.9,0.623,0.01

@@ -44,7 +44,7 @@ Toda comparación es sigma(x) contra el sigma constante actual, con la misma med
 
 ### 3.1 Disciplina de split
 
-Misma disciplina out-of-fold que el modelo base actual: los residuos que alimentan la etapa de dispersión (o el ajuste de NGBoost/GAMLSS) son out-of-fold, con la misma partición de folds sobre el train (hasta 2023-12-31), sin fuga entre la estimación de media y la de varianza. La evaluación posterior usa los mismos cortes temporales de calibración y test que conformal_v3_real.py (calibración 2024-01 a 2024-08, test_pre, test_ramp, 2025-S1, 2025-S2, 2026-S1) y el mismo embargo de horizonte de 7 días.
+Misma disciplina out-of-fold que el modelo base actual: los residuos que alimentan la etapa de dispersión (o el ajuste de NGBoost/GAMLSS) son out-of-fold, con la misma partición de folds sobre el train (hasta 2023-12-31), sin fuga entre la estimación de media y la de varianza. La evaluación posterior usa los mismos cortes temporales de calibración y test que conformal_v3_real.py (calibración 2024-01 a 2024-08, test_pre, test_transition, 2025-S1, 2025-S2, 2026-S1) y el mismo embargo de horizonte de 7 días.
 
 ### 3.2 Calibración de la predictiva base (antes de conformal)
 

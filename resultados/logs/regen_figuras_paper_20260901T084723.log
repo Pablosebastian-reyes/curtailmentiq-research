@@ -1,0 +1,9 @@
+Generando figuras SEGAN en /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/flagship/segan/figuras
+  fig1_plants_map: OK
+  fig2_distribution: OK
+  [check] series de fig3 reproducen conformal_v3_tabla.csv
+  fig3_rolling_coverage: OK
+  fig4_coverage_width: OK
+  fig5: quiebres ['2023-05', '2024-01'], penalizacion 3.0269
+  fig5_regime_changepoints: OK
+Listo.

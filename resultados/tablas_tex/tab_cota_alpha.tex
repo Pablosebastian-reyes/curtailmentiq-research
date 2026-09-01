@@ -1,0 +1,25 @@
+%% generado por flagship/revision/fase9_tablas_tex.py
+%% NO EDITAR A MANO: se regenera desde resultados/
+\begin{table*}[t]
+\centering
+\footnotesize
+\caption{Effect of bounding the online update of $\alpha$ from below, whole test period. A bound of $\alpha_{\min}=0.005$ removes infinite intervals entirely at negligible cost in coverage, and makes the unrestricted interval score finite and therefore comparable across methods. Generated from \texttt{resultados/fase4/fase4\_cota\_alpha.csv}.}
+\label{tab:cota}
+\begin{tabular}{lccccc}
+\toprule
+Bound on $\alpha_t$ & Coverage (se) & Width & \% infinite & $\mathrm{IS}$ finite & $\mathrm{IS}$ all \\
+\midrule
+\multicolumn{6}{l}{\emph{ACI ($\gamma{=}0.05$)}} \\
+\quad unbounded (submitted version) & 90.1\,(0.43) & 544 & 4.2 & 962 & $\infty$ \\
+\quad $\alpha_{\min}=0.005$ & 89.8\,(0.43) & 550 & 0.0 & 956 & 956 \\
+\quad $\alpha_{\min}=0.01$ & 89.8\,(0.43) & 536 & 0.0 & 942 & 942 \\
+\quad $\alpha_{\min}=0.02$ & 89.7\,(0.43) & 525 & 0.0 & 932 & 932 \\
+\addlinespace
+\multicolumn{6}{l}{\emph{Transport+ACI ($\gamma{=}0.05$)}} \\
+\quad unbounded (submitted version) & 90.1\,(0.43) & 593 & 6.1 & 1028 & $\infty$ \\
+\quad $\alpha_{\min}=0.005$ & 89.6\,(0.43) & 640 & 0.0 & 1059 & 1059 \\
+\quad $\alpha_{\min}=0.01$ & 89.6\,(0.43) & 597 & 0.0 & 1017 & 1017 \\
+\quad $\alpha_{\min}=0.02$ & 89.5\,(0.43) & 559 & 0.0 & 981 & 981 \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -1,0 +1,51 @@
+==============================================================================================================
+VERIFICACION DE LAS AFIRMACIONES EN PROSA DEL MANUSCRITO
+==============================================================================================================
+      seccion                                                   afirmacion                                  en_el_texto                   regenerado verifica
+abstract, 5.3                                  correlacion del diagnostico                                   $r=-0.757$                       -0.757       si
+abstract, 5.3                                    pendiente del diagnostico                                   -4.39 %/pp                        -4.39       si
+abstract, 5.3                                   intercepto del diagnostico                                      +5.49 %                        +5.49       si
+     5.2, 5.3                                  qgbm_multi / 1_estatico_pit                              90.6% / 410 MWh              90.6% / 410 MWh       si
+     5.2, 5.3                          qgbm_multi / 4_transporte_banda_g05                              90.5% / 425 MWh              90.5% / 425 MWh       si
+     5.2, 5.3                                      hurdle / 1_estatico_pit                             95.3% / 1203 MWh             95.3% / 1203 MWh       si
+     5.2, 5.3                              hurdle / 4_transporte_banda_g05                              90.9% / 806 MWh              90.9% / 806 MWh       si
+          5.3                                      mejora de CRPS del qgbm                           18 a 30 por ciento                  18.3 a 30.4       si
+          5.3                                        CRPS en la transicion                            92.9 contra 133.5            92.9 contra 133.5       si
+          5.3                         diferencia de ancho con qgbm y su IC                         +15.1, [+0.0, +30.3]         +15.1, [+0.0, +30.3]       si
+          5.3                        diferencia de interval score con qgbm                        +13.9, [-10.7, +37.8]        +13.9, [-10.7, +37.8]       si
+          5.4               adaptacion online (A1 - A0) en test_transition                                       -215.8                       -215.8       si
+          5.4                 adaptacion online (A1 - A0) en TEST_COMPLETO                                        -37.8                        -37.8       si
+          5.4              transporte sobre ACI (A3 - A1) en TEST_COMPLETO                                        +74.2                        +74.2       si
+          5.4                 shrinkage de cola (A4 - A3) en TEST_COMPLETO                                         -0.3                         -0.3       si
+          5.4                 pipeline completo (A4 - A0) en TEST_COMPLETO                                        +29.3                        +29.3       si
+          5.4                           costo del shrinkage sobre el total                           6.1 de 6.7 s, ~90%            6.1 de 6.7 s, 91%       si
+          5.5                                  CQR unilateral sobre el GBM                     89.8% / 276 MWh / IS 601     89.8% / 276 MWh / IS 601       si
+          5.5                        pipeline completo en el test completo                            591 MWh / IS 1026            591 MWh / IS 1026       si
+          5.5                                    B2 distribucion movil 60d                                  583 a 86.5%                  583 a 86.5%       si
+          5.5                                     B1 cuantil empirico 365d                                  656 a 87.2%                  656 a 87.2%       si
+          5.5                               maximo de intervalos infinitos                         hasta 6.1 por ciento                          6.1       si
+          5.5                          la cota elimina todos los infinitos                      0 en las cinco ventanas                     max 0.0%       si
+          5.5                                costo de cobertura de la cota                         a lo mas medio punto                   0.5 puntos       si
+          4.3                             correlacion intraclase por fecha                                        0.238                       0.2381       si
+          4.3                                             efecto de diseno                                         26.7                        26.67       si
+          4.3                                                   n efectivo                  cerca de 1000 contra 26.552           996 contra 26552.0       si
+          4.3                                            centrales por dia                                        108.8                       108.82       si
+          5.6                        cobertura en dias de alto vertimiento estatico 91.9, Transporte+ACI 86.7, ACI 88.3             91.9, 86.7, 88.3       si
+          5.6    peor desvio regional, agrupado contra Mondrian por region                               4.8 sube a 7.2               4.8 sube a 7.2       si
+          5.6                       mejor cobertura condicional (ACI puro)                                   4.7 puntos                          4.7       si
+          4.6                                gamma y ventana seleccionados                   gamma 0.005, ventana 120 d   gamma 0.005, ventana 120 d       si
+          4.6                       infinitos en validacion con gamma 0.05                           34 a 42 por ciento                  34.3 a 41.7       si
+          3.4 configuraciones de deteccion sin quiebre en 2025 ni oct-2024                                 180, ninguna                   180, 0 y 0       si
+          4.7                            rango de W1 de las demas ventanas                                  0.28 a 0.95                  0.28 a 0.95       si
+          3.4               contraste oct-dic 2024 contra 2025 y su umbral                                0.085 y 0.115                0.085 y 0.115       si
+          5.2                            contraste 2025-S1 con IC y umbral                 0.172, [0.070, 0.367], 0.193 0.172, [0.070, 0.366], 0.193       si
+          3.3                                       ocurrencia por ventana                                0.750 a 0.815                0.750 a 0.815       si
+          3.3               mediana de positivos, calibracion a transicion                                 92 a 267 MWh                 92 a 267 MWh       si
+          3.3                              variacion total entre semestres                                0.032 a 0.079                0.032 a 0.079       si
+          3.3                              movimiento maximo del centroide                             hasta 22 minutos                   22 minutos       si
+          5.7           rango de divergencia de las fronteras alternativas                                  0.99 a 1.34                  0.99 a 1.34       si
+          5.6                     cuantil conformal agrupado y por bloques                   0.9242 a 0.9263, sd 0.0112    segun el log de la Fase 5       si
+
+43 de 43 afirmaciones verifican contra su archivo de resultados.
+
+guardado resultados/verificacion_manuscrito.csv

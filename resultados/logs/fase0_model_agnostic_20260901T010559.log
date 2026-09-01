@@ -1,0 +1,72 @@
+==============================================================================
+FASE 0 - AGNOSTICISMO AL MODELO BASE (comentario R1.1)
+semilla conformal 20260720 | embargo 7 d | alpha 0.1
+==============================================================================
+
+==============================================================================
+MODELO BASE: hurdle   {'sigma': 1.701641}
+==============================================================================
+calibracion: 26,552 filas, 244 dias
+test: 77,868 filas, 638 dias
+score PIT de calibracion: media 0.6042, sd 0.2765  (uniforme ideal: 0.5000 / 0.2887)
+
+1. estatico PIT: qhat = 0.9242
+2. ventana deslizante 60d: listo
+3. ACI gamma=0.02: alpha_t final = 0.1260
+3. ACI gamma=0.05: alpha_t final = 0.1264
+4. Transporte+ACI gamma=0.02: alpha_t final = 0.0992  (transicion: sd_cola=0.003 lam_cola=1.00)
+4. Transporte+ACI gamma=0.05: alpha_t final = 0.1061  (transicion: sd_cola=0.003 lam_cola=1.00)
+  [OK] reproduce conformal_v3_tabla.csv en 30 celdas x 4 metricas
+
+==============================================================================
+MODELO BASE: qgbm_multi   {'n_cuantiles': 54, 'tau_max': 0.999}
+==============================================================================
+calibracion: 26,552 filas, 244 dias
+test: 77,868 filas, 638 dias
+score PIT de calibracion: media 0.5407, sd 0.3122  (uniforme ideal: 0.5000 / 0.2887)
+
+1. estatico PIT: qhat = 0.9384
+2. ventana deslizante 60d: listo
+3. ACI gamma=0.02: alpha_t final = 0.1138
+3. ACI gamma=0.05: alpha_t final = 0.1327
+4. Transporte+ACI gamma=0.02: alpha_t final = 0.1151  (transicion: sd_cola=0.002 lam_cola=1.00)
+4. Transporte+ACI gamma=0.05: alpha_t final = 0.1292  (transicion: sd_cola=0.002 lam_cola=1.00)
+
+guardado resultados/fase0/fase0_tabla_por_modelo.csv
+
+==============================================================================
+DIFERENCIA Transporte+ACI(g=0.05) - estatico, por modelo base
+bootstrap de 2000 remuestreos de DIAS COMPLETOS, IC de percentil 95%
+==============================================================================
+modelo_base                 metodo         periodo  d_ancho  ancho_lo  ancho_hi  d_cobertura_pp  cob_lo  cob_hi   d_IS  IS_lo  IS_hi  n_filas_IS_finitas  n_filas
+     hurdle 4_transporte_banda_g05        test_pre   -118.4    -157.7     -79.3           -1.47   -2.12   -0.86  -64.7  -98.9  -29.9                3390     3390
+     hurdle 4_transporte_banda_g05 test_transition   -396.1    -462.8    -333.1           -4.46   -5.46   -3.47 -177.0 -249.6 -106.8               10607    10607
+     hurdle 4_transporte_banda_g05         2025-S1     21.7     -56.5     119.7           -1.97   -3.15   -0.84   96.0   16.0  195.9               19624    21784
+     hurdle 4_transporte_banda_g05         2025-S2    -90.3    -205.1      46.8           -2.37   -3.60   -1.10  119.0   20.3  242.9               20488    22941
+     hurdle 4_transporte_banda_g05         2026-S1    -46.2     -61.8     -31.0           -1.94   -2.44   -1.46   16.8    1.5   31.8               19146    19146
+ qgbm_multi 4_transporte_banda_g05        test_pre      3.9       1.5       6.2            0.44    0.12    0.80   -5.0  -10.2   -0.3                3390     3390
+ qgbm_multi 4_transporte_banda_g05 test_transition     15.1       0.0      30.3           -0.15   -1.30    0.99   13.9  -10.7   37.8               10607    10607
+ qgbm_multi 4_transporte_banda_g05         2025-S1     23.7      10.5      38.0           -0.19   -1.36    0.97   33.7   13.2   54.9               20582    21784
+ qgbm_multi 4_transporte_banda_g05         2025-S2     -0.9     -12.9      12.6           -0.33   -1.06    0.44   41.7   26.2   57.4               20734    22941
+ qgbm_multi 4_transporte_banda_g05         2026-S1     15.8       8.2      24.1            0.36   -0.24    0.94   11.0   -1.0   24.0               19146    19146
+
+guardado resultados/fase0/fase0_diferencias_bootstrap.csv
+
+==============================================================================
+TABLA COMPARATIVA (ventana de transicion, oct-dic 2024)
+==============================================================================
+modelo_base                 metodo  cobertura  se_cluster  ancho_medio  pct_infinito  IS_finitos  crps_base
+     hurdle         1_estatico_pit       95.3        0.45       1203.3           0.0      1587.6     133.47
+     hurdle       2_ventana60d_pit       92.0        0.73        833.8           0.0      1390.8     133.47
+     hurdle          3_aci_pit_g02       93.5        0.55        915.2           0.0      1400.8     133.47
+     hurdle          3_aci_pit_g05       92.1        0.67        821.6           0.0      1369.9     133.47
+     hurdle 4_transporte_banda_g02       91.1        0.80        787.3           0.0      1390.2     133.47
+     hurdle 4_transporte_banda_g05       90.9        0.81        805.6           0.0      1408.5     133.47
+ qgbm_multi         1_estatico_pit       90.6        0.85        410.3           0.0       765.0      92.92
+ qgbm_multi       2_ventana60d_pit       90.1        0.94        409.4           0.0       786.2      92.92
+ qgbm_multi          3_aci_pit_g02       90.6        0.86        411.5           0.0       765.3      92.92
+ qgbm_multi          3_aci_pit_g05       90.6        0.87        411.7           0.0       764.5      92.92
+ qgbm_multi 4_transporte_banda_g02       90.4        0.98        420.1           0.0       781.5      92.92
+ qgbm_multi 4_transporte_banda_g05       90.5        0.99        425.0           0.0       779.1      92.92
+
+==============================================================================

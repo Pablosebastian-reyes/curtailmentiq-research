@@ -142,10 +142,10 @@ no de desempeño.
 | Entrenamiento | hasta 2023-12-31 | Ajuste de la capa A |
 | Calibración | ene a ago 2024 | Ajuste de la capa B |
 | test_pre | sep 2024 | Régimen estable |
-| test_ramp | oct a dic 2024 | Ventana de máxima divergencia respecto de la calibración (W1 = 1,25 contra 0,28 a 0,76 de las demás) |
+| test_transition | oct a dic 2024 | Ventana de máxima divergencia respecto de la calibración (W1 = 1,25 contra 0,28 a 0,76 de las demás) |
 | test_post | 2025-S1 en adelante | Posterior a esa ventana, por semestre |
 
-> **Nota sobre la etiqueta `test_ramp`.** El nombre de la clave se conserva por
+> **Nota sobre la etiqueta `test_transition`.** El nombre de la clave se conserva por
 > compatibilidad con los CSV de resultados ya generados, pero la ventana **no**
 > se define por la entrada de almacenamiento. La verificación de agosto de 2026
 > mostró que el desplazamiento distribucional es una rampa gradual con quiebres
@@ -203,10 +203,10 @@ mismo formato.
 **Comportamiento del conformal estático.** Cobertura entre 89% y 95% en todos
 los períodos. La sobrecobertura severa que aparecía en el banco sintético
 (99,8%) **no** se reproduce en datos reales: el modelo base, con sus lags y
-medias móviles, absorbe buena parte del quiebre BESS. Consecuencia: la tensión
+medias móviles, absorbe buena parte del cambio de regimen. Consecuencia: la tensión
 entre cobertura y sharpness es leve fuera de la transición.
 
-**Dónde paga la adaptatividad.** En la rampa BESS. Transporte + ACI baja el
+**Dónde paga la adaptatividad.** En la ventana de transicion. Transporte + ACI baja el
 ancho de 1203 a 732 MWh manteniendo 90,7% de cobertura. Fuera de la
 transición, las diferencias entre métodos son ambiguas y a veces caen dentro
 del error estándar.
@@ -226,7 +226,7 @@ no de la geometría del score.
 | Terciles (chicas / medias / grandes) | 93,1 / 93,3 / 91,1% | 91,9 / 92,8 / 87,8% |
 
 Diagnóstico del porqué: los residuos en escala logarítmica son casi
-homocedásticos condicionalmente, y el quiebre BESS actúa como un
+homocedásticos condicionalmente, y el cambio de regimen actúa como un
 desplazamiento de la ubicación (el modelo sub-predice la magnitud después del
 quiebre), no de la dispersión. Modelar la varianza no corrige un sesgo de
 media.

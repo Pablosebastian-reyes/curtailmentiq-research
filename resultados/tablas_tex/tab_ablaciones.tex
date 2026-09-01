@@ -1,0 +1,21 @@
+%% generado por flagship/revision/fase9_tablas_tex.py
+%% NO EDITAR A MANO: se regenera desde resultados/
+\begin{table*}[t]
+\centering
+\footnotesize
+\caption{Marginal contribution of each component to the mean interval score, in MWh, with 95\% bootstrap intervals resampling whole days. Negative is an improvement. Runtime is the additional wall-clock cost of the component over the 638 test dates. Generated from \texttt{resultados/fase2/fase2\_aporte\_por\_componente.csv}.}
+\label{tab:ablaciones}
+\begin{tabular}{lccccccc}
+\toprule
+Component & \multicolumn{2}{c}{Transition window} & \multicolumn{2}{c}{Whole test} & Significant & Runtime (s) \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+ & $\Delta\mathrm{IS}$ & 95\% CI & $\Delta\mathrm{IS}$ & 95\% CI & (whole test) & \\
+\midrule
+Online adaptation (ACI over static split) & $-215.8$ & $[-274, -161]$ & $-37.8$ & $[-60, -10]$ & yes & $+0.2$ \\
+Transport alone (over static split) & $-195.8$ & $[-250, -145]$ & $-37.8$ & $[-56, -19]$ & yes & $+7.1$ \\
+Transport added on top of ACI & $+39.8$ & $[+18, +62]$ & $+74.2$ & $[+47, +105]$ & yes & $+0.4$ \\
+Tail shrinkage added on top of transport & $-0.3$ & $[-1, +0]$ & $-0.3$ & $[-3, +2]$ & no & $+6.1$ \\
+Full pipeline (over static split) & $-176.3$ & $[-249, -106]$ & $+29.3$ & $[-8, +72]$ & no & $+6.7$ \\
+\bottomrule
+\end{tabular}
+\end{table*}

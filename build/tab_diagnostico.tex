@@ -1,0 +1,36 @@
+%% generado por flagship/revision/fase9_tablas_tex.py
+%% NO EDITAR A MANO: se regenera desde resultados/
+\begin{table*}[t]
+\centering
+\footnotesize
+\caption{The diagnostic, over the fifteen cells given by three base models and five evaluation windows. Over-coverage is the coverage of the static split minus the 90\% nominal level. The width change is that of Transport+ACI ($\gamma=0.05$) relative to the static split in the same cell. Generated from \texttt{resultados/fase0/fase0\_diagnostico.csv}.}
+\label{tab:diagnostico}
+\begin{tabular}{lcccc}
+\toprule
+Window & Static coverage (\%) & Over-coverage (pp) & Static width (MWh) & Width change (\%) \\
+\midrule
+\multicolumn{5}{l}{\emph{Hurdle, constant $\sigma$}} \\
+\quad Sep '24 & 93.5 & +3.5 & 799 & -14.8 \\
+\quad Oct--Dec '24 & 95.3 & +5.3 & 1203 & -33.1 \\
+\quad 2025-S1 & 89.4 & -0.6 & 455 & -2.0 \\
+\quad 2025-S2 & 94.0 & +4.0 & 750 & -4.3 \\
+\quad 2026-S1 & 92.5 & +2.5 & 535 & -8.6 \\
+\addlinespace
+\multicolumn{5}{l}{\emph{Hurdle, $\sigma(x)$}} \\
+\quad Sep '24 & 94.5 & +4.5 & 662 & -16.9 \\
+\quad Oct--Dec '24 & 91.7 & +1.7 & 770 & -4.8 \\
+\quad 2025-S1 & 88.0 & -2.0 & 366 & +9.2 \\
+\quad 2025-S2 & 92.9 & +2.9 & 584 & +7.6 \\
+\quad 2026-S1 & 90.7 & +0.7 & 414 & +16.9 \\
+\addlinespace
+\multicolumn{5}{l}{\emph{Quantile GBM}} \\
+\quad Sep '24 & 91.2 & +1.2 & 326 & +1.2 \\
+\quad Oct--Dec '24 & 90.6 & +0.6 & 410 & +3.6 \\
+\quad 2025-S1 & 88.0 & -2.0 & 221 & +10.0 \\
+\quad 2025-S2 & 91.7 & +1.7 & 319 & +4.3 \\
+\quad 2026-S1 & 90.6 & +0.6 & 253 & +6.1 \\
+\midrule
+\multicolumn{5}{l}{Pearson $r = -0.757$; slope $-4.39$ \% of width per pp of over-coverage; intercept $+5.49$ \%} \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -1,0 +1,124 @@
+================================================================================================
+FASE 6 - CRONOLOGIA Y PUNTOS DE CAMBIO (R2.3) + deuda H2
+semilla 20260901 | bootstrap 500 | permutaciones 300
+================================================================================================
+tabla diaria: 293,678 filas, 2022-01-01 a 2026-05-31
+  solar_norte: 75,861 filas, 55 centrales
+  sistema_sol_eol: 172,376 filas, 131 centrales
+
+------------------------------------------------------------------------------------------------
+1-2. SERIES MENSUALES Y PUNTOS DE CAMBIO
+------------------------------------------------------------------------------------------------
+  solar_norte      cruda                  PELT: ['2023-08']  BinSeg: ['2023-08']
+  solar_norte      desestacionalizada     PELT: ['2023-05']  BinSeg: ['2023-05']
+  sistema_sol_eol  cruda                  PELT: ['2023-10']  BinSeg: ['2023-10']
+  sistema_sol_eol  desestacionalizada     PELT: ['2023-05']  BinSeg: ['2023-05']
+
+------------------------------------------------------------------------------------------------
+3. SENSIBILIDAD DE LOS PUNTOS DE CAMBIO
+------------------------------------------------------------------------------------------------
+  144 configuraciones (estrato x desestacionalizacion x penalizacion x min_size x algoritmo)
+  configuraciones con algun punto de cambio en 2025: 0 de 144
+  configuraciones con punto de cambio en octubre de 2024: 0 de 144
+
+  fechas mas frecuentes entre todas las configuraciones:
+    {'2023-05': 51, '2024-01': 36, '2023-08': 24, '2023-12': 24, '2023-11': 24, '2023-04': 3}
+
+------------------------------------------------------------------------------------------------
+4. ESTABILIDAD DE LA OCURRENCIA Y DEL PERFIL INTRADIARIO
+------------------------------------------------------------------------------------------------
+  solar_norte: P(Y>0) PELT ['2022-09']
+     rango 2024-2026: [0.635, 0.877]
+  sistema_sol_eol: P(Y>0) PELT ['2022-09']
+     rango 2024-2026: [0.573, 0.892]
+
+  perfil intradiario por semestre:
+semestre  hora_pico  centroide_h  tv_vs_semestre_previo
+ 2022-H1         16       15.163                    NaN
+ 2022-H2         16       14.056                 0.1652
+ 2023-H1         16       14.000                 0.0651
+ 2023-H2         16       14.032                 0.0693
+ 2024-H1         16       14.401                 0.0792
+ 2024-H2         16       14.076                 0.0399
+ 2025-H1         16       14.294                 0.0317
+ 2025-H2         17       14.106                 0.0444
+ 2026-H1         17       14.461                 0.0561
+
+------------------------------------------------------------------------------------------------
+5. DISTANCIAS DE WASSERSTEIN-1 (IC bootstrap y nulo, ambos por dia)
+------------------------------------------------------------------------------------------------
+  calibracion vs test_pre            W1=0.947 IC[0.728,1.166] nulo95=0.359 sig=si  |W1-dmedias|=0.0037
+  calibracion vs test_transition     W1=1.253 IC[1.112,1.407] nulo95=0.246 sig=si  |W1-dmedias|=0.0008
+  calibracion vs 2025-S1             W1=0.278 IC[0.114,0.490] nulo95=0.192 sig=si  |W1-dmedias|=0.0011
+  calibracion vs 2025-S2             W1=0.759 IC[0.605,0.903] nulo95=0.171 sig=si  |W1-dmedias|=0.0000
+  calibracion vs 2026-S1             W1=0.338 IC[0.206,0.515] nulo95=0.184 sig=si  |W1-dmedias|=0.0272
+  ene-sep 2024 vs oct-dic 2024       W1=1.147 IC[1.010,1.278] nulo95=0.220 sig=si  |W1-dmedias|=0.0010
+  ene-sep 2024 vs ene-jun 2025       W1=0.172 IC[0.070,0.366] nulo95=0.193 sig=no  |W1-dmedias|=0.0013
+  oct-dic 2022 vs oct-dic 2023       W1=0.977 IC[0.790,1.176] nulo95=0.239 sig=si  |W1-dmedias|=0.0000
+  oct-dic 2023 vs oct-dic 2024       W1=1.201 IC[1.058,1.343] nulo95=0.247 sig=si  |W1-dmedias|=0.0010
+  oct-dic 2024 vs oct-dic 2025       W1=0.085 IC[0.045,0.184] nulo95=0.115 sig=no  |W1-dmedias|=0.0125
+  may-jul 2025 vs ago-dic 2025       W1=1.334 IC[1.127,1.542] nulo95=0.235 sig=si  |W1-dmedias|=0.0009
+
+  nulo estacional (mismo contraste ene-sep vs oct-dic, por ano):
+estrato  sistema_sol_eol  solar_norte
+anio                                 
+2022              0.6076       0.5549
+2023              0.8738       0.9624
+2024              0.8337       1.1471
+2025              0.6693       0.8767
+
+------------------------------------------------------------------------------------------------
+6. DESCOMPOSICION ESTACIONAL / SECULAR (Tabla 1 del manuscrito)
+------------------------------------------------------------------------------------------------
+        estrato  anio                         ventanas  total  estacional  secular  pct_estacional
+    solar_norte  2022               ene-sep vs oct-dic  0.637       0.722   -0.085           113.4
+    solar_norte  2023               ene-sep vs oct-dic  1.008       0.722    0.286            71.6
+    solar_norte  2024               ene-sep vs oct-dic  1.177       0.722    0.455            61.3
+    solar_norte  2025               ene-sep vs oct-dic  0.896       0.722    0.173            80.6
+    solar_norte  2024 calibracion (ene-ago) vs oct-dic  1.286       0.782    0.504            60.8
+sistema_sol_eol  2022               ene-sep vs oct-dic  0.766       0.659    0.106            86.1
+sistema_sol_eol  2023               ene-sep vs oct-dic  0.891       0.659    0.232            74.0
+sistema_sol_eol  2024               ene-sep vs oct-dic  0.862       0.659    0.203            76.4
+sistema_sol_eol  2025               ene-sep vs oct-dic  0.706       0.659    0.047            93.3
+sistema_sol_eol  2024 calibracion (ene-ago) vs oct-dic  0.940       0.695    0.245            74.0
+
+------------------------------------------------------------------------------------------------
+7. TASA DE CRECIMIENTO E INTENSIDAD POR MW INSTALADO
+------------------------------------------------------------------------------------------------
+  solar_norte: quiebres del crecimiento a 12 meses: ['2025-01']
+  sistema_sol_eol: quiebres del crecimiento a 12 meses: ['2024-12']
+
+  intensidad de vertimiento por MW instalado (solar norte):
+      bloque    gwh  flota_mw  intensidad_mwh_por_mw
+oct-dic 2022  328.6    4532.1                   72.5
+oct-dic 2023  715.2    5372.5                  133.1
+oct-dic 2024 1576.0    6110.7                  257.9
+oct-dic 2025 1445.6    6602.6                  218.9
+ene-may 2024 1174.5    5697.7                  206.1
+ene-may 2025 1413.4    6602.6                  214.1
+ene-may 2026 1489.6    7043.5                  211.5
+
+------------------------------------------------------------------------------------------------
+8. SENSIBILIDAD DE LA EVALUACION A FRONTERAS ALTERNATIVAS
+------------------------------------------------------------------------------------------------
+              periodo  w1_vs_calibracion                  metodo  cobertura  se_cluster  ancho_medio  IS_finitos
+oficial: oct-dic 2024              1.253          Split estatico       95.3        0.45       1203.3      1587.6
+oficial: oct-dic 2024              1.253            ACI (g=0.02)       93.5        0.55        915.2      1400.8
+oficial: oct-dic 2024              1.253 Transporte+ACI (g=0.05)       90.9        0.81        805.9      1409.3
+         sep-dic 2024              1.179          Split estatico       94.9        0.43       1105.4      1452.2
+         sep-dic 2024              1.179            ACI (g=0.02)       93.4        0.49        877.4      1305.1
+         sep-dic 2024              1.179 Transporte+ACI (g=0.05)       91.1        0.67        775.9      1301.6
+    nov 2024-ene 2025              1.109          Split estatico       94.8        0.79       1105.2      1406.3
+    nov 2024-ene 2025              1.109            ACI (g=0.02)       91.2        1.17        787.9      1249.9
+    nov 2024-ene 2025              1.109 Transporte+ACI (g=0.05)       88.6        1.43        794.6      1372.6
+    oct 2024-feb 2025              1.002          Split estatico       94.5        0.57       1000.3      1327.4
+    oct 2024-feb 2025              1.002            ACI (g=0.02)       91.2        0.83        731.9      1197.4
+    oct 2024-feb 2025              1.002 Transporte+ACI (g=0.05)       89.5        1.01        791.1      1389.7
+         oct-nov 2024              1.342          Split estatico       94.0        0.58       1108.1      1637.1
+         oct-nov 2024              1.342            ACI (g=0.02)       92.4        0.73        896.2      1542.2
+         oct-nov 2024              1.342 Transporte+ACI (g=0.05)       89.9        1.08        841.6      1606.0
+    sep 2024-mar 2025              0.992          Split estatico       94.3        0.50        967.8      1279.2
+    sep 2024-mar 2025              0.992            ACI (g=0.02)       91.5        0.72        736.3      1166.5
+    sep 2024-mar 2025              0.992 Transporte+ACI (g=0.05)       89.9        0.87        772.2      1316.1
+
+guardado en resultados/fase6/

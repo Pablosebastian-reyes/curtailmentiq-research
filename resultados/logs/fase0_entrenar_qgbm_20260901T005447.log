@@ -1,0 +1,24 @@
+==============================================================================
+FASE 0 - MODELO BASE ALTERNATIVO: GBM multi-cuantil
+54 cuantiles, de 0.005 a 0.999
+Misma disciplina de split, features y hiperparametros que el hurdle.
+==============================================================================
+train: 67,032 filas (target <= 2023-12-31)
+prediccion: 104,420 filas
+
+ajustando GBM multi-cuantil (objetivo reg:quantileerror vectorial)...
+  matriz de cuantiles: (104420, 54)
+  filas con cruce de cuantiles antes del rearrangement: 104,420 (100.0%)
+
+guardado flagship/predicciones/pred_qgbm_multi.csv  (104,420 filas)
+
+MAE (MWh) de la mediana del GBM multi-cuantil, por anio:
+  2024:    87.75  (n=40,549)
+  2025:    89.03  (n=44,725)
+  2026:    84.06  (n=19,146)
+  total:    87.62
+
+Atomo en cero implicito F(0): media 0.111, mediana 0.040, filas con F(0)=0: 2.8%
+Fraccion real de y=0 en el periodo: 0.229
+
+Cuantil 0.999 medio: 654.5 MWh; maximo 2231.5 MWh

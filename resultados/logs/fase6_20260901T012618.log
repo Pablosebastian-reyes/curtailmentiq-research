@@ -1,0 +1,17 @@
+================================================================================================
+FASE 6 - CRONOLOGIA Y PUNTOS DE CAMBIO (R2.3) + deuda H2
+semilla 20260901 | bootstrap 500 | permutaciones 300
+================================================================================================
+Traceback (most recent call last):
+  File "/Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/flagship/revision/fase6_cronologia.py", line 456, in <module>
+    main()
+  File "/Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/flagship/revision/fase6_cronologia.py", line 165, in main
+    est = estratos(d)
+          ^^^^^^^^^^^
+  File "/Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/flagship/revision/fase6_cronologia.py", line 68, in estratos
+    sol_eol = d[d.tecnologia.isin(['Solar', 'Eólica'])]
+                ^^^^^^^^^^^^
+  File "/Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-model/venv/lib/python3.12/site-packages/pandas/core/generic.py", line 6206, in __getattr__
+    return object.__getattribute__(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DataFrame' object has no attribute 'tecnologia'. Did you mean: 'tecnologia_x'?

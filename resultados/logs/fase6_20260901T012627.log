@@ -1,0 +1,43 @@
+================================================================================================
+FASE 6 - CRONOLOGIA Y PUNTOS DE CAMBIO (R2.3) + deuda H2
+semilla 20260901 | bootstrap 500 | permutaciones 300
+================================================================================================
+tabla diaria: 293,678 filas, 2022-01-01 a 2026-05-31
+  solar_norte: 75,861 filas, 55 centrales
+  sistema_sol_eol: 172,376 filas, 131 centrales
+
+------------------------------------------------------------------------------------------------
+1-2. SERIES MENSUALES Y PUNTOS DE CAMBIO
+------------------------------------------------------------------------------------------------
+  solar_norte      cruda                  PELT: ['2023-08']  BinSeg: ['2023-08']
+  solar_norte      desestacionalizada     PELT: ['2023-05']  BinSeg: ['2023-05']
+  sistema_sol_eol  cruda                  PELT: ['2023-10']  BinSeg: ['2023-10']
+  sistema_sol_eol  desestacionalizada     PELT: ['2023-05']  BinSeg: ['2023-05']
+
+------------------------------------------------------------------------------------------------
+3. SENSIBILIDAD DE LOS PUNTOS DE CAMBIO
+------------------------------------------------------------------------------------------------
+  144 configuraciones (estrato x desestacionalizacion x penalizacion x min_size x algoritmo)
+  configuraciones con algun punto de cambio en 2025: 0 de 144
+  configuraciones con punto de cambio en octubre de 2024: 0 de 144
+
+  fechas mas frecuentes entre todas las configuraciones:
+    {'2023-05': 51, '2024-01': 36, '2023-08': 24, '2023-12': 24, '2023-11': 24, '2023-04': 3}
+
+------------------------------------------------------------------------------------------------
+4. ESTABILIDAD DE LA OCURRENCIA Y DEL PERFIL INTRADIARIO
+------------------------------------------------------------------------------------------------
+  solar_norte: P(Y>0) PELT ['2022-09']
+     rango 2024-2026: [0.635, 0.877]
+  sistema_sol_eol: P(Y>0) PELT ['2022-09']
+     rango 2024-2026: [0.573, 0.892]
+Traceback (most recent call last):
+  File "/Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/flagship/revision/fase6_cronologia.py", line 460, in <module>
+    main()
+  File "/Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/flagship/revision/fase6_cronologia.py", line 264, in main
+    hh = hh[hh.tecnologia.isin(['Solar', 'Eólica'])]
+            ^^^^^^^^^^^^^
+  File "/Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-model/venv/lib/python3.12/site-packages/pandas/core/generic.py", line 6206, in __getattr__
+    return object.__getattribute__(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DataFrame' object has no attribute 'tecnologia'. Did you mean: 'tecnologia_x'?

@@ -1,0 +1,25 @@
+seccion,afirmacion,en_el_texto,regenerado,reproduce,nota
+3.3,"dos puntos de cambio, mayo 2023 y enero 2024","2023-05, 2024-01","2023-05, 2024-01",si,con penalizacion BIC k=1; con k=3 solo se detecta 2023-05
+3.3,salto del primer punto de cambio,+1.05,+1.049,si,
+3.3,salto del segundo punto de cambio,+0.76,+0.762,si,
+3.3,ningun punto de cambio en 2025 ni en octubre de 2024,ninguno,0 y 0 de 180 configuraciones,si,
+4.4,W1 calibracion vs ventana de transicion,1.25,1.253,si,
+4.4,W1 de las demas ventanas contra la calibracion,0.28 a 0.76,0.278 a 0.947,NO,test_pre vale 0.947 y queda fuera del rango citado
+4.4,W1 coincide con la diferencia de medias,a 0.001,0.0008,si,
+4.4,reparto estacional sobre la ventana de calibracion,"61% solar norte, 74% sistema",60.8% y 74.0%,si,
+3.3,W1 oct-dic 2023 contra oct-dic 2024,1.20,1.201,si,
+3.3,W1 oct-dic 2024 contra oct-dic 2025,0.085,0.085,si,
+3.3,umbral del nulo de permutacion de ese contraste,0.105,0.115,NO,el umbral regenerado es mayor; la conclusion (no distinguible de cero) no cambia
+5.2,W1 ene-sep 2024 contra ene-jun 2025 y su IC,"0.171 [0.068, 0.377], umbral 0.215","0.172 [0.070, 0.366], umbral 0.193",si,IC y umbral difieren por la semilla del bootstrap; el veredicto de no significancia no cambia
+6,W1 may-jul 2025 contra ago-dic 2025,1.335,1.334,si,
+3.3,el mismo contraste estacional en 2023 y en 2025,0.96 y 0.88,0.962 y 0.877,si,
+3.3,ocurrencia mensual de solar norte en 2024-2026,entre 0.71 y 0.85,entre 0.635 y 0.877,NO,a nivel MENSUAL el rango es mas ancho; el rango citado es el de los promedios por VENTANA
+3.3,"ocurrencia por ventana de solar norte, 2024-2026",entre 0.71 y 0.85,entre 0.750 y 0.815,si,
+3.3,"mediana de vertimiento positivo, calibracion a transicion",92 a 267 MWh,92 a 267 MWh,si,
+3.3,hora pico del perfil intradiario en cada semestre,hora 16 en todos,"[np.int64(16), np.int64(17)]",NO,el pico pasa a la hora 17 en 2025-H2 y 2026-H1; 16 y 17 estan casi empatadas
+3.3,distancia de variacion total entre semestres consecutivos,"0.04 a 0.06, nunca sobre 0.08",0.032 a 0.079 desde 2023-H1 (0.032 a 0.165 en todo el registro),NO,
+3.3,el centroide se mueve menos de 15 minutos entre semestres,< 0.25 h,maximo 0.369 h desde 2023-H1,NO,
+6,quiebre del crecimiento en solar norte,"dic 2024 a ene 2025, +0.89 a +0.09","2025-01, segmento +1.070 / acumulado +0.891 a +0.088",si,la fecha y el valor posterior reproducen; el valor previo depende del convenio: +0.891 acumulado (el citado) contra +1.070 sobre el segmento anterior
+6,quiebre del crecimiento en el sistema,"dic 2024, +0.90 a +0.01","2024-12, segmento +0.900 / acumulado +0.623 a +0.010",si,reproduce con el convenio de segmento anterior
+6,la flota solar del norte crece 8% en 2025,+8%,+8.0%,si,
+6,el vertimiento por MW cae 15% en el cuarto trimestre,-15%,-15.1%,si,

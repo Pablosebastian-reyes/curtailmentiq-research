@@ -1,6 +1,6 @@
 # Índice del paper metodológico (flagship)
 
-Estructura de secciones propuesta para el manuscrito, en formato IMRyD extendido. Sirve de esqueleto para la redacción y de mapa entre cada sección y los artefactos ya producidos en flagship/. El alcance está cerrado (ver DECISIONS.md 2026-07-20 y la reetiquetación de sigma(x) del 2026-07-22): el resultado positivo es la adaptación por ventana deslizante y transporte de scores más ACI bajo el quiebre BESS; el resultado negativo es el weighted conformal por punto; el modelo base heterocedástico sigma(x) se reporta como un estudio del trade-off entre sharpness marginal y cobertura condicional (se mantiene sigma constante como modelo base por confiabilidad por central).
+Estructura de secciones propuesta para el manuscrito, en formato IMRyD extendido. Sirve de esqueleto para la redacción y de mapa entre cada sección y los artefactos ya producidos en flagship/. El alcance está cerrado (ver DECISIONS.md 2026-07-20 y la reetiquetación de sigma(x) del 2026-07-22): el resultado positivo es la adaptación por ventana deslizante y transporte de scores más ACI bajo el cambio de regimen; el resultado negativo es el weighted conformal por punto; el modelo base heterocedástico sigma(x) se reporta como un estudio del trade-off entre sharpness marginal y cobertura condicional (se mantiene sigma constante como modelo base por confiabilidad por central).
 
 Objetivo de venue: revista o conferencia de métodos aplicados a energía o de predicción con cuantificación de incertidumbre (línea SEGAN según DECISIONS.md 2026-07-03).
 
@@ -8,7 +8,7 @@ Objetivo de venue: revista o conferencia de métodos aplicados a energía o de p
 
 - Problema aplicado: predicción de vertimiento (curtailment) por central en el sistema eléctrico chileno, con cuantificación de incertidumbre útil para operación.
 - El giro metodológico: el pronóstico de punto está agotado (un baseline estacional trivial gana en MAE), así que el valor está en la capa de incertidumbre, no en el error de punto.
-- El desafío central: el quiebre BESS (rampa de 15 meses, no un escalón) rompe la intercambiabilidad y obsoleta toda calibración estática.
+- El desafío central: el cambio de regimen (rampa de 15 meses, no un escalón) rompe la intercambiabilidad y obsoleta toda calibración estática.
 - Contribuciones, enumeradas: (i) diagnóstico del quiebre como rampa y no como covariate shift; (ii) resultado negativo del weighted conformal por punto; (iii) resultado positivo de adaptación por recencia y transporte de scores más ACI; (iv) la línea teórica de transporte del score entre regímenes.
 
 ## 2. Related work
@@ -23,9 +23,9 @@ Objetivo de venue: revista o conferencia de métodos aplicados a energía o de p
 ## 3. Data
 
 - Fuente: dataset v1.0 de vertimiento por central del Sistema Eléctrico Nacional de Chile (2022 a 2026), corregido por erratas. Referencia al data paper y al depósito Zenodo (evita duplicar la descripción del dataset).
-- Panel sintético: proceso generador calibrado al EDA del release v1.0 (proporción de ceros, cola lognormal, persistencia AR(1) 0.85, ciclo semanal, rampa BESS), usado como banco de pruebas controlado y no citable como evidencia empírica.
+- Panel sintético: proceso generador calibrado al EDA del release v1.0 (proporción de ceros, cola lognormal, persistencia AR(1) 0.85, ciclo semanal, ventana de transicion), usado como banco de pruebas controlado y no citable como evidencia empírica.
 - Predicciones reales: salida del modelo base hurdle entrenado solo hasta 2023-12-31, con sigma out-of-fold = 1.70 (flagship/predicciones/).
-- Cortes temporales: calibración, test_pre, test_ramp y los semestres 2025-S1, 2025-S2, 2026-S1.
+- Cortes temporales: calibración, test_pre, test_transition y los semestres 2025-S1, 2025-S2, 2026-S1.
 
 ## 4. Methods
 

@@ -1,0 +1,29 @@
+%% generado por flagship/revision/fase9_tablas_tex.py
+%% NO EDITAR A MANO: se regenera desde resultados/
+\begin{table}[t]
+\centering
+\caption{Decomposition of the January--September to October--December shift in the monthly mean of $\log Y$ over positive plant-days, in log units, by year. The seasonal component is the difference between the calendar-month effects of the two windows and is by construction the same in every year; the secular component is the remainder. The 2024 row is the contrast that defines the transition window used in the evaluation; the final row of each block repeats the decomposition on the calibration window itself (January to August against October to December 2024), which is the pair the evaluation actually uses. Generated from \texttt{resultados/fase6/fase6\_descomposicion\_estacional.csv}.}
+\label{tab:seasonal}
+\begin{tabular}{lcccc}
+\toprule
+Year & Total shift & Seasonal & Secular & Seasonal share \\
+\midrule
+\multicolumn{5}{l}{\emph{Solar, Antofagasta and Atacama}} \\
+\quad 2022 & $+0.64$ & $+0.72$ & $-0.09$ & 113\% \\
+\quad 2023 & $+1.01$ & $+0.72$ & $+0.29$ & 72\% \\
+\quad \textbf{2024} & $\mathbf{+1.18}$ & $\mathbf{+0.72}$ & $\mathbf{+0.46}$ & 61\% \\
+\quad 2025 & $+0.90$ & $+0.72$ & $+0.17$ & 81\% \\
+\quad 2024, calibration window & $+1.29$ & $+0.78$ & $+0.50$ & 61\% \\
+\addlinespace
+\multicolumn{5}{l}{\emph{System (solar and wind)}} \\
+\quad 2022 & $+0.77$ & $+0.66$ & $+0.11$ & 86\% \\
+\quad 2023 & $+0.89$ & $+0.66$ & $+0.23$ & 74\% \\
+\quad \textbf{2024} & $\mathbf{+0.86}$ & $\mathbf{+0.66}$ & $\mathbf{+0.20}$ & 76\% \\
+\quad 2025 & $+0.71$ & $+0.66$ & $+0.05$ & 93\% \\
+\quad 2024, calibration window & $+0.94$ & $+0.69$ & $+0.24$ & 74\% \\
+\bottomrule
+\end{tabular}
+
+\vspace{3pt}
+\parbox{\linewidth}{\footnotesize Note: the calendar-month effects are estimated as the median of each calendar month over the whole record. A robust STL decomposition returns somewhat different values on a 53-month series carrying a strong trend; it does not change the order of magnitude of the split, and the secular components remain the smaller part of the 2024 contrast.}
+\end{table}

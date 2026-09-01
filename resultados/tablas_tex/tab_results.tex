@@ -1,0 +1,23 @@
+%% generado por flagship/revision/fase9_tablas_tex.py
+%% NO EDITAR A MANO: se regenera desde resultados/
+\begin{table*}[t]
+\centering
+\footnotesize
+\caption{Coverage and mean interval width of the conformal methods by period, on real data with the hurdle base model, with the 7-day horizon embargo. Each cell shows coverage in percent (clustered standard error by date in parentheses) over mean interval width in MWh. Nominal coverage is 90\%. The base-model CRPS is a property of the predictive, not of the calibration layer, and is reported once per period. Superscripts give the fraction of infinite intervals where nonzero; Section~\ref{sec:metricas} reports the metric that does not let those cases improve a method's score. Generated from \texttt{flagship/conformal\_v3\_tabla.csv}.}
+\label{tab:results}
+\begin{tabular}{l@{\hspace{5pt}}c@{\hspace{5pt}}c@{\hspace{5pt}}c@{\hspace{5pt}}c@{\hspace{5pt}}c}
+\toprule
+Method & test\_pre & test\_transition & 2025-S1 & 2025-S2 & 2026-S1 \\
+ & (Sep 24, stable) & (Oct--Dec 24, max.\ divergence) & & & \\
+\midrule
+Static split (PIT) & 93.5\,(1.03) / 799 & 95.3\,(0.45) / 1203 & 89.4\,(1.04) / 455 & 94.0\,(0.45) / 750 & 92.5\,(0.58) / 535 \\
+Sliding window 60d & 93.0\,(1.04) / 742 & 92.0\,(0.73) / 834 & 85.4\,(1.16) / 323 & 92.9\,(0.51) / 650 & 89.5\,(0.76) / 419 \\
+ACI ($\gamma{=}0.02$) & 93.0\,(1.06) / 759 & 93.5\,(0.55) / 915 & 85.7\,(1.16) / 345 & 93.5\,(0.49) / 669 & 89.1\,(0.76) / 405 \\
+ACI ($\gamma{=}0.05$) & 92.4\,(1.16) / 718 & 92.1\,(0.67) / 822 & 86.6\,(1.14) / 405\textsuperscript{2.8} & 92.5\,(0.58) / 609\textsuperscript{11.8} & 89.8\,(0.75) / 446 \\
+Transport+ACI ($\gamma{=}0.02$) & 92.6\,(1.07) / 713 & 91.1\,(0.8) / 787 & 86.5\,(1.17) / 437\textsuperscript{0.6} & 92.4\,(0.6) / 986\textsuperscript{1.1} & 90.3\,(0.73) / 459 \\
+Transport+ACI ($\gamma{=}0.05$) & 92.0\,(1.19) / 681 & 90.9\,(0.81) / 806 & 87.4\,(1.13) / 446\textsuperscript{9.9} & 91.6\,(0.63) / 718\textsuperscript{10.7} & 90.5\,(0.72) / 489 \\
+\midrule
+Base-model CRPS (MWh) & 96.1 & 133.5 & 70.5 & 94.5 & 79.0 \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -1,5 +1,13 @@
 # Documento de traspaso — Kerven Cea
 
+> **Nota de la revision mayor (2026-09-01).** Este es un documento fechado y no se
+> reescribe: es el registro de lo que se penso en su momento. La nomenclatura que usa
+> (`test_ramp`, "rampa BESS", "quiebre BESS") quedo obsoleta. La ventana se llama hoy
+> `test_transition` y se define como la de maxima divergencia respecto de la
+> distribucion de calibracion, sin atribucion causal a ninguna tecnologia. Ver
+> `REVISION_PLAN.md` (comentario R2.2) y `HALLAZGOS_CRITICOS.md`.
+
+
 **De:** Pablo Reyes · **Fecha:** 2026-07-05 · **Estado de los datos:** release v1.0 (2022-01 a 2026-05), EDA completo en commit `9256444`
 
 ---

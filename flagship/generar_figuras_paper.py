@@ -111,7 +111,7 @@ METODOS = {
 # periodos en orden, con etiqueta legible para el eje
 PERIODOS_ETQ = {
     "test_pre":  "Pre-transition\n(Sep '24)",
-    "test_ramp": "Transition\n(Oct–Dec '24)",
+    "test_transition": "Transition\n(Oct–Dec '24)",
     "2025-S1":   "2025-H1",
     "2025-S2":   "2025-H2",
     "2026-S1":   "2026-H1",
@@ -524,10 +524,16 @@ def figura_5():
     efecto = pd.Series(cruda, index=moy).groupby(level=0).median()
     resid = cruda - efecto.reindex(moy).values
 
-    # quiebres sobre la serie desestacionalizada, penalizacion tipo BIC
+    # Quiebres sobre la serie desestacionalizada, penalizacion BIC estandar
+    # pen = sigma^2 log n con sigma^2 la varianza de la serie. Es EXACTAMENTE la
+    # misma convencion que flagship/revision/fase6_cronologia.py, que es la
+    # declarada en el manuscrito (seccion 3.4 y apendice C). Antes esta figura
+    # usaba un estimador robusto del ruido con un factor 3; devolvia los mismos
+    # dos quiebres, pero la especificacion no coincidia con la del texto, y eso
+    # es justo lo que los comentarios R1.2 y R2.4 piden cerrar.
     n = len(resid)
-    sigma2 = np.var(np.diff(resid)) / 2
-    pen = 3 * sigma2 * np.log(n)
+    sigma2 = float(np.var(resid))
+    pen = 1.0 * sigma2 * np.log(n)
     bk = _segmentacion_binaria(resid, pen)
 
     fig, (axa, axb) = plt.subplots(2, 1, figsize=(COL_DOBLE, 4.6), sharex=True)

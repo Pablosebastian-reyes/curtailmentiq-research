@@ -1,0 +1,13 @@
+estrato,serie,algoritmo,fecha,salto_local,penalizacion
+solar_norte,cruda,pelt,2023-08,1.3,3.9865
+solar_norte,cruda,binseg,2023-08,1.3,3.9865
+solar_norte,desestacionalizada,pelt,2023-05,1.142,3.0269
+solar_norte,desestacionalizada,pelt,2024-01,0.657,3.0269
+solar_norte,desestacionalizada,binseg,2023-05,1.142,3.0269
+solar_norte,desestacionalizada,binseg,2024-01,0.657,3.0269
+sistema_sol_eol,cruda,pelt,2023-10,1.047,2.1986
+sistema_sol_eol,cruda,binseg,2023-10,1.047,2.1986
+sistema_sol_eol,desestacionalizada,pelt,2023-04,0.692,1.4404
+sistema_sol_eol,desestacionalizada,pelt,2024-01,0.609,1.4404
+sistema_sol_eol,desestacionalizada,binseg,2023-05,0.689,1.4404
+sistema_sol_eol,desestacionalizada,binseg,2024-01,0.609,1.4404

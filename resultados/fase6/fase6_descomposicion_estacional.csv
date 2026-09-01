@@ -1,0 +1,11 @@
+estrato,anio,ventanas,total,estacional,secular,pct_estacional
+solar_norte,2022,ene-sep vs oct-dic,0.637,0.722,-0.085,113.4
+solar_norte,2023,ene-sep vs oct-dic,1.008,0.722,0.286,71.6
+solar_norte,2024,ene-sep vs oct-dic,1.177,0.722,0.455,61.3
+solar_norte,2025,ene-sep vs oct-dic,0.896,0.722,0.173,80.6
+solar_norte,2024,calibracion (ene-ago) vs oct-dic,1.286,0.782,0.504,60.8
+sistema_sol_eol,2022,ene-sep vs oct-dic,0.766,0.659,0.106,86.1
+sistema_sol_eol,2023,ene-sep vs oct-dic,0.891,0.659,0.232,74.0
+sistema_sol_eol,2024,ene-sep vs oct-dic,0.862,0.659,0.203,76.4
+sistema_sol_eol,2025,ene-sep vs oct-dic,0.706,0.659,0.047,93.3
+sistema_sol_eol,2024,calibracion (ene-ago) vs oct-dic,0.94,0.695,0.245,74.0

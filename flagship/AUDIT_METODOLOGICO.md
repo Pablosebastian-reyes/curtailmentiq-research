@@ -1,5 +1,13 @@
 # Audit metodológico del prototipo conformal
 
+> **Nota de la revision mayor (2026-09-01).** Este es un documento fechado y no se
+> reescribe: es el registro de lo que se penso en su momento. La nomenclatura que usa
+> (`test_ramp`, "rampa BESS", "quiebre BESS") quedo obsoleta. La ventana se llama hoy
+> `test_transition` y se define como la de maxima divergencia respecto de la
+> distribucion de calibracion, sin atribucion causal a ninguna tecnologia. Ver
+> `REVISION_PLAN.md` (comentario R2.2) y `HALLAZGOS_CRITICOS.md`.
+
+
 Audit metodológico del prototipo conformal. Autor: Kerven Cea Morales (co-autor, Methodology/Formal analysis). Fecha: 2026-07-19. Este documento define el diseño de trabajo del flagship; sus propuestas se implementan en el prototipo v2 dirigido por el autor.
 
 ---

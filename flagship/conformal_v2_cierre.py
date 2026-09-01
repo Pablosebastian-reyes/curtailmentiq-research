@@ -16,7 +16,7 @@ Decisiones que cierra:
       infinitos se reporta como limitacion conocida del pool fijo).
   (b) Transporte + ACI con BANDA de incertidumbre por bootstrap sobre la
       ventana reciente, contra la version sin banda de v2, mirando el ancho
-      de la transicion (test_ramp).
+      de la transicion (test_transition).
   (c) Weighted conformal por punto con score PIT como version definitiva del
       negative result (el fallo por las X, no por el score, ya se verifico
       tambien con score aditivo en el audit y en v2).
@@ -173,7 +173,7 @@ def correr_transporte_aci(ev, test, s_cal, sigma, fechas_test, gamma,
                           con_banda, rng, refresco_dias=7, ventana_dias=60):
     """Transporte de scores (calibracion vieja -> ventana reciente) mas ACI
     diario sobre el pool transportado. Devuelve (U por fila de test, diag del
-    ultimo refresco dentro de test_ramp)."""
+    ultimo refresco dentro de test_transition)."""
     dias_ev = ev.fecha.values.astype('datetime64[D]')
     U = np.empty(len(test))
     alpha_t = ALPHA

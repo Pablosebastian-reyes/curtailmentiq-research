@@ -25,10 +25,10 @@ from scipy.stats import norm
 
 # Fronteras de periodo compartidas por el experimento sintetico y el real.
 # Son identicas por diseno: test_pre regimen estable (septiembre 2024),
-# test_ramp la rampa BESS (octubre a diciembre 2024), luego por semestre.
+# test_transition la ventana de transicion (octubre a diciembre 2024), luego por semestre.
 PERIODOS = [
     ('test_pre',  pd.Timestamp('2024-09-01'), pd.Timestamp('2024-10-01')),
-    ('test_ramp', pd.Timestamp('2024-10-01'), pd.Timestamp('2025-01-01')),
+    ('test_transition', pd.Timestamp('2024-10-01'), pd.Timestamp('2025-01-01')),
     ('2025-S1',   pd.Timestamp('2025-01-01'), pd.Timestamp('2025-07-01')),
     ('2025-S2',   pd.Timestamp('2025-07-01'), pd.Timestamp('2026-01-01')),
     ('2026-S1',   pd.Timestamp('2026-01-01'), pd.Timestamp('2026-06-01')),

@@ -9,6 +9,7 @@ dependencies:
   - xgboost
   - lightgbm
   - statsmodels
+  - ruptures      # deteccion de puntos de cambio (Fase 6 de la revision)
   - matplotlib
   - jupyterlab
   - sqlalchemy

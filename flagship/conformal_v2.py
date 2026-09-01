@@ -10,7 +10,7 @@ sin tocarlo) para que los resultados sean comparables.
 ADVERTENCIA: datos sinteticos. No son resultados reales, no se citan.
 
 Que compara este script (todos sobre los splits corregidos: test_pre =
-solo septiembre 2024, ya no incluye la rampa BESS que arrancaba en
+solo septiembre 2024, ya no incluye la ventana de transicion que arrancaba en
 2024-10-01, error de v1 que el audit encontro):
 
   a) Conformal split estatico, score aditivo (referencia = v1).
@@ -167,7 +167,7 @@ def cobertura_clusterizada(fecha, cubierto):
 
 PERIODOS = [
     ('test_pre',  pd.Timestamp('2024-09-01'), pd.Timestamp('2024-10-01')),
-    ('test_ramp', pd.Timestamp('2024-10-01'), pd.Timestamp('2025-01-01')),
+    ('test_transition', pd.Timestamp('2024-10-01'), pd.Timestamp('2025-01-01')),
     ('2025-S1',   pd.Timestamp('2025-01-01'), pd.Timestamp('2025-07-01')),
     ('2025-S2',   pd.Timestamp('2025-07-01'), pd.Timestamp('2026-01-01')),
     ('2026-S1',   pd.Timestamp('2026-01-01'), pd.Timestamp('2026-06-01')),
@@ -227,7 +227,7 @@ def main():
     print(f"Panel: {len(df):,} filas | train {len(tr):,} | calib {len(cal):,} "
           f"| sigma hurdle = {m.sigma:.3f}")
 
-    # splits de evaluacion CORREGIDOS (test_pre ya no incluye la rampa BESS)
+    # splits de evaluacion CORREGIDOS (test_pre ya no incluye la ventana de transicion)
     ev = df[df.fecha >= '2024-09-01'].copy()
     ev = ev[ev.fecha < '2026-06-01']
     ev['periodo'] = ev.fecha.apply(etiquetar_periodo)
@@ -510,7 +510,7 @@ def graficar_cobertura_rodante(ev, series_dict, ventana=90):
 
     ax.axhline(90, color='#666666', linewidth=1, linestyle=':', zorder=0)
     ax.axvline(pd.Timestamp('2024-10-01'), color='#999999', linewidth=1, linestyle='--', zorder=0)
-    ax.text(pd.Timestamp('2024-10-10'), 98, 'inicio rampa BESS', fontsize=8,
+    ax.text(pd.Timestamp('2024-10-10'), 98, 'inicio ventana de transicion', fontsize=8,
             color='#999999', va='top', ha='left')
 
     ax.set_ylim(55, 101)

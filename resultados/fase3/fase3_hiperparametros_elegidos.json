@@ -1,0 +1,42 @@
+{
+  "protocolo": "origen rodante dentro de la ventana de calibracion",
+  "calibracion_interna": [
+    "2024-01-01",
+    "2024-05-01"
+  ],
+  "validacion_interna": [
+    "2024-05-01",
+    "2024-09-01"
+  ],
+  "criterio": "interval score medio del limite unilateral superior, +inf si hay algun intervalo infinito",
+  "rejilla_gamma": [
+    0.005,
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.2
+  ],
+  "rejilla_ventana": [
+    30,
+    45,
+    60,
+    90,
+    120
+  ],
+  "semilla": 20260720,
+  "elegidos": {
+    "ACI": {
+      "gamma": 0.005,
+      "ventana": null,
+      "IS_validacion": 463.5,
+      "cobertura_validacion": 87.86
+    },
+    "Transporte+ACI": {
+      "gamma": 0.005,
+      "ventana": 120,
+      "IS_validacion": 495.26,
+      "cobertura_validacion": 88.74
+    }
+  }
+}

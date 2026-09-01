@@ -52,7 +52,7 @@ CSV = FLAGSHIP / 'predicciones' / 'pred_hurdle.csv'
 # Cortes sobre datos reales (documentados). Las predicciones reales existen
 # desde 2024-01-01 (el modelo base predice fuera de muestra desde ahi), asi
 # que la calibracion debe caer dentro de 2024-01 a 2024-08 para dejar
-# test_pre como regimen estable previo a la rampa BESS.
+# test_pre como regimen estable previo a la ventana de transicion.
 CAL_INI, CAL_FIN = pd.Timestamp('2024-01-01'), pd.Timestamp('2024-09-01')
 
 
@@ -279,12 +279,12 @@ def graficar(fecha, y, series_dict, ventana=90):
 
     ax.axhline(90, color='#666666', linewidth=1, linestyle=':', zorder=0)
     ax.axvline(pd.Timestamp('2024-10-01'), color='#999999', linewidth=1, linestyle='--', zorder=0)
-    ax.text(pd.Timestamp('2024-10-10'), 61, 'inicio rampa BESS', fontsize=8,
+    ax.text(pd.Timestamp('2024-10-10'), 61, 'inicio ventana de transicion', fontsize=8,
             color='#999999', va='bottom', ha='left')
     ax.set_ylim(58, 101)
     ax.set_xlabel('Fecha')
     ax.set_ylabel('Cobertura rodante 90 dias (%)')
-    ax.set_title('Cobertura rodante sobre datos REALES bajo el quiebre BESS (sigma hurdle = 1.70)')
+    ax.set_title('Cobertura rodante sobre datos REALES bajo el cambio de regimen (sigma hurdle = 1.70)')
     ax.legend(loc='lower left', fontsize=8, framealpha=0.9)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)

@@ -1,0 +1,23 @@
+w1,ic_lo,ic_hi,nulo_q95,significativo,n_dias_A,n_dias_B,estrato,contraste,dif_medias,w1_menos_dif_medias
+0.9474,0.728,1.1662,0.3591,si,244,30,solar_norte,calibracion vs test_pre,0.9437,0.0037
+1.2526,1.112,1.4072,0.2456,si,244,92,solar_norte,calibracion vs test_transition,1.2518,0.0008
+0.2777,0.1138,0.4905,0.1923,si,244,179,solar_norte,calibracion vs 2025-S1,0.2766,0.0011
+0.7589,0.605,0.9032,0.1714,si,244,184,solar_norte,calibracion vs 2025-S2,0.7589,0.0
+0.3382,0.2061,0.5153,0.1845,si,244,151,solar_norte,calibracion vs 2026-S1,0.311,0.0272
+1.1471,1.0099,1.2785,0.2196,si,274,92,solar_norte,ene-sep 2024 vs oct-dic 2024,1.1461,0.001
+0.1722,0.0703,0.3665,0.1931,no,274,179,solar_norte,ene-sep 2024 vs ene-jun 2025,0.1709,0.0013
+0.9771,0.79,1.1762,0.2391,si,92,92,solar_norte,oct-dic 2022 vs oct-dic 2023,0.9771,0.0
+1.2014,1.0576,1.343,0.247,si,92,92,solar_norte,oct-dic 2023 vs oct-dic 2024,1.2024,0.001
+0.0849,0.0449,0.1838,0.1149,no,92,92,solar_norte,oct-dic 2024 vs oct-dic 2025,-0.0724,0.0125
+1.3344,1.1272,1.5415,0.2347,si,91,153,solar_norte,may-jul 2025 vs ago-dic 2025,1.3353,0.0009
+0.676,0.4962,0.8568,0.3034,si,244,30,sistema_sol_eol,calibracion vs test_pre,0.6745,0.0015
+0.9131,0.7776,1.0609,0.2098,si,244,92,sistema_sol_eol,calibracion vs test_transition,0.913,0.0001
+0.151,0.1155,0.2528,0.1685,no,244,180,sistema_sol_eol,calibracion vs 2025-S1,0.0734,0.0776
+0.4709,0.3424,0.5951,0.138,si,244,184,sistema_sol_eol,calibracion vs 2025-S2,0.4711,0.0002
+0.1765,0.1324,0.2991,0.1783,no,244,151,sistema_sol_eol,calibracion vs 2026-S1,0.1184,0.0581
+0.8337,0.719,0.9504,0.184,si,274,92,sistema_sol_eol,ene-sep 2024 vs oct-dic 2024,0.8333,0.0004
+0.1472,0.0996,0.2521,0.1584,no,274,180,sistema_sol_eol,ene-sep 2024 vs ene-jun 2025,-0.0062,0.141
+0.4858,0.3076,0.6718,0.1943,si,92,92,sistema_sol_eol,oct-dic 2022 vs oct-dic 2023,0.4839,0.0019
+0.8001,0.655,0.9365,0.1776,si,92,92,sistema_sol_eol,oct-dic 2023 vs oct-dic 2024,0.7999,0.0002
+0.1719,0.0964,0.2793,0.1124,si,92,92,sistema_sol_eol,oct-dic 2024 vs oct-dic 2025,-0.1417,0.0302
+0.9329,0.7103,1.113,0.2054,si,92,153,sistema_sol_eol,may-jul 2025 vs ago-dic 2025,0.934,0.0011

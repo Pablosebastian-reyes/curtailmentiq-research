@@ -10,7 +10,7 @@ corre igual.
 
 Historia que demuestra:
   1. Datos sinteticos: ~30% ceros, magnitud lognormal cola pesada,
-     persistencia AR(1) 0.85, ciclo semanal, quiebre BESS desde fines 2024.
+     persistencia AR(1) 0.85, ciclo semanal, cambio de regimen desde fines 2024.
   2. Modelo hurdle: ocurrencia (clasificador) + magnitud (lognormal).
   3. Conformal split one-sided: intervalo [0, U] con cobertura garantizada.
   4. LA COBERTURA SE CUMPLE pre-quiebre y SOBRECUBRE post-quiebre con
@@ -176,15 +176,15 @@ if __name__ == '__main__':
           f"(EDA real: 15x)")
 
     # ---- Splits temporales (el diseno que discutiremos con Kerven)
-    # Audit Kerven (pto 3): la rampa BESS parte el 1-oct-2024, asi que el test
+    # Audit Kerven (pto 3): la ventana de transicion parte el 1-oct-2024, asi que el test
     # de mismo regimen termina el 2024-09-30; oct-dic 2024 es rampa temprana.
     tr    = df[df.fecha <  '2024-01-01']                                  # entrena
     cal   = df[(df.fecha >= '2024-01-01') & (df.fecha < '2024-09-01')]    # calibra
     tpre  = df[(df.fecha >= '2024-09-01') & (df.fecha < '2024-10-01')]    # test MISMO regimen
-    tramp = df[(df.fecha >= '2024-10-01') & (df.fecha < '2025-01-01')]    # rampa BESS temprana
+    tramp = df[(df.fecha >= '2024-10-01') & (df.fecha < '2025-01-01')]    # ventana de transicion temprana
     tpos  = df[df.fecha >= '2025-01-01']                                  # test POST-quiebre
     for n, d in [('train', tr), ('calib', cal), ('test_pre', tpre),
-                 ('test_ramp', tramp), ('test_post', tpos)]:
+                 ('test_transition', tramp), ('test_post', tpos)]:
         print(f"  {n:10s} {len(d):7,} filas  {d.fecha.min().date()} .. {d.fecha.max().date()}")
 
     # ---- Ajuste del hurdle
@@ -196,7 +196,7 @@ if __name__ == '__main__':
     print("PASO 1 - Modelo solo, sin garantia (cuantil 90% del hurdle)")
     print("-"*74)
     filas = [evaluar('test_pre  (mismo regimen)', tpre.y.values, m.upper(tpre[FEATS].values, ALPHA)),
-             evaluar('test_ramp (rampa temprana)', tramp.y.values, m.upper(tramp[FEATS].values, ALPHA)),
+             evaluar('test_transition (rampa temprana)', tramp.y.values, m.upper(tramp[FEATS].values, ALPHA)),
              evaluar('test_post (post-quiebre)', tpos.y.values, m.upper(tpos[FEATS].values, ALPHA))]
     print(pd.DataFrame(filas).to_string(index=False))
 
@@ -209,7 +209,7 @@ if __name__ == '__main__':
     qhat = q_conformal(s_cal, ALPHA)
     print(f"Correccion conformal qhat = {qhat:+.1f} MWh  (n_calib={len(cal):,})")
     filas = []
-    for nombre, d in [('test_pre  (mismo regimen)', tpre), ('test_ramp (rampa temprana)', tramp),
+    for nombre, d in [('test_pre  (mismo regimen)', tpre), ('test_transition (rampa temprana)', tramp),
                       ('test_post (post-quiebre)', tpos)]:
         U = np.maximum(0, m.upper(d[FEATS].values, ALPHA) + qhat)
         filas.append(evaluar(nombre, d.y.values, U))

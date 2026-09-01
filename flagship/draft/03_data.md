@@ -4,7 +4,7 @@ Contenido previsto (ver `../INDICE_PAPER.md`, seccion 3):
 - Fuente: dataset v1.0 de vertimiento por central del Sistema Electrico Nacional de Chile (2022 a 2026), corregido por erratas. Referencia al data paper y al deposito Zenodo, sin duplicar la descripcion.
 - Panel sintetico: proceso generador calibrado al EDA del release v1.0, banco de pruebas controlado y no citable como evidencia empirica.
 - Predicciones reales: salida del modelo base hurdle entrenado solo hasta 2023-12-31, con sigma out-of-fold = 1.70.
-- Cortes temporales: calibracion, test_pre, test_ramp y los semestres 2025-S1, 2025-S2, 2026-S1.
+- Cortes temporales: calibracion, test_pre, test_transition y los semestres 2025-S1, 2025-S2, 2026-S1.
 
 ## Material del repo que alimenta esta seccion
 
