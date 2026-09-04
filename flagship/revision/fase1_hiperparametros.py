@@ -37,6 +37,20 @@ SAL = R.REPO / 'resultados' / 'fase1'
 SAL.mkdir(parents=True, exist_ok=True)
 
 
+def costo_cobertura_cota_alpha():
+    """Caida maxima de cobertura al acotar alpha por abajo, leida de la Fase 4.
+
+    Este campo se escribia a mano y quedo desincronizado: decia 0.4 puntos
+    cuando el manuscrito y la carta ya decian medio punto. Ahora sale del mismo
+    CSV que alimenta la Tabla 8, asi que no puede volver a divergir.
+    """
+    c = pd.read_csv(R.REPO / 'resultados' / 'fase4' / 'fase4_cota_alpha.csv')
+    v = c[c.periodo == 'TEST_COMPLETO']
+    sin = v[v.cota == 'sin cota'].set_index('metodo').cobertura
+    con = v[v.cota == 'alpha_min=0.005'].set_index('metodo').cobertura
+    return float((sin - con).max())
+
+
 def defecto(fn, nombre):
     return inspect.signature(fn).parameters[nombre].default
 
@@ -145,7 +159,8 @@ def main():
          'intervalos infinitos', 'rev_lib.py:aci(alpha_min, alpha_max)'),
         ('ACI', 'Recorte de alpha_t recomendado', 'alpha_min = 0.005',
          'elimina por completo los intervalos infinitos en las cinco ventanas '
-         'a un costo de a lo mas 0.4 puntos de cobertura (Fase 4)',
+         f'a un costo de a lo mas {costo_cobertura_cota_alpha():.1f} puntos de '
+         'cobertura (Fase 4)',
          'fase4_metricas_benchmarks.py'),
         ('ACI', 'ORDEN DE EJECUCION',
          'refresco del mapa, luego cuantil, luego intervalo, luego ACI',

@@ -42,3 +42,6 @@ seccion,afirmacion,en_el_texto,regenerado,verifica,fuente
 3.3,movimiento maximo del centroide,hasta 22 minutos,22 minutos,si,fase6_perfil_intradiario.csv
 5.7,rango de divergencia de las fronteras alternativas,0.99 a 1.34,0.99 a 1.34,si,fase6_sensibilidad_frontera.csv
 5.6,cuantil conformal agrupado y por bloques,"0.9242 a 0.9263, sd 0.0112",segun el log de la Fase 5,si,logs/fase5_*.log
+C.11,"costo de cobertura de la cota de alpha, campo de la tabla",0.5 puntos,elimina por completo los intervalos infinitos en las cinco ventanas a ...,si,fase1/hiperparametros.csv + fase4_cota_alpha.csv
+C.11,"gamma seleccionado, campo de la tabla",0.005,"menor interval score en la validacion interna, Fase 3; produ",si,fase3_hiperparametros_elegidos.json
+C.11,"ventana seleccionada, campo de la tabla",120 dias,120 dias,si,fase3_hiperparametros_elegidos.json

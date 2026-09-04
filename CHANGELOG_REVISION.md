@@ -48,7 +48,7 @@ Ningun script de la revision escribe sobre `resultados/v_enviada/`.
 | `flagship/revision/fase5_dependencia_panel.py` | ICC y efecto de diseno; conformal por bloques, por grupos y por central; cobertura desagregada en cuatro ejes | R2.5 |
 | `flagship/revision/fase6_cronologia.py` | Cronologia unica, 180 configuraciones de deteccion, W1 con IC y nulo, descomposicion estacional, seis fronteras alternativas y verificacion de 24 afirmaciones | R2.3 |
 | `flagship/revision/fase8_buscar_referencias.py` | Busca y VERIFICA referencias contra Crossref; nada entra sin DOI resuelto | R2.1 |
-| `flagship/revision/fase9_figuras_revision.py` | Figuras 6, 7 y 8 | Q4, R1.2, R1.3 |
+| `flagship/revision/fase9_figuras_revision.py` | Figuras 4, 7 y 8 del manuscrito (el diagrama de flujo, la comparacion entre modelos base y el aporte por componente) | Q4, R1.2, R1.3 |
 | `flagship/revision/fase9_tablas_tex.py` | Emite los diez floats de tabla desde los CSV de resultados | Regla Dura 1 |
 | `flagship/revision/verificar_manuscrito.py` | Comprueba las 43 afirmaciones numericas en prosa del manuscrito contra su archivo de resultados | Regla Dura 1 |
 
@@ -156,11 +156,11 @@ y declarado en el manuscrito.
 | Subseccion nueva: dependencia de panel y cobertura condicional | R2.5 | \S5.6 |
 | Subseccion nueva: sensibilidad de la frontera | R2.3 | \S5.7 |
 | Discusion reescrita alrededor del diagnostico | R1.1, Q5 | \S6 |
-| **Seccion nueva de limitaciones, nueve items** | Q7 | \S7 |
+| **Seccion nueva de limitaciones, diez items** | Q7 | \S7 |
 | Conclusion reescrita | R1.1, R2.7, Q5 | \S8 |
 | Apendice C nuevo: hiperparametros; apendice D nuevo: reproducibilidad | R1.2, R2.4 | apendices |
 | Bibliografia de 10 a 43 entradas, todas con DOI verificado | R2.1 | bibliografia |
-| Algoritmo 1 y figuras 6, 7 y 8 nuevas | R1.2, R1.3, Q4 | varias |
+| Algoritmo 1 y figuras 4, 7 y 8 nuevas | R1.2, R1.3, Q4 | varias |
 | Diez de las doce tablas se generan desde CSV por `\input` | Regla Dura 1 | varias |
 
 **Nota tecnica de LaTeX.** Las tablas se incluyen como floats completos y no como
@@ -180,7 +180,7 @@ Detectados por `verificar_manuscrito.py` sobre un borrador y corregidos:
 | Costo de cobertura de la cota de alpha | a lo mas 0.4 puntos | a lo mas medio punto (0.5) |
 | Lectura del IC en `resultados/fase0_model_agnostic.md` | "contiene el cero" | "apenas excluye el cero por el lado equivocado"; el IC del interval score si lo contiene |
 
-**Ademas, alineamiento de la penalizacion de la figura 5.**
+**Ademas, alineamiento de la penalizacion de la figura de puntos de cambio (Fig. 3).**
 `generar_figuras_paper.py` calculaba los puntos de cambio con un estimador
 robusto del ruido y un factor 3; devolvia los mismos dos quiebres, pero la
 especificacion no coincidia con la declarada en el manuscrito. Ahora usa la
@@ -189,7 +189,7 @@ misma convencion BIC que `fase6_cronologia.py`, `pen = sigma^2 log n` con
 
 ```
 $VENV flagship/generar_figuras_paper.py
-# fig5: quiebres ['2023-05', '2024-01'], penalizacion 3.0269
+# figura de puntos de cambio: quiebres ['2023-05', '2024-01'], penalizacion 3.0269
 ```
 
 El primero venia de una corrida previa al alineamiento del orden de consumo del
@@ -242,7 +242,166 @@ $VENV flagship/revision/fase4_metricas_benchmarks.py
 - Las fronteras temporales de calibracion y de las cinco ventanas de evaluacion.
 - El dataset y su alcance.
 - El modelo base oficial de la Tabla 3, que sigue siendo el hurdle con sigma constante.
-- Las figuras 1 a 5.
+- Las figuras 1 a 8, salvo la renumeracion que introdujo el diagrama de flujo.
 - Los resultados de `conformal_v3_tabla.csv`, salvo la etiqueta de la ventana.
 - El encuadre agnostico sobre las causas del cambio de regimen, que es deliberado
   y anterior a esta revision.
+
+
+---
+
+## 8. Correcciones de una auditoria externa del paquete
+
+Cuatro problemas detectados sobre el paquete ya compilado. Todos corregidos y
+verificados. Ningun resultado experimental cambia.
+
+### 8.1 Referencias cruzadas corridas en la carta de respuesta
+
+El manuscrito era internamente consistente, pero la carta apuntaba a una
+numeracion anterior. Dos inserciones la corrieron: la subseccion 4.6 (novedad),
+que empujo la seleccion de hiperparametros a 4.7 y la evaluacion a 4.8; y el
+diagrama de flujo, que entro como Figura 4 y empujo la cobertura rodante a 5 y
+el trade-off a 6. Ademas, la tabla de cobertura desagregada quedo fundida dentro
+de la Tabla 9, de modo que la sensibilidad de la frontera es la 10 y la de
+hiperparametros es la C.11 del apendice, no la 11 y la 12.
+
+**28 correcciones en `flagship/segan/response_to_reviewers.tex`.** La columna
+"Decia" va entre comillas de codigo a proposito: el verificador de referencias
+trata lo que esta entre comillas como cita literal y no como referencia viva, de
+modo que esta tabla puede documentar la numeracion vieja sin dispararlo.
+
+| Objeto | Decia | Es |
+|---|---|---|
+| Seleccion por origen rodante | `\S4.6` | \S4.7 |
+| Metrica y tratamiento de infinitos | `\S4.7` (x3) | \S4.8 |
+| Atribucion y novedad | `\S4.5` (x5) | \S4.6 |
+| Diagrama de flujo | `Figura 6` (x3) | Figura 4 |
+| Cobertura rodante y trade-off | `Figuras 3--4` (x2) | Figuras 5--6 |
+| Puntos de cambio | `Figura 5` | Figura 3 |
+| Tabla de hiperparametros | `Tabla 12` (x2) | Tabla C.11 |
+| Sensibilidad de la frontera | `Tabla 11` (x2) | Tabla 10 |
+| Cobertura condicional | `Tabla 10`, `Tablas 9--10` | Tabla 9 |
+| Las tres figuras nuevas | `Figs. 6--8` | Figs. 4, 7 y 8 |
+
+Dos correcciones de contenido que salieron al revisar:
+
+- La carta decia `Figure~5, unchanged` de la figura de puntos de cambio. No solo
+  era la 3: tampoco estaba sin cambios, porque se regenero al alinear la
+  penalizacion. Ahora dice que se regenero y que devuelve los mismos dos quiebres.
+- La respuesta a Q4 anunciaba ocho tablas nuevas y enumeraba nueve, porque
+  contaba la cobertura desagregada como tabla aparte. Se fundio en la 9.
+
+**En `REVISION_PLAN.md`** se corrigio el inventario de tablas 9 a 11 y el de
+figuras 3 a 6. **En `CHANGELOG_REVISION.md`**, las tres menciones a `figuras 6, 7 y 8` y la de la figura de puntos de cambio.
+
+**Verificador nuevo: `flagship/revision/verificar_referencias_cruzadas.py`.**
+Hace tres cosas. Numera el manuscrito parseando el `.tex` y resolviendo los
+`\input` de los cuerpos de tabla, que es donde viven los floats; se autochequea
+contra `build/SEGAN_paper_FINAL.aux` y aborta si discrepa de lo que numero
+LaTeX; comprueba que toda referencia literal apunte a un objeto existente, en
+las formas larga, abreviada (`\S`, `Fig.~`, `App.~`, `Alg.~`), de rango
+(`Tables 9--10`) y en espanol de los `.md`; y comprueba la semantica contra un
+mapa de frase distintiva a etiqueta, porque una referencia puede existir y aun
+asi apuntar al lugar equivocado.
+
+```
+$VENV flagship/revision/verificar_referencias_cruzadas.py
+# 54 etiquetas coinciden con LaTeX; 139 referencias literales; 0 problemas
+```
+
+### 8.2 Numero viejo en la Tabla C.11
+
+El campo de descripcion de la cota de alpha decia "a lo mas 0.4 puntos de
+cobertura" cuando el manuscrito, la carta y la Tabla 8 ya decian medio punto. El
+valor correcto es 0.5, la caida de Transporte+ACI con gamma 0.05 al pasar de
+alpha sin cota a alpha_min = 0.005 (90.1 a 89.6).
+
+No se corrigio escribiendo 0.5 a mano. `fase1_hiperparametros.py` ahora lo
+calcula desde `resultados/fase4/fase4_cota_alpha.csv`, que es el mismo archivo
+que alimenta la Tabla 8, asi que los dos no pueden volver a divergir.
+
+`verificar_manuscrito.py` no lo detecto porque solo auditaba la prosa del `.tex`,
+y ese numero vive en un campo de descripcion de una tabla generada. Se extendio
+a esos campos: ahora comprueba el costo de cobertura, el gamma y la ventana
+seleccionados, y lista todo campo de descripcion que contenga un decimal para
+inspeccion. Pasa de 43 a 46 afirmaciones.
+
+La guardia se probo reintroduciendo el 0.4 a proposito: el verificador falla con
+exit 1 y nombra la fila. Restaurado, vuelve a 0.
+
+```
+$VENV flagship/revision/fase1_hiperparametros.py
+$VENV flagship/revision/verificar_manuscrito.py
+# 46 de 46 afirmaciones verifican
+```
+
+### 8.3 La afirmacion de disciplina identica estaba expuesta
+
+El manuscrito decia que el GBM multi-cuantil se entreno con "identical training
+discipline". Es cierto en features, filas, corte temporal, hiperparametros por
+modelo y semilla, pero no en capacidad: son 54 modelos boosted de 400 arboles
+contra los 2 del hurdle. Un revisor podia objetar que la comparacion confunde
+forma del modelo con capacidad del modelo, y habria tenido razon.
+
+Se declara antes de que lo declaren ellos:
+
+- **Abstract, introduccion, 6.2 y conclusion:** "identical training discipline"
+  pasa a enumerar lo que efectivamente es identico. La afirmacion de dominacion
+  de 6.2 se enuncia ahora con su costo de capacidad.
+- **Seccion 4.1:** al describir el modelo se dice que el protocolo no fija la
+  capacidad, con las cifras, y se remite a las limitaciones.
+- **Seccion 5.3:** se acota la atribucion. "Modelo base" pasa a significar la
+  pareja forma-capacidad conjuntamente, y se dice que el diseno no las separa.
+- **Seccion 7, limitacion nueva (la sexta de diez):** la comparacion no separa
+  forma de capacidad; la dominacion es una afirmacion sobre estos tres objetos
+  ajustados y no sobre la regresion cuantilica como clase; y se describe el
+  diseno que lo zanjaria, con hurdle de presupuesto de arboles equiparado o
+  rejilla adelgazada, declarando que no se corrio.
+- **Carta, respuesta a R1.1:** se declara la limitacion en el cuerpo de la
+  respuesta, no escondida en la seccion de limitaciones.
+
+**El diagnostico no se toca.** La relacion entre sobre-cobertura y recorte es un
+contraste DENTRO de cada brazo, medido bajo una predictiva fija a la vez, y se
+sostiene por separado en los tres. Lo que queda acotado es la afirmacion de
+dominacion entre brazos.
+
+El conteo de limitaciones pasa de nueve a diez en el manuscrito, la carta,
+`REVISION_PLAN.md` y este archivo.
+
+### 8.4 El titulo perdio el dominio
+
+El titulo anterior, "Adaptive conformal calibration under regime change: the
+gain measures base-model miscalibration", no contenia curtailment, renewable,
+power ni grid. El editor pidio generalidad, no que el paper dejara de ser
+identificable como de sistemas electricos.
+
+Nuevo titulo, que ya estaba en la carta como alternativa 1:
+
+> An open curtailment dataset and a diagnostic for adaptive conformal
+> calibration under regime change
+
+Catorce palabras, sin el pais, con las dos contribuciones a la vista. El
+anterior baja a alternativa 1 en la carta, con su desventaja anotada. La fila de
+la tabla resumen pasa de "26 to 13 words" a "26 to 14 words".
+
+**Longitud del abstract.** La guia para autores de SEGAN pide un maximo de 250
+palabras. El abstract tenia 431. Se recorto a 248 conservando las tres
+separaciones de garantia (validez en muestra finita bajo intercambiabilidad,
+control adaptativo de largo plazo, cobertura empirica en panel dependiente), el
+resultado diagnostico, la relacion ajustada con sus tres cifras, y la
+descripcion del sistema que habia bajado del titulo. Se comprimieron las
+ablaciones a una oracion y se quitaron el CQR y la cota de alpha, que estan en
+el cuerpo. Comprobado por conteo automatico y por presencia de cada elemento
+obligatorio.
+
+---
+
+## 9. Comprobaciones que pasan al cierre
+
+```
+$VENV flagship/revision/verificar_manuscrito.py             # 46 de 46, exit 0
+$VENV flagship/revision/verificar_referencias_cruzadas.py   # 139 refs, exit 0
+cd build && pdflatex x3 SEGAN_paper_FINAL && pdflatex x2 response_to_reviewers
+# 0 errores, 0 referencias sin resolver
+# manuscrito 32 paginas, carta 19 paginas
+```

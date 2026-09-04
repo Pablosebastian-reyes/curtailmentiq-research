@@ -42,7 +42,7 @@ gamma reportado en el manuscrito & 0.02 y 0.05 & valores de la version enviada, 
 gamma seleccionado por origen rodante & 0.005 & menor interval score en la validacion interna, Fase 3; produce cero intervalos infinitos \\
 Ventana seleccionada por origen rodante & 120 dias & idem, para Transporte+ACI \\
 Recorte de alpha\_t, version enviada & [-1, 2] & permite alpha\_t <= 0 y por tanto q = +infinito: es el origen de los intervalos infinitos \\
-Recorte de alpha\_t recomendado & alpha\_min = 0.005 & elimina por completo los intervalos infinitos en las cinco ventanas a un costo de a lo mas 0.4 puntos de cobertura (Fase 4) \\
+Recorte de alpha\_t recomendado & alpha\_min = 0.005 & elimina por completo los intervalos infinitos en las cinco ventanas a un costo de a lo mas 0.5 puntos de cobertura (Fase 4) \\
 ORDEN DE EJECUCION & refresco del mapa, luego cuantil, luego intervalo, luego ACI & en la fecha t: (i) si toca refresco se recalcula el mapa con la ventana que termina en t-7 y se transporta todo el pool de calibracion; (ii) se toma el cuantil del pool transportado al alpha\_t VIGENTE, que aun no incorpora el error de t; (iii) se emite el intervalo; (iv) el error de t entra a la cola de embargo y actualiza alpha solo 7 pasos despues. El mapa nunca usa el alpha del ACI y el ACI nunca usa el mapa: el unico acoplamiento es el pool \\
 \midrule
 \multicolumn{3}{l}{\emph{Evaluacion}} \\

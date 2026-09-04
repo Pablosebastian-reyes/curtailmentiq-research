@@ -70,7 +70,7 @@ Leyenda de estado: `hecho` / `en curso` / `pendiente` / `refutado`.
 | **Q3** | R1 marca **No** en "¿son apropiados y estan bien descritos los analisis estadisticos?" | Reporte estadistico insuficiente | Cubierto por R1.4 (seleccion), R1.5 (metricas propias e IC de las diferencias) y R2.5 (dependencia de panel cuantificada). Todo IC de diferencia entre metodos ahora es bootstrap por bloques de dia | **hecho** |
 | **Q5** | R1 marca **No** en "¿la interpretacion y las conclusiones estan sostenidas por los datos?"; R2 pide expansion | La conclusion excedia lo que los datos sostienen | Es el mismo problema que detecta H1. La contribucion se reencuadra como diagnostico y la afirmacion de la reduccion de un tercio se acota al modelo base evaluado | **hecho** |
 | **Q4** | Ambos: "¿se beneficiaria de tablas o figuras adicionales?" | Faltan figuras | Tres figuras nuevas: diagrama de flujo del algoritmo (fig. 6), comparacion entre modelos base (fig. 7) y aporte marginal por componente (fig. 8) | **hecho** |
-| **Q7** | Ambos marcan **No** en "¿se declaran las limitaciones?" | Limitaciones insuficientes | Seccion 7 nueva y dedicada, con nueve limitaciones declaradas | **hecho** |
+| **Q7** | Ambos marcan **No** en "¿se declaran las limitaciones?" | Limitaciones insuficientes | Seccion 7 nueva y dedicada, con diez limitaciones declaradas | **hecho** |
 | **Q8/Q9** | Ambos: estructura, flujo y edicion de lenguaje | Reestructuracion y edicion | Secciones reordenadas, subsecciones anadidas y edicion de lenguaje en todo el manuscrito | **hecho** |
 | **ED** | Nota editorial | Titulo muy largo; cuestiona la mencion a Chile | Tres titulos alternativos sin el pais; la descripcion del sistema se mueve al abstract | **hecho** |
 
@@ -88,13 +88,13 @@ Leyenda de estado: `hecho` / `en curso` / `pendiente` / `refutado`.
 | Tabla 6, ablaciones | `resultados/fase2/fase2_aporte_por_componente.csv` | `fase2_ablaciones.py` |
 | Tabla 7, benchmarks y metricas | `resultados/fase4/fase4_metricas_completas.csv` | `fase4_metricas_benchmarks.py` |
 | Tabla 8, cota de alpha | `resultados/fase4/fase4_cota_alpha.csv` | `fase4_metricas_benchmarks.py` |
-| Tabla 9, dependencia de panel | `resultados/fase5/fase5_remedios.csv`, `fase5_diagnostico_dependencia.csv` | `fase5_dependencia_panel.py` |
-| Tabla 10, cobertura desagregada | `resultados/fase5/fase5_cobertura_desagregada.csv` | `fase5_dependencia_panel.py` |
-| Tabla 11, hiperparametros | `resultados/fase1/hiperparametros.csv` | `fase1_hiperparametros.py` |
+| Tabla 9, dependencia de panel y cobertura desagregada | `resultados/fase5/fase5_remedios.csv`, `fase5_diagnostico_dependencia.csv`, `fase5_cobertura_desagregada.csv` | `fase5_dependencia_panel.py` |
+| Tabla 10, sensibilidad de la frontera | `resultados/fase6/fase6_sensibilidad_frontera.csv` | `fase6_cronologia.py` |
+| Tabla C.11, hiperparametros (apendice C) | `resultados/fase1/hiperparametros.csv` | `fase1_hiperparametros.py` |
 | Fig. 1 mapa, Fig. 2 distribucion | `release/v1.0/` | `generar_figuras_paper.py` |
-| Fig. 3 cobertura rodante, Fig. 4 cobertura y ancho | `flagship/conformal_v3_tabla.csv` | `generar_figuras_paper.py` |
-| Fig. 5 puntos de cambio | `resultados/fase6/fase6_serie_mensual_*.csv` | `generar_figuras_paper.py` |
-| Fig. 6 diagrama de flujo | (esquematica) | `fase9_figuras_revision.py` |
+| Fig. 3 puntos de cambio | `resultados/fase6/fase6_serie_mensual_*.csv` | `generar_figuras_paper.py` |
+| Fig. 4 diagrama de flujo | (esquematica) | `fase9_figuras_revision.py` |
+| Fig. 5 cobertura rodante, Fig. 6 cobertura y ancho | `flagship/conformal_v3_tabla.csv` | `generar_figuras_paper.py` |
 | Fig. 7 comparacion de modelos base | `resultados/fase0/fase0_diagnostico.csv` | `fase9_figuras_revision.py` |
 | Fig. 8 aporte por componente | `resultados/fase2/fase2_aporte_por_componente.csv` | `fase9_figuras_revision.py` |
 

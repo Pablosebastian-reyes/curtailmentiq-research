@@ -291,6 +291,57 @@ def main():
         and en_tex('from 0.9242 to 0.9263', 'is 0.0112'),
         'logs/fase5_*.log')
 
+    # ---------------- campos de descripcion de las tablas generadas ----------
+    # Una auditoria externa encontro que la Tabla C.11 seguia diciendo "0.4
+    # puntos de cobertura" cuando el manuscrito y la carta ya decian medio
+    # punto. No se detecto porque este verificador solo miraba la PROSA del
+    # .tex, y ese numero vive en un campo de descripcion de una tabla generada.
+    # Desde aqui tambien se auditan esos campos.
+    print('\n' + '-' * 110)
+    print('CAMPOS DE DESCRIPCION DE LAS TABLAS GENERADAS')
+    print('-' * 110)
+
+    hp = pd.read_csv(RES / 'fase1' / 'hiperparametros.csv')
+    def campo(hiperparametro):
+        f = hp[hp.hiperparametro == hiperparametro]
+        return '' if f.empty else str(f.iloc[0].detalle)
+
+    ca = pd.read_csv(RES / 'fase4' / 'fase4_cota_alpha.csv')
+    cav = ca[ca.periodo == 'TEST_COMPLETO']
+    caida = float((cav[cav.cota == 'sin cota'].set_index('metodo').cobertura
+                   - cav[cav.cota == 'alpha_min=0.005'].set_index('metodo').cobertura).max())
+    d = campo('Recorte de alpha_t recomendado')
+    chk('C.11', 'costo de cobertura de la cota de alpha, campo de la tabla',
+        f'{caida:.1f} puntos', d[:70] + '...' if len(d) > 70 else d,
+        f'a lo mas {caida:.1f} puntos de cobertura' in d
+        and en_tex('at most half a point'),
+        'fase1/hiperparametros.csv + fase4_cota_alpha.csv')
+
+    ga = pd.read_csv(RES / 'fase3' / 'fase3_seleccion_validacion.csv')
+    import json
+    sel = json.load(open(RES / 'fase3' / 'fase3_hiperparametros_elegidos.json'))
+    g_aci = sel['elegidos']['ACI']['gamma']
+    v_tr = sel['elegidos']['Transporte+ACI']['ventana']
+    d = campo('gamma seleccionado por origen rodante')
+    chk('C.11', 'gamma seleccionado, campo de la tabla', str(g_aci),
+        campo('gamma seleccionado por origen rodante')[:60],
+        str(g_aci) in str(hp[hp.hiperparametro == 'gamma seleccionado por origen rodante'].iloc[0].valor),
+        'fase3_hiperparametros_elegidos.json')
+    chk('C.11', 'ventana seleccionada, campo de la tabla', f'{v_tr} dias',
+        str(hp[hp.hiperparametro == 'Ventana seleccionada por origen rodante'].iloc[0].valor),
+        str(v_tr) in str(hp[hp.hiperparametro == 'Ventana seleccionada por origen rodante'].iloc[0].valor),
+        'fase3_hiperparametros_elegidos.json')
+
+    # todo campo de la tabla que contenga un numero con decimales tiene que
+    # poder rastrearse; se listan para inspeccion, no se falla por ellos
+    import re as _re
+    sospechosos = [(r.hiperparametro, r.detalle) for _, r in hp.iterrows()
+                   if isinstance(r.detalle, str)
+                   and _re.search(r'\b\d+\.\d+\b', r.detalle)]
+    print(f'  campos de descripcion con un numero decimal: {len(sospechosos)}')
+    for k, v in sospechosos:
+        print(f'    {k}: {v[:88]}')
+
     # ---------------- salida ----------------
     V = pd.DataFrame(filas)
     V.to_csv(RES / 'verificacion_manuscrito.csv', index=False)

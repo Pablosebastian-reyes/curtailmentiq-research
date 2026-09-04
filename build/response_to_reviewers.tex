@@ -61,21 +61,21 @@ Pablo Reyes Cerda and Kerven Cea Morales
 Comment & Change & Location \\
 \midrule
 R1.1 & Multi-quantile GBM base model implemented; all experiments repeated on three base models; gain does not replicate; paper reframed & \S4.1, \S5.3, Tables 4--5, Fig.~7, abstract, \S8 \\
-R1.2 & Algorithm in full, flowchart, complete hyperparameter table with seeds, execution order stated & \S4.5, Alg.~1, Fig.~6, App.~C \\
+R1.2 & Algorithm in full, flowchart, complete hyperparameter table with seeds, execution order stated & \S4.5, Alg.~1, Fig.~4, App.~C \\
 R1.3 & Five ablation groups with marginal contribution, bootstrap intervals and runtime & \S5.4, Table~6, Fig.~8 \\
-R1.4 & Rolling-origin selection inside the calibration window; test reserved for one evaluation; sensitivity reported as display & \S4.6, \S5.7 \\
-R1.5 & One-sided interval score adopted; infinite limits handled explicitly; $\alpha$ bound evaluated; four benchmarks added; all differences with day-block bootstrap & \S4.7, \S5.5, Tables 7--8 \\
+R1.4 & Rolling-origin selection inside the calibration window; test reserved for one evaluation; sensitivity reported as display & \S4.7, \S5.7 \\
+R1.5 & One-sided interval score adopted; infinite limits handled explicitly; $\alpha$ bound evaluated; four benchmarks added; all differences with day-block bootstrap & \S4.8, \S5.5, Tables 7--8 \\
 R2.1 & Bibliography expanded from 10 to 43 entries, every DOI verified, no grouped citations & \S2 \\
-R2.2 & \texttt{test\_ramp} renamed, footnote removed, storage mentions audited; rename verified to change labels only & \S4.7, \S5.2, Table~3, Figs.~3--4, code \\
-R2.3 & Single chronology; 180 detection configurations; six alternative window boundaries evaluated & \S3.4, \S5.7, Table~11 \\
-R2.4 & Explicit statement of what is new and what is taken from the literature & \S4.5 \\
-R2.5 & ICC and design effect quantified; block, group and plant-level conformal tested; coverage disaggregated on four axes & \S4.3, \S5.6, Tables 9--10 \\
+R2.2 & \texttt{test\_ramp} renamed, footnote removed, storage mentions audited; rename verified to change labels only & \S4.8, \S5.2, Table~3, Figs.~5--6, code \\
+R2.3 & Single chronology; 180 detection configurations; six alternative window boundaries evaluated & \S3.4, \S5.7, Table~10 \\
+R2.4 & Explicit statement of what is new and what is taken from the literature & \S4.6 \\
+R2.5 & ICC and design effect quantified; block, group and plant-level conformal tested; coverage disaggregated on four axes & \S4.3, \S5.6, Table~9 \\
 R2.6 & Empirical quantiles, CQR, rolling historical distributions and zero-inflated parametric benchmarks; six metrics reported & \S5.5, Table~7 \\
 R2.7 & Point-forecasting claim scoped; three guarantee regimes separated in abstract, \S4.3 and conclusion & abstract, \S4.3, \S5.1, \S8 \\
-Q4 & Three new figures & Figs.~6--8 \\
-Q7 & Dedicated limitations section with nine items & \S7 \\
+Q4 & Three new figures & Figs.~4, 7 and 8 \\
+Q7 & Dedicated limitations section with ten items & \S7 \\
 Q8, Q9 & Restructuring and language editing throughout & whole manuscript \\
-Editorial & Title shortened from 26 to 13 words, country removed, system moved to abstract & title, abstract \\
+Editorial & Title shortened from 26 to 14 words, country removed, system moved to abstract & title, abstract \\
 \bottomrule
 \end{tabular}
 
@@ -86,20 +86,20 @@ Editorial & Title shortened from 26 to 13 words, country removed, system moved t
 Editorial note: the title of the article is very long. Is it necessary to mention ``for Chile's National Electricity System'' in the title? Journal articles should have more general validity that the application to a single country.
 \end{revcomment}
 
-\action{Agreed on both counts. The title went from 26 words to 13 and no longer names the country. It also now states the paper's finding rather than listing its components, which is a consequence of the reframing described in the cover letter.}
+\action{Agreed on both counts. The title went from 26 words to 14 and no longer names the country. It keeps the two contributions in view, the dataset and the diagnostic, and it keeps the paper identifiable as a power-systems paper: an earlier draft of this revision named only the method, and on rereading we judged that a title for this journal should say what the work is about.}
 
 Old: \emph{Probabilistic forecasting of renewable curtailment under regime change: an open dataset and a conformal method with distribution-shift-aware coverage control for Chile's National Electricity System.}
 
-New: \emph{Adaptive conformal calibration under regime change: the gain measures base-model miscalibration.}
+New: \emph{An open curtailment dataset and a diagnostic for adaptive conformal calibration under regime change.}
 
 We considered two alternatives and record them here in case the Editor prefers one:
 
 \begin{enumerate}[leftmargin=1.6em,itemsep=2pt]
-\item \emph{An open curtailment dataset and a diagnostic for adaptive conformal calibration under regime change} --- gives equal weight to the two contributions.
+\item \emph{Adaptive conformal calibration under regime change: the gain measures base-model miscalibration} --- states the finding directly, at the cost of naming neither the dataset nor the application domain.
 \item \emph{When does adaptive conformal calibration pay? Evidence from renewable curtailment} --- foregrounds the question rather than the answer.
 \end{enumerate}
 
-\where{Title page. The description of the system, its size, its congestion and the 19{,}000~GWh curtailed over 2022 to mid-2026, has moved into the abstract, second and third sentences, so that no information is lost. The country still appears in the abstract, in Section~3 and in the keywords, where it is a statement of provenance rather than a limitation of scope.}
+\where{Title page. The description of the system, its size and the 19{,}000~GWh curtailed over 2022 to mid-2026, has moved into the abstract, second sentence, so that no information is lost. The abstract was also brought within the 250-word limit of the guide for authors, from 431 words to 248, without dropping the diagnostic result, the fitted relationship or the separation of the three guarantee regimes. The country still appears in the abstract, in Section~3 and in the keywords, where it is a statement of provenance rather than a limitation of scope.}
 
 \clearpage
 \section{Reviewer 1}
@@ -116,7 +116,7 @@ This comment was correct, and answering it changed the paper.
 
 The multi-quantile model estimates 54 quantiles from 0.005 to 0.999 with the pinball loss, under exactly the same twelve features, the same rows, the same 31 December 2023 training cut-off, the same a-priori hyperparameters and the same seed as the hurdle. Crossings are removed by rearrangement. Its zero inflation is not imposed: it is read off the grid as the highest level whose quantile is zero.
 
-We refactored the calibration layer so that it touches the base model through exactly two operations, the predictive CDF and its generalised inverse. That makes the comparison exact rather than approximate: nothing else changes between arms, neither the score, nor the window boundaries, nor the seven-day embargo, nor the seeds, nor $\gamma$, nor the 60-day recent window, nor the shrinkage constants. As a control we assert inside the experiment that the hurdle arm reproduces the submitted Table~2 in all thirty cells and four metrics. It does.
+We refactored the calibration layer so that it touches the base model through exactly two operations, the predictive CDF and its generalised inverse. That makes the comparison exact rather than approximate: nothing else changes between arms, neither the score, nor the window boundaries, nor the seven-day embargo, nor the seeds, nor $\gamma$, nor the 60-day recent window, nor the shrinkage constants. As a control we assert inside the experiment that the hurdle arm reproduces Table~2 of the submitted version in all thirty cells and four metrics. It does.
 
 \textbf{Result.} The advantage does not replicate. In the transition window:
 
@@ -137,6 +137,8 @@ With the multi-quantile predictive the width difference is $+15.1$~MWh with a da
 The reviewer's diagnosis was therefore right, and stronger than stated: not only can the reported results not distinguish the two explanations, the correct explanation is the second one. What the layer recovers is base-model over-dispersion.
 
 We also record that the multi-quantile predictive dominates the hurdle on every proper metric and in every window, with a CRPS 18 to 30 per cent lower, and that in three of the five windows the best of the eighteen model-by-method combinations by interval score is the multi-quantile predictive with the plain static split and no adaptive layer at all.
+
+One caveat on that last point belongs here rather than in a reply to a follow-up. The three arms share features, rows, training cut-off, per-model hyperparameters and seed, but they do not share capacity: the hurdle is two boosted models and the multi-quantile predictive is 54. Our design therefore cannot separate the effect of dropping the parametric tail shape from the effect of spending more capacity, and we now say so in Section~7 and scope the dominance claim to these three fitted objects rather than to quantile regression as a model class. We note that the diagnostic relationship is untouched by this, because it is a within-arm contrast: over-coverage is compared against width recovery under one fixed predictive at a time, and the relationship holds separately in all three arms.
 
 \where{Section~4.1 describes the three base models. Section~5.3 is a new subsection reporting the result, with Table~4 (the three arms in the transition window), Table~5 (all fifteen cells and the fitted relationship) and Figure~7. The abstract, the introduction (contribution paragraphs), Section~6.1 and the conclusion are rewritten around it. Section~7 states the limits of the diagnostic. The commands that regenerate it are in Appendix~D.}
 
@@ -160,7 +162,7 @@ Taking the seven items in the reviewer's order:
 \item \textbf{Execution order.} Stated explicitly and marked in the figure. On date $t$: (i) if a refresh is due, recompute the map from the window ending at $t-7$ and transport the whole calibration pool; (ii) take the conformal quantile from the transported pool at the \emph{current} $\alpha_t$, which does not yet include the error of day $t$; (iii) emit the interval; (iv) push the error of day $t$ onto the embargo queue, which updates $\alpha$ seven steps later. The map never uses the adaptive level and the adaptive update never uses the map; the only coupling is the pool.
 \end{itemize}
 
-\where{Section~4.5 gives the three items above that belong in the body. Algorithm~1 gives the full procedure in pseudocode. Figure~6 is the flowchart the reviewer asked for, with the execution order marked along the top and the two branches drawn separately so the coupling point is visible. Appendix~C, Table~12, is the complete hyperparameter specification including all four seeds. Appendix~D gives the environment and the command sequence.}
+\where{Section~4.5 gives the three items above that belong in the body. Algorithm~1 gives the full procedure in pseudocode. Figure~4 is the flowchart the reviewer asked for, with the execution order marked along the top and the two branches drawn separately so the coupling point is visible. Appendix~C, Table~C.11, is the complete hyperparameter specification including all four seeds. Appendix~D gives the environment and the command sequence.}
 
 \subsection*{R1.3 --- Ablations}
 
@@ -192,7 +194,7 @@ Online adaptation earns its cost: $-215.8$~MWh in the transition window, $[-274,
 
 Taken together the full pipeline gains 176.3~MWh in the transition window and loses 100.0 and 104.2 in 2025-S1 and 2025-S2, all three significant, netting $+29.3$ over the whole test with an interval containing zero. Over the evaluation period as a whole it is not better than the static split it replaces.
 
-\where{Section~5.4 is a new subsection. Table~6 gives the marginal contributions with intervals and runtimes; Figure~8 shows them window by window. Section~4.5 now states which parts of the construction are new (see R2.4) and Section~4.5 closes by noting that neither survives its ablation, which we judged better placed there than left for the reader to discover in Section~5.}
+\where{Section~5.4 is a new subsection. Table~6 gives the marginal contributions with intervals and runtimes; Figure~8 shows them window by window. Section~4.6 now states which parts of the construction are new (see R2.4) and Section~4.6 closes by noting that neither survives its ablation, which we judged better placed there than left for the reader to discover in Section~5.}
 
 \subsection*{R1.4 --- Hyperparameter selection and the reservation of the test set}
 
@@ -210,7 +212,7 @@ The selection returns $\gamma=0.005$ for pure ACI and $\gamma=0.005$ with a 120-
 
 \textbf{Test set.} It is used once. The $6\times5$ sensitivity analysis the reviewer asks for is reported on the test set, but only as a display after the selection is closed, and the manuscript says so in those words at both places where it appears. It shows that coverage is flat in $\gamma$ (between 89.9 and 90.1 per cent across the whole grid for the transported variant) and that the fraction of infinite intervals is what varies, from zero at $\gamma\le0.01$ to 22 per cent at $\gamma=0.20$.
 
-\where{Section~4.6 is a new subsection giving the protocol and the outcome. Section~5.7 reports the boundary and chronology sensitivity. The selected configuration appears as its own block in Table~7 so that it can be compared with the values of the submitted version on equal terms. The grids, the criterion and the seed are in Appendix~C.}
+\where{Section~4.7 is a new subsection giving the protocol and the outcome. Section~5.7 reports the boundary and chronology sensitivity. The selected configuration appears as its own block in Table~7 so that it can be compared with the values of the submitted version on equal terms. The grids, the criterion and the seed are in Appendix~C.}
 
 \subsection*{R1.5 --- Metrics for one-sided limits and the treatment of infinite bounds}
 
@@ -234,7 +236,7 @@ which is proper, is in MWh, penalises width and non-coverage on the same scale, 
 
 \textbf{On the CRPS.} The reviewer is right that it characterises only the base predictive and cannot arbitrate between calibration schemes. It is retained, and the manuscript now says in as many words why it is retained and what it cannot do. The Brier score of the occurrence event is reported on the same footing and with the same caveat.
 
-\where{Section~4.7 defines the metric and the convention for infinite bounds. Section~5.5 reports the full comparison, Table~7. Table~8 reports the effect of the $\alpha$ bound. Every difference between methods now carries a bootstrap interval that resamples whole days, in Tables 6 and 7 and in Figure~8.}
+\where{Section~4.8 defines the metric and the convention for infinite bounds. Section~5.5 reports the full comparison, Table~7. Table~8 reports the effect of the $\alpha$ bound. Every difference between methods now carries a bootstrap interval that resamples whole days, in Tables 6 and 7 and in Figure~8.}
 
 \clearpage
 \section{Reviewer 2}
@@ -290,7 +292,7 @@ On the evidence the reviewer asks for, we state plainly in Section~6.3 what we c
 
 We did not construct a causal study of storage, and we want to say why explicitly rather than leave it implicit. The methodological contribution never depended on knowing the cause of the shift. A calibration layer that only works when the analyst can name the cause would be of little operational use, and the revision makes that explicit rather than papering over it. The evaluation window is now justified on a measurable criterion, maximum divergence from the calibration distribution, which is the property that actually matters for a conformal layer, and Section~5.7 shows the conclusions are unchanged across six alternative boundary definitions.
 
-\where{Section~4.7 and Table~3, footnote removed and column renamed. Sections~3.4, 5.2 and 6.3. Figures~3 and 4, labels regenerated. Section~7, limitation on causal identification. Code and result files throughout the companion repository.}
+\where{Section~4.8 and Table~3, footnote removed and column renamed. Sections~3.4, 5.2 and 6.3. Figures~5 and 6, labels regenerated. Section~7, limitation on causal identification. Code and result files throughout the companion repository.}
 
 \subsection*{R2.3 --- Chronology and change-point sensitivity}
 
@@ -312,7 +314,7 @@ Second, on the consequences for the evaluation. We re-ran the calibration compar
 
 We also record a correction of process. In preparing this revision we found that our internal log described the change-point penalty as $3\hat\sigma^2\log n$, which does not reproduce the published dates; the standard BIC penalty $\hat\sigma^2\log n$ does, returning both dates and both jump sizes exactly. The published result was correct; the internal description of how it was obtained was not. The penalty is now stated in the manuscript and the sensitivity grid spans it.
 
-\where{Section~3.4, the single chronology with the 180-configuration robustness check. Section~5.7 and Table~11, the boundary sensitivity. Figure~5, unchanged. Appendix~C, the penalty and the grids.}
+\where{Section~3.4, the single chronology with the 180-configuration robustness check. Section~5.7 and Table~10, the boundary sensitivity. Figure~3, regenerated under the stated penalty and returning the same two change points. Appendix~C, the penalty and the grids.}
 
 \subsection*{R2.4 --- Methodological novelty and reproducibility}
 
@@ -320,7 +322,7 @@ We also record a correction of process. In preparing this revision we found that
 Methodological novelty and reproducibility are unclear. The authors should identify precisely what is new in the PIT, transport, shrinkage, and ACI combination. A complete algorithm, parameter settings, calibration-window length, bootstrap procedure, random seed, and ablation study are required.
 \end{revcomment}
 
-\action{Section~4.5 now attributes each ingredient explicitly, and Section~4.5 states what is new. The algorithm, parameters, window length, bootstrap procedure and seeds are covered under R1.2; the ablation study under R1.3.}
+\action{Section~4.6 now attributes each ingredient explicitly, and states what is new. The algorithm, parameters, window length, bootstrap procedure and seeds are covered under R1.2; the ablation study under R1.3.}
 
 \textbf{Taken from the literature, unmodified:} the probability-integral-transform score is the distributional-conformal score of Chernozhukov et al.; the randomisation of the atom for a mixed distribution is the classical device of Smith; the online update of the miscoverage level is the adaptive conformal inference of Gibbs and Cand\`es; the monotone one-dimensional transport map is the increasing rearrangement, standard in optimal transport and, for quantile curves, the rearrangement of Chernozhukov et al.; bagging a bootstrap estimate and shrinking towards a stable reference in proportion to its variance is ordinary shrinkage practice.
 
@@ -328,7 +330,7 @@ Methodological novelty and reproducibility are unclear. The authors should ident
 
 We then report, in the same subsection, that neither the combination nor the device survives its own ablation on these data. We regard stating that plainly as more useful than the novelty claim it replaces, and it is what the reframing of the paper is built on.
 
-\where{Section~4.5, attribution and novelty. Algorithm~1 and Figure~6, the complete procedure. Appendix~C, Table~12, every parameter and all four seeds (42 for base-model training, 20260720 for the PIT atom randomisation and the transport bootstrap, 11 for the CRPS sampling, 20260901 for the day-block bootstrap and permutation nulls). Appendix~D, environment and commands. Section~5.4, the ablations.}
+\where{Section~4.6, attribution and novelty. Algorithm~1 and Figure~4, the complete procedure. Appendix~C, Table~C.11, every parameter and all four seeds (42 for base-model training, 20260720 for the PIT atom randomisation and the transport bootstrap, 11 for the CRPS sampling, 20260901 for the day-block bootstrap and permutation nulls). Appendix~D, environment and commands. Section~5.4, the ablations.}
 
 \subsection*{R2.5 --- Conformal validity under panel dependence}
 
@@ -348,7 +350,7 @@ The reviewer is correct, and the distinction drawn here is exactly right: a clus
 
 \textbf{Disaggregated coverage}, all four axes, for every method. The result that most deserves emphasis runs against our own method. On high-curtailment days, the 254 test days above the calibration-window ninetieth percentile of system-level curtailment, the static split covers at 91.9 per cent and Transport+ACI at 86.7 per cent. The economically important days are where the adaptive scheme under-covers most. Plain ACI, at 88.3 per cent, sits between, and it has the best conditional coverage overall of any scheme tested, with a worst deviation of 4.7 points, better than every Mondrian variant.
 
-\where{Section~4.3 is a new subsection separating the three guarantee regimes and giving the ICC and design effect. Section~5.6 reports the remedies and the disaggregated coverage, Tables~9 and 10. Section~7 states as a limitation that none of the three schemes repairs the problem. Appendix~B now reads the static guarantee at the effective rather than the nominal sample size.}
+\where{Section~4.3 is a new subsection separating the three guarantee regimes and giving the ICC and design effect. Section~5.6 reports the remedies and the disaggregated coverage, Table~9. Section~7 states as a limitation that none of the three schemes repairs the problem. Appendix~B now reads the static guarantee at the effective rather than the nominal sample size.}
 
 \subsection*{R2.6 --- Benchmarks and metrics}
 
@@ -364,7 +366,7 @@ They changed the paper's assessment of its own method. Three of the four attain 
 
 The six quantities: interval score of the one-sided limit, in three declared forms (finite-restricted, unrestricted, and the infinite fraction); CRPS of the base predictive, with an explicit statement of what it cannot arbitrate; Brier score of $\{Y>0\}$, with the caveat that the multi-quantile predictive's occurrence probability is read off a 0.02-resolution grid rather than from a dedicated classifier; conditional coverage on four axes (R2.5); infinite-interval frequency, everywhere; and uncertainty in every difference between methods, by a bootstrap resampling whole days with 2{,}000 replicates.
 
-\where{Section~4.7, the metric set. Section~5.5 and Table~7, the benchmarks and full comparison. Table~8, the $\alpha$ bound. Section~5.6 and Table~10, conditional coverage. Tables~6 and 7 and Figure~8 carry the bootstrap intervals.}
+\where{Section~4.8, the metric set. Section~5.5 and Table~7, the benchmarks and full comparison. Table~8, the $\alpha$ bound. Section~5.6 and Table~9, conditional coverage. Tables~6 and 7 and Figure~8 carry the bootstrap intervals.}
 
 \subsection*{R2.7 --- Moderation of the claims}
 
@@ -403,11 +405,11 @@ The abstract closes on that distinction, Section~4.3 is a new subsection devoted
 
 \subsection*{Q4 --- Additional tables or figures (both reviewers: Yes)}
 
-\action{Three figures added: Figure~6, the algorithm flowchart (requested in R1.2); Figure~7, the model-agnosticism result and the diagnostic relationship; Figure~8, the marginal contribution of each component with bootstrap intervals. Eight new tables: the three base models compared, the fifteen-cell diagnostic, the ablations, the benchmarks, the $\alpha$ bound, the panel-dependence schemes, the disaggregated coverage summary, the boundary sensitivity, and the complete hyperparameter specification. No existing figure was removed.}
+\action{Three figures added: Figure~4, the algorithm flowchart (requested in R1.2); Figure~7, the model-agnosticism result and the diagnostic relationship; Figure~8, the marginal contribution of each component with bootstrap intervals. Eight new tables: the three base models compared, the fifteen-cell diagnostic, the ablations, the benchmarks, the $\alpha$ bound, the panel-dependence schemes with their disaggregated coverage, the boundary sensitivity, and the complete hyperparameter specification. No existing figure was removed.}
 
 \subsection*{Q7 --- Limitations (both reviewers: No)}
 
-\action{Section~7 is new and dedicated, with nine items: the scope of the point-forecasting conclusion; the failure of exchangeability and the effective sample size; the fact that the diagnostic rests on three base models and one dataset; the boundaries of the multi-quantile predictive, including its quantile ceiling and its coarse occurrence probability; that differences of one to three coverage points lie within the clustered standard error; the shortness of the inner validation set; that the causes of the distributional change are not identified and cannot be with this dataset; the six descriptive statements corrected in this revision; and that the dataset records curtailment only, with no network state, dispatch, price or storage operation.}
+\action{Section~7 is new and dedicated, with ten items: the scope of the point-forecasting conclusion; the failure of exchangeability and the effective sample size; the fact that the diagnostic rests on three base models and one dataset; the boundaries of the multi-quantile predictive, including its quantile ceiling and its coarse occurrence probability; that differences of one to three coverage points lie within the clustered standard error; the shortness of the inner validation set; that the causes of the distributional change are not identified and cannot be with this dataset; the six descriptive statements corrected in this revision; and that the dataset records curtailment only, with no network state, dispatch, price or storage operation.}
 
 \subsection*{Q8 and Q9 --- Structure, flow and language (both reviewers: Yes)}
 
