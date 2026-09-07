@@ -506,3 +506,91 @@ $VENV flagship/revision/verificar_referencias_cruzadas.py   # 166 refs, exit 0
 # abstract 244 palabras (limite 250)
 # manuscrito 34 paginas, carta 19, cero errores y cero referencias sin resolver
 ```
+
+---
+
+## 11. Cinco cambios de cierre
+
+### 11.1 Alcance del diagnostico en la Seccion 7 y en Q7 de la carta
+
+Decia "tres modelos base... quince celdas de tres predictivas". Pasa a ocho
+predictivas y cuarenta celdas, con la precision de que las ocho no son ocho
+clases de modelo: tres son variantes de la familia hurdle y cinco son variantes
+de presupuesto de una sola familia cuantilica. El diseno abarca dos formas
+funcionales, no ocho. Espejado en la lista de Q7 de la carta.
+
+### 11.2 Los tres valores del diagnostico en prosa
+
+`r = -0.757`, pendiente `-4.39`, intercepto `+5.49` pasan a −0.755, −4.36 y
++5.45, que es lo que dan la Tabla 5, la Tabla 6, la Figura 7 y el calculo sobre
+los arrays sin redondear. Corregidos en 5.3 del manuscrito, en la respuesta a
+R1.1 y en la carta al editor de la primera plana.
+
+### 11.3 Robustez del quiebre
+
+`flagship/revision/fase0c_robustez_quiebre.py`, salidas en `resultados/fase0c/`.
+Los cinco valores de contraste reproducen exacto. Ver `HALLAZGOS_CRITICOS.md`,
+H8.
+
+```
+$VENV flagship/revision/fase0c_robustez_quiebre.py
+# salto -11.797 con las 40, F(1,37) = 12.982
+# salto -13.587 sin qgbm_54x15, F(1,32) = 15.608
+# con efecto fijo: salto -11.478, F(1,30) = 9.405
+# fuera de muestra en x = -8.42: +54.2 con quiebre, +55.7 observado, +43.0 recta unica
+# cuadratica: p = 0.7117 sobre las 40; F(1,32) = 27.942 sobre las 35
+```
+
+### 11.4 Tres parrafos nuevos
+
+- **5.3**, al final del bloque que cierra con la tasa comun de −6.50: la robustez
+  del quiebre, con la declaracion de que los test F tratan las celdas como
+  independientes y que por eso se reportan como razon para no ampliar la
+  afirmacion.
+- **5.4**, tras el de saturacion: ningun brazo usa detencion temprana, lo que
+  deja al hurdle agrandado libre de sobreajustar; el orden se establece al
+  presupuesto propio del hurdle, donde el sobreajuste no esta en juego.
+- **7**, item de la escalera: ademas del eje unico, la ausencia de detencion
+  temprana.
+
+### 11.5 Tabla 9 y el reenvio de 5.3
+
+**La convencion del delta se verifico contra el codigo antes de escribirla y es
+la declarada:** la columna de IS finito promedia sobre las filas finitas de CADA
+metodo (`IS[np.isfinite(U)].mean()`), mientras el delta es una comparacion
+pareada sobre las filas finitas en AMBOS (`np.isfinite(isa) & np.isfinite(isr)`).
+La nota al pie lo declara y da la fraccion maxima descartada, 5.9%.
+
+**Pero esa no era la causa del desajuste entre el +27 de la Tabla 9 y el +29.3 de
+la Tabla 8.** La causa era el orden de consumo del generador: `fase2` y `fase4`
+creaban generadores frescos para el transporte en vez de continuar el que
+aleatorizo el score, y ninguno reproducia la corrida canonica. Alineados, los
+tres coinciden y los dos deltas dan +32.4. Ver `HALLAZGOS_CRITICOS.md`, H7, que
+documenta ademas el unico resultado que esto cambio: la ablacion del shrinkage.
+
+```
+$VENV flagship/revision/fase2_ablaciones.py
+$VENV flagship/revision/fase4_metricas_benchmarks.py
+# los tres dan ancho 595.9, 5.9% de infinitos, IS finito 1029.9
+```
+
+El reenvio de 5.3 sobre la separacion entre forma y capacidad mandaba a la
+Seccion 7; va a la 5.4, que es donde se separa. El mismo reenvio en 4.1 ahora
+apunta a las dos: a 5.4 por la separacion y a la 7 por lo que licencia.
+
+### 11.6 Verificadores desacoplados de los valores cableados
+
+Cuatro chequeos de `verificar_manuscrito.py` llevaban el valor esperado escrito
+en el propio verificador, asi que al cambiar un resultado habia que editarlo a
+mano. Ahora construyen la frase esperada desde el CSV. Es el mismo criterio que
+ya se aplico a los patrones semanticos del verificador de referencias: una
+comprobacion no puede depender de lo que comprueba.
+
+### 11.7 Comprobaciones al cierre
+
+```
+$VENV flagship/revision/verificar_manuscrito.py             # 51 de 51, exit 0
+$VENV flagship/revision/verificar_referencias_cruzadas.py   # 184 refs, exit 0
+# manuscrito 34 paginas, carta 19, cero errores y cero referencias sin resolver
+# numeracion sin cambios: no se anadieron floats, solo texto y una nota al pie
+```

@@ -150,9 +150,22 @@ def main():
             ('adaptacion online (A1 - A0)', 'test_transition', -215.8, '215.8~MWh in the transition'),
             ('adaptacion online (A1 - A0)', 'TEST_COMPLETO', -37.8, 'by 37.8~MWh over the whole test'),
             ('transporte sobre ACI (A3 - A1)', 'TEST_COMPLETO', 74.2, 'worsens} the interval score by 74.2'),
-            ('shrinkage de cola (A4 - A3)', 'TEST_COMPLETO', -0.3, '$-0.3$~MWh with an interval of $[-3,+2]$'),
-            ('pipeline completo (A4 - A0)', 'TEST_COMPLETO', 29.3, 'netting $+29.3$~MWh')):
+            ('shrinkage de cola (A4 - A3)', 'TEST_COMPLETO', None, None),
+            ('pipeline completo (A4 - A0)', 'TEST_COMPLETO', None, None)):
         rr = a[(a.componente == comp) & (a.periodo == per)].iloc[0]
+        # Los dos ultimos no llevan el valor cableado: se construye la frase
+        # esperada desde el CSV. Alinear el consumo del generador con la corrida
+        # canonica movio estos dos numeros, y un valor cableado obliga a editar
+        # el verificador cada vez que cambia un resultado, que es justo lo que
+        # no debe pasar.
+        if val is None:
+            if comp.startswith('shrinkage'):
+                txt = (f'${rr.d_IS:.1f}$~MWh with an interval of '
+                       f'$[{rr.IS_lo:.0f},{rr.IS_hi:.0f}]$')
+            else:
+                txt = (f'netting ${rr.d_IS:+.1f}$~MWh over the whole test with '
+                       f'an interval of $[{rr.IS_lo:+.0f},{rr.IS_hi:+.0f}]$')
+            val = rr.d_IS
         chk('5.4', f'{comp} en {per}', f'{val:+.1f}', f'{rr.d_IS:+.1f}',
             abs(rr.d_IS - val) < 0.06 and en_tex(txt),
             'fase2_aporte_por_componente.csv')
@@ -181,10 +194,11 @@ def main():
         and en_tex('89.8\\% coverage', '276~MWh', 'interval score of 601'),
         'fase4_metricas_completas.csv')
     tra = v.loc['Transporte+ACI (g=0.05)']
-    chk('5.5', 'pipeline completo en el test completo', '591 MWh / IS 1026',
+    chk('5.5', 'pipeline completo en el test completo',
         f'{tra.ancho_medio:.0f} MWh / IS {tra.IS_finitos:.0f}',
-        abs(tra.ancho_medio - 591) < 0.6 and abs(tra.IS_finitos - 1026) < 0.6
-        and en_tex('591~MWh and 1026'), 'fase4_metricas_completas.csv')
+        f'{tra.ancho_medio:.0f} MWh / IS {tra.IS_finitos:.0f}',
+        en_tex(f'{tra.ancho_medio:.0f}~MWh and {tra.IS_finitos:.0f}'),
+        'fase4_metricas_completas.csv')
     for nm, cob, is_, txt in (('B2 distribucion movil 60d', 86.5, 583,
                                'interval score of 583 at 86.5\\% coverage'),
                               ('B1 cuantil empirico 365d', 87.2, 656,
@@ -194,8 +208,8 @@ def main():
             abs(rr.cobertura - cob) < 0.05 and abs(rr.IS_finitos - is_) < 0.6
             and en_tex(txt), 'fase4_metricas_completas.csv')
     mx_inf = m4[(m4.familia == 'paper') & (m4.periodo == 'TEST_COMPLETO')].pct_infinito.max()
-    chk('5.5', 'maximo de intervalos infinitos', 'hasta 6.1 por ciento',
-        f'{mx_inf}', abs(mx_inf - 6.1) < 0.05 and en_tex('up to 6.1 per cent'),
+    chk('5.5', 'maximo de intervalos infinitos', f'hasta {mx_inf} por ciento',
+        f'{mx_inf}', en_tex(f'up to {mx_inf} per cent'),
         'fase4_metricas_completas.csv')
 
     ca = pd.read_csv(RES / 'fase4' / 'fase4_cota_alpha.csv')

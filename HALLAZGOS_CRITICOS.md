@@ -374,3 +374,79 @@ Es la contraparte experimental de lo que el manuscrito ya reporta del modelo con
 sigma(x): el problema esta en la localizacion, no en la dispersion. Alli venia de
 un modelo que mejoraba la dispersion y no ayudaba; aqui, de uno que la mejora y
 perjudica.
+
+---
+
+## H7. Alinear el generador cambio el resultado de la ablacion del shrinkage
+
+**Estado:** confirmado. **Fase:** 5 de esta tanda.
+**Afirmacion afectada:** "el shrinkage de cola no aporta nada medible", en la
+introduccion, en 5.5 y en la carta.
+
+**Origen.** Al reconciliar el $+27$ de la Tabla 9 con el $+29.3$ de la Tabla 8 se
+descubrio que la causa no era la convencion del delta, que estaba bien, sino que
+`fase2_ablaciones.py` y `fase4_metricas_benchmarks.py` creaban generadores
+frescos para el transporte en vez de continuar el que aleatorizo el score.
+Ninguno de los dos reproducia la corrida canonica:
+
+| | ancho test completo | % infinitos | IS finito |
+|---|---|---|---|
+| Canonica (Tablas 3 a 5, Fig. 7) | 595.9 | 5.9 | 1029.9 |
+| Tabla 8, antes | 593.4 | 6.1 | 1028.2 |
+| Tabla 9, antes | 591.4 | 6.1 | 1026.1 |
+| **las tres, ahora** | **595.9** | **5.9** | **1029.9** |
+
+**Lo que cambio.** El grupo A4 de la ablacion es el metodo del manuscrito, asi
+que tenia que ser el mismo objeto. Al alinearlo:
+
+| Componente | Antes | Ahora |
+|---|---|---|
+| Adaptacion online (A1 − A0) | −37.8 [−60, −10], si | sin cambio |
+| Transporte sobre ACI (A3 − A1) | +74.2 [+47, +105], si | sin cambio |
+| **Shrinkage de cola (A4 − A3)** | **−0.3 [−3, +2], NO significativo** | **-6.5 [-10, -3], SI significativo** |
+| Pipeline completo (A4 − A0) | +29.3 [−8, +72], no | +32.4 [−5, +75], no |
+
+El shrinkage pasa de "nada medible" a un aporte pequeno pero detectable. En
+2025-S2 cambia de signo, de +6.3 (peor) a −12.4 (mejor).
+
+**La conclusion cualitativa no cambia:** 6.5 MWh sobre un interval score
+de unos 1.030 es el 0.6%, por el 91% del tiempo de computo. Pero la redaccion
+anterior era incorrecta y se corrigio en los tres sitios: "no aporta nada
+medible" pasa a "no se paga a si mismo".
+
+---
+
+## H8. El quiebre del diagnostico existe pero la forma no esta determinada
+
+**Estado:** confirmado. **Fase:** 0c.
+**No contradice ninguna conclusion:** refuerza la decision, ya tomada, de no
+enunciar el diagnostico de forma simetrica.
+
+**Comando:** `<venv>/bin/python flagship/revision/fase0c_robustez_quiebre.py`
+
+La sospecha era que el quiebre lo sostuviera el brazo de menor capacidad, que
+aporta 5 de las 15 celdas bajo el nominal y 3 de las 4 por debajo de −2 pp.
+No lo sostiene:
+
+- Quitandolo el salto CRECE, de -11.80 a -13.59, y F sube de 12.982 a 15.608.
+- Dejar cualquier brazo fuera deja el salto entre -10.63 y -13.59.
+- Con efecto fijo por modelo base, que identifica el quiebre solo con variacion
+  dentro de brazo, queda en -11.48 con F(1,30) = 9.405.
+
+**Pero la forma funcional no esta determinada, y eso es lo que decide la
+redaccion.** Ajustando sin el brazo extremo y prediciendolo fuera de muestra, la
+especificacion con quiebre acierta su celda mas extrema casi exacto (+54.2 contra
++55.7 observado, donde la recta unica da +43.0) pero es peor en las otras
+cuatro, y el RMSE fuera de muestra queda empatado, 8.85 contra 8.82. Un termino
+cuadratico cuenta lo mismo desde el otro lado: es indistinguible de cero sobre
+las cuarenta celdas (p = 0.71) y fuertemente significativo sobre las treinta y
+cinco (F(1,32) = 27.9).
+
+Un diseno cuya forma funcional preferida cambia al quitar un brazo no determina
+esa forma. Es una razon mas fuerte para no generalizar que el estadistico del
+quiebre por si solo, y asi se escribio en 5.3.
+
+**Advertencia declarada en el manuscrito:** estos test F tratan las cuarenta
+celdas como independientes, y no lo son. Los p son optimistas y se reportan solo
+como razon para NO ampliar la afirmacion, direccion en la que un p optimista es
+conservador.

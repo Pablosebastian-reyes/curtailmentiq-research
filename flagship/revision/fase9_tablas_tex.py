@@ -202,6 +202,9 @@ ETQ_F4 = {
 
 def tabla_benchmarks():
     m = pd.read_csv(RES / 'fase4' / 'fase4_metricas_completas.csv')
+    # fraccion maxima de filas que descarta la comparacion pareada, para la nota
+    _desc_max = float(pd.read_csv(
+        RES / 'fase4' / 'fase4_diferencias_bootstrap.csv').pct_descartado.max())
     d = pd.read_csv(RES / 'fase4' / 'fase4_diferencias_bootstrap.csv').set_index('metodo')
     t = m[m.periodo == 'TEST_COMPLETO'].sort_values('IS_finitos')
     FAM = {'benchmark': 'Probabilistic benchmarks (new in this revision)',
@@ -236,7 +239,23 @@ def tabla_benchmarks():
                      'unrestricted score is the verdict: it is infinite for '
                      'any method producing even one infinite limit. Generated '
                      'from \\texttt{resultados/fase4/}.',
-             label='tab:benchmarks')
+             label='tab:benchmarks',
+             nota='Note: the last two columns are computed on different row '
+                  'sets, and in the three configurations that produce infinite '
+                  'limits the difference column is therefore not the '
+                  'subtraction of the finite-interval column. The '
+                  '$\\mathrm{IS}$ finite column averages over the rows on '
+                  'which \\emph{that} method returns a finite limit, so each '
+                  'row of the table uses a different denominator. The '
+                  '$\\Delta\\mathrm{IS}$ column is a paired comparison and '
+                  'is computed only on rows where \\emph{both} the method and '
+                  'the static split are finite, which is the correct basis for '
+                  'a difference but discards up to %.1f\\%% of the rows; the '
+                  'fraction discarded is the infinite-interval fraction of the '
+                  'method, since the static split is finite throughout. For the '
+                  'methods with no infinite limits the two conventions coincide '
+                  'and the columns do subtract.'
+                  % _desc_max)
 
 
 # ---------------------------------------------------------------- tabla 8

@@ -127,11 +127,19 @@ def main():
                   time.perf_counter() - t0, g)
         print(f'A3 sin shrinkage g={g}: listo')
 
+    # A4 es el metodo del manuscrito, asi que tiene que ser EL MISMO objeto que
+    # producen conformal_v3_real.py y fase0_model_agnostic.py, no una corrida
+    # parecida. Eso exige consumir el generador en el orden canonico: primero la
+    # aleatorizacion del atomo sobre todas las filas, luego g=0.02 y luego
+    # g=0.05 sobre el mismo generador. Creando uno fresco por gamma, como hacia
+    # antes, el mapa de transporte salia de un bootstrap distinto y el ancho del
+    # test completo daba 593.4 en vez de los 595.9 de la corrida oficial.
+    rng_canon = np.random.default_rng(R.SEED_CONFORMAL)
+    pred.cdf(hu.y_real.values, rng_canon)   # consume los mismos sorteos del score
     for g in (0.02, 0.05):
         t0 = time.perf_counter()
         U, _, _ = R.transporte_aci(p_t, s_cal, hu.s.values, hu.fecha.values,
-                                   y_t, f_t, fechas_test, g,
-                                   np.random.default_rng(R.SEED_CONFORMAL),
+                                   y_t, f_t, fechas_test, g, rng_canon,
                                    shrinkage=True, ini_test=R.CAL_FIN)
         registrar(f'A4 Transporte+ACI completo (g={g})', 'A4', U,
                   time.perf_counter() - t0, g)

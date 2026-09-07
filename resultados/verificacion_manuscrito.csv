@@ -18,14 +18,14 @@ Tabla 5,ajuste sobre las quince celdas,"-0.755, -4.36, +5.45","-0.755, -4.36, +5
 5.4,adaptacion online (A1 - A0) en test_transition,-215.8,-215.8,si,fase2_aporte_por_componente.csv
 5.4,adaptacion online (A1 - A0) en TEST_COMPLETO,-37.8,-37.8,si,fase2_aporte_por_componente.csv
 5.4,transporte sobre ACI (A3 - A1) en TEST_COMPLETO,+74.2,+74.2,si,fase2_aporte_por_componente.csv
-5.4,shrinkage de cola (A4 - A3) en TEST_COMPLETO,-0.3,-0.3,si,fase2_aporte_por_componente.csv
-5.4,pipeline completo (A4 - A0) en TEST_COMPLETO,+29.3,+29.3,si,fase2_aporte_por_componente.csv
-5.4,costo del shrinkage sobre el total,"6.1 de 6.7 s, ~90%","6.1 de 6.7 s, 91%",si,fase2_ablaciones.csv
+5.4,shrinkage de cola (A4 - A3) en TEST_COMPLETO,-6.5,-6.5,si,fase2_aporte_por_componente.csv
+5.4,pipeline completo (A4 - A0) en TEST_COMPLETO,+32.4,+32.4,si,fase2_aporte_por_componente.csv
+5.4,costo del shrinkage sobre el total,"6.1 de 6.7 s, ~90%","6.0 de 6.6 s, 91%",si,fase2_ablaciones.csv
 5.5,CQR unilateral sobre el GBM,89.8% / 276 MWh / IS 601,89.8% / 276 MWh / IS 601,si,fase4_metricas_completas.csv
-5.5,pipeline completo en el test completo,591 MWh / IS 1026,591 MWh / IS 1026,si,fase4_metricas_completas.csv
+5.5,pipeline completo en el test completo,596 MWh / IS 1030,596 MWh / IS 1030,si,fase4_metricas_completas.csv
 5.5,B2 distribucion movil 60d,583 a 86.5%,583 a 86.5%,si,fase4_metricas_completas.csv
 5.5,B1 cuantil empirico 365d,656 a 87.2%,656 a 87.2%,si,fase4_metricas_completas.csv
-5.5,maximo de intervalos infinitos,hasta 6.1 por ciento,6.1,si,fase4_metricas_completas.csv
+5.5,maximo de intervalos infinitos,hasta 5.9 por ciento,5.9,si,fase4_metricas_completas.csv
 5.5,la cota elimina todos los infinitos,0 en las cinco ventanas,max 0.0%,si,fase4_cota_alpha.csv
 5.5,costo de cobertura de la cota,a lo mas medio punto,0.5 puntos,si,fase4_cota_alpha.csv
 4.3,correlacion intraclase por fecha,0.238,0.2381,si,fase5_diagnostico_dependencia.csv

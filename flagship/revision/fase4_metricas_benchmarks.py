@@ -220,7 +220,10 @@ def main():
         nm = f'ACI (g={g})'
         series[nm] = U
         filas += metricas(nm, f_t, y_t, U, 'paper', crps_hu)
-    rng_t = np.random.default_rng(R.SEED_CONFORMAL)
+    # se CONTINUA el generador que aleatorizo el score, que es el orden de la
+    # corrida oficial; con uno fresco el ancho del test completo daba 591.4 en
+    # vez de los 595.9 canonicos
+    rng_t = rng
     for g in (0.02, 0.05):
         U, _, _ = R.transporte_aci(p_test, s_cal, hu.s.values, hu.fecha.values,
                                    y_t, f_t, fechas_test, g, rng_t,
