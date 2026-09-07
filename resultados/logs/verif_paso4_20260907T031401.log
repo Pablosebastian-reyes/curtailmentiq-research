@@ -1,0 +1,63 @@
+# Paso 4: mis numeros, antes de comparar con nada
+
+Producidos por esta corrida en el clon limpio, entorno recien construido.
+
+## Tabla de 3 modelos base x 6 metodos, ventana de transicion
+
+| modelo base | metodo | cobertura | se | ancho | % inf | IS finitos | CRPS |
+|---|---|---|---|---|---|---|---|
+| hurdle | 1_estatico_pit | 95.3 | 0.45 | 1203.3 | 0.0 | 1587.6 | 133.47 |
+| hurdle | 2_ventana60d_pit | 92.0 | 0.73 | 833.8 | 0.0 | 1390.8 | 133.47 |
+| hurdle | 3_aci_pit_g02 | 93.5 | 0.55 | 915.2 | 0.0 | 1400.8 | 133.47 |
+| hurdle | 3_aci_pit_g05 | 92.1 | 0.67 | 821.6 | 0.0 | 1369.9 | 133.47 |
+| hurdle | 4_transporte_banda_g02 | 91.1 | 0.8 | 787.3 | 0.0 | 1390.2 | 133.47 |
+| hurdle | 4_transporte_banda_g05 | 90.9 | 0.81 | 805.6 | 0.0 | 1408.5 | 133.47 |
+| hurdle_sigma_x | 1_estatico_pit | 91.7 | 0.63 | 769.5 | 0.0 | 1213.6 | 125.03 |
+| hurdle_sigma_x | 2_ventana60d_pit | 88.7 | 0.88 | 627.1 | 0.0 | 1236.7 | 125.03 |
+| hurdle_sigma_x | 3_aci_pit_g02 | 89.9 | 0.77 | 657.2 | 0.0 | 1198.0 | 125.03 |
+| hurdle_sigma_x | 3_aci_pit_g05 | 89.5 | 0.82 | 648.9 | 0.0 | 1205.2 | 125.03 |
+| hurdle_sigma_x | 4_transporte_banda_g02 | 88.9 | 0.94 | 668.6 | 0.0 | 1269.0 | 125.03 |
+| hurdle_sigma_x | 4_transporte_banda_g05 | 89.5 | 0.96 | 732.8 | 0.0 | 1267.4 | 125.03 |
+| qgbm_multi | 1_estatico_pit | 90.6 | 0.85 | 410.3 | 0.0 | 765.0 | 92.92 |
+| qgbm_multi | 2_ventana60d_pit | 90.1 | 0.94 | 409.4 | 0.0 | 786.2 | 92.92 |
+| qgbm_multi | 3_aci_pit_g02 | 90.6 | 0.86 | 411.5 | 0.0 | 765.3 | 92.92 |
+| qgbm_multi | 3_aci_pit_g05 | 90.6 | 0.87 | 411.7 | 0.0 | 764.5 | 92.92 |
+| qgbm_multi | 4_transporte_banda_g02 | 90.4 | 0.98 | 420.1 | 0.0 | 781.5 | 92.92 |
+| qgbm_multi | 4_transporte_banda_g05 | 90.5 | 0.99 | 425.0 | 0.0 | 779.1 | 92.92 |
+
+## Diferencias de ancho Transporte+ACI(0.05) menos estatico, transicion
+
+| modelo base | diferencia | IC 95% bootstrap por dia |
+|---|---|---|
+| hurdle | -396.1 MWh | [-462.8, -333.1] |
+| hurdle_sigma_x | -36.8 MWh | [-96.7, +25.9] |
+| qgbm_multi | +15.1 MWh | [+0.0, +30.3] |
+
+## Diagnostico: ajuste sobre las 15 celdas
+
+- r de Pearson: **-0.756730**
+- pendiente: **-4.386020** % de ancho por punto porcentual
+- intercepto: **5.486406** %
+- celdas: 15
+
+## Las 15 celdas
+
+| modelo base | ventana | sobre-cobertura pp | cambio de ancho % |
+|---|---|---|---|
+| hurdle | test_pre | +3.50 | -14.80 |
+| hurdle | test_transition | +5.30 | -33.10 |
+| hurdle | 2025-S1 | -0.60 | -2.00 |
+| hurdle | 2025-S2 | +4.00 | -4.30 |
+| hurdle | 2026-S1 | +2.50 | -8.60 |
+| hurdle_sigma_x | test_pre | +4.50 | -16.90 |
+| hurdle_sigma_x | test_transition | +1.70 | -4.80 |
+| hurdle_sigma_x | 2025-S1 | -2.00 | +9.20 |
+| hurdle_sigma_x | 2025-S2 | +2.90 | +7.60 |
+| hurdle_sigma_x | 2026-S1 | +0.70 | +16.90 |
+| qgbm_multi | test_pre | +1.20 | +1.20 |
+| qgbm_multi | test_transition | +0.60 | +3.60 |
+| qgbm_multi | 2025-S1 | -2.00 | +10.00 |
+| qgbm_multi | 2025-S2 | +1.70 | +4.30 |
+| qgbm_multi | 2026-S1 | +0.60 | +6.10 |
+
+guardado /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/resultados/verificacion/paso4_mis_numeros.md

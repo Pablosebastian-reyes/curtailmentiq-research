@@ -197,8 +197,10 @@ def fig7_model_agnostic():
                    label=ETQ[m].replace('\n', ' '))
     xs = np.linspace(d.sobrecobertura_pp.min() - 0.4,
                      d.sobrecobertura_pp.max() + 0.4, 50)
-    b = np.polyfit(d.sobrecobertura_pp, d.cambio_ancho_pct, 1)
-    r = float(np.corrcoef(d.sobrecobertura_pp, d.cambio_ancho_pct)[0, 1])
+    # se lee el ajuste exacto que dejo fase0_diagnostico.py, no se recalcula
+    # sobre las columnas redondeadas de la tabla
+    r = float(d.r_ajuste.iloc[0])
+    b = (float(d.pendiente_ajuste.iloc[0]), float(d.intercepto_ajuste.iloc[0]))
     a2.plot(xs, np.polyval(b, xs), color=NARANJA, lw=1.1, zorder=2)
     a2.axhline(0, color=MUTED, lw=0.7, ls=':', zorder=1)
     a2.text(0.97, 0.05,
@@ -266,9 +268,82 @@ def fig8_ablations():
     guardar(fig, 'fig8_ablations')
 
 
+
+
+# ==========================================================================
+def fig9_escalera_y_diagnostico():
+    """Dos paneles. Izquierda: la escalera de capacidad, que separa forma de
+    presupuesto. Derecha: el diagnostico sobre las cuarenta celdas, con las
+    quince originales distinguidas y el rango que cada conjunto cubre."""
+    import json
+    o = pd.read_csv(RES / 'verificacion' / 'obj1_capacidad.csv')
+    e = pd.read_csv(RES / 'verificacion' / 'obj1b_escalera.csv')
+    est = pd.concat([o, e])
+    est = est[(est.metodo == 'estatico') & (est.periodo == 'TEST_COMPLETO')]
+    cel = pd.read_csv(RES / 'fase0b' / 'fase0b_celdas.csv')
+    j = json.load(open(RES / 'fase0b' / 'fase0b_diagnostico.json'))
+
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(COL_DOBLE, 3.0),
+                                 gridspec_kw={'width_ratios': [1, 1.15]})
+
+    # --- panel izquierdo: escalera
+    q = est[est.modelo.str.startswith('qgbm_54x')].copy()
+    q['n'] = q.modelo.str.extract(r'54x(\d+)').astype(int)
+    q = q.sort_values('arboles')
+    a1.plot(q.arboles, q.crps, marker='o', color=VERDE, lw=1.4, zorder=3,
+            label='Quantile GBM, 54 levels')
+    h = est[est.modelo.str.startswith('hurdle_')].copy().sort_values('arboles')
+    a1.plot(h.arboles, h.crps, marker='s', color=TINTA_1, lw=1.4, ls='--',
+            zorder=3, label='Hurdle')
+    for _, r in h.iterrows():
+        a1.annotate(f'{r.crps:.1f}', (r.arboles, r.crps), textcoords='offset points',
+                    xytext=(0, 7), ha='center', fontsize=6.6, color=TINTA_1)
+    for _, r in q.iterrows():
+        a1.annotate(f'{r.crps:.1f}', (r.arboles, r.crps), textcoords='offset points',
+                    xytext=(0, -11), ha='center', fontsize=6.6, color=VERDE)
+    a1.set_xscale('log')
+    a1.set_xlabel('Fitted trees, log scale')
+    a1.set_ylabel('Base-model CRPS over the whole test, MWh')
+    a1.legend(loc='lower left', frameon=False, fontsize=7)
+    a1.margins(y=0.14)
+    a1.spines[['top', 'right']].set_visible(False)
+    a1.set_axisbelow(True)
+    a1.grid(True, color=HAIR, linewidth=0.6)
+
+    # --- panel derecho: diagnostico ampliado
+    orig = cel.en_las_quince_originales.values.astype(bool)
+    a2.scatter(cel.sobrecobertura_pp[~orig], cel.cambio_ancho_pct[~orig], s=30,
+               marker='o', facecolor='white', edgecolor=AZUL, linewidth=0.9,
+               zorder=3, label='New arms (25 cells)')
+    a2.scatter(cel.sobrecobertura_pp[orig], cel.cambio_ancho_pct[orig], s=34,
+               marker='D', facecolor=TINTA_1, edgecolor='white', linewidth=0.6,
+               zorder=4, label='Cells of the previous revision (15)')
+    x = cel.sobrecobertura_pp.values
+    xs = np.linspace(x.min() - 0.4, x.max() + 0.4, 60)
+    c = j['cuarenta']
+    a2.plot(xs, c['pendiente'] * xs + c['intercepto'], color=NARANJA, lw=1.2, zorder=2)
+    a2.axhline(0, color=MUTED, lw=0.7, ls=':', zorder=1)
+    a2.axvline(0, color=MUTED, lw=0.7, ls=':', zorder=1)
+    ic = j['ic_bootstrap']
+    a2.text(0.025, 0.045,
+            f"$r={c['r']:.3f}$  $[{ic['r']['lo']:.3f}, {ic['r']['hi']:.3f}]$\n"
+            f"slope ${c['pendiente']:.2f}$  "
+            f"$[{ic['pendiente']['lo']:.2f}, {ic['pendiente']['hi']:.2f}]$",
+            transform=a2.transAxes, ha='left', va='bottom', fontsize=6.8,
+            color=NARANJA)
+    a2.set_xlabel('Over-coverage of the static split, pp above nominal')
+    a2.set_ylabel('Width change of Transport + ACI, %')
+    a2.legend(loc='upper right', frameon=False, fontsize=6.8)
+    a2.spines[['top', 'right']].set_visible(False)
+    a2.set_axisbelow(True)
+    a2.grid(True, color=HAIR, linewidth=0.6)
+    fig.tight_layout(w_pad=1.8)
+    guardar(fig, 'fig9_escalera_diagnostico')
+
 if __name__ == '__main__':
     print('Figuras nuevas de la revision:')
     fig6_diagrama()
     fig7_model_agnostic()
     fig8_ablations()
+    fig9_escalera_y_diagnostico()
     print(f'guardadas en {OUT}')

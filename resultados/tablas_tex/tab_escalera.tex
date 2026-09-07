@@ -1,0 +1,24 @@
+%% generado por flagship/revision/fase9_tablas_tex.py
+%% NO EDITAR A MANO: se regenera desde resultados/
+\begin{table*}[t]
+\centering
+\footnotesize
+\caption{Capacity ladder at a fixed 54-level quantile grid. Every arm shares the features, the rows, the training cut-off, the per-model hyperparameters and the seed; only the tree budget and the model form change. CRPS is that of the base predictive, in MWh; the fifth column is the change in CRPS over the whole test relative to the reference hurdle. Static coverage is that of the split conformal layer over the whole test, nominal 90\%. Generated from \texttt{resultados/verificacion/obj1\_capacidad.csv} and \texttt{obj1b\_escalera.csv}.}
+\label{tab:escalera}
+\begin{tabular}{lrrrrr}
+\toprule
+Base model & Trees & CRPS, transition & CRPS, whole test & vs.\ reference & Static coverage \\
+\midrule
+Hurdle, $2\times400$ & 800 & 133.52 & 89.52 & $\pm$0.0\% & 92.5\% \\
+Hurdle, $2\times2000$ & 4{,}000 & 141.07 & 95.46 & +6.6\% & 92.1\% \\
+Quantile GBM, $54\times15$ & 810 & 131.18 & 87.40 & -2.4\% & 87.0\% \\
+Quantile GBM, $54\times50$ & 2{,}700 & 100.58 & 71.38 & -20.3\% & 89.4\% \\
+Quantile GBM, $54\times100$ & 5{,}400 & 94.03 & 68.33 & -23.7\% & 90.1\% \\
+Quantile GBM, $54\times200$ & 10{,}800 & 92.77 & 67.84 & -24.2\% & 90.2\% \\
+Quantile GBM, $54\times400$ & 21{,}600 & 92.96 & 67.97 & -24.1\% & 90.2\% \\
+\bottomrule
+\end{tabular}
+
+\vspace{3pt}
+\parbox{\linewidth}{\footnotesize The coarse-grid arm (9 levels) is excluded from this table: sampling from a grid truncated at $\tau=0.9$ collapses all mass above that level onto the top quantile and biases its CRPS downwards, so it is not comparable. It is discussed in Section~\ref{sec:limitations}.}
+\end{table*}

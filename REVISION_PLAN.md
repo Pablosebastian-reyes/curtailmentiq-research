@@ -45,7 +45,7 @@ Leyenda de estado: `hecho` / `en curso` / `pendiente` / `refutado`.
 
 | # | Tema | Accion tomada | Ubicacion del cambio | Esfuerzo | Estado |
 |---|---|---|---|---|---|
-| **R1.1** | Solo se usa el hurdle; no se puede saber si la ventaja de Transport+ACI es de la capa o del modelo base. Sugiere un GBM multi-cuantil y repetir **todos** los experimentos | GBM multi-cuantil de 54 cuantiles entrenado con disciplina identica, mas el hurdle sigma(x) como tercer brazo. Protocolo conformal completo sobre los tres. **La ganancia no se replica.** Ver H1 | `flagship/revision/rev_lib.py`, `fase0_entrenar_qgbm.py`, `fase0_model_agnostic.py`, `fase0_diagnostico.py`; `resultados/fase0_model_agnostic.md`; .tex seccion 5 nueva y abstract | alto (8 min de entrenamiento + reescritura de la contribucion) | **hecho** |
+| **R1.1** | Solo se usa el hurdle; no se puede saber si la ventaja de Transport+ACI es de la capa o del modelo base. Sugiere un GBM multi-cuantil y repetir **todos** los experimentos | GBM multi-cuantil de 54 cuantiles entrenado con disciplina identica, mas el hurdle sigma(x) como tercer brazo. Protocolo conformal completo sobre los tres. **La ganancia no se replica.** Ver H1 | `flagship/revision/rev_lib.py`, `fase0_entrenar_qgbm.py`, `fase0_model_agnostic.py`, `fase0_diagnostico.py`; `resultados/fase0_model_agnostic.md`; .tex seccion 5 nueva y abstract | alto (8 min de entrenamiento + reescritura de la contribucion) | **hecho**, ampliado a ocho modelos base y cuarenta celdas tras la verificacion independiente (Fase 0b) |
 | **R1.2** | La descripcion de Transport+ACI es conceptual: faltan largo de ventana, regla de cuantiles, interpolacion, repeticiones bootstrap, funcion e intensidad del shrinkage, orden de ejecucion. Pide diagrama de flujo | Pseudocodigo completo, diagrama de flujo, tabla unica de hiperparametros con semillas, y declaracion explicita del orden transporte/ACI | .tex apendice nuevo y seccion 4.3; `resultados/fase1/hiperparametros.csv`; figura `fig6_diagrama_flujo.pdf` | medio | **hecho** |
 | **R1.3** | Ablaciones inadecuadas: pide ACI puro, Transport+ACI sin shrinkage y Transport+ACI completo, y verificar si la complejidad computacional se justifica | Cinco grupos (se anaden split estatico y transporte sin ACI para cerrar el factorial), con aporte marginal e IC bootstrap por bloques de dia y costo en segundos. **El transporte empeora y el shrinkage no aporta.** Ver H3 | `flagship/revision/fase2_ablaciones.py`; `resultados/fase2/`; .tex seccion 5 y Tabla nueva | medio | **hecho** |
 | **R1.4** | La seleccion de hiperparametros no esta validada. Pide validacion independiente o de origen rodante dentro de train y calibracion, sensibilidad a ventana y gamma, y test reservado a una sola evaluacion | Origen rodante dentro de la calibracion (interna ene-abr 2024, validacion may-ago 2024), criterio interval score. Selecciona gamma = 0.005 y ventana de 120 d, no los del paper. Sensibilidad 6x5 sobre el test declarada como exhibicion posterior | `flagship/revision/fase3_seleccion_hiperparametros.py`; `resultados/fase3/`; .tex seccion 4.4 | medio | **hecho** |
@@ -85,18 +85,21 @@ Leyenda de estado: `hecho` / `en curso` / `pendiente` / `refutado`.
 | Tabla 3, cobertura y ancho (hurdle) | `flagship/conformal_v3_tabla.csv` | `conformal_v3_real.py` |
 | Tabla 4, comparacion entre modelos base | `resultados/fase0/fase0_tabla_por_modelo.csv` | `fase0_model_agnostic.py` |
 | Tabla 5, diagnostico de la Fase 0 | `resultados/fase0/fase0_diagnostico.csv` | `fase0_diagnostico.py` |
-| Tabla 6, ablaciones | `resultados/fase2/fase2_aporte_por_componente.csv` | `fase2_ablaciones.py` |
-| Tabla 7, benchmarks y metricas | `resultados/fase4/fase4_metricas_completas.csv` | `fase4_metricas_benchmarks.py` |
-| Tabla 8, cota de alpha | `resultados/fase4/fase4_cota_alpha.csv` | `fase4_metricas_benchmarks.py` |
-| Tabla 9, dependencia de panel y cobertura desagregada | `resultados/fase5/fase5_remedios.csv`, `fase5_diagnostico_dependencia.csv`, `fase5_cobertura_desagregada.csv` | `fase5_dependencia_panel.py` |
-| Tabla 10, sensibilidad de la frontera | `resultados/fase6/fase6_sensibilidad_frontera.csv` | `fase6_cronologia.py` |
-| Tabla C.11, hiperparametros (apendice C) | `resultados/fase1/hiperparametros.csv` | `fase1_hiperparametros.py` |
+| Tabla 8, ablaciones | `resultados/fase2/fase2_aporte_por_componente.csv` | `fase2_ablaciones.py` |
+| Tabla 9, benchmarks y metricas | `resultados/fase4/fase4_metricas_completas.csv` | `fase4_metricas_benchmarks.py` |
+| Tabla 10, cota de alpha | `resultados/fase4/fase4_cota_alpha.csv` | `fase4_metricas_benchmarks.py` |
+| Tabla 11, dependencia de panel y cobertura desagregada | `resultados/fase5/fase5_remedios.csv`, `fase5_diagnostico_dependencia.csv`, `fase5_cobertura_desagregada.csv` | `fase5_dependencia_panel.py` |
+| Tabla 12, sensibilidad de la frontera | `resultados/fase6/fase6_sensibilidad_frontera.csv` | `fase6_cronologia.py` |
+| Tabla 7, escalera de capacidad | `resultados/verificacion/obj1_capacidad.csv`, `obj1b_escalera.csv` | `verificacion/obj1_capacidad_contra_forma.py`, `obj1b_escalera_capacidad.py` |
+| Tabla 6, diagnostico sobre cuarenta celdas | `resultados/fase0b/fase0b_diagnostico.json` | `fase0b_diagnostico_ampliado.py` |
+| Tabla C.13, hiperparametros (apendice C) | `resultados/fase1/hiperparametros.csv` | `fase1_hiperparametros.py` |
 | Fig. 1 mapa, Fig. 2 distribucion | `release/v1.0/` | `generar_figuras_paper.py` |
 | Fig. 3 puntos de cambio | `resultados/fase6/fase6_serie_mensual_*.csv` | `generar_figuras_paper.py` |
 | Fig. 4 diagrama de flujo | (esquematica) | `fase9_figuras_revision.py` |
 | Fig. 5 cobertura rodante, Fig. 6 cobertura y ancho | `flagship/conformal_v3_tabla.csv` | `generar_figuras_paper.py` |
 | Fig. 7 comparacion de modelos base | `resultados/fase0/fase0_diagnostico.csv` | `fase9_figuras_revision.py` |
-| Fig. 8 aporte por componente | `resultados/fase2/fase2_aporte_por_componente.csv` | `fase9_figuras_revision.py` |
+| Fig. 8 escalera y diagnostico ampliado | `resultados/verificacion/obj1b_escalera.csv`, `resultados/fase0b/fase0b_celdas.csv` | `fase9_figuras_revision.py` |
+| Fig. 9 aporte por componente | `resultados/fase2/fase2_aporte_por_componente.csv` | `fase9_figuras_revision.py` |
 
 ---
 
@@ -114,3 +117,27 @@ Leyenda de estado: `hecho` / `en curso` / `pendiente` / `refutado`.
 <venv>/bin/python flagship/revision/fase1_hiperparametros.py          # <1 s
 <venv>/bin/python flagship/revision/fase9_figuras_revision.py         # ~10 s
 ```
+
+
+---
+
+## Ampliacion posterior a la verificacion independiente (2026-09-07)
+
+La verificacion del coautor reprodujo la Fase 0 exactamente y dejo tres
+correcciones obligatorias y un hallazgo sin explotar. Todo entra bajo R1.1, que
+pedia verificar el agnosticismo y la estabilidad a traves de distintos modelos
+base.
+
+| Item | Accion | Ubicacion | Estado |
+|---|---|---|---|
+| Artefactos de la verificacion sin versionar | Cinco scripts a `flagship/revision/verificacion/`, salidas a `resultados/verificacion/`; 20 de 20 valores de contraste reproducen | `resultados/verificacion/` | hecho |
+| Diagnostico sobre quince celdas cuando habia cuarenta | `fase0b_diagnostico_ampliado.py`; r de −0.755 a −0.873, intercepto de [+0.07, +11.25] a [+1.60, +9.84] | \S5.3, Tabla 6, `resultados/fase0b/` | hecho |
+| Enunciado simetrico del diagnostico | Evaluado con las dos condiciones acordadas; **no se adopta**, el quiebre es de nivel y no de pendiente | \S5.3 | hecho, no adoptado |
+| Dominacion que mezclaba forma con capacidad | Escalera de capacidad; a presupuesto identico la ventaja cae de 24% a 2.4%, pero el hurdle empeora al recibir mas | \S5.4, Tabla 7, Fig. 8 | hecho |
+| Mecanismo del deterioro del hurdle | Verificado: el cuantil conformal pasa de 0.9242 a 0.9532 y mu aporta el 93% | \S5.4 | hecho |
+| Ajuste calculado sobre CSV redondeado | Series por fila persistidas; ajuste exacto leido del CSV por tabla, figura y verificador | `fase0_diagnostico.py` | hecho |
+| Control del brazo nuevo | Equivalencia C3 como asercion permanente, corre siempre | `fase0_model_agnostic.py` | hecho |
+| Brazo de rejilla gruesa | Nota de la limitacion: 100% de intervalos infinitos porque el cuantil conformal cae sobre el nivel maximo | \S7 | hecho |
+| Intercepto sin intervalo | Los tres estadisticos con su intervalo bootstrap | Tablas 5 y 6 | hecho |
+| Higiene de reproducibilidad | `environment.yml` con versiones congeladas; README declara la dependencia de Zenodo y los pasos 8 a 11 | `environment.yml`, `README.md` | hecho |
+| Credencial de reproducibilidad | Apendice D registra la reproduccion independiente | apendice D | hecho |

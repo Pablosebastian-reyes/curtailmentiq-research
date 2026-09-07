@@ -1,0 +1,7 @@
+  54 x  15 =   810 arboles   CRPS transicion  131.18   CRPS test  87.40   cobertura estatica  87.0%
+  54 x  50 =  2700 arboles   CRPS transicion  100.58   CRPS test  71.38   cobertura estatica  89.4%
+  54 x 100 =  5400 arboles   CRPS transicion   94.03   CRPS test  68.33   cobertura estatica  90.1%
+  54 x 200 = 10800 arboles   CRPS transicion   92.77   CRPS test  67.84   cobertura estatica  90.2%
+  54 x 400 = 21600 arboles   CRPS transicion   92.96   CRPS test  67.97   cobertura estatica  90.2%
+
+referencia del hurdle de 800 arboles: CRPS transicion 133.52, test 89.52

@@ -1,22 +1,29 @@
 name: curtailmentiq
+
+# VERSIONES CONGELADAS. Antes este archivo solo nombraba paquetes, y una
+# verificacion independiente resolvio cuatro de cinco en versiones distintas de
+# las de referencia. Reprodujo igual, pero eso dependia de que el solver
+# resolviera parecido, y no lo hara indefinidamente. Estas son las versiones con
+# las que se produjeron los resultados publicados.
 channels:
   - conda-forge
 dependencies:
-  - python=3.12
-  - pandas
-  - numpy
-  - scikit-learn
-  - xgboost
+  - python=3.12.3
+  - pandas=3.0.3
+  - numpy=2.4.6
+  - scipy=1.17.1
+  - scikit-learn=1.9.0
+  - xgboost=3.2.0
+  - matplotlib=3.11.0
+  - statsmodels=0.15.0
+  - ruptures=1.1.10
+  - pyarrow=24.0.0
   - lightgbm
-  - statsmodels
-  - ruptures      # deteccion de puntos de cambio (Fase 6 de la revision)
-  - matplotlib
   - jupyterlab
   - sqlalchemy
   - psycopg2
-  - pyarrow
   - pip
   - pip:
-      - pot          # Python Optimal Transport (Wasserstein)
-      - mapie        # Conformal prediction
+      - pot           # Python Optimal Transport (Wasserstein)
+      - mapie         # Conformal prediction
       - properscoring # CRPS

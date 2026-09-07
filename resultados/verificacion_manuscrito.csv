@@ -1,7 +1,12 @@
 seccion,afirmacion,en_el_texto,regenerado,verifica,fuente
-"abstract, 5.3",correlacion del diagnostico,$r=-0.757$,-0.757,si,fase0_diagnostico.csv
-"abstract, 5.3",pendiente del diagnostico,-4.39 %/pp,-4.39,si,fase0_diagnostico.csv
-"abstract, 5.3",intercepto del diagnostico,+5.49 %,+5.49,si,fase0_diagnostico.csv
+Tabla 5,ajuste sobre las quince celdas,"-0.755, -4.36, +5.45","-0.755, -4.36, +5.45",si,fase0_diagnostico.csv
+"abstract, 5.3",correlacion del diagnostico ampliado,-0.873,-0.873,si,fase0b_diagnostico.json
+"abstract, 5.3",pendiente del diagnostico ampliado,-4.89,-4.89,si,fase0b_diagnostico.json
+5.3,intervalo bootstrap del intercepto ampliado,"[+1.60, +9.84]","[+1.60, +9.84]",si,fase0b_diagnostico.json
+5.3,rango de sobre-cobertura cubierto por las cuarenta celdas,"[-8.42, +5.34]","[-8.42, +5.34]",si,fase0b_diagnostico.json
+5.4,ventaja del GBM a presupuesto equiparado,2.4 % y 1.8 %,segun obj1_capacidad.csv,si,obj1_capacidad.csv
+5.4,deterioro del hurdle al quintuplicar capacidad,89.5 a 95.5 MWh,segun obj1_capacidad.csv,si,obj1_capacidad.csv
+5.4,desplazamiento del cuantil conformal por mu,"0.9242 a 0.9532, 93 % por mu",segun obj1c_mecanismo.json,si,obj1c_mecanismo.json
 "5.2, 5.3",qgbm_multi / 1_estatico_pit,90.6% / 410 MWh,90.6% / 410 MWh,si,fase0_tabla_por_modelo.csv
 "5.2, 5.3",qgbm_multi / 4_transporte_banda_g05,90.5% / 425 MWh,90.5% / 425 MWh,si,fase0_tabla_por_modelo.csv
 "5.2, 5.3",hurdle / 1_estatico_pit,95.3% / 1203 MWh,95.3% / 1203 MWh,si,fase0_tabla_por_modelo.csv

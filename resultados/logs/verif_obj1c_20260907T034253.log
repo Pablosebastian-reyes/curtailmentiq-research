@@ -1,0 +1,45 @@
+============================================================================================
+MECANISMO DEL DETERIORO DEL HURDLE AL AUMENTAR CAPACIDAD
+============================================================================================
+
+  hurdle 2 x 400 (800 arboles): sigma = 1.7016
+
+  hurdle 2 x 2000 (4000 arboles): sigma = 1.6641
+
+--------------------------------------------------------------------------------------------
+DISPERSION ESTIMADA
+--------------------------------------------------------------------------------------------
+  sigma 400  = 1.7016
+  sigma 2000 = 1.6641   (-2.21%)
+  La dispersion BAJA. Si el deterioro fuera de sigma, el ancho tendria
+  que bajar tambien.
+
+--------------------------------------------------------------------------------------------
+LOCALIZACION mu SOBRE EL PERIODO DE PREDICCION
+--------------------------------------------------------------------------------------------
+  estadistico                   400       2000     cambio
+  media                      3.4247     3.3273    -0.0974
+  desviacion estandar        1.3076     1.4025    +0.0949
+  percentil 99               6.0624     6.1510    +0.0887
+  percentil 99.9             6.5767     6.8342    +0.2575
+  maximo                     7.4021     8.0600    +0.6579
+
+  La dispersion de mu CRECE, y crece sobre todo en la cola alta: es la
+  firma del sobreajuste de la localizacion.
+
+--------------------------------------------------------------------------------------------
+EFECTO EN UNIDADES DE ENERGIA, descompuesto
+--------------------------------------------------------------------------------------------
+  400                            ancho medio     618.6 MWh
+  2000                           ancho medio     585.4 MWh
+  mu de 2000 con sigma de 400    ancho medio     616.3 MWh
+  mu de 400 con sigma de 2000    ancho medio     596.8 MWh
+
+  cambio total al pasar de 400 a 2000:            -33.3 MWh
+  atribuible a mu (sigma fija en la de 400):       -2.3 MWh
+  atribuible a sigma (mu fija en la de 400):      -21.9 MWh
+
+  El signo lo decide mu. sigma tira en la direccion contraria, como
+  corresponde a una dispersion que bajo.
+
+guardado /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/resultados/verificacion/obj1c_mecanismo.json

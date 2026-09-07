@@ -48,17 +48,44 @@ def main():
     d['cambio_ancho_pct'] = (100 * (d.ancho_transporte / d.ancho_estatico - 1)).round(1)
     d['cambio_IS_pct'] = (100 * (d.IS_transporte / d.IS_estatico - 1)).round(1)
     d = d.reset_index()
-    d.to_csv(SAL / 'fase0_diagnostico.csv', index=False)
 
     print('=' * 96)
     print('FASE 0 - DIAGNOSTICO')
     print('=' * 96)
     print(d.to_string(index=False))
 
-    x = d.sobrecobertura_pp.values
-    y = d.cambio_ancho_pct.values
+    # El ajuste se hace sobre los valores EXACTOS, leidos de las series por
+    # fila, no sobre las columnas de la tabla, que van redondeadas a un decimal
+    # para mostrarse. Ajustar sobre las redondeadas desplaza r en 0.002 y la
+    # pendiente en 0.02: inmaterial, pero no hay razon para publicar el valor
+    # peor cuando el exacto esta disponible.
+    ser = SAL / 'series'
+    if ser.exists() and len(list(ser.glob('*.parquet'))) >= 3:
+        ex = []
+        for _, r_ in d.iterrows():
+            f = pd.read_parquet(ser / f'{r_.modelo_base}.parquet')
+            ini, fin = [(a, b) for nm, a, b in R.PERIODOS if nm == r_.periodo][0]
+            m = ((pd.to_datetime(f.fecha) >= ini)
+                 & (pd.to_datetime(f.fecha) < fin)).values
+            yv, Ue, Ut = f.y.values[m], f.U_est.values[m], f.U_tr.values[m]
+            fe, ft = np.isfinite(Ue), np.isfinite(Ut)
+            ex.append((100 * float((yv <= Ue).mean()) - NOMINAL,
+                       100 * (float(Ut[ft].mean()) / float(Ue[fe].mean()) - 1)))
+        d['sobrecobertura_pp_exacta'] = [e[0] for e in ex]
+        d['cambio_ancho_pct_exacto'] = [e[1] for e in ex]
+        x = d.sobrecobertura_pp_exacta.values
+        y = d.cambio_ancho_pct_exacto.values
+        print('  ajuste sobre valores exactos (series por fila)')
+    else:
+        x = d.sobrecobertura_pp.values
+        y = d.cambio_ancho_pct.values
+        print('  AVISO: sin series por fila, se ajusta sobre valores redondeados')
     r = float(np.corrcoef(x, y)[0, 1])
     b = np.polyfit(x, y, 1)
+    d['r_ajuste'] = round(r, 6)
+    d['pendiente_ajuste'] = round(float(b[0]), 6)
+    d['intercepto_ajuste'] = round(float(b[1]), 6)
+    d.to_csv(SAL / 'fase0_diagnostico.csv', index=False)
     print('\n' + '-' * 96)
     print('Relacion entre sobre-cobertura del split estatico y recorte de ancho')
     print(f'de Transporte+ACI, sobre las {len(d)} celdas (modelo base x ventana):')

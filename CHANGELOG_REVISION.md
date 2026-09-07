@@ -48,7 +48,7 @@ Ningun script de la revision escribe sobre `resultados/v_enviada/`.
 | `flagship/revision/fase5_dependencia_panel.py` | ICC y efecto de diseno; conformal por bloques, por grupos y por central; cobertura desagregada en cuatro ejes | R2.5 |
 | `flagship/revision/fase6_cronologia.py` | Cronologia unica, 180 configuraciones de deteccion, W1 con IC y nulo, descomposicion estacional, seis fronteras alternativas y verificacion de 24 afirmaciones | R2.3 |
 | `flagship/revision/fase8_buscar_referencias.py` | Busca y VERIFICA referencias contra Crossref; nada entra sin DOI resuelto | R2.1 |
-| `flagship/revision/fase9_figuras_revision.py` | Figuras 4, 7 y 8 del manuscrito (el diagrama de flujo, la comparacion entre modelos base y el aporte por componente) | Q4, R1.2, R1.3 |
+| `flagship/revision/fase9_figuras_revision.py` | Figuras 4, 7 y 9 del manuscrito (el diagrama de flujo, la comparacion entre modelos base y el aporte por componente) | Q4, R1.2, R1.3 |
 | `flagship/revision/fase9_tablas_tex.py` | Emite los diez floats de tabla desde los CSV de resultados | Regla Dura 1 |
 | `flagship/revision/verificar_manuscrito.py` | Comprueba las 43 afirmaciones numericas en prosa del manuscrito contra su archivo de resultados | Regla Dura 1 |
 
@@ -151,10 +151,10 @@ y declarado en el manuscrito.
 | Metricas: interval score unilateral y tratamiento de los infinitos | R1.5 | \S4.7 |
 | Alcance del resultado del pronostico puntual | R2.7 | \S5.1 |
 | **Subseccion nueva: el agnosticismo al modelo base** | R1.1 | \S5.3 |
-| Subseccion nueva: ablaciones | R1.3 | \S5.4 |
-| Subseccion nueva: benchmarks, metricas e infinitos | R1.5, R2.6 | \S5.5 |
-| Subseccion nueva: dependencia de panel y cobertura condicional | R2.5 | \S5.6 |
-| Subseccion nueva: sensibilidad de la frontera | R2.3 | \S5.7 |
+| Subseccion nueva: ablaciones | R1.3 | \S5.5 |
+| Subseccion nueva: benchmarks, metricas e infinitos | R1.5, R2.6 | \S5.6 |
+| Subseccion nueva: dependencia de panel y cobertura condicional | R2.5 | \S5.7 |
+| Subseccion nueva: sensibilidad de la frontera | R2.3 | \S5.8 |
 | Discusion reescrita alrededor del diagnostico | R1.1, Q5 | \S6 |
 | **Seccion nueva de limitaciones, diez items** | Q7 | \S7 |
 | Conclusion reescrita | R1.1, R2.7, Q5 | \S8 |
@@ -262,7 +262,7 @@ numeracion anterior. Dos inserciones la corrieron: la subseccion 4.6 (novedad),
 que empujo la seleccion de hiperparametros a 4.7 y la evaluacion a 4.8; y el
 diagrama de flujo, que entro como Figura 4 y empujo la cobertura rodante a 5 y
 el trade-off a 6. Ademas, la tabla de cobertura desagregada quedo fundida dentro
-de la Tabla 9, de modo que la sensibilidad de la frontera es la 10 y la de
+de la Tabla 11, de modo que la sensibilidad de la frontera es la 10 y la de
 hiperparametros es la C.11 del apendice, no la 11 y la 12.
 
 **28 correcciones en `flagship/segan/response_to_reviewers.tex`.** La columna
@@ -278,10 +278,10 @@ modo que esta tabla puede documentar la numeracion vieja sin dispararlo.
 | Diagrama de flujo | `Figura 6` (x3) | Figura 4 |
 | Cobertura rodante y trade-off | `Figuras 3--4` (x2) | Figuras 5--6 |
 | Puntos de cambio | `Figura 5` | Figura 3 |
-| Tabla de hiperparametros | `Tabla 12` (x2) | Tabla C.11 |
-| Sensibilidad de la frontera | `Tabla 11` (x2) | Tabla 10 |
-| Cobertura condicional | `Tabla 10`, `Tablas 9--10` | Tabla 9 |
-| Las tres figuras nuevas | `Figs. 6--8` | Figs. 4, 7 y 8 |
+| Tabla de hiperparametros | `Tabla 12` (x2) | Tabla C.13 |
+| Sensibilidad de la frontera | `Tabla 11` (x2) | Tabla 12 |
+| Cobertura condicional | `Tabla 10`, `Tablas 9--10` | Tabla 11 |
+| Las figuras nuevas | `Figs. 6--8` | Figs. 4, 7, 8 y 9 |
 
 Dos correcciones de contenido que salieron al revisar:
 
@@ -309,16 +309,16 @@ $VENV flagship/revision/verificar_referencias_cruzadas.py
 # 54 etiquetas coinciden con LaTeX; 139 referencias literales; 0 problemas
 ```
 
-### 8.2 Numero viejo en la Tabla C.11
+### 8.2 Numero viejo en la Tabla C.13
 
 El campo de descripcion de la cota de alpha decia "a lo mas 0.4 puntos de
-cobertura" cuando el manuscrito, la carta y la Tabla 8 ya decian medio punto. El
+cobertura" cuando el manuscrito, la carta y la Tabla 10 ya decian medio punto. El
 valor correcto es 0.5, la caida de Transporte+ACI con gamma 0.05 al pasar de
 alpha sin cota a alpha_min = 0.005 (90.1 a 89.6).
 
 No se corrigio escribiendo 0.5 a mano. `fase1_hiperparametros.py` ahora lo
 calcula desde `resultados/fase4/fase4_cota_alpha.csv`, que es el mismo archivo
-que alimenta la Tabla 8, asi que los dos no pueden volver a divergir.
+que alimenta la Tabla 10, asi que los dos no pueden volver a divergir.
 
 `verificar_manuscrito.py` no lo detecto porque solo auditaba la prosa del `.tex`,
 y ese numero vive en un campo de descripcion de una tabla generada. Se extendio
@@ -404,4 +404,105 @@ $VENV flagship/revision/verificar_referencias_cruzadas.py   # 139 refs, exit 0
 cd build && pdflatex x3 SEGAN_paper_FINAL && pdflatex x2 response_to_reviewers
 # 0 errores, 0 referencias sin resolver
 # manuscrito 32 paginas, carta 19 paginas
+```
+
+
+---
+
+## 10. Verificacion independiente del coautor, y lo que salio de ella
+
+La Fase 0 se reprodujo desde un clon limpio con el entorno reconstruido. Sus
+scripts corrieron en una ruta temporal, asi que sus resultados no quedaban
+versionados. Se incorporaron al repositorio.
+
+### 10.1 Los scripts de la verificacion entran al repo
+
+Cinco scripts en `flagship/revision/verificacion/`, escribiendo en
+`resultados/verificacion/`. Se corrieron aqui y reproducen los veinte valores de
+contraste que reporto el verificador, y los tres controles pasan.
+
+```
+$VENV flagship/revision/verificacion/paso4_registro_ciego.py
+$VENV flagship/revision/verificacion/obj1_capacidad_contra_forma.py
+$VENV flagship/revision/verificacion/obj1b_escalera_capacidad.py
+$VENV flagship/revision/verificacion/obj2_incertidumbre_diagnostico.py
+$VENV flagship/revision/verificacion/obj3_control_del_brazo_nuevo.py
+# 20 de 20 valores de contraste; C1, C2 y C3 pasan
+```
+
+**Un cambio de fondo en C2.** El control comparaba la cobertura cruda del GBM
+contra un umbral absoluto de 8 pp y la marcaba como sospechosa. Era un falso
+positivo: en la ventana de calibracion todos los modelos sub-cubren, porque estan
+entrenados hasta 2023 y las magnitudes suben en 2024. El hurdle sub-cubre MAS que
+el GBM (−13.87 pp contra −6.68 en tau = 0.5). C2 se reescribio como control
+comparativo: exige que el GBM no sub-cubra mas que el hurdle por encima de 5 pp
+en ningun nivel. Un error de indice, que daria decenas de puntos, sigue saltando;
+la sub-cobertura comun al regimen ya no dispara nada.
+
+### 10.2 El diagnostico sobre cuarenta celdas
+
+Ver `HALLAZGOS_CRITICOS.md`, H5. El hallazgo que el verificador no exploto: cada
+brazo de la escalera ya estaba evaluado en las cinco ventanas, asi que habia
+ocho modelos base disponibles y no tres.
+
+```
+$VENV flagship/revision/fase0b_diagnostico_ampliado.py
+# 40 celdas: r = -0.873 [-0.912, -0.645], pendiente -4.89, intercepto +5.76 [+1.60, +9.84]
+# restringido a las 15 originales: r = -0.755, identico al publicado
+```
+
+Para que el remuestreo por bloques de dia pudiera recomputar las cuarenta celdas
+sin reentrenar en cada replica, `evaluar()` y `fase0_model_agnostic.py` ahora
+persisten las series por fila de `U_est`, `U_tr`, `y` y `fecha` en
+`resultados/verificacion/series/` y `resultados/fase0/series/`.
+
+Son catorce parquet, 26.3 MB, y se versionan con el mismo criterio con que se
+versiona `pred_qgbm_multi.csv.gz`: son regenerables, pero cuestan cuarenta
+minutos de computo y sin ellos ni el diagnostico ampliado ni el ajuste exacto de
+la Fase 0 se pueden rehacer. Se probo float32 con zstd, que bajaria a 15 MB, y se
+descarto: la perdida de precision cambiaria el bootstrap y con el la
+reproducibilidad exacta, que es justamente lo que estos archivos existen para
+sostener. Ningun archivo individual pasa de 2 MB.
+
+### 10.3 La escalera de capacidad entra al manuscrito
+
+Ver `HALLAZGOS_CRITICOS.md`, H6. Seccion 5.4 nueva, Tabla 7, Figura 8. La
+limitacion de la Seccion 7 que declaraba la cuestion sin resolver se reemplaza
+por el experimento.
+
+### 10.4 Correcciones puntuales
+
+| # | Correccion | Reproduce |
+|---|---|---|
+| D1 | El ajuste del diagnostico se calculaba sobre un CSV redondeado a un decimal, dando r = −0.757 en vez de −0.755. `fase0_model_agnostic.py` persiste las series y `fase0_diagnostico.py` ajusta sobre valores exactos; tabla, figura y verificador leen ese ajuste en vez de recalcularlo | `$VENV flagship/revision/fase0_diagnostico.py` |
+| D2 | El control de equivalencia del brazo nuevo pasa a asercion permanente en `fase0_model_agnostic.py`, y corre siempre, no solo para el hurdle | `$VENV flagship/revision/fase0_model_agnostic.py` |
+| D3 | El brazo de rejilla gruesa, con 100% de intervalos infinitos porque el cuantil conformal cae sobre el nivel maximo de la rejilla, entra como nota de la limitacion de la Seccion 7 | (texto) |
+| D4 | Los tres estadisticos del diagnostico se reportan con su intervalo bootstrap, en la Tabla 5 y en la Tabla 6 | `$VENV flagship/revision/fase9_tablas_tex.py` |
+| D5 | `environment.yml` con versiones congeladas; el README declara que los datos viven en Zenodo y que sin ellos la Fase 0 no corre, y lista los pasos 8 a 11 | (configuracion) |
+| D6 | El Apendice D registra la reproduccion independiente: clon limpio, entorno con versiones distintas, coincidencia de checksum del modelo entrenado, sin discrepancias contra las tablas | (texto) |
+
+### 10.5 Renumeracion
+
+Las dos tablas y la figura nuevas volvieron a correr la numeracion. El
+verificador de referencias cruzadas la detecto y el remapeo se aplico a la
+carta, `REVISION_PLAN.md` y este archivo: secciones 5.4 a 5.7 pasan a 5.5 a 5.8,
+tablas 6 a 10 pasan a 8 a 12, la de hiperparametros de C.11 a C.13, y la figura
+de ablaciones de 8 a 9.
+
+Un intento previo del remapeo encadenaba sustituciones y convirtio
+"Tables 6 and 7" en "Tables 8 and 11" en vez de "8 and 9". Se rehizo en una sola
+pasada. Se anadieron ademas los alias en espanol, que la primera version no
+cubria.
+
+Dos patrones semanticos del verificador llevaban numeros de seccion cableados y
+se corrieron con la insercion. Se reescribieron sin ellos: un verificador de
+numeracion no puede depender de la numeracion.
+
+### 10.6 Comprobaciones al cierre
+
+```
+$VENV flagship/revision/verificar_manuscrito.py             # 51 de 51, exit 0
+$VENV flagship/revision/verificar_referencias_cruzadas.py   # 166 refs, exit 0
+# abstract 244 palabras (limite 250)
+# manuscrito 34 paginas, carta 19, cero errores y cero referencias sin resolver
 ```

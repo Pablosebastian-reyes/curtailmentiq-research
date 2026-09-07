@@ -1,0 +1,64 @@
+{
+ "C1": {
+  "Q no decreciente por fila": true,
+  "Q no negativa": true,
+  "cdf en [0,1]": true,
+  "inv no decreciente en q": true,
+  "inv no negativa": true,
+  "cdf(inv(q)) = q, error maximo < 1e-6": true
+ },
+ "C2": {
+  "filas": [
+   {
+    "tau": 0.5,
+    "hurdle": 36.13,
+    "hurdle_sigma_x": 36.2,
+    "qgbm": 43.32,
+    "exceso_gbm_sobre_hurdle_pp": -7.19
+   },
+   {
+    "tau": 0.7,
+    "hurdle": 56.03,
+    "hurdle_sigma_x": 53.55,
+    "qgbm": 61.61,
+    "exceso_gbm_sobre_hurdle_pp": -5.59
+   },
+   {
+    "tau": 0.8,
+    "hurdle": 70.91,
+    "hurdle_sigma_x": 67.66,
+    "qgbm": 72.31,
+    "exceso_gbm_sobre_hurdle_pp": -1.4
+   },
+   {
+    "tau": 0.9,
+    "hurdle": 86.65,
+    "hurdle_sigma_x": 84.86,
+    "qgbm": 84.83,
+    "exceso_gbm_sobre_hurdle_pp": 1.82
+   },
+   {
+    "tau": 0.95,
+    "hurdle": 93.81,
+    "hurdle_sigma_x": 93.55,
+    "qgbm": 91.79,
+    "exceso_gbm_sobre_hurdle_pp": 2.03
+   },
+   {
+    "tau": 0.99,
+    "hurdle": 98.87,
+    "hurdle_sigma_x": 99.13,
+    "qgbm": 97.73,
+    "exceso_gbm_sobre_hurdle_pp": 1.14
+   }
+  ],
+  "peor_exceso_pp": 2.03,
+  "ok": true
+ },
+ "C3": {
+  "dif_cobertura_max_pp": 0.1,
+  "dif_ancho_max_pct": 0.594,
+  "ok": true,
+  "n_niveles": 54
+ }
+}

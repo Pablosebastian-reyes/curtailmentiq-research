@@ -1,0 +1,64 @@
+============================================================================================
+MECANISMO DEL DETERIORO DEL HURDLE AL AUMENTAR CAPACIDAD
+============================================================================================
+
+  hurdle 2 x 400 (800 arboles): sigma = 1.7016
+
+  hurdle 2 x 2000 (4000 arboles): sigma = 1.6641
+
+--------------------------------------------------------------------------------------------
+DISPERSION ESTIMADA
+--------------------------------------------------------------------------------------------
+  sigma 400  = 1.7016
+  sigma 2000 = 1.6641   (-2.21%)
+  La dispersion BAJA. Si el deterioro fuera de sigma, el ancho tendria
+  que bajar tambien.
+
+--------------------------------------------------------------------------------------------
+LOCALIZACION mu SOBRE EL PERIODO DE PREDICCION
+--------------------------------------------------------------------------------------------
+  estadistico                   400       2000     cambio
+  media                      3.4247     3.3273    -0.0974
+  desviacion estandar        1.3076     1.4025    +0.0949
+  percentil 99               6.0624     6.1510    +0.0887
+  percentil 99.9             6.5767     6.8342    +0.2575
+  maximo                     7.4021     8.0600    +0.6579
+
+  La dispersion de mu CRECE, y crece sobre todo en la cola alta: es la
+  firma del sobreajuste de la localizacion.
+
+--------------------------------------------------------------------------------------------
+EFECTO EN UNIDADES DE ENERGIA, descompuesto
+--------------------------------------------------------------------------------------------
+  cuantil conformal del hurdle 2 x 400: q = 0.9242
+  cuantil conformal del hurdle 2 x 2000: q = 0.9532
+
+  hurdle 400 (referencia)                        678.4 MWh
+  hurdle 2000 (observado)                        970.0 MWh   +291.6
+
+  descomposicion del cambio total de +291.6 MWh:
+    solo mover q (predictiva de 400)            +360.8 MWh
+    solo cambiar la predictiva (q de 400)        -38.5 MWh
+      de los cuales, mu (sigma de 400)            -4.5 MWh
+      de los cuales, sigma (mu de 400)           -33.9 MWh
+
+  El desplazamiento de q es el termino dominante, y q se desplaza
+  porque la predictiva esta peor calibrada. sigma tira a la baja, como
+  corresponde a una dispersion que bajo: el deterioro viene de mu.
+
+--------------------------------------------------------------------------------------------
+POR QUE SE MUEVE q: calibracion del PIT, cruzando mu y sigma
+--------------------------------------------------------------------------------------------
+  mu 400, sigma 400 (referencia)     KS a la uniforme 0.1890   q = 0.9242
+  mu 2000, sigma 2000 (observado)    KS a la uniforme 0.1886   q = 0.9532
+  mu 2000, sigma 400                 KS a la uniforme 0.1878   q = 0.9512
+  mu 400, sigma 2000                 KS a la uniforme 0.1884   q = 0.9270
+
+  degradacion del KS atribuible a mu:    -0.0012
+  degradacion del KS atribuible a sigma: -0.0006
+
+  Cambiar solo mu degrada la uniformidad del PIT y empuja q hacia
+  arriba; cambiar solo sigma casi no la mueve. El deterioro del hurdle
+  al recibir mas capacidad es de LOCALIZACION, no de dispersion.
+
+guardado /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/resultados/verificacion/obj1c_mecanismo.json

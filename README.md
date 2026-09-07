@@ -42,7 +42,9 @@ Root documents: [DECISIONS.md](DECISIONS.md) (dated log of every methodological 
 
 ## Reproducing the results
 
-All scripts run from the repository root, are deterministic under fixed seeds, and read only the frozen release plus files versioned here. The reference runs used Python 3.12.3 with pandas 3.0.3, numpy 2.4.6, scikit-learn 1.9.0 and xgboost 3.2.0; small numerical differences may appear with other library versions.
+All scripts run from the repository root, are deterministic under fixed seeds, and read only the frozen release plus files versioned here. The reference runs used Python 3.12.3 with pandas 3.0.3, numpy 2.4.6, scikit-learn 1.9.0 and xgboost 3.2.0. `environment.yml` pins those versions. An independent reproduction resolved four of the five in different versions and still matched the published tables, including a byte-identical checksum for the retrained quantile model, but the pins are there so that reproducibility does not depend on how a solver resolves the environment on a given day.
+
+**The data are not in this repository.** `release/v1.0/` is in `.gitignore`, so a fresh clone does not carry the files the scripts read, and step 1 below is not optional: the whole pipeline, the Phase 0 model-agnosticism experiment included, fails without it.
 
 **1. Get the data.** Download the data files from Zenodo ([10.5281/zenodo.21198816](https://doi.org/10.5281/zenodo.21198816); byte-identical in v1.0 and v1.1) into `release/v1.0/`, the path the scripts read, and verify their integrity:
 
@@ -63,6 +65,10 @@ The same checksum file also lists the 53 original CEN files of `data-raw/`; thos
 | 5 | `python flagship/generar_figuras_paper.py` | Figures 1 to 4 of the article in `flagship/segan/figuras/`. Figure 3 recomputes the conformal series with the same RNG order as step 3 and aborts if it does not match the official table (see [REPORTE_FIGURAS.md](flagship/segan/REPORTE_FIGURAS.md)). | 20260720 |
 | 6 | `python scripts/generar_figuras_data_paper.py` | Figures 1 and 2 of the data descriptor in `figures/`. | deterministic |
 | 7 | `python flagship-eda/generar_eda.py` | The six EDA figures in `flagship-eda/`. | deterministic |
+| 8 | `python flagship/revision/fase0_entrenar_qgbm.py` | `pred_qgbm_multi.csv.gz`, the multi-quantile base model of the model-agnosticism experiment. Needs `release/v1.0/` from step 1. About 8 minutes. | 42 |
+| 9 | `python flagship/revision/fase0_model_agnostic.py` | `resultados/fase0/`, the calibration layer over three base predictives. Asserts both that the hurdle arm reproduces the submitted table and that the quantile predictive reproduces the validated arm. | 20260720 |
+| 10 | `python flagship/revision/verificacion/obj1_capacidad_contra_forma.py` and `obj1b_escalera_capacidad.py` | `resultados/verificacion/`, the capacity ladder that separates model form from fitted budget. About 40 minutes. | 42 |
+| 11 | `python flagship/revision/fase0b_diagnostico_ampliado.py` | `resultados/fase0b/`, the diagnostic over forty cells with its bootstrap intervals. Needs steps 9 and 10. | 20260901 |
 
 Reference outputs of every run (tables, logs, figures) are versioned next to each script, so results can be checked without re-running. The synthetic testbed (`flagship/conformal_prototype.py`, `flagship/conformal_v2*.py`, seed 20260720) reproduces the methodology prototyping stage; its numbers are not citable and are not used in the article.
 

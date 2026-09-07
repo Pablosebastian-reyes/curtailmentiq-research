@@ -1,0 +1,28 @@
+==============================================================================
+FASE 0 - AGNOSTICISMO AL MODELO BASE (comentario R1.1)
+semilla conformal 20260720 | embargo 7 d | alpha 0.1
+==============================================================================
+
+==============================================================================
+MODELO BASE: hurdle   {'sigma': 1.701641}
+==============================================================================
+calibracion: 26,552 filas, 244 dias
+test: 77,868 filas, 638 dias
+score PIT de calibracion: media 0.6042, sd 0.2765  (uniforme ideal: 0.5000 / 0.2887)
+
+1. estatico PIT: qhat = 0.9242
+2. ventana deslizante 60d: listo
+3. ACI gamma=0.02: alpha_t final = 0.1260
+3. ACI gamma=0.05: alpha_t final = 0.1264
+4. Transporte+ACI gamma=0.02: alpha_t final = 0.0992  (transicion: sd_cola=0.003 lam_cola=1.00)
+4. Transporte+ACI gamma=0.05: alpha_t final = 0.1061  (transicion: sd_cola=0.003 lam_cola=1.00)
+Traceback (most recent call last):
+  File "/Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/flagship/revision/fase0_model_agnostic.py", line 268, in <module>
+    main()
+  File "/Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/flagship/revision/fase0_model_agnostic.py", line 208, in main
+    tabla, series, f_t, y_t = correr_modelo(nombre, h, pred, info)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/flagship/revision/fase0_model_agnostic.py", line 170, in correr_modelo
+    SERIES.mkdir(parents=True, exist_ok=True)
+    ^^^^^^
+NameError: name 'SERIES' is not defined

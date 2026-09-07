@@ -1,0 +1,44 @@
+================================================================================================
+OBJECION 1 - CAPACIDAD CONTRA FORMA
+================================================================================================
+train 67,032 filas, prediccion 104,420 filas
+
+[ref] hurdle original, 2 x 400 = 800 arboles
+      sigma = 1.7016
+
+[A] GBM multi-cuantil encogido: 54 niveles x 15 arboles
+      810 arboles, contra 800 del hurdle
+
+[B] hurdle agrandado: 2 x 2000 arboles
+      4000 arboles, sigma = 1.6641
+
+[C] GBM multi-cuantil de rejilla gruesa: 9 niveles x 400 arboles
+      3600 arboles
+
+================================================================================================
+test_transition
+================================================================================================
+                           modelo  arboles         metodo  cobertura  se_cluster  ancho_medio  pct_infinito  IS_finitos   crps
+          hurdle_400 (referencia)      800       estatico       95.3        0.45       1203.3           0.0      1587.6 133.52
+          hurdle_400 (referencia)      800 transporte_g05       90.9        0.81        805.6           0.0      1408.5 133.52
+qgbm_54x15 (capacidad equiparada)      810       estatico       81.5        1.09        312.2           0.0      1257.3 131.18
+qgbm_54x15 (capacidad equiparada)      810 transporte_g05       92.0        0.68        486.0           0.0       921.5 131.18
+       hurdle_2000 (capacidad x5)     4000       estatico       95.0        0.44       1668.1           0.0      2108.0 141.07
+       hurdle_2000 (capacidad x5)     4000 transporte_g05       90.5        0.84       1053.1           0.0      1735.9 141.07
+      qgbm_9x400 (rejilla gruesa)     3600       estatico      100.0        0.00          NaN         100.0         NaN  94.37
+      qgbm_9x400 (rejilla gruesa)     3600 transporte_g05       89.2        1.27        319.7          31.3       854.5  94.37
+
+================================================================================================
+TEST_COMPLETO
+================================================================================================
+                           modelo  arboles         metodo  cobertura  se_cluster  ancho_medio  pct_infinito  IS_finitos  crps
+          hurdle_400 (referencia)      800       estatico       92.5        0.37        678.4           0.0       972.8 89.52
+          hurdle_400 (referencia)      800 transporte_g05       90.1        0.43        595.9           5.9      1029.9 89.52
+qgbm_54x15 (capacidad equiparada)      810       estatico       87.0        0.39        246.8           0.0       809.7 87.40
+qgbm_54x15 (capacidad equiparada)      810 transporte_g05       90.2        0.39        309.3           1.9       737.8 87.40
+       hurdle_2000 (capacidad x5)     4000       estatico       92.1        0.40        970.0           0.0      1297.0 95.46
+       hurdle_2000 (capacidad x5)     4000 transporte_g05       90.1        0.46        873.7           5.9      1342.6 95.46
+      qgbm_9x400 (rejilla gruesa)     3600       estatico      100.0        0.00          NaN         100.0         NaN 68.98
+      qgbm_9x400 (rejilla gruesa)     3600 transporte_g05       90.2        0.51        219.0          42.5       692.6 68.98
+
+guardado /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/resultados/verificacion/obj1_capacidad.csv

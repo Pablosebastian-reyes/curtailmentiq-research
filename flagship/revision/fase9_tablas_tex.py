@@ -118,14 +118,22 @@ def tabla_diagnostico():
                      f'{r.sobrecobertura_pp:+.1f} & {r.ancho_estatico:.0f} & '
                      f'{r.cambio_ancho_pct:+.1f} \\\\')
         L.append('\\addlinespace')
-    x, y = d.sobrecobertura_pp.values, d.cambio_ancho_pct.values
-    b = np.polyfit(x, y, 1)
-    r = float(np.corrcoef(x, y)[0, 1])
+    # El ajuste NO se recalcula aqui: se lee el que fase0_diagnostico.py
+    # computo sobre los valores exactos por fila. Recalcularlo sobre las
+    # columnas de esta tabla, que van redondeadas para mostrarse, desplazaba r
+    # en 0.002.
+    r = float(d.r_ajuste.iloc[0])
+    b = (float(d.pendiente_ajuste.iloc[0]), float(d.intercepto_ajuste.iloc[0]))
+    import json as _json
+    _ic = _json.load(open(RES / 'verificacion' / 'obj2_incertidumbre.json'))['ic_bootstrap']
     L = L[:-1]
     L.append('\\midrule')
-    L.append(f'\\multicolumn{{5}}{{l}}{{Pearson $r = {r:.3f}$; slope '
-             f'${b[0]:.2f}$ \\% of width per pp of over-coverage; intercept '
-             f'${b[1]:+.2f}$ \\%}} \\\\')
+    L.append(f'\\multicolumn{{5}}{{l}}{{Pearson $r = {r:.3f}$ '
+             f'$[{_ic["r"]["lo"]:.3f}, {_ic["r"]["hi"]:.3f}]$; slope '
+             f'${b[0]:.2f}$ $[{_ic["pendiente"]["lo"]:.2f}, '
+             f'{_ic["pendiente"]["hi"]:.2f}]$ \\% of width per pp; intercept '
+             f'${b[1]:+.2f}$ $[{_ic["intercepto"]["lo"]:+.2f}, '
+             f'{_ic["intercepto"]["hi"]:+.2f}]$ \\%}} \\\\')
     escribir('tab_diagnostico', L, col='lcccc',
              encabezado='Window & Static coverage (\\%) & Over-coverage (pp) & '
                         'Static width (MWh) & Width change (\\%) \\\\',
@@ -472,6 +480,96 @@ def tabla_mae():
              label='tab:mae')
 
 
+
+
+# ---------------------------------------------------------------- tabla nueva
+def tabla_escalera():
+    """Escalera de capacidad (Fase C de la revision), desde los CSV de la
+    verificacion. Separa forma de capacidad, que es lo que el manuscrito
+    anterior declaraba como limitacion sin resolver."""
+    o = pd.read_csv(RES / 'verificacion' / 'obj1_capacidad.csv')
+    e = pd.read_csv(RES / 'verificacion' / 'obj1b_escalera.csv')
+    est = pd.concat([o, e])
+    est = est[est.metodo == 'estatico']
+
+    def fila(patron, etq):
+        s = est[est.modelo.str.startswith(patron)]
+        tr = s[s.periodo == 'test_transition'].iloc[0]
+        tt = s[s.periodo == 'TEST_COMPLETO'].iloc[0]
+        return (etq, int(tr.arboles), tr.crps, tt.crps, tt.cobertura)
+
+    filas = [fila('hurdle_400', 'Hurdle, $2\\times400$'),
+             fila('hurdle_2000', 'Hurdle, $2\\times2000$'),
+             fila('qgbm_54x15', 'Quantile GBM, $54\\times15$'),
+             fila('qgbm_54x50', 'Quantile GBM, $54\\times50$'),
+             fila('qgbm_54x100', 'Quantile GBM, $54\\times100$'),
+             fila('qgbm_54x200', 'Quantile GBM, $54\\times200$'),
+             fila('qgbm_54x400', 'Quantile GBM, $54\\times400$')]
+    ref_tr, ref_tt = filas[0][2], filas[0][3]
+    L = []
+    for etq, arb, ctr, ctt, cob in filas:
+        d = 100 * (ctt / ref_tt - 1)
+        neg = '$\\pm$0.0' if abs(d) < 0.05 else f'{d:+.1f}'
+        # el separador de millares solo va en el conteo de arboles, no en la
+        # etiqueta, que lleva comas propias
+        arbol = f'{arb:,}'.replace(',', '{,}')
+        L.append(f'{etq} & {arbol} & {ctr:.2f} & {ctt:.2f} & {neg}\\% & {cob}\\% \\\\')
+    escribir(
+        'tab_escalera', L, col='lrrrrr',
+        encabezado='Base model & Trees & CRPS, transition & CRPS, whole test & '
+                   'vs.\\ reference & Static coverage \\\\',
+        caption='Capacity ladder at a fixed 54-level quantile grid. Every arm '
+                'shares the features, the rows, the training cut-off, the '
+                'per-model hyperparameters and the seed; only the tree budget '
+                'and the model form change. CRPS is that of the base '
+                'predictive, in MWh; the fifth column is the change in CRPS '
+                'over the whole test relative to the reference hurdle. Static '
+                'coverage is that of the split conformal layer over the whole '
+                'test, nominal 90\\%. Generated from '
+                '\\texttt{resultados/verificacion/obj1\\_capacidad.csv} and '
+                '\\texttt{obj1b\\_escalera.csv}.',
+        label='tab:escalera',
+        nota='The coarse-grid arm (9 levels) is excluded from this table: '
+             'sampling from a grid truncated at $\\tau=0.9$ collapses all mass '
+             'above that level onto the top quantile and biases its CRPS '
+             'downwards, so it is not comparable. It is discussed in '
+             'Section~\\ref{sec:limitations}.')
+
+
+def tabla_diagnostico_ampliado():
+    """Diagnostico sobre cuarenta celdas, con los intervalos bootstrap."""
+    import json
+    j = json.load(open(RES / 'fase0b' / 'fase0b_diagnostico.json'))
+    c, q, ic = j['cuarenta'], j['quince_originales'], j['ic_bootstrap']
+    L = [f"Fit over all {j['n_celdas']} cells & ${c['r']:.3f}$ & "
+         f"${c['pendiente']:.2f}$ & ${c['intercepto']:+.2f}$ \\\\",
+         f"\\quad 95\\% bootstrap interval & $[{ic['r']['lo']:.3f}, {ic['r']['hi']:.3f}]$ & "
+         f"$[{ic['pendiente']['lo']:.2f}, {ic['pendiente']['hi']:.2f}]$ & "
+         f"$[{ic['intercepto']['lo']:+.2f}, {ic['intercepto']['hi']:+.2f}]$ \\\\",
+         '\\addlinespace',
+         f"Restricted to the {q['n']} cells of the submitted revision & "
+         f"${q['r']:.3f}$ & ${q['pendiente']:.2f}$ & ${q['intercepto']:+.2f}$ \\\\",
+         '\\addlinespace',
+         f"Range of over-coverage covered & \\multicolumn{{3}}{{c}}{{"
+         f"$[{j['rango_x'][0]:+.2f}, {j['rango_x'][1]:+.2f}]$ pp over "
+         f"{j['n_celdas']} cells, against $[-2.06, +5.34]$ over {q['n']}}} \\\\",
+         f"Leave-one-cell-out range of $r$ & \\multicolumn{{3}}{{c}}{{"
+         f"$[{min(j['loo_r']):.3f}, {max(j['loo_r']):.3f}]$}} \\\\",
+         f"Leave-one-base-model-out range of $r$ & \\multicolumn{{3}}{{c}}{{"
+         f"$[{min(v['r'] for v in j['sin_modelo'].values()):.3f}, "
+         f"{max(v['r'] for v in j['sin_modelo'].values()):.3f}]$}} \\\\"]
+    escribir(
+        'tab_diag_ampliado', L, col='lccc',
+        encabezado='& Pearson $r$ & Slope (\\%/pp) & Intercept (\\%) \\\\',
+        caption='The diagnostic relationship over the forty cells given by '
+                'eight base models and five evaluation windows, with 95\\% '
+                'bootstrap intervals resampling whole days, common to all '
+                'cells, 2{,}000 replicates, seed 20260901. The restriction to '
+                'the fifteen cells of the previous revision is shown for '
+                'comparison. Generated from '
+                '\\texttt{resultados/fase0b/fase0b\\_diagnostico.json}.',
+        label='tab:diag_ampliado')
+
 if __name__ == '__main__':
     print('Cuerpos de tabla generados desde resultados/:')
     tabla_model_agnostic()
@@ -484,4 +582,6 @@ if __name__ == '__main__':
     tabla_sensibilidad_frontera()
     tabla_resultados_hurdle()
     tabla_mae()
+    tabla_escalera()
+    tabla_diagnostico_ampliado()
     print(f'en {OUT}')

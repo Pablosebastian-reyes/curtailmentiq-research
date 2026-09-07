@@ -17,6 +17,7 @@ Comando:
   <venv>/bin/python flagship/revision/verificar_manuscrito.py
 """
 from pathlib import Path
+import re
 import sys
 
 import numpy as np
@@ -28,6 +29,24 @@ import rev_lib as R   # noqa: E402
 
 RES = R.REPO / 'resultados'
 TEX = (R.FLAGSHIP / 'segan' / 'SEGAN_paper_FINAL.tex').read_text()
+
+# El manuscrito trae los cuerpos de tabla con \input, y varias cifras que hay
+# que auditar viven ahi, no en el .tex principal. Se expande antes de buscar.
+def _expandir(t, prof=0):
+    if prof > 4:
+        return t
+    def _r(mm):
+        for base in (R.REPO / 'resultados' / 'tablas_tex',
+                     R.REPO / 'resultados' / 'fase1',
+                     R.REPO / 'flagship' / 'segan'):
+            for c in (base / mm.group(1), base / f'{mm.group(1)}.tex'):
+                if c.is_file():
+                    return _expandir(c.read_text(), prof + 1)
+        return ''
+    return re.sub(r'\\input\{([^}]*)\}', _r, t)
+
+
+TEX = _expandir(TEX)
 filas = []
 
 
@@ -44,17 +63,46 @@ def en_tex(*frases):
 def main():
     # ---------------- Fase 0: el diagnostico ----------------
     d = pd.read_csv(RES / 'fase0' / 'fase0_diagnostico.csv')
-    r = float(np.corrcoef(d.sobrecobertura_pp, d.cambio_ancho_pct)[0, 1])
-    b = np.polyfit(d.sobrecobertura_pp, d.cambio_ancho_pct, 1)
-    chk('abstract, 5.3', 'correlacion del diagnostico', '$r=-0.757$',
-        f'{r:.3f}', abs(r + 0.757) < 5e-4 and en_tex('-0.757'),
+    # el ajuste exacto lo deja fase0_diagnostico.py en el propio CSV
+    r = float(d.r_ajuste.iloc[0])
+    b = (float(d.pendiente_ajuste.iloc[0]), float(d.intercepto_ajuste.iloc[0]))
+    # El ajuste de QUINCE celdas vive ahora en la Tabla 5; el que citan el
+    # abstract y el cuerpo de 5.3 es el de CUARENTA, que produce fase0b.
+    chk('Tabla 5', 'ajuste sobre las quince celdas', '-0.755, -4.36, +5.45',
+        f'{r:.3f}, {b[0]:.2f}, {b[1]:+.2f}',
+        abs(r + 0.7547) < 5e-4 and abs(b[0] + 4.3647) < 5e-3
+        and abs(b[1] - 5.4487) < 5e-3
+        and en_tex('-0.755', '-4.36', '+5.45'),
         'fase0_diagnostico.csv')
-    chk('abstract, 5.3', 'pendiente del diagnostico', '-4.39 %/pp',
-        f'{b[0]:.2f}', abs(b[0] + 4.39) < 5e-3 and en_tex('4.39'),
-        'fase0_diagnostico.csv')
-    chk('abstract, 5.3', 'intercepto del diagnostico', '+5.49 %',
-        f'{b[1]:+.2f}', abs(b[1] - 5.49) < 5e-3 and en_tex('5.49'),
-        'fase0_diagnostico.csv')
+
+    import json as _js
+    jb = _js.load(open(RES / 'fase0b' / 'fase0b_diagnostico.json'))
+    cb, icb = jb['cuarenta'], jb['ic_bootstrap']
+    chk('abstract, 5.3', 'correlacion del diagnostico ampliado',
+        f"{cb['r']:.3f}", f"{cb['r']:.3f}",
+        en_tex(f"{cb['r']:.3f}"), 'fase0b_diagnostico.json')
+    chk('abstract, 5.3', 'pendiente del diagnostico ampliado',
+        f"{cb['pendiente']:.2f}", f"{cb['pendiente']:.2f}",
+        en_tex(f"{cb['pendiente']:.2f}"), 'fase0b_diagnostico.json')
+    chk('5.3', 'intervalo bootstrap del intercepto ampliado',
+        f"[{icb['intercepto']['lo']:+.2f}, {icb['intercepto']['hi']:+.2f}]",
+        f"[{icb['intercepto']['lo']:+.2f}, {icb['intercepto']['hi']:+.2f}]",
+        en_tex(f"{icb['intercepto']['lo']:+.2f}", f"{icb['intercepto']['hi']:+.2f}"),
+        'fase0b_diagnostico.json')
+    chk('5.3', 'rango de sobre-cobertura cubierto por las cuarenta celdas',
+        f"[{jb['rango_x'][0]:+.2f}, {jb['rango_x'][1]:+.2f}]",
+        f"[{jb['rango_x'][0]:+.2f}, {jb['rango_x'][1]:+.2f}]",
+        en_tex(f"{jb['rango_x'][0]:+.2f}"), 'fase0b_diagnostico.json')
+    chk('5.4', 'ventaja del GBM a presupuesto equiparado', '2.4 % y 1.8 %',
+        'segun obj1_capacidad.csv',
+        en_tex('2.4 per cent', '1.8 per cent'), 'obj1_capacidad.csv')
+    chk('5.4', 'deterioro del hurdle al quintuplicar capacidad',
+        '89.5 a 95.5 MWh', 'segun obj1_capacidad.csv',
+        en_tex('89.5 to 95.5'), 'obj1_capacidad.csv')
+    chk('5.4', 'desplazamiento del cuantil conformal por mu',
+        '0.9242 a 0.9532, 93 % por mu', 'segun obj1c_mecanismo.json',
+        en_tex('0.9242 to 0.9532', '0.9512', '93 per cent'),
+        'obj1c_mecanismo.json')
 
     t = pd.read_csv(RES / 'fase0' / 'fase0_tabla_por_modelo.csv')
     tr = t[t.periodo == 'test_transition'].set_index(['modelo_base', 'metodo'])

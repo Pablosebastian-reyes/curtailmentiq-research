@@ -277,3 +277,100 @@ Comprobacion de que ningun numero del manuscrito quedo sin respaldo:
 ```
 $VENV flagship/revision/verificar_manuscrito.py    # 43 de 43
 ```
+
+---
+
+## H5. El diagnostico se REFUERZA al ampliarlo a cuarenta celdas
+
+**Estado:** confirmado. **Fase:** 0b.
+**No es una contradiccion:** se anota aqui porque cambia una cifra central del
+manuscrito y porque la condicion de parada obligaba a mirarlo antes de escribir.
+
+**Comando:**
+
+```
+<venv>/bin/python flagship/revision/verificacion/obj1_capacidad_contra_forma.py
+<venv>/bin/python flagship/revision/verificacion/obj1b_escalera_capacidad.py
+<venv>/bin/python flagship/revision/fase0b_diagnostico_ampliado.py
+```
+
+Archivos: `resultados/fase0b/fase0b_celdas.csv`, `fase0b_diagnostico.json`.
+
+### De donde salieron las celdas nuevas
+
+El `evaluar()` del experimento de capacidad recorre las cinco ventanas, no solo
+la de transicion, asi que cada brazo de la escalera ya estaba evaluado con la
+capa conformal completa. Ocho modelos base por cinco ventanas dan cuarenta
+celdas donde el manuscrito usaba quince. Se excluye el brazo de rejilla gruesa,
+cuyo split estatico devuelve 100% de intervalos infinitos y no produce celda.
+
+### El resultado
+
+| | Quince celdas | Cuarenta celdas |
+|---|---|---|
+| r de Pearson | −0.755 | **-0.873**, IC [-0.912, -0.645] |
+| Pendiente | −4.36 | **-4.89**, IC [-5.62, -3.30] |
+| Intercepto | +5.45, IC [+0.07, +11.25] | **+5.76**, IC [+1.60, +9.84] |
+| Rango de sobre-cobertura | [−2.06, +5.34] pp | **[-8.42, +5.34] pp** |
+
+El intercepto, que con quince celdas apenas excluia el cero, pasa a excluirlo con
+holgura. Dejar una celda fuera mueve r dentro de [-0.889, -0.820];
+dejar un modelo base entero, dentro de [-0.899, -0.792].
+
+### El enunciado simetrico NO se adopta
+
+Se evaluo el enunciado mas general, que la capa transfiere entre cobertura y
+ancho en las dos direcciones. Las dos condiciones acordadas:
+
+- **(i) al menos cinco celdas por debajo de −2 pp: NO SE CUMPLE.** Hay 4.
+- **(ii) sin quiebre entre tramos: NO SE CUMPLE.** F(2,36) = 6.778, p = 0.0032.
+
+Se conserva el enunciado acotado a la sobre-cobertura. El quiebre, eso si, es de
+**nivel y no de pendiente**: dejar variar solo la ordenada lo explica
+(F(1,37) = 12.982, p = 0.0009) y dejar variar tambien la pendiente no anade nada
+(F(1,36) = 0.685, p = 0.41). La tasa a la que la capa convierte
+desviacion de cobertura en ancho es la misma a ambos lados, -6.50 por punto
+porcentual; lo que difiere es el desplazamiento.
+
+---
+
+## H6. La afirmacion de dominacion mezclaba forma con capacidad
+
+**Estado:** confirmado. **Fase:** C.
+**Afirmacion afectada:** "su CRPS es 18 a 30 por ciento mas bajo", junto a la de
+disciplina identica de entrenamiento.
+
+**Comando:** `<venv>/bin/python flagship/revision/verificacion/obj1b_escalera_capacidad.py`
+
+| Modelo | Arboles | CRPS transicion | CRPS test | Contra la referencia |
+|---|---|---|---|---|
+| Hurdle 2x400 | 800 | 133.52 | 89.52 | referencia |
+| Hurdle 2x2000 | 4.000 | 141.07 | 95.46 | **+6.6%** |
+| GBM 54x15 | 810 | 131.18 | 87.40 | −2.4% |
+| GBM 54x50 | 2.700 | 100.58 | 71.38 | −20.3% |
+| GBM 54x100 | 5.400 | 94.03 | 68.33 | −23.7% |
+| GBM 54x400 | 21.600 | 92.96 | 67.97 | −24.1% |
+
+**A presupuesto identico la ventaja casi desaparece** (−2.4%, no −24%). El 18 a
+30 por ciento requiere unos 5.400 arboles. La afirmacion anterior atribuia a la
+forma lo que en parte es presupuesto, y se corrige.
+
+**Lo que sobrevive es mas fuerte que la limitacion que reemplaza:** el hurdle no
+puede comprar la paridad. A 4.000 arboles EMPEORA. A presupuesto comparable
+(2.700 contra 4.000) el GBM da 100.58 contra 141.07.
+
+### El mecanismo, verificado
+
+Al agrandar el hurdle su dispersion BAJA (sigma 1.7016 a 1.6641) y sus intervalos
+se ENSANCHAN 292 MWh. La causa no puede ser sigma. Es el cuantil conformal, que
+pasa de 0.9242 a 0.9532; cruzando los componentes, sustituir solo mu lo lleva a
+0.9512, el **93% del desplazamiento**, y sustituir solo sigma a 0.9270.
+
+Un primer intento de esta descomposicion fijaba el cuantil conformal y daba el
+signo contrario. Estaba mal planteado: al fijar q se elimina el mecanismo. Queda
+anotado porque el resultado correcto se obtuvo solo despues de detectarlo.
+
+Es la contraparte experimental de lo que el manuscrito ya reporta del modelo con
+sigma(x): el problema esta en la localizacion, no en la dispersion. Alli venia de
+un modelo que mejoraba la dispersion y no ayudaba; aqui, de uno que la mejora y
+perjudica.

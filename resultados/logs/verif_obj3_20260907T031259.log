@@ -1,0 +1,47 @@
+============================================================================================
+OBJECION 3 - CONTROLES PARA EL BRAZO NUEVO
+============================================================================================
+
+--------------------------------------------------------------------------------------------
+C1. Invariantes e ida y vuelta de PredictivaCuantilica
+--------------------------------------------------------------------------------------------
+  error maximo de ida y vuelta: 1.27e-13
+  OK   Q no decreciente por fila
+  OK   Q no negativa
+  OK   cdf en [0,1]
+  OK   inv no decreciente en q
+  OK   inv no negativa
+  OK   cdf(inv(q)) = q, error maximo < 1e-6
+
+--------------------------------------------------------------------------------------------
+C2. Cobertura de la predictiva CRUDA en la ventana de calibracion
+--------------------------------------------------------------------------------------------
+  tau = 0.5   cobertura cruda  43.32%  desvio  -6.68 pp
+  tau = 0.7   cobertura cruda  61.61%  desvio  -8.39 pp
+  tau = 0.8   cobertura cruda  72.31%  desvio  -7.69 pp
+  tau = 0.9   cobertura cruda  84.83%  desvio  -5.17 pp
+  tau = 0.95  cobertura cruda  91.79%  desvio  -3.21 pp
+  tau = 0.99  cobertura cruda  97.73%  desvio  -1.27 pp
+  desvio maximo 8.39 pp -> SOSPECHOSO
+  (no se exige calibracion perfecta: se busca un error grosero de indice, que daria decenas de puntos)
+
+--------------------------------------------------------------------------------------------
+C3. EQUIVALENCIA: PredictivaCuantilica alimentada con el HURDLE
+--------------------------------------------------------------------------------------------
+  evaluando la funcion cuantil del hurdle en 54 niveles...
+  hurdle (validado): qhat = 0.9242
+  cuantilica del hurdle (brazo nuevo): qhat = 0.9230
+
+  ventana             cob hurdle  cob cuantilica   dif pp  ancho hurdle  ancho cuant.    dif %
+  test_pre                  93.5            93.4    -0.10         799.1         794.5    -0.58
+  test_transition           95.3            95.3    +0.00        1203.3        1196.4    -0.57
+  2025-S1                   89.4            89.4    +0.00         454.8         452.1    -0.59
+  2025-S2                   94.0            93.9    -0.10         750.1         745.7    -0.59
+  2026-S1                   92.5            92.4    -0.10         534.9         531.8    -0.58
+
+  desvio maximo: 0.10 pp de cobertura, 0.59% de ancho
+  OK: el brazo nuevo reproduce el validado dentro del error de interpolacion de la rejilla
+
+============================================================================================
+2 de 3 controles pasan
+guardado /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/resultados/verificacion/obj3_controles.json

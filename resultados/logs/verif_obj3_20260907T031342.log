@@ -1,0 +1,51 @@
+============================================================================================
+OBJECION 3 - CONTROLES PARA EL BRAZO NUEVO
+============================================================================================
+
+--------------------------------------------------------------------------------------------
+C1. Invariantes e ida y vuelta de PredictivaCuantilica
+--------------------------------------------------------------------------------------------
+  error maximo de ida y vuelta: 1.27e-13
+  OK   Q no decreciente por fila
+  OK   Q no negativa
+  OK   cdf en [0,1]
+  OK   inv no decreciente en q
+  OK   inv no negativa
+  OK   cdf(inv(q)) = q, error maximo < 1e-6
+
+--------------------------------------------------------------------------------------------
+C2. Cobertura CRUDA en calibracion, GBM contra las predictivas parametricas
+--------------------------------------------------------------------------------------------
+     tau |           hurdle |         sigma(x) |              GBM |  GBM-hurdle
+  ------------------------------------------------------------------------------
+     0.5 |   36.13 (-13.87) |   36.20 (-13.80) |    43.32 (-6.68) |       -7.19
+     0.7 |   56.03 (-13.97) |   53.55 (-16.45) |    61.61 (-8.39) |       -5.59
+     0.8 |    70.91 (-9.09) |   67.66 (-12.34) |    72.31 (-7.69) |       -1.40
+     0.9 |    86.65 (-3.35) |    84.86 (-5.14) |    84.83 (-5.17) |       +1.82
+    0.95 |    93.81 (-1.19) |    93.55 (-1.45) |    91.79 (-3.21) |       +2.03
+    0.99 |    98.87 (-0.13) |    99.13 (+0.13) |    97.73 (-1.27) |       +1.14
+
+  peor exceso del GBM sobre el hurdle: +2.03 pp (tolerancia 5.00) -> OK
+  El GBM sub-cubre MENOS que el hurdle en todo nivel: la sub-cobertura
+  comun es del regimen, no de la clase nueva.
+
+--------------------------------------------------------------------------------------------
+C3. EQUIVALENCIA: PredictivaCuantilica alimentada con el HURDLE
+--------------------------------------------------------------------------------------------
+  evaluando la funcion cuantil del hurdle en 54 niveles...
+  hurdle (validado): qhat = 0.9242
+  cuantilica del hurdle (brazo nuevo): qhat = 0.9230
+
+  ventana             cob hurdle  cob cuantilica   dif pp  ancho hurdle  ancho cuant.    dif %
+  test_pre                  93.5            93.4    -0.10         799.1         794.5    -0.58
+  test_transition           95.3            95.3    +0.00        1203.3        1196.4    -0.57
+  2025-S1                   89.4            89.4    +0.00         454.8         452.1    -0.59
+  2025-S2                   94.0            93.9    -0.10         750.1         745.7    -0.59
+  2026-S1                   92.5            92.4    -0.10         534.9         531.8    -0.58
+
+  desvio maximo: 0.10 pp de cobertura, 0.59% de ancho
+  OK: el brazo nuevo reproduce el validado dentro del error de interpolacion de la rejilla
+
+============================================================================================
+3 de 3 controles pasan
+guardado /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/resultados/verificacion/obj3_controles.json

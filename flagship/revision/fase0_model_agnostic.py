@@ -38,6 +38,7 @@ import rev_lib as R   # noqa: E402
 REPO = R.REPO
 SAL = REPO / 'resultados' / 'fase0'
 SAL.mkdir(parents=True, exist_ok=True)
+SERIES = SAL / 'series'
 
 GAMMAS = (0.02, 0.05)
 
@@ -163,9 +164,68 @@ def correr_modelo(nombre, h, pred, info):
     tabla['brier_base'] = tabla.periodo.map(brier).round(4)
     tabla['segundos'] = tabla.metodo.map(crono.t).round(1)
 
+    # Series POR FILA del split estatico y de Transporte+ACI(0.05). La tabla
+    # agregada redondea cobertura y ancho a un decimal, y ajustar la relacion
+    # diagnostica sobre valores redondeados desplaza r en 0.002. Persistiendo
+    # las filas, fase0_diagnostico.py puede ajustar sobre los valores exactos.
+    SERIES.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(dict(fecha=f_t, y=y_t,
+                      U_est=series['1_estatico_pit'],
+                      U_tr=series['4_transporte_banda_g05'])).to_parquet(
+        SERIES / f'{nombre}.parquet', index=False)
+
     if nombre == 'hurdle':
         verificar_reproduccion(tabla)
     return tabla, series, f_t, y_t
+
+
+def verificar_equivalencia_cuantilica(h, pred_hu, sigma):
+    """Control del BRAZO NUEVO, que la asercion del hurdle no cubre.
+
+    `verificar_reproduccion` solo se dispara para el hurdle, que recorre
+    `PredictivaHurdle` y delega en funciones ya validadas. El brazo del GBM
+    recorre `PredictivaCuantilica`, una clase distinta con su propia
+    interpolacion de rejilla, su propia lectura del atomo en cero y su propio
+    manejo de bordes. Un error ahi dejaria intacta la asercion del hurdle y
+    produciria en silencio el resultado central del paper.
+
+    El control es de equivalencia: se construye una `PredictivaCuantilica`
+    evaluando la funcion cuantil DEL HURDLE sobre la misma rejilla de 54
+    niveles. Salvo error de interpolacion, esa predictiva es el hurdle. Se corre
+    la capa conformal sobre ella y se compara contra el brazo validado. Si la
+    clase nueva tiene un error, esto falla.
+
+    Tolerancias: 0.6 pp de cobertura y 3% de ancho. El desvio observado es de
+    0.10 pp y 0.59%, y el sesgo de ancho es constante y negativo en las cinco
+    ventanas, que es la firma de discretizar una funcion cuantil continua.
+    """
+    taus = np.array(sorted(set(np.round(np.concatenate([
+        [0.005, 0.01], np.arange(0.02, 0.981, 0.02),
+        [0.99, 0.995, 0.999]]), 4))))
+    Q = np.column_stack([R.cm.pit_upper(pred_hu.p, pred_hu.mu, sigma, t)
+                         for t in taus])
+    Q[~np.isfinite(Q)] = np.nanmax(Q[np.isfinite(Q)])
+    pred_q = R.PredictivaCuantilica(Q, taus)
+
+    salidas = {}
+    for etq, pred in (('hurdle', pred_hu), ('cuantilica', pred_q)):
+        rng = np.random.default_rng(R.SEED_CONFORMAL)
+        sc = pred.cdf(h.y_real.values, rng)
+        s_cal = sc[((h.fecha >= R.CAL_INI) & (h.fecha < R.CAL_FIN)).values]
+        idx = (h.fecha >= R.CAL_FIN).values
+        test = h[idx].reset_index(drop=True)
+        U = R.estatico(pred.sub(idx), s_cal)
+        salidas[etq] = pd.DataFrame(R.filas_por_periodo(
+            'estatico', test.fecha.values, test.y_real.values, U)
+        ).set_index('periodo')
+
+    a, b = salidas['hurdle'], salidas['cuantilica']
+    dc = float((b.cobertura - a.cobertura).abs().max())
+    dw = float((100 * (b.ancho_medio / a.ancho_medio - 1)).abs().max())
+    assert dc < 0.6, f'equivalencia cuantilica: {dc:.2f} pp de cobertura'
+    assert dw < 3.0, f'equivalencia cuantilica: {dw:.2f}% de ancho'
+    print(f'  [OK] PredictivaCuantilica reproduce el brazo validado: '
+          f'{dc:.2f} pp de cobertura, {dw:.2f}% de ancho, sobre {len(a)} ventanas')
 
 
 def verificar_reproduccion(tabla):
@@ -189,6 +249,13 @@ def main():
     print(f'semilla conformal {R.SEED_CONFORMAL} | embargo {R.EMBARGO_DIAS} d | '
           f'alpha {R.ALPHA}')
     print('=' * 78)
+
+    # Control del brazo nuevo, antes de usarlo. Corre SIEMPRE.
+    print('\n' + '-' * 78)
+    print('CONTROL DE EQUIVALENCIA DE PredictivaCuantilica')
+    print('-' * 78)
+    h_hu, p_hu, i_hu = cargar_hurdle()
+    verificar_equivalencia_cuantilica(h_hu, p_hu, i_hu['sigma'])
 
     resultados, ctx = [], {}
     for nombre, cargador in (('hurdle', cargar_hurdle),

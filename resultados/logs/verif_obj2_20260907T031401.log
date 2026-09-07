@@ -1,0 +1,26 @@
+============================================================================================
+OBJECION 2 - INCERTIDUMBRE DEL DIAGNOSTICO
+bootstrap de 2000 remuestreos de DIAS COMPLETOS, comunes a las 15 celdas
+============================================================================================
+  hurdle: 77,868 filas, 638 dias
+  hurdle_sigma_x: 77,868 filas, 638 dias
+  qgbm_multi: 77,868 filas, 638 dias
+
+punto estimado sobre las 15 celdas:
+  r = -0.7547   pendiente = -4.3647   intercepto = 5.4487
+
+bootstrap (2000 replicas validas de 2000):
+  r            -0.7547   IC 95% [-0.8760, -0.4286]   excluye el cero
+  pendiente    -4.3647   IC 95% [-6.0806, -2.2817]   excluye el cero
+  intercepto   +5.4487   IC 95% [+0.0659, +11.2522]   excluye el cero
+
+dejar-una-celda-fuera (15 reajustes):
+  r va de -0.8122 a -0.6756
+  celda mas influyente: ('hurdle', 'test_transition') -> al quitarla r = -0.6756
+
+dejar-un-modelo-base-fuera (la pregunta dura):
+  sin hurdle           n=10  r = -0.6714  pendiente = -3.124  intercepto = +6.848
+  sin hurdle_sigma_x   n=10  r = -0.8252  pendiente = -4.744  intercepto = +4.214
+  sin qgbm_multi       n=10  r = -0.7221  pendiente = -4.472  intercepto = +4.920
+
+guardado /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/resultados/verificacion/obj2_incertidumbre.json

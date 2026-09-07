@@ -1,0 +1,53 @@
+================================================================================================
+FASE 0b - DIAGNOSTICO AMPLIADO
+ocho modelos base x cinco ventanas | bootstrap 2000 | semilla 20260901
+excluido del ajuste: qgbm_9x400 (split estatico 100% infinito, ancho NaN)
+================================================================================================
+  hurdle_400       77,868 filas, 638 dias
+  hurdle_2000      77,868 filas, 638 dias
+  hurdle_sigma_x   77,868 filas, 638 dias
+  qgbm_54x15       77,868 filas, 638 dias
+  qgbm_54x50       77,868 filas, 638 dias
+  qgbm_54x100      77,868 filas, 638 dias
+  qgbm_54x200      77,868 filas, 638 dias
+  qgbm_54x400      77,868 filas, 638 dias
+
+CUARENTA CELDAS: r = -0.8731   pendiente = -4.8874   intercepto = 5.7618
+  rango de sobre-cobertura cubierto: [-8.42, +5.34] pp
+
+restringido a los tres brazos originales (15 celdas): r = -0.7547  pendiente = -4.3647  intercepto = 5.4487
+  rango cubierto: [-2.06, +5.34] pp
+
+bootstrap (2000 replicas validas de 2000):
+  r             -0.8731   IC 95% [-0.9122, -0.6450]   excluye el cero
+  pendiente     -4.8874   IC 95% [-5.6229, -3.2964]   excluye el cero
+  intercepto    +5.7618   IC 95% [+1.5963, +9.8389]   excluye el cero
+
+dejar-una-celda-fuera (40 reajustes): r de -0.8893 a -0.8202
+  celda mas influyente: ('qgbm_54x15', 'test_transition') -> r = -0.8202
+
+dejar-un-modelo-base-fuera:
+  sin hurdle_400       n=35  r = -0.8661  pendiente = -4.721  intercepto = +6.318
+  sin hurdle_2000      n=35  r = -0.8603  pendiente = -4.574  intercepto = +6.082
+  sin hurdle_sigma_x   n=35  r = -0.8988  pendiente = -5.110  intercepto = +5.232
+  sin qgbm_54x15       n=35  r = -0.7918  pendiente = -4.504  intercepto = +5.112
+  sin qgbm_54x50       n=35  r = -0.8808  pendiente = -4.976  intercepto = +5.960
+  sin qgbm_54x100      n=35  r = -0.8825  pendiente = -4.984  intercepto = +5.830
+  sin qgbm_54x200      n=35  r = -0.8796  pendiente = -4.978  intercepto = +5.741
+  sin qgbm_54x400      n=35  r = -0.8781  pendiente = -4.969  intercepto = +5.595
+
+================================================================================================
+ENUNCIADO SIMETRICO: condiciones (i) y (ii)
+================================================================================================
+(i) celdas con sobre-cobertura por debajo de -2 pp: 4 (se exigen 5) -> NO SE CUMPLE
+(ii) ajuste por tramos con corte en x = 0 contra ajuste unico:
+     SSE unico 2150.3, SSE por tramos 1562.1
+     F(2, 36) = 6.778, p = 0.0032
+     -> HAY QUIEBRE, NO SE CUMPLE
+
+ADOPTAR EL ENUNCIADO SIMETRICO: NO
+  Se conserva el enunciado actual, acotado a la sobre-cobertura.
+  tramo de sobre-cobertura negativa   n=15  r = -0.8899  pendiente = -5.990
+  tramo de positiva                   n=25  r = -0.8696  pendiente = -6.971
+
+guardado en resultados/fase0b/
