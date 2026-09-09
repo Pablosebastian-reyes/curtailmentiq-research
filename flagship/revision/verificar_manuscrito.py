@@ -404,6 +404,27 @@ def main():
     for k, v in sospechosos:
         print(f'    {k}: {v[:88]}')
 
+    # ---------------- deteccion temprana del hurdle (Seccion 5.4) --------
+    import json as _j2
+    je = _j2.load(open(RES / 'verificacion' / 'obj1d_deteccion_temprana.json'))
+    ee, e4 = je['resultados']['hurdle_es'], je['resultados']['hurdle_400']
+    chk('5.4', 'arboles que elige la deteccion temprana',
+        f"{ee['arboles']} ({ee['por_etapa']['ocurrencia']}+{ee['por_etapa']['magnitud']})",
+        f"{ee['arboles']}",
+        en_tex(f"selects {ee['arboles']} trees in total",
+               f"{ee['por_etapa']['ocurrencia']} for the occurrence stage",
+               f"{ee['por_etapa']['magnitud']} for the magnitude stage"),
+        'obj1d_deteccion_temprana.json')
+    chk('5.4', 'CRPS del hurdle con deteccion temprana',
+        f"{e4['crps_test']:.2f} a {ee['crps_test']:.2f}",
+        f"{ee['crps_test']:.2f}",
+        en_tex(f"from {e4['crps_test']:.2f} to {ee['crps_test']:.2f}"),
+        'obj1d_deteccion_temprana.json')
+    chk('5.4', 'dispersion del hurdle con deteccion temprana',
+        f"{e4['sigma']:.4f} a {ee['sigma']:.4f}", f"{ee['sigma']:.4f}",
+        en_tex(f"from {e4['sigma']:.4f} to {ee['sigma']:.4f}"),
+        'obj1d_deteccion_temprana.json')
+
     # ---------------- salida ----------------
     V = pd.DataFrame(filas)
     V.to_csv(RES / 'verificacion_manuscrito.csv', index=False)

@@ -1,0 +1,37 @@
+{
+ "techo": 4000,
+ "paciencia": 50,
+ "corte_validacion": "2023-07-01",
+ "resultados": {
+  "hurdle_400": {
+   "arboles": 800,
+   "sigma": 1.7016407428795763,
+   "crps_transicion": 133.52,
+   "crps_test": 89.52,
+   "cobertura_estatica": 92.5,
+   "ancho_estatico": 678.4
+  },
+  "hurdle_2000": {
+   "arboles": 4000,
+   "sigma": 1.6641173245910115,
+   "crps_transicion": 141.07,
+   "crps_test": 95.46,
+   "cobertura_estatica": 92.1,
+   "ancho_estatico": 970.0
+  },
+  "hurdle_es": {
+   "arboles": 105,
+   "sigma": 1.827358798802836,
+   "crps_transicion": 124.03,
+   "crps_test": 84.38,
+   "cobertura_estatica": 92.0,
+   "ancho_estatico": 409.4,
+   "por_etapa": {
+    "ocurrencia": 59,
+    "magnitud": 46
+   }
+  }
+ },
+ "veredicto": "la detencion temprana devuelve al hurdle a su rendimiento de 800 arboles o mejor",
+ "crps_qgbm_transicion": 92.92
+}

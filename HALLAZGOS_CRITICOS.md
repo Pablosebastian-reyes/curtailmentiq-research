@@ -450,3 +450,45 @@ quiebre por si solo, y asi se escribio en 5.3.
 celdas como independientes, y no lo son. Los p son optimistas y se reportan solo
 como razon para NO ampliar la afirmacion, direccion en la que un p optimista es
 conservador.
+
+---
+
+## H9. El modelo base del paper no es el mejor hurdle disponible
+
+**Estado:** confirmado. **Fase:** cierre.
+**Afirmacion afectada:** la concesion escrita en 5.4 y en la Seccion 7 de que la
+detencion temprana "plausiblemente devolveria al hurdle a su rendimiento de 800
+arboles". Se midio y es falsa por el lado bueno: lo supera.
+
+**Comando:**
+`<venv>/bin/python flagship/revision/verificacion/obj1d_hurdle_deteccion_temprana.py`
+
+**Protocolo.** Los ultimos seis meses del periodo de entrenamiento se apartan
+como validacion temporal; cada etapa del hurdle se ajusta con techo de 4.000
+arboles y paciencia de 50; con el presupuesto elegido se reajusta sobre el train
+completo. Ningun modelo ve datos posteriores a 2023-12-31.
+
+| Modelo | Arboles | sigma | CRPS transicion | CRPS test |
+|---|---|---|---|---|
+| hurdle_400, el del paper | 800 | 1.7016 | 133.52 | 89.52 |
+| hurdle_2000 | 4000 | 1.6641 | 141.07 | 95.46 |
+| **hurdle con detencion temprana** | **105** (59+46) | 1.8274 | **124.03** | **84.38** |
+
+La detencion temprana elige 105 arboles, **un octavo** del presupuesto del modelo
+base del paper, y mejora su CRPS en 5.7%. La dispersion sube de
+1.7016 a 1.8274, que es lo esperable cuando un mu menos sobreajustado deja
+mas variacion en el residuo.
+
+**Lo que cambia.** El modelo base oficial del paper no es el mejor hurdle
+disponible en este problema, y los niveles que se reportan para el deben leerse
+con ese descuento. Se declara en 5.4 y en la Seccion 7.
+
+**Lo que no cambia.** El orden contra la forma cuantilica se mantiene con margen:
+el hurdle detenido da 124.03 en la transicion contra 92.92 del GBM
+multi-cuantil, todavia 33% por detras. Y el diagnostico es un contraste
+dentro de cada brazo, asi que no lo toca.
+
+**Lectura adicional.** La forma hurdle satura muy temprano en este problema, en
+torno a los cien arboles. Ni anadir presupuesto ni gastarlo con mas cuidado
+cierra la brecha con la forma cuantilica, que es un enunciado mas fuerte que el
+que habia.

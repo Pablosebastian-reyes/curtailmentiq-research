@@ -50,3 +50,6 @@ Tabla 5,ajuste sobre las quince celdas,"-0.755, -4.36, +5.45","-0.755, -4.36, +5
 C.11,"costo de cobertura de la cota de alpha, campo de la tabla",0.5 puntos,elimina por completo los intervalos infinitos en las cinco ventanas a ...,si,fase1/hiperparametros.csv + fase4_cota_alpha.csv
 C.11,"gamma seleccionado, campo de la tabla",0.005,"menor interval score en la validacion interna, Fase 3; produ",si,fase3_hiperparametros_elegidos.json
 C.11,"ventana seleccionada, campo de la tabla",120 dias,120 dias,si,fase3_hiperparametros_elegidos.json
+5.4,arboles que elige la deteccion temprana,105 (59+46),105,si,obj1d_deteccion_temprana.json
+5.4,CRPS del hurdle con deteccion temprana,89.52 a 84.38,84.38,si,obj1d_deteccion_temprana.json
+5.4,dispersion del hurdle con deteccion temprana,1.7016 a 1.8274,1.8274,si,obj1d_deteccion_temprana.json

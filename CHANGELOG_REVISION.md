@@ -594,3 +594,62 @@ $VENV flagship/revision/verificar_referencias_cruzadas.py   # 184 refs, exit 0
 # manuscrito 34 paginas, carta 19, cero errores y cero referencias sin resolver
 # numeracion sin cambios: no se anadieron floats, solo texto y una nota al pie
 ```
+
+---
+
+## 12. Cierre previo al reenvio del 14 de septiembre
+
+### 12.1 El aporte del shrinkage, en los sitios que faltaban
+
+Dos afirmaciones de supervivencia seguian diciendo que ni la combinacion ni el
+dispositivo sobreviven su ablacion. La combinacion no sobrevive, porque el
+transporte empeora +74.2 sobre el ACI; **el dispositivo si sobrevive**, con -6.5
+e IC [-10, -3], lo que no sobrevive es su precio. Corregido en 4.6 del manuscrito
+y en R2.4 de la carta. El resto de los sitios (introduccion, 5.5, primera plana,
+prosa y fila de R1.3) ya estaba corregido de la tanda anterior y se verifico.
+
+### 12.2 Numeros del pipeline
+
+591 MWh e interval score 1026 pasan a 596 y 1030; +29.3 pasa a +32.4. Quedaban
+cuatro ocurrencias, todas en la carta: la fila y la prosa de R1.3, R2.6 y **la
+primera plana**, que es la que estuvo a punto de escaparse.
+
+### 12.3 Verificado que ya estaba bien
+
+- La Seccion 7 ya decia "dos familias de modelos... cuarenta celdas de ocho
+  predictivas", con la precision de las tres variantes hurdle y las cinco de
+  presupuesto. Su espejo en Q7 tambien.
+- Los tres valores del diagnostico ya eran -0.755, -4.36 y +5.45 en los tres
+  documentos: cero ocurrencias de los viejos.
+
+### 12.4 Abstract (opcional 5)
+
+Cierra ahora con la recomendacion operativa: arreglar el modelo base domina
+arreglar la capa de calibracion. **La distincion de garantias NO se elimino**,
+porque responde de forma literal al comentario R2.7; se fundio con la oracion
+anterior y se movio una posicion arriba. 250 palabras exactas.
+
+### 12.5 Deteccion temprana (opcional 6)
+
+`flagship/revision/verificacion/obj1d_hurdle_deteccion_temprana.py`. Ver
+`HALLAZGOS_CRITICOS.md`, H9. El resultado contradice la concesion que el
+manuscrito hacia por escrito: la detencion temprana no devuelve al hurdle a su
+rendimiento de 800 arboles, lo supera en 5.7% con solo 105 arboles.
+
+```
+$VENV flagship/revision/verificacion/obj1d_hurdle_deteccion_temprana.py
+# elige 59 arboles de ocurrencia y 46 de magnitud
+# CRPS test 89.52 -> 84.38; transicion 133.52 -> 124.03
+```
+
+Reportado en prosa dentro de 5.4 y en el item de la escalera de la Seccion 7.
+**Sin fila nueva en la Tabla 7**, como se pidio: la numeracion no se movio.
+
+### 12.6 Comprobaciones al cierre
+
+```
+$VENV flagship/revision/verificar_manuscrito.py             # 54 de 54, exit 0
+$VENV flagship/revision/verificar_referencias_cruzadas.py   # 192 refs, exit 0
+# abstract 250 palabras exactas, manuscrito 35 paginas, carta 19
+# cero errores de compilacion y cero referencias sin resolver
+```

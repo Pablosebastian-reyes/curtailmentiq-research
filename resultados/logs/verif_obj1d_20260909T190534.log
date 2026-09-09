@@ -1,0 +1,29 @@
+============================================================================================
+HURDLE CON DETENCION TEMPRANA
+techo 4000 arboles, paciencia 50, validacion temporal desde 2023-07-01
+============================================================================================
+
+  hurdle_400: 800 arboles, sigma 1.7016
+
+  hurdle_2000: 4000 arboles, sigma 1.6641
+
+  hurdle_es (detencion temprana):
+    seleccion: entrena 48,391 filas (< 2023-07-01), valida 18,641
+    arboles elegidos: ocurrencia 59, magnitud 46
+    total 105 arboles, sigma 1.8274
+
+============================================================================================
+RESULTADO
+============================================================================================
+  modelo          arboles    sigma  CRPS transicion   CRPS test  cobertura est.
+  hurdle_400          800   1.7016           133.52       89.52           92.5%
+  hurdle_2000        4000   1.6641           141.07       95.46           92.1%
+  hurdle_es           105   1.8274           124.03       84.38           92.0%
+
+  contra el hurdle de 800 arboles: -5.7% de CRPS
+  contra el hurdle de 4000 arboles: -11.6%
+  veredicto: la detencion temprana devuelve al hurdle a su rendimiento de 800 arboles o mejor
+
+  referencia: el GBM multi-cuantil da CRPS 92.92 en la transicion, contra 124.03 del hurdle con detencion temprana
+
+guardado /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/resultados/verificacion/obj1d_deteccion_temprana.json
