@@ -653,3 +653,63 @@ $VENV flagship/revision/verificar_referencias_cruzadas.py   # 192 refs, exit 0
 # abstract 250 palabras exactas, manuscrito 35 paginas, carta 19
 # cero errores de compilacion y cero referencias sin resolver
 ```
+
+---
+
+## 13. Ultima pasada antes de Editorial Manager
+
+Seis correcciones de texto. Ningun numero de archivo de resultados cambia, no se
+regenera ninguna tabla ni figura, la numeracion no se mueve.
+
+| # | Cambio | Donde |
+|---|---|---|
+| 1 | La frase de sigma del brazo con detencion temprana atribuia el alza a "un mu menos sobreajustado que deja mas variacion en el residuo", lo que contradice 4.1: sigma se estima fuera de fold DENTRO del entrenamiento, donde mas arboles si reducen el residuo. Se reemplaza por la redaccion que reporta los tres puntos y los ata al mecanismo | \S5.4 |
+| 2 | Cortada la subordinada que remitia a un borrador que los revisores nunca vieron | \S5.4 |
+| 3 | **Ya estaba bien.** El texto decia 33, no 34 | \S5.4 |
+| 4a | "The practical ordering follows" apuntaba al antecedente equivocado; pasa a "The practical implication is that..." | abstract |
+| 4b | "Panel dependence is severe, with an intraclass correlation by date of 0.238, and we separate" pasa a "Panel dependence is severe: intraclass correlation by date 0.238. We separate" | abstract |
+| 5 | El descuento del modelo base se extiende con la lista completa de lo calculado sobre el hurdle **y tres tablas que faltaban** | \S7 |
+| 6 | "an interval that also excludes zero" pasa a "with a bootstrap interval" | \S4.6, \S5.5, R2.4 |
+
+### 13.1 Verificacion del punto 1: la monotonia se sostiene
+
+```
+$VENV -c "leer resultados/verificacion/obj1d_deteccion_temprana.json"
+#  arboles   105     800    4000
+#  sigma   1.8274  1.7016  1.6641   decreciente
+#  CRPS     84.38   89.52   95.46   creciente (test completo)
+#  CRPS    124.03  133.52  141.07   creciente (transicion)
+```
+
+Los tres puntos son monotonos en las dos direcciones, asi que se escribe
+"monotonically" sin salvedad.
+
+### 13.2 Verificacion del punto 5: faltaban tres tablas
+
+La lista propuesta nombraba las Tablas 3, 9 y 11 y las Figuras 5, 6 y 9. Auditando
+que predictiva alimenta cada objeto, **faltaban tres**, todas calculadas
+integramente sobre el hurdle:
+
+- **Tabla 8**, las ablaciones (`fase2_ablaciones.py`, solo `pred_hurdle`)
+- **Tabla 10**, la cota de alpha (`fase4_metricas_benchmarks.py`)
+- **Tabla 12**, la sensibilidad de la frontera (`fase6_cronologia.py`)
+
+Se anadieron. **Queda fuera a proposito la Tabla 2**, el MAE de los modelos base:
+su fila del hurdle tambien se moveria, pero es exactitud puntual y no un nivel de
+la capa de calibracion, y sobre todo el descuento ahi NO corre en una sola
+direccion, porque un hurdle mejor acercaria su MAE al del naive estacional en vez
+de alejarlo. Meterla en esa oracion la volveria falsa.
+
+Las Tablas 4 a 7 y las Figuras 7 y 8 incluyen al hurdle como un brazo entre
+varios, pero son justamente las comparaciones donde su identidad es el objeto de
+estudio, y el descuento ahi es lo que \S5.4 discute. No entran en la lista.
+
+### 13.3 Comprobaciones al cierre
+
+```
+$VENV flagship/revision/verificar_manuscrito.py             # 54 de 54, exit 0
+$VENV flagship/revision/verificar_referencias_cruzadas.py   # 195 refs, exit 0
+# abstract: 246 palabras contando la expresion matematica como una, 247 como tres
+# manuscrito 35 paginas, carta 19, cero errores y cero referencias sin resolver
+# numeracion de tablas y figuras sin cambios
+```

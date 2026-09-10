@@ -160,7 +160,7 @@ def main():
         # no debe pasar.
         if val is None:
             if comp.startswith('shrinkage'):
-                txt = (f'${rr.d_IS:.1f}$~MWh with an interval of '
+                txt = (f'${rr.d_IS:.1f}$~MWh with a bootstrap interval of '
                        f'$[{rr.IS_lo:.0f},{rr.IS_hi:.0f}]$')
             else:
                 txt = (f'netting ${rr.d_IS:+.1f}$~MWh over the whole test with '
