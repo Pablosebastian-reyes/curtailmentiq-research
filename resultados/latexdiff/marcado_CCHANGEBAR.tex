@@ -1,9 +1,9 @@
 %% SEGAN manuscript - CurtailmentIQ
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL vieja.tex   Fri Sep 11 04:07:26 2026
-%DIF ADD nueva.tex   Fri Sep 11 04:07:26 2026
+%DIF DEL vieja.tex   Fri Sep 11 04:29:26 2026
+%DIF ADD nueva.tex   Fri Sep 11 04:29:26 2026
 %% Elsevier elsarticle template. Compile with pdfLaTeX in Overleaf.
-%DIF 3-6c3-29
+%DIF 3-6c3-34
 %DIF < %% VERSION 5.0 (FINAL) - auditoria de consistencia aplicada, DOI de concepto,
 %DIF < %% repositorio publico enlazado. Requiere las 4 figuras PDF en la carpeta del proyecto.
 %DIF < %% Requiere en la carpeta del proyecto: fig1_plants_map.pdf, fig2_distribution.pdf,
@@ -11,7 +11,12 @@
 %DIF -------
 %% %DIF > 
 %% VERSION 7.0 - REVISION MAYOR (SEGAN-D-26-03850). %DIF > 
-%% Cambios respecto de la version 6.0 enviada: %DIF > 
+%% Cambios respecto de la version enviada el 28 de julio de 2026, que es la %DIF > 
+%% VERSION 5.0 (tag submitted-segan-v1, commit 4af5ea7). La VERSION 6.0, del %DIF > 
+%% 10 al 12 de agosto de 2026, NO se envio nunca: es ya parte de este %DIF > 
+%% reencuadre, y por eso el diff de la version marcada se toma contra la 5.0. %DIF > 
+%% %DIF > 
+%% Cambios respecto de esa version enviada: %DIF > 
 %%  - Titulo acortado y sin el pais (nota editorial). El sistema se describe en %DIF > 
 %%    el abstract. %DIF > 
 %%  - La contribucion metodologica se reencuadra como DIAGNOSTICO: la ganancia %DIF > 
@@ -46,7 +51,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{siunitx}
 \usepackage{multirow}
-%DIF 16a39-40
+%DIF 16a44-45
 \usepackage{algorithm} %DIF > 
 \usepackage{algpseudocode} %DIF > 
 %DIF -------
@@ -75,6 +80,47 @@
 %DIF HYPERREF PREAMBLE %DIF PREAMBLE
 \providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
 \providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+\providecommand{\DIFscaledelfig}{0.5}
+%DIF HIGHLIGHTGRAPHICS PREAMBLE %DIF PREAMBLE
+\RequirePackage{settobox} %DIF PREAMBLE
+\RequirePackage{letltxmacro} %DIF PREAMBLE
+\newsavebox{\DIFdelgraphicsbox} %DIF PREAMBLE
+\newlength{\DIFdelgraphicswidth} %DIF PREAMBLE
+\newlength{\DIFdelgraphicsheight} %DIF PREAMBLE
+% store original definition of \includegraphics %DIF PREAMBLE
+\LetLtxMacro{\DIFOincludegraphics}{\includegraphics} %DIF PREAMBLE
+\providecommand{\DIFaddincludegraphics}[2][]{{\color{blue}\fbox{\DIFOincludegraphics[#1]{#2}}}} %DIF PREAMBLE
+\providecommand{\DIFdelincludegraphics}[2][]{% %DIF PREAMBLE
+\sbox{\DIFdelgraphicsbox}{\DIFOincludegraphics[#1]{#2}}% %DIF PREAMBLE
+\settoboxwidth{\DIFdelgraphicswidth}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\settoboxtotalheight{\DIFdelgraphicsheight}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\scalebox{\DIFscaledelfig}{% %DIF PREAMBLE
+\parbox[b]{\DIFdelgraphicswidth}{\usebox{\DIFdelgraphicsbox}\\[-\baselineskip] \rule{\DIFdelgraphicswidth}{0em}}\llap{\resizebox{\DIFdelgraphicswidth}{\DIFdelgraphicsheight}{% %DIF PREAMBLE
+\setlength{\unitlength}{\DIFdelgraphicswidth}% %DIF PREAMBLE
+\begin{picture}(1,1)% %DIF PREAMBLE
+\thicklines\linethickness{2pt} %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\framebox(1,1){}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\line( 1,1){1}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,1){\line(1,-1){1}}}% %DIF PREAMBLE
+\end{picture}% %DIF PREAMBLE
+}\hspace*{3pt}}} %DIF PREAMBLE
+} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbegin}{\DIFaddbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddend}{\DIFaddend} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbegin}{\DIFdelbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelend}{\DIFdelend} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbegin}{\DIFOaddbegin \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbegin}{\DIFOdelbegin \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbeginFL}{\DIFaddbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddendFL}{\DIFaddendFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbeginFL}{\DIFdelbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelendFL}{\DIFdelendFL} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbeginFL}{\DIFOaddbeginFL \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbeginFL}{\DIFOdelbeginFL \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
 %DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document}
@@ -102,6 +148,42 @@ renewable curtailment \sep probabilistic forecasting \sep conformal prediction \
 \end{keyword}
 
 \end{frontmatter}
+
+\vspace{6pt}
+\noindent\rule{\linewidth}{0.4pt}
+\vspace{2pt}
+
+\noindent\textbf{\small Note on this marked-up version}
+
+{\small
+\noindent This revision is a substantial reframing of the manuscript, not an
+incremental correction. The marked-up text is therefore dense with change, and
+we set out here what a reader should expect before reading it.
+
+\noindent The comparison is against the version submitted on 28 July 2026
+(version 5.0), and about 70\% of the body text is new: excluding
+the bibliography, it grew from 4,753 to 15,804 words. Whole sections are new rather than edited,
+and the sections that were retained were in most cases rewritten rather than
+amended. The methodological contribution is now stated as a diagnostic, and the
+attribution of the 2025 regime change to storage deployment has been removed
+throughout; both changes touch most of the manuscript.
+
+\noindent The bibliography grew from 10 to 43 entries. It is shown here
+unmarked, because word-level markup of a reference list that more than
+quadrupled produces merged and truncated entries rather than a readable record
+of what changed. Tables, figures and displayed equations are marked as whole
+blocks for the same reason.
+
+\noindent This note is a reading aid and not the record of changes. The
+change-by-change account, with the exact location of each change and its
+relation to each referee comment, is in the accompanying response to reviewers.
+}
+
+\vspace{2pt}
+\noindent\rule{\linewidth}{0.4pt}
+\vspace{6pt}
+
+
 
 %==================================================================
 \section{Introduction}
@@ -135,7 +217,7 @@ The remainder of the paper is organised as follows. Section~\ref{sec:related} re
 \DIFdelbegin \DIFdel{Curtailment forecasting }\DIFdelend \DIFaddbegin \DIFadd{This work sits at the junction of three literatures that rarely meet: the applied literature on curtailment and on the network constraints that cause it, the methodological literature on distribution-free uncertainty quantification, and the growing body of work on hybrid physical and data-driven modelling of power systems. We discuss each contribution individually rather than in groups, since what matters here is what each one establishes and where our problem departs from it.
 }
 
-\subsection{Curtailment: causes, measurement and forecasting}
+\subsection{\DIFadd{Curtailment: causes, measurement and forecasting}}
 
 \DIFadd{Curtailment is best understood as the visible output of a constrained network rather than as a property of the plants that suffer it. Henriot~\cite{henriot2015} formalises the economically efficient level of curtailment and shows that some curtailment is optimal rather than a failure, which frames the forecasting problem as one of anticipating a rational system response. Joos and Staffell~\cite{joos2018} quantify the short-term integration costs of that response in Britain and Germany and show that curtailment and balancing costs are of comparable order, which is what makes anticipation commercially relevant. Tang et al.~\cite{tang2018} document the Chinese experience, where solar curtailment reached levels that triggered a national policy response, and attribute it primarily to transmission inadequacy rather than to oversupply as such. Schermeyer et al.~\cite{schermeyer2018} take the complementary view from the network side, showing on German distribution and transmission data how congestion management determines which plants are curtailed and when. Nycander et al.~\cite{nycander2020} extend the accounting to a whole synchronous area, decomposing Nordic curtailment into transmission capacity, inertia and flexibility limits, which is the closest published analogue to the concentrated, corridor-limited situation studied here. Yildiz et al.~\cite{yildiz2023} provide the counterpart at the other end of the system, using metered data from low-voltage networks to show how distributed photovoltaics and behind-the-meter storage are curtailed in practice, and how poorly that curtailment is captured by aggregate statistics.
 }
@@ -144,7 +226,7 @@ The remainder of the paper is organised as follows. Section~\ref{sec:related} re
 The present work differs on both counts, and connects the applied problem to the literature on conformal prediction under distribution shift }\DIFdelend \DIFaddbegin \DIFadd{. Bunodiere and Lee~\cite{bunodiere2020} predict curtailment in Kyushu with a rule-based method built on the operator's own dispatch logic, which works where that logic is published and transferable and is difficult to generalise where it is not. The wider forecasting literature has instead treated curtailment as a nuisance term inside net-load forecasting, an approach that sidesteps the plant-level question a portfolio owner actually faces. Our problem differs from both: we forecast plant-level curtailment directly, at a seven-day horizon, without access to the operator's dispatch model, and we care about the uncertainty of that forecast rather than its point accuracy.
 }
 
-\subsection{Storage, congestion and network capacity as the physical drivers}
+\subsection{\DIFadd{Storage, congestion and network capacity as the physical drivers}}
 
 \DIFadd{The physical mechanisms that generate curtailment matter here because they are the candidate explanations for the distributional change we document, and because they set the ceiling on what any forecast can know. Denholm and Mai~\cite{denholm2019} establish how much storage, and at what duration, is needed to absorb a given level of curtailment, a result that bounds how quickly storage entry can plausibly change a curtailment record. Wang et al.~\cite{wang2019} embed that question in unit commitment and show the trade-off between operating cost and wind curtailment when batteries participate in dispatch. Rayit et al.~\cite{rayit2021} evaluate the economics from the storage owner's side, treating curtailed wind as the input to a grid-services business. Mohamad et al.~\cite{mohamad2021} approach the same problem as one of siting rather than operation, optimising where storage should be placed on a network so as to minimise solar curtailment subject to power-flow constraints, which is the mechanism by which storage capacity in one region can fail to relieve curtailment in another.
 }
@@ -154,12 +236,12 @@ The present work differs on both counts, and connects the applied problem to the
 
 \DIFadd{A distinct line of work attacks the constraint itself rather than its consequences, by rating network elements dynamically instead of conservatively. Foss et al.~\cite{foss1983} give the original dynamic ampacity algorithm, computing a conductor's real-time current-carrying capability from weather and thermal balance rather than from a fixed seasonal rating. Teh and Cotton~\cite{teh2016} show that applying dynamic thermal rating in a wind-integrated network changes system reliability, not only capacity, because the rating and the wind resource are correlated. Lai and Teh~\cite{lai2022} survey the field and set out where the practical limits lie. Glaum and Hofmann~\cite{glaum2023} quantify what dynamic line rating would deliver on the existing German transmission grid, and find capacity gains large enough to displace some network expansion. Su et al.~\cite{su2025} close the loop with our problem by forecasting short-term transmission capacity itself under dynamic line rating, which is the quantity that ultimately determines how much renewable output can be evacuated. For underground and cable-limited corridors the binding constraint is thermal rather than electrical: Maximov et al.~\cite{maximov2016} show how non-uniform soil temperature changes cable ampacity, and Ocło\'n~\cite{oclon2021} quantifies how soil thermal conductivity trades off against material cost in transmission design. We do not model any of these mechanisms. We cite them because they are the physical content of the shift our calibration layer has to survive, and because a forecaster with access to them would be solving a different and better-posed problem than ours}\DIFaddend .
 
-\DIFdelbegin \DIFdel{Conformal }\DIFdelend \DIFaddbegin \subsection{Hybrid physical and data-driven modelling}
+\DIFdelbegin \DIFdel{Conformal }\DIFdelend \DIFaddbegin \subsection{\DIFadd{Hybrid physical and data-driven modelling}}
 
 \DIFadd{The natural response to a data-driven model that drifts is to anchor it in physics. Lei et al.~\cite{lei2021} embed power-flow structure into a learned optimal power flow and show that the physical constraints act as a regulariser that improves extrapolation. Kruse et al.~\cite{kruse2023} apply the same idea to grid frequency, where the governing dynamics are known and the disturbances are not. Kirchner-Bossi et al.~\cite{kirchnerbossi2024} combine a physical wind-farm flow model with a data-driven correction for intra-day and day-ahead forecasting, and show the hybrid beats either component. This route is closed to us for a specific and instructive reason: the physics that determines curtailment is the operator's security-constrained dispatch, and neither the network model nor the constraint set is public. Our base model is therefore purely statistical by necessity, and that is precisely why the calibration layer has to carry the burden of the shift.
 }
 
-\subsection{Probabilistic forecasting and conformal prediction}
+\subsection{\DIFadd{Probabilistic forecasting and conformal prediction}}
 
 \DIFadd{Probabilistic forecasting in power systems has largely converged on quantile methods. Maciejowska et al.~\cite{maciejowska2016} introduce factor quantile regression averaging for electricity prices and establish the benchmark that later work is measured against; Uniejewski and Weron~\cite{uniejewski2021} regularise it and show the gain is robust. Van der Meer et al.~\cite{vandermeer2018} study prediction intervals for solar power and net load and document how coverage degrades with aggregation level and penetration, which is the same conditional-coverage question we face across plants of different size. Mangalova and Shesterneva~\cite{mangalova2016} show that a nearest-neighbour construction is competitive in the GEFCom2014 probabilistic wind track, a useful reminder that simple non-parametric predictive distributions are hard to beat, and one our own benchmark results echo. None of these methods carries a finite-sample coverage guarantee.
 }
@@ -217,30 +299,30 @@ Three features of the data govern the modelling choices that follow.
 \DIFaddend Third, the \DIFdelbegin \DIFdel{2025 storage deployment shifted }\DIFdelend \DIFaddbegin \DIFadd{change in }\DIFaddend the distribution of \DIFdelbegin \DIFdel{hourly curtailment magnitudes substantially while leaving the intraday shape and }\DIFdelend \DIFaddbegin \DIFadd{curtailment over the study period acts on scale, not on occurrence and not on timing. Occurrence is stable: for solar plants in the northern regions the probability of a positive day, averaged over each evaluation window, stays between 0.750 and 0.815 from January 2024 to May 2026, and a change-point search on the monthly series of $\mathbb{P}(Y>0)$ returns no break after September 2022. At monthly resolution the same series ranges more widely, from 0.635 to 0.877, so }\DIFaddend the \DIFdelbegin \DIFdel{occurrence probability almost unchanged, so that the regime change is felt in scale rather than in timing. Figure~\ref{fig:dist} illustrates the first two of these features. }\DIFdelend \DIFaddbegin \DIFadd{stability claim is one about window aggregates and not about individual months. The intraday shape is nearly as stable: the peak hour of the normalised intraday profile is hour 16 in every half-year from 2022 to the first half of 2025 and hour 17 in the last two half-years, two adjacent hours whose profile masses differ by less than 0.4 percentage points; the centroid of the profile moves by at most 22 minutes between consecutive half-years after 2023-H1, and the total variation distance between the profiles of consecutive half-years stays between 0.032 and 0.079 over the same span. The positive magnitudes, in contrast, roughly triple: the median of positive daily curtailment for solar plants in Antofagasta and Atacama rises from 92~MWh in the calibration window to 267~MWh in October to December 2024. }\DIFaddend These three facts, zero inflation, heavy tails and a scale-type \DIFdelbegin \DIFdel{regime }\DIFdelend shift, motivate respectively the two-part model, the choice of evaluation metric and the adaptive calibration described next.
 
 \DIFdelbegin %DIFDELCMD < \begin{figure}[tp]
-%DIFDELCMD < %%%
-\DIFdelendFL \DIFaddbeginFL \subsection{Dating the distributional change}
-\label{sec:regime}
-
-\DIFaddFL{The timing of the change in scale is best read after removing the annual cycle. Figure~\ref{fig:regime} shows the monthly mean of $\log Y$ over positive plant-days for solar plants in Antofagasta and Atacama, together with the same series net of a calendar-month median. Applied to the deseasonalised series with the PELT algorithm of Killick et al.~\cite{killick2012} and with binary segmentation, both under an $L_2$ cost and a BIC penalty $\hat\sigma^2\log n$ with a minimum segment length of three months, the two algorithms return two breaks and agree on both: May 2023, with a jump of $+1.05$ in mean log-magnitude, and January 2024, with a jump of $+0.76$. Neither returns a break in October 2024, and neither returns any break in 2025.
-}
-
-\DIFaddFL{That conclusion is robust to the analyst's choices. Repeating the detection over 180 configurations, crossing two strata, three deseasonalisation methods (calendar-month median, calendar-month mean and a robust STL decomposition), five penalty multipliers and three minimum segment lengths, no configuration returns a break in 2025 and none returns a break in October 2024. The change is therefore a ramp of roughly eighteen months rather than a step, and it is essentially complete by the end of 2024: comparing like with like across years, the Wasserstein-1 distance between the positive log-magnitudes of October to December 2023 and those of October to December 2024 is 1.20, whereas between October to December 2024 and October to December 2025 it is 0.085, below the 0.115 threshold of a permutation null that resamples whole days and therefore not distinguishable from no change at all.
-}
-
-\begin{figure*}[tp]
-\DIFaddendFL \centering
-\DIFdelbeginFL %DIFDELCMD < \includegraphics[width=0.75\textwidth]{fig2_distribution.pdf}
+%DIFDELCMD < \centering
+%DIFDELCMD < \includegraphics[width=0.75\textwidth]{fig2_distribution.pdf}
 %DIFDELCMD < \caption{Distributional structure of plant-level curtailment. Top: share of zero-valued plant-days by technology. Bottom: distribution of positive magnitudes on a logarithmic scale, with the 50th, 90th and 99th percentiles marked. The combination of a large point mass at zero and a heavy right tail motivates the two-part model of Section~\ref{sec:methods}.}
 %DIFDELCMD < \label{fig:dist}
 %DIFDELCMD < \end{figure}
 %DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \includegraphics[width=\textwidth]{fig5_regime_changepoints.pdf}
+\DIFdelend \DIFaddbegin \subsection{\DIFadd{Dating the distributional change}}
+\label{sec:regime}
+\DIFaddend 
+
+\DIFaddbegin \DIFadd{The timing of the change in scale is best read after removing the annual cycle. Figure~\ref{fig:regime} shows the monthly mean of $\log Y$ over positive plant-days for solar plants in Antofagasta and Atacama, together with the same series net of a calendar-month median. Applied to the deseasonalised series with the PELT algorithm of Killick et al.~\cite{killick2012} and with binary segmentation, both under an $L_2$ cost and a BIC penalty $\hat\sigma^2\log n$ with a minimum segment length of three months, the two algorithms return two breaks and agree on both: May 2023, with a jump of $+1.05$ in mean log-magnitude, and January 2024, with a jump of $+0.76$. Neither returns a break in October 2024, and neither returns any break in 2025.
+}
+
+\DIFadd{That conclusion is robust to the analyst's choices. Repeating the detection over 180 configurations, crossing two strata, three deseasonalisation methods (calendar-month median, calendar-month mean and a robust STL decomposition), five penalty multipliers and three minimum segment lengths, no configuration returns a break in 2025 and none returns a break in October 2024. The change is therefore a ramp of roughly eighteen months rather than a step, and it is essentially complete by the end of 2024: comparing like with like across years, the Wasserstein-1 distance between the positive log-magnitudes of October to December 2023 and those of October to December 2024 is 1.20, whereas between October to December 2024 and October to December 2025 it is 0.085, below the 0.115 threshold of a permutation null that resamples whole days and therefore not distinguishable from no change at all.
+}
+
+\begin{figure*}[tp]
+\centering
+\includegraphics[width=\textwidth]{fig5_regime_changepoints.pdf}
 \caption{Monthly mean of $\log Y$ over positive plant-days, solar plants in Antofagasta and Atacama. Top: raw series, dominated by the austral annual cycle. Bottom: the same series net of a calendar-month median, with the two change points returned by PELT and by binary segmentation marked by vertical lines (May 2023 and January 2024) and the calibration and transition windows of Section~\ref{sec:methods} shaded. Neither algorithm returns a break in October 2024 or in 2025; the deseasonalised level reaches its maximum in October and November 2024 and then stops rising. The isolated spike of June 2025, discussed in Section~\ref{sec:discussion}, is the largest deseasonalised anomaly of the post-calibration record.}
 \label{fig:regime}
 \end{figure*}
-\DIFaddend 
 
-\DIFaddbegin \DIFadd{Because the annual cycle is strong, any contrast between windows that fall in different seasons registers a large distance even when no regime change is present, and this bears directly on how the evaluation windows of Section~\ref{sec:methods} should be read. Table~\ref{tab:seasonal} decomposes the January--September to October--December shift in the monthly mean of $\log Y$ into a seasonal component, given by the calendar-month effects and therefore identical in every year, and a secular remainder. In 2024 the shift is the largest of the record, but 61\% of it for northern solar, and 76\% at system level, is the seasonal component that recurs every year; the same contrast yields a Wasserstein-1 distance of 0.96 in 2023 and 0.88 in 2025, years for which no regime change is claimed. The secular remainder of 2024, $+0.46$ for northern solar, is real and is the largest of the four years, but it is of the same order as the $+0.29$ of 2023. We report the raw contrast throughout the results, and flag here that it should not be read as if it were entirely a regime effect.
+\DIFadd{Because the annual cycle is strong, any contrast between windows that fall in different seasons registers a large distance even when no regime change is present, and this bears directly on how the evaluation windows of Section~\ref{sec:methods} should be read. Table~\ref{tab:seasonal} decomposes the January--September to October--December shift in the monthly mean of $\log Y$ into a seasonal component, given by the calendar-month effects and therefore identical in every year, and a secular remainder. In 2024 the shift is the largest of the record, but 61\% of it for northern solar, and 76\% at system level, is the seasonal component that recurs every year; the same contrast yields a Wasserstein-1 distance of 0.96 in 2023 and 0.88 in 2025, years for which no regime change is claimed. The secular remainder of 2024, $+0.46$ for northern solar, is real and is the largest of the four years, but it is of the same order as the $+0.29$ of 2023. We report the raw contrast throughout the results, and flag here that it should not be read as if it were entirely a regime effect.
 }
 
 \input{tab_estacional}
@@ -249,9 +331,10 @@ Three features of the data govern the modelling choices that follow.
 \section{Methods}
 \label{sec:methods}
 
-\DIFdelbegin %DIFDELCMD < \subsection{Problem setup and base forecaster}
-%DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \subsection{Problem setup and base forecasters}
+\DIFdelbegin \subsection{\DIFdel{Problem setup and base forecaster}}
+%DIFAUXCMD
+\addtocounter{subsection}{-1}%DIFAUXCMD
+\DIFdelend \DIFaddbegin \subsection{\DIFadd{Problem setup and base forecasters}}
 \label{sec:base}
 \DIFaddend 
 
@@ -306,10 +389,8 @@ U(x) \;=\; \exp\!\Big(\mu(x) + \sigma\,\Phi^{-1}\!\big(\textstyle\frac{\hat q-(1
 \DIFdelbegin \DIFdel{The two boundary cases are the two ends of the clipped argument $\big(\hat q-(1-p)\big)/p\in[0,1]$ in~\eqref{eq:invert}. }\DIFdelend A short proof of the inversion is given in \ref{app:inversion}, and it was additionally checked numerically against oracle coverage. \DIFaddbegin \DIFadd{For the multi-quantile predictive the same inversion is a linear interpolation on the quantile grid.
 }\DIFaddend 
 
-\DIFdelbegin %DIFDELCMD < \subsection{Coverage under regime change}
-%DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \subsection{Three guarantees, and which one applies where}
-\label{sec:guarantees}
+\subsection{\DIFdelbegin \DIFdel{Coverage under regime change}\DIFdelend \DIFaddbegin \DIFadd{Three guarantees, and which one applies where}\DIFaddend }
+\DIFaddbegin \label{sec:guarantees}
 \DIFaddend 
 
 \DIFdelbegin \DIFdel{Exchangeability fails when the system changes regime, and the storage-driven shift of 2025 is such a failure.
@@ -325,7 +406,7 @@ It fails, moreover, already within each regime : the daily systemic state is sha
 \DIFadd{\emph{Empirical coverage in this panel.} What we actually measure. Neither of the two statements above describes it, because exchangeability fails here twice over, and not only across the regime boundary. All plants share the daily state of the system}\DIFaddend , so the calibration scores arrive in strongly correlated daily blocks\DIFdelbegin \DIFdel{, and the effective sample size for the fluctuation of coverage is of }\DIFdelend \DIFaddbegin \DIFadd{. We quantify this rather than assert it. On the calibration set, }\DIFaddend the \DIFdelbegin \DIFdel{order of the number of days,not of rows. For this reason every }\DIFdelend \DIFaddbegin \DIFadd{intraclass correlation of the PIT score by date is 0.238, and with 108.8 plants per day this gives a design effect of 26.7: the effective calibration sample is about 1}{\DIFadd{,}}\DIFadd{000 rows, not the 26}{\DIFadd{,}}\DIFadd{552 that the finite-sample guarantee would nominally be stated at. Every }\DIFaddend coverage figure we report \DIFaddbegin \DIFadd{therefore }\DIFaddend carries a standard error clustered by date\DIFdelbegin \DIFdel{. }\DIFdelend \DIFaddbegin \DIFadd{, and every difference between methods carries a bootstrap interval that resamples whole days. Section~\ref{sec:panel} tests calibration schemes designed to restore exchangeability at the block, group and plant level, and reports how far each one actually moves conditional coverage.
 }
 
-\subsection{Responses to the shift}
+\subsection{\DIFadd{Responses to the shift}}
 \label{sec:respuestas}
 
 \DIFaddend We consider four responses\DIFdelbegin \DIFdel{to the shift}\DIFdelend \DIFaddbegin \DIFadd{, of which the last is the one the submitted version proposed}\DIFaddend .
@@ -340,10 +421,8 @@ It fails, moreover, already within each regime : the daily systemic state is sha
 
 \emph{Transport of scores.} Motivated by the monotone-displacement structure \DIFdelbegin \DIFdel{above}\DIFdelend \DIFaddbegin \DIFadd{of Section~\ref{sec:pit}}\DIFaddend , we transport the calibration scores from the old regime onto the new one before conformalising. Let $\hat F_{\mathrm{old}}$ and $\hat F_{\mathrm{new}}$ be the empirical CDFs of the calibration scores and of the scores in the recent window; the monotone one-dimensional optimal-transport map is the increasing rearrangement $T=\hat F_{\mathrm{new}}^{-1}\circ\hat F_{\mathrm{old}}$\DIFaddbegin \DIFadd{~\cite{peyre2019}}\DIFaddend , estimated nonparametrically by interpolation between empirical quantiles. In the upper tail, where the short window is noisy, the map is shrunk towards the identity in proportion to a bootstrap estimate of its variance, so that a noisy new quantile is replaced by the stable old one rather than extrapolated. Because the transport map is data-dependent it breaks the exchangeability of the transported scores with the test score; we therefore restore validity \DIFaddbegin \DIFadd{operationally }\DIFaddend by wrapping the transported scores in the online adaptive scheme, so that coverage is controlled by the \DIFdelbegin \DIFdel{ACI }\DIFdelend \DIFaddbegin \DIFadd{adaptive }\DIFaddend update and the transport contributes only sharpness. An idealised validity argument, exact under an oracle map and controlled through the total-variation framework of \DIFaddbegin \DIFadd{Barber et al.}\DIFaddend ~\cite{barber2023} under an estimated map, is given in \ref{app:coverage}.
 
-\DIFdelbegin %DIFDELCMD < \subsection{Evaluation}
-%DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \subsection{The adaptive scheme in full}
-\label{sec:algoritmo}
+\subsection{\DIFdelbegin \DIFdel{Evaluation}\DIFdelend \DIFaddbegin \DIFadd{The adaptive scheme in full}\DIFaddend }
+\DIFaddbegin \label{sec:algoritmo}
 \DIFaddend 
 
 \DIFdelbegin \DIFdel{We evaluate probabilistic forecasts by empirical coverage against the nominal level , by mean interval width over finite intervals (sharpness), by the fraction of infinite intervals, and by the continuous ranked probability score (CRPS) , which is a property of the base predictive }\DIFdelend \DIFaddbegin \DIFadd{The construction above is stated at the level of ideas. Because reproducibility of the exact procedure is the point, Algorithm~\ref{alg:transporte} gives it completely, Figure~\ref{fig:flow} shows the data flow, and \ref{app:hiper} tabulates every constant, including the seeds. Three implementation choices deserve to be stated in the body because they are the ones a reader would otherwise have to guess.
@@ -376,29 +455,29 @@ It fails, moreover, already within each regime : the daily systemic state is sha
 \caption{Transport + ACI with tail shrinkage. Constants and seeds in \ref{app:hiper}.}
 \label{alg:transporte}
 \begin{algorithmic}[1]
-\Require \DIFadd{base predictive $F_x$; calibration scores $s_{\mathrm{cal}}$ of size $n$; nominal level $\alpha$; step $\gamma$; window $W$; refresh period $R$; embargo $E$; bootstrap size $B$; shrinkage scale $\tau$
-}\State \DIFadd{$\alpha_1\gets\alpha$; \; $\mathcal{P}\gets\mathrm{sort}(s_{\mathrm{cal}})$; \; queue $\mathcal{Q}\gets\emptyset$; \; $t_{\mathrm{next}}\gets t_0$
-}\For{each test date $t$}
+\Require base predictive $F_x$; calibration scores $s_{\mathrm{cal}}$ of size $n$; nominal level $\alpha$; step $\gamma$; window $W$; refresh period $R$; embargo $E$; bootstrap size $B$; shrinkage scale $\tau$
+\State $\alpha_1\gets\alpha$; \; $\mathcal{P}\gets\mathrm{sort}(s_{\mathrm{cal}})$; \; queue $\mathcal{Q}\gets\emptyset$; \; $t_{\mathrm{next}}\gets t_0$
+\For{each test date $t$}
   \If{$t\ge t_{\mathrm{next}}$}
-     \State \DIFadd{$s_{\mathrm{new}}\gets$ scores with date in $[t-W-E,\;t-E)$
-     }\If{$|s_{\mathrm{new}}|\ge 100$}
-        \State \DIFadd{draw $B$ bootstrap resamples of $s_{\mathrm{new}}$; set $\hat q^{\mathrm{bag}}_{\mathrm{new}}$ to their mean quantile function and $\mathrm{sd}_{\mathrm{boot}}$ to its replicate standard deviation
-        }\State \DIFadd{form $\hat q_{\mathrm{reg}}$ by~\eqref{eq:shrink}; monotonise by running maximum; clip to $[0,1]$
-        }\State \DIFadd{$T\gets$ interpolation from $\hat q_{\mathrm{old}}$ to $\hat q_{\mathrm{reg}}$; \; $\mathcal{P}\gets\mathrm{sort}\big(T(s_{\mathrm{cal}})\big)$
-     }\EndIf
-     \State \DIFadd{$t_{\mathrm{next}}\gets t+R$
-  }\EndIf
-  \State \DIFadd{$k\gets\lceil (n+1)(1-\alpha_t)\rceil$; \; $\hat q_t\gets \mathcal{P}_{(k)}$ if $k\le n$, else $+\infty$
-  }\State \DIFadd{$U_t\gets F_x^{-1}(\hat q_t)$ for every plant of date $t$ }\Comment{interval emitted here}
-  \State \DIFadd{push $\mathrm{err}_t=\frac{1}{|I_t|}\sum_{i\in I_t}\mathbb{1}\{Y_{it}>U_{it}\}$ onto $\mathcal{Q}$
-  }\If{$|\mathcal{Q}|>E$}
-     \State \DIFadd{pop $\mathrm{err}_{t-E}$ from $\mathcal{Q}$; \; $\alpha_{t+1}\gets\mathrm{clip}\big(\alpha_t+\gamma(\alpha-\mathrm{err}_{t-E}),\;\alpha_{\min},\;\alpha_{\max}\big)$
-  }\EndIf
+     \State $s_{\mathrm{new}}\gets$ scores with date in $[t-W-E,\;t-E)$
+     \If{$|s_{\mathrm{new}}|\ge 100$}
+        \State draw $B$ bootstrap resamples of $s_{\mathrm{new}}$; set $\hat q^{\mathrm{bag}}_{\mathrm{new}}$ to their mean quantile function and $\mathrm{sd}_{\mathrm{boot}}$ to its replicate standard deviation
+        \State form $\hat q_{\mathrm{reg}}$ by~\eqref{eq:shrink}; monotonise by running maximum; clip to $[0,1]$
+        \State $T\gets$ interpolation from $\hat q_{\mathrm{old}}$ to $\hat q_{\mathrm{reg}}$; \; $\mathcal{P}\gets\mathrm{sort}\big(T(s_{\mathrm{cal}})\big)$
+     \EndIf
+     \State $t_{\mathrm{next}}\gets t+R$
+  \EndIf
+  \State $k\gets\lceil (n+1)(1-\alpha_t)\rceil$; \; $\hat q_t\gets \mathcal{P}_{(k)}$ if $k\le n$, else $+\infty$
+  \State $U_t\gets F_x^{-1}(\hat q_t)$ for every plant of date $t$ \Comment{interval emitted here}
+  \State push $\mathrm{err}_t=\frac{1}{|I_t|}\sum_{i\in I_t}\mathbb{1}\{Y_{it}>U_{it}\}$ onto $\mathcal{Q}$
+  \If{$|\mathcal{Q}|>E$}
+     \State pop $\mathrm{err}_{t-E}$ from $\mathcal{Q}$; \; $\alpha_{t+1}\gets\mathrm{clip}\big(\alpha_t+\gamma(\alpha-\mathrm{err}_{t-E}),\;\alpha_{\min},\;\alpha_{\max}\big)$
+  \EndIf
 \EndFor
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{What is new here, and what is not}
+\subsection{\DIFadd{What is new here, and what is not}}
 \label{sec:novedad}
 
 \DIFadd{Every ingredient of Algorithm~\ref{alg:transporte} is taken from existing work, and it is worth being exact about which.
@@ -413,7 +492,7 @@ It fails, moreover, already within each regime : the daily systemic state is sha
 \DIFadd{The two fare differently under ablation, and Section~\ref{sec:ablaciones} reports both outcomes. The combination does not survive: once the online update is in place, adding the transport \emph{worsens} the interval score by 74.2~MWh over the whole test, with an interval that excludes zero. The device does survive, but not its price: the variance-proportional shrinkage improves the interval score by 6.5~MWh, with a bootstrap interval that also excludes zero, for six tenths of one per cent of the score and ninety per cent of the runtime. We regard stating both plainly as more useful than the claim of novelty they replace.
 }
 
-\subsection{Hyperparameter selection}
+\subsection{\DIFadd{Hyperparameter selection}}
 \label{sec:seleccion}
 
 \DIFadd{The submitted version reported the adaptive methods at $\gamma\in\{0.02,0.05\}$ with a 60-day window, values taken from a synthetic prototyping stage and from common practice rather than from a formal selection on real data. That does not meet the standard the results should be held to, so the selection was redone.
@@ -425,7 +504,7 @@ It fails, moreover, already within each regime : the daily systemic state is sha
 \DIFadd{The selection returns $\gamma=0.005$ for pure adaptive conformal inference and $\gamma=0.005$ with a 120-day window for the transported variant. Both are an order of magnitude gentler than the values reported in the submitted version, and both produce no infinite intervals at all in validation, whereas at $\gamma=0.05$ between 34 and 42 per cent of validation intervals are infinite. The test set was not used in the selection and is used once, for the final evaluation. Sensitivity over the full $6\times5$ grid is reported on the test set in Section~\ref{sec:results} as a display, never as a criterion, and we say so there.
 }
 
-\subsection{Evaluation}
+\subsection{\DIFadd{Evaluation}}
 \label{sec:evaluacion}
 
 \DIFadd{The forecasts are upper prediction limits, that is one-sided intervals $[0,U(x)]$ at level $1-\alpha=0.90$, and the evaluation has to be appropriate to that. We report empirical coverage against the nominal level with standard errors }\DIFaddend clustered by date\DIFdelbegin \DIFdel{; these are of }\DIFdelend \DIFaddbegin \DIFadd{, and, for sharpness, the mean width over finite intervals together with the fraction of infinite ones. Reporting only those two, as the submitted version did, is misleading in a specific way: a method that escapes into infinite intervals removes its widest cases from the width average and therefore looks sharper for having failed. Some configurations here produce close to 10 per cent infinite intervals in 2025-S1 and 2025-S2, so this is not a hypothetical concern.
@@ -448,10 +527,8 @@ It fails, moreover, already within each regime : the daily systemic state is sha
 \section{Results}
 \label{sec:results}
 
-\DIFdelbegin %DIFDELCMD < \subsection{Point forecasting offers little marginal value}
-%DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \subsection{Point forecasting adds little, within the scope tested}
-\label{sec:punto}
+\subsection{Point forecasting \DIFdelbegin \DIFdel{offers }\DIFdelend \DIFaddbegin \DIFadd{adds }\DIFaddend little\DIFdelbegin \DIFdel{marginal value}\DIFdelend \DIFaddbegin \DIFadd{, within the scope tested}\DIFaddend }
+\DIFaddbegin \label{sec:punto}
 \DIFaddend 
 
 Table~\ref{tab:mae} reports the mean absolute error of the base models on the out-of-sample period. The seasonal-naive predictor, which \DIFdelbegin \DIFdel{simply }\DIFdelend averages the same weekday over recent weeks, is the most accurate of all \DIFdelbegin \DIFdel{, }\DIFdelend and is not beaten by the gradient-boosting models; the hurdle mixture median, which is optimised for the full predictive law rather than for absolute error, is the least accurate on this metric. This ordering \DIFdelbegin \DIFdel{is a direct consequence of }\DIFdelend \DIFaddbegin \DIFadd{follows from }\DIFaddend the strong weekly persistence documented in Section~\DIFdelbegin \DIFdel{\ref{sec:data}}\DIFdelend \DIFaddbegin \DIFadd{\ref{sec:eda}}\DIFaddend : when a quantity is that persistent, sophisticated point models add little over a well-chosen calendar rule.
@@ -466,68 +543,42 @@ Table~\ref{tab:mae} reports the mean absolute error of the base models on the ou
 %DIFDELCMD < \label{tab:mae}
 %DIFDELCMD < \begin{tabular}{lcccc}
 %DIFDELCMD < \toprule
-%DIFDELCMD < %%%
-\DIFdelFL{Model }%DIFDELCMD < & %%%
-\DIFdelFL{2024 }%DIFDELCMD < & %%%
-\DIFdelFL{2025 }%DIFDELCMD < & %%%
-\DIFdelFL{2026 }%DIFDELCMD < & %%%
-\DIFdelFL{Total }%DIFDELCMD < \\
+%DIFDELCMD < Model & 2024 & 2025 & 2026 & Total \\
 %DIFDELCMD < \midrule
-%DIFDELCMD < %%%
-\DIFdelFL{Seasonal-naive (weekly)      }%DIFDELCMD < & %%%
-\DIFdelFL{84.3 }%DIFDELCMD < & %%%
-\DIFdelFL{86.3 }%DIFDELCMD < & %%%
-\DIFdelFL{84.2 }%DIFDELCMD < & %%%
-\DIFdelFL{85.1 }%DIFDELCMD < \\
-%DIFDELCMD < %%%
-\DIFdelFL{Quantile GBM (median)        }%DIFDELCMD < & %%%
-\DIFdelFL{88.5 }%DIFDELCMD < & %%%
-\DIFdelFL{89.9 }%DIFDELCMD < & %%%
-\DIFdelFL{84.3 }%DIFDELCMD < & %%%
-\DIFdelFL{88.3 }%DIFDELCMD < \\
-%DIFDELCMD < %%%
-\DIFdelFL{Persistence                  }%DIFDELCMD < & %%%
-\DIFdelFL{88.4 }%DIFDELCMD < & %%%
-\DIFdelFL{96.3 }%DIFDELCMD < & %%%
-\DIFdelFL{90.7 }%DIFDELCMD < & %%%
-\DIFdelFL{92.2 }%DIFDELCMD < \\
-%DIFDELCMD < %%%
-\DIFdelFL{Point XGBoost                }%DIFDELCMD < & %%%
-\DIFdelFL{92.7 }%DIFDELCMD < & %%%
-\DIFdelFL{94.7 }%DIFDELCMD < & %%%
-\DIFdelFL{89.7 }%DIFDELCMD < & %%%
-\DIFdelFL{93.0 }%DIFDELCMD < \\
-%DIFDELCMD < %%%
-\DIFdelFL{Hurdle (mixture median)      }%DIFDELCMD < & %%%
-\DIFdelFL{104.4 }%DIFDELCMD < & %%%
-\DIFdelFL{104.8 }%DIFDELCMD < & %%%
-\DIFdelFL{101.6 }%DIFDELCMD < & %%%
-\DIFdelendFL \DIFaddbeginFL \DIFaddFL{One robustness check belongs here, because Section~\ref{sec:escalera} reports that the hurdle used throughout this paper is not the best available on this problem. Refitting it with early stopping, which selects 105 trees and improves its CRPS by 5.7 per cent, worsens its mean absolute error from }\DIFaddendFL 104.1 \DIFdelbeginFL %DIFDELCMD < \\
+%DIFDELCMD < Seasonal-naive (weekly)      & 84.3 & 86.3 & 84.2 & 85.1 \\
+%DIFDELCMD < Quantile GBM (median)        & 88.5 & 89.9 & 84.3 & 88.3 \\
+%DIFDELCMD < Persistence                  & 88.4 & 96.3 & 90.7 & 92.2 \\
+%DIFDELCMD < Point XGBoost                & 92.7 & 94.7 & 89.7 & 93.0 \\
+%DIFDELCMD < Hurdle (mixture median)      & 104.4 & 104.8 & 101.6 & 104.1 \\
 %DIFDELCMD < \bottomrule
 %DIFDELCMD < \end{tabular}
 %DIFDELCMD < \end{table}
 %DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \DIFadd{to 108.6~MWh and would place it last in this table, 27.6 per cent behind the seasonal-naive predictor. The ordering here is therefore not an artefact of the particular hurdle we fitted. It is also a measured instance of the criterion-dependence noted above: the two fits are ordered one way by a proper scoring rule of the whole predictive and the other way by point accuracy, because the early-stopped fit is the wider and better-calibrated predictive and its conditional median sits further from the realised value. We draw nothing further from it.
+\DIFdelend \DIFaddbegin \DIFadd{One robustness check belongs here, because Section~\ref{sec:escalera} reports that the hurdle used throughout this paper is not the best available on this problem. Refitting it with early stopping, which selects 105 trees and improves its CRPS by 5.7 per cent, worsens its mean absolute error from 104.1 to 108.6~MWh and would place it last in this table, 27.6 per cent behind the seasonal-naive predictor. The ordering here is therefore not an artefact of the particular hurdle we fitted. It is also a measured instance of the criterion-dependence noted above: the two fits are ordered one way by a proper scoring rule of the whole predictive and the other way by point accuracy, because the early-stopped fit is the wider and better-calibrated predictive and its conditional median sits further from the realised value. We draw nothing further from it.
 }\DIFaddend 
 
-\DIFdelbegin %DIFDELCMD < \subsection{Calibration under the regime change}
-%DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \input{tab_mae}
+\DIFaddbegin \input{tab_mae}
+
+\DIFaddend \subsection{\DIFdelbegin \DIFdel{Calibration under }\DIFdelend \DIFaddbegin \DIFadd{With }\DIFaddend the \DIFdelbegin \DIFdel{regime change}\DIFdelend \DIFaddbegin \DIFadd{hurdle base model, the shift inflates intervals and adaptation recovers them}\DIFaddend }
+\DIFaddbegin \label{sec:hurdle}
 \DIFaddend 
 
-\DIFaddbegin \subsection{With the hurdle base model, the shift inflates intervals and adaptation recovers them}
-\label{sec:hurdle}
+On real data the \DIFdelbegin \DIFdel{storage }\DIFdelend shift does not break coverage; it inflates it. Under a static conformal split \DIFaddbegin \DIFadd{with the hurdle predictive}\DIFaddend , empirical coverage stays between 89\% and 95\% in every period (Table~\ref{tab:results}), so the severe over-coverage seen on synthetic data is absent, because the base forecaster, through its lagged and moving-average features, absorbs much of the shift into its own predictive. The cost of the shift is \DIFdelbegin \DIFdel{therefore }\DIFdelend paid in width rather than in coverage, and it is concentrated in the \DIFdelbegin \DIFdel{ramp}\DIFdelend \DIFaddbegin \DIFadd{transition window}\DIFaddend : the static split reaches 95.3\% coverage with a mean width of 1203~MWh during October to December 2024. \DIFaddbegin \DIFadd{Part of that widening is seasonal rather than secular, in the proportion given in Table~\ref{tab:seasonal}, and the same qualitative pattern would be expected in the fourth quarter of any year in this record; what distinguishes 2024 is that the seasonal peak lands on top of the largest secular displacement of the four years. }\DIFaddend Figure~\ref{fig:rolling} traces \DIFdelbegin \DIFdel{this }\DIFdelend \DIFaddbegin \DIFadd{the }\DIFaddend behaviour over time: the static split drifts above the nominal level as the \DIFdelbegin \DIFdel{ramp }\DIFdelend \DIFaddbegin \DIFadd{window }\DIFaddend advances, while the adaptive schemes track it more closely.
 
-\DIFaddend On real data the \DIFdelbegin \DIFdel{storage }\DIFdelend shift does not break coverage; it inflates it. Under a static conformal split \DIFaddbegin \DIFadd{with the hurdle predictive}\DIFaddend , empirical coverage stays between 89\% and 95\% in every period (Table~\ref{tab:results}), so the severe over-coverage seen on synthetic data is absent, because the base forecaster, through its lagged and moving-average features, absorbs much of the shift into its own predictive. The cost of the shift is \DIFdelbegin \DIFdel{therefore }\DIFdelend paid in width rather than in coverage, and it is concentrated in the \DIFdelbegin \DIFdel{ramp}\DIFdelend \DIFaddbegin \DIFadd{transition window}\DIFaddend : the static split reaches 95.3\% coverage with a mean width of 1203~MWh during October to December 2024. \DIFaddbegin \DIFadd{Part of that widening is seasonal rather than secular, in the proportion given in Table~\ref{tab:seasonal}, and the same qualitative pattern would be expected in the fourth quarter of any year in this record; what distinguishes 2024 is that the seasonal peak lands on top of the largest secular displacement of the four years. }\DIFaddend Figure~\ref{fig:rolling} traces \DIFdelbegin \DIFdel{this }\DIFdelend \DIFaddbegin \DIFadd{the }\DIFaddend behaviour over time: the static split drifts above the nominal level as the \DIFdelbegin \DIFdel{ramp }\DIFdelend \DIFaddbegin \DIFadd{window }\DIFaddend advances, while the adaptive schemes track it more closely.
-
-\begin{figure*}[t]
+\DIFdelbegin %DIFDELCMD < \begin{figure*}[t]
+%DIFDELCMD < \centering
+%DIFDELCMD < \includegraphics[width=\textwidth]{fig3_rolling_coverage.pdf}
+%DIFDELCMD < \caption{Rolling empirical coverage (90-day window) of the conformal methods on real data, computed with the 7-day horizon embargo. The dashed line marks the 90\% nominal level and the shaded band marks the storage ramp of October to December 2024. The static split drifts into over-coverage as the ramp advances, whereas the adaptive schemes remain close to nominal.}
+%DIFDELCMD < \label{fig:rolling}
+%DIFDELCMD < \end{figure*}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{fig3_rolling_coverage.pdf}
-\DIFdelbeginFL %DIFDELCMD < \caption{Rolling empirical coverage (90-day window) of the conformal methods on real data, computed with the 7-day horizon embargo. The dashed line marks the 90\% nominal level and the shaded band marks the storage ramp of October to December 2024. The static split drifts into over-coverage as the ramp advances, whereas the adaptive schemes remain close to nominal.}
-%DIFDELCMD < %%%
-\DIFdelendFL \DIFaddbeginFL \caption{Rolling empirical coverage (90-day window) of the conformal methods on real data with the hurdle base model, computed with the 7-day horizon embargo. The dashed line marks the 90\% nominal level and the shaded band marks the window of maximum divergence from the calibration distribution, October to December 2024. The static split drifts into over-coverage as that window advances, whereas the adaptive schemes remain close to nominal.}
-\DIFaddendFL \label{fig:rolling}
+\caption{Rolling empirical coverage (90-day window) of the conformal methods on real data with the hurdle base model, computed with the 7-day horizon embargo. The dashed line marks the 90\% nominal level and the shaded band marks the window of maximum divergence from the calibration distribution, October to December 2024. The static split drifts into over-coverage as that window advances, whereas the adaptive schemes remain close to nominal.}
+\label{fig:rolling}
 \end{figure*}
+\DIFaddend 
 
 The adaptive schemes pay off precisely there. Transport of the calibration scores wrapped in online adaptation ($\gamma=0.05$) brings the \DIFdelbegin \DIFdel{ramp }\DIFdelend \DIFaddbegin \DIFadd{transition }\DIFaddend intervals down to 806~MWh at 90.9\% coverage, a reduction of about a third at a coverage within one point of nominal, and the sliding window gives 834~MWh at 92.0\%. Outside \DIFdelbegin \DIFdel{the ramp the }\DIFdelend \DIFaddbegin \DIFadd{that window the }\DIFaddend trade-off is ambiguous: with the static split already near nominal, the adaptive methods mostly exchange coverage for width and can under-cover, as in 2025-S1, and their gains are small and within the date-clustered standard error. \DIFdelbegin \DIFdel{Figure~\ref{fig:tradeoff} makes this trade-off explicit across methods and periods. Two honest limitations frame the result . First, the base dispersion is large on real data ($\hat\sigma=1.70$) }\DIFdelend \DIFaddbegin \DIFadd{That is what the data predict rather than a shortcoming of the adaptive layer. The first semester of 2025 is not distinguishable from the pre-transition regime: the Wasserstein-1 distance between the positive log-magnitudes of January to September 2024 and those of January to June 2025 is 0.172, with a 95\% bootstrap interval of $[0.070,0.367]$ resampling whole days, against a threshold of 0.193 under a permutation null that also resamples whole days. There is no shift left to correct in that period.
 }
@@ -544,7 +595,7 @@ The adaptive schemes pay off precisely there. Transport of the calibration score
 \DIFadd{Read on its own, this subsection is the result the submitted version reported. The next one is why we no longer read it on its own.
 }
 
-\subsection{The gain does not survive a change of base model}
+\subsection{\DIFadd{The gain does not survive a change of base model}}
 \label{sec:agnostic}
 
 \DIFadd{The calibration layer touches the base model through exactly two operations, the predictive CDF and its inverse, so the same layer can be run over a different predictive without changing a single constant. We do that, holding fixed the score, the window boundaries, the seven-day embargo, the seeds, the values of $\gamma$, the 60-day recent window and the tail shrinkage, and varying only the base model among the three of Section~\ref{sec:base}. As a control on the comparison, the hurdle arm of this experiment reproduces Table~\ref{tab:results} in all thirty cells and four metrics, which is verified by assertion inside the script that produces it. Any difference between arms is therefore attributable to the base model and not to the protocol. \emph{Base model} here means the pair (functional form, capacity) jointly: the arms differ both in the shape imposed on the predictive and in the number of boosted models fitted, and this design does not separate the two. That matters for the comparison of levels, and Section~\ref{sec:escalera} separates them; it does not affect the diagnostic relationship, which is established \emph{within} each arm by contrasting the static split against the adaptive scheme under one and the same predictive.
@@ -590,7 +641,7 @@ The adaptive schemes pay off precisely there. Transport of the calibration score
 \DIFadd{Two further observations sharpen the reading. First, the multi-quantile predictive is not merely different, it is better on every proper metric and in every window: its CRPS is 18 to 30 per cent lower than the hurdle's, 92.9 against 133.5~MWh in the transition window, an advantage that Section~\ref{sec:escalera} decomposes into a contribution of the model form and one of the fitted budget, and the best of the eighteen model-by-method combinations by interval score is the multi-quantile predictive in all five windows, in three of them paired with the plain static split and no adaptive layer at all. Its intervals in the transition window are 410~MWh at 90.6\% coverage, against 806~MWh at 90.9\% for the full pipeline of the submitted version. Second, the hurdle retains one advantage that should be recorded: the Brier score of the occurrence event is better under the hurdle, 0.0721 against 0.1027 in the transition window. That comparison is not like for like, since the occurrence probability of the multi-quantile predictive is read off a quantile grid at 0.02 resolution rather than produced by a dedicated classifier, and we report it as descriptive.
 }
 
-\subsection{Model form against fitted capacity}
+\subsection{\DIFadd{Model form against fitted capacity}}
 \label{sec:escalera}
 
 \DIFadd{The comparison of Section~\ref{sec:agnostic} holds features, rows, training cut-off, per-model hyperparameters and seed fixed across arms, but it does not hold capacity fixed: the hurdle is two boosted models of 400 trees and the multi-quantile predictive is fifty-four of them. A reader is entitled to ask whether the second wins on its freedom from a parametric tail shape or simply on having more budget to spend. The question is answerable and we answer it. Table~\ref{tab:escalera} varies the tree budget at a fixed 54-level grid and, in the other direction, gives the hurdle five times its own.
@@ -632,149 +683,61 @@ The adaptive schemes pay off precisely there. Transport of the calibration score
 \label{fig:escalera}
 \end{figure*}
 
-\subsection{Which components earn their cost}
+\subsection{\DIFadd{Which components earn their cost}}
 \label{sec:ablaciones}
 
-\DIFadd{The diagnostic above says the gain is attributable to the base model. The ablations say which parts of the calibration layer are doing anything at all. We ran five nested configurations, adding the pure static split and transport without adaptation to the three groups requested in review, so that each component }\DIFaddend can be isolated: \DIFdelbegin \DIFdel{the per-point implementation returns infinite intervals for the majority of test points during the ramp. It is a negative result about the tool, not about the data, and it is reported as such. }\DIFdelend \DIFaddbegin \DIFadd{static split, adaptive conformal inference alone, transport alone at a fixed level, transport plus adaptation without tail shrinkage, and the full scheme. Everything else is held fixed. Table~\ref{tab:ablaciones} reports the marginal contribution of each component to the interval score with a bootstrap interval over whole days, and Figure~\ref{fig:ablaciones} shows it window by window.
-}\DIFaddend 
+\DIFadd{The diagnostic above says the gain is attributable to the base model. The ablations say which parts of the calibration layer are doing anything at all. We ran five nested configurations, adding the pure static split and transport without adaptation to the three groups requested in review, so that each component }\DIFaddend can be isolated: \DIFdelbegin \DIFdel{the per-point implementation returns infinite intervals for the majority of test points during the ramp. It is a negative result about the tool, not about the data, }\DIFdelend \DIFaddbegin \DIFadd{static split, adaptive conformal inference alone, transport alone at a fixed level, transport plus adaptation without tail shrinkage, and the full scheme. Everything else is held fixed. Table~\ref{tab:ablaciones} reports the marginal contribution of each component to the interval score with a bootstrap interval over whole days, and Figure~\ref{fig:ablaciones} shows it window by window.
+}
 
-\DIFdelbegin %DIFDELCMD < \begin{table*}[t]
-%DIFDELCMD < %%%
-\DIFdelendFL \DIFaddbeginFL \input{tab_ablaciones}
+\input{tab_ablaciones}
 
 \begin{figure*}[t]
-\DIFaddendFL \centering
-\DIFdelbeginFL %DIFDELCMD < \footnotesize
-%DIFDELCMD < \caption{Coverage and mean interval width of the conformal methods by period, on real data, with the 7-day horizon embargo. Each cell shows coverage in percent (clustered standard error by date in parentheses) over mean interval width in MWh. Nominal coverage is 90\%. The base-model CRPS is a property of the predictive, not of the calibration layer, and is reported once per period. Superscripts give the fraction of infinite intervals where nonzero.}
-%DIFDELCMD < \label{tab:results}
-%DIFDELCMD < \begin{tabular}{lccccc}
-%DIFDELCMD < \toprule
-%DIFDELCMD < %%%
-\DIFdelFL{Method }%DIFDELCMD < & %%%
-\DIFdelFL{test\_pre }%DIFDELCMD < & %%%
-\DIFdelFL{test\_ramp }%DIFDELCMD < & %%%
-\DIFdelendFL \DIFaddbeginFL \includegraphics[width=\textwidth]{fig8_ablations.pdf}
+\centering
+\includegraphics[width=\textwidth]{fig8_ablations.pdf}
 \caption{Marginal contribution of each component of the adaptive scheme to the mean interval score, by window, with 95\% bootstrap intervals resampling whole days. Green marks a significant improvement, orange a significant deterioration, grey an interval containing zero. Runtime is the additional wall-clock cost of each component.}
 \label{fig:ablaciones}
 \end{figure*}
 
-\DIFaddFL{Three findings follow, and only the first is favourable.
+\DIFadd{Three findings follow, and only the first is favourable.
 }
 
-\DIFaddFL{Online adaptation earns its cost. Adding it to the static split improves the interval score by 215.8~MWh in the transition window, with a bootstrap interval of $[-274,-161]$, and by 37.8~MWh over the whole test, at a runtime cost of two tenths of a second.
+\DIFadd{Online adaptation earns its cost. Adding it to the static split improves the interval score by 215.8~MWh in the transition window, with a bootstrap interval of $[-274,-161]$, and by 37.8~MWh over the whole test, at a runtime cost of two tenths of a second.
 }
 
-\DIFaddFL{Score transport does not, once adaptation is present. On top of the adaptive update it \emph{worsens} the interval score by 74.2~MWh over the whole test, with an interval of $[+47,+105]$ that excludes zero, and it worsens it in four of the five windows individually. Transport without adaptation does improve on the static split, by an amount statistically indistinguishable from what adaptation alone achieves, at thirty-five times the runtime. The two components are substitutes rather than complements, and the cheaper one is at least as good.
+\DIFadd{Score transport does not, once adaptation is present. On top of the adaptive update it \emph{worsens} the interval score by 74.2~MWh over the whole test, with an interval of $[+47,+105]$ that excludes zero, and it worsens it in four of the five windows individually. Transport without adaptation does improve on the static split, by an amount statistically indistinguishable from what adaptation alone achieves, at thirty-five times the runtime. The two components are substitutes rather than complements, and the cheaper one is at least as good.
 }
 
-\DIFaddFL{The tail shrinkage does not pay for itself. Its effect on the whole test is $-6.5$~MWh with a bootstrap interval of $[-10,-3]$, which excludes zero but amounts to six tenths of one per cent of an interval score of about 1}{\DIFaddFL{,}}\DIFaddFL{030, and it accounts for 6.1 of the 6.7 seconds the full pipeline costs, that is roughly ninety per cent of the computational budget of the method. The most intricate device in the construction buys an improvement three orders of magnitude smaller than the gap between base models documented in Section~\ref{sec:escalera}.
+\DIFadd{The tail shrinkage does not pay for itself. Its effect on the whole test is $-6.5$~MWh with a bootstrap interval of $[-10,-3]$, which excludes zero but amounts to six tenths of one per cent of an interval score of about 1}{\DIFadd{,}}\DIFadd{030, and it accounts for 6.1 of the 6.7 seconds the full pipeline costs, that is roughly ninety per cent of the computational budget of the method. The most intricate device in the construction buys an improvement three orders of magnitude smaller than the gap between base models documented in Section~\ref{sec:escalera}.
 }
 
-\DIFaddFL{Taken together the full pipeline improves on the static split by 176.3~MWh in the transition window and loses 100.0 and 104.2~MWh in }\DIFaddendFL 2025-S1 \DIFdelbeginFL %DIFDELCMD < & %%%
-\DIFdelendFL \DIFaddbeginFL \DIFaddFL{and }\DIFaddendFL 2025-S2\DIFdelbeginFL %DIFDELCMD < & %%%
-\DIFdelFL{2026-S1 }%DIFDELCMD < \\
-%DIFDELCMD <        & %%%
-\DIFdelFL{(Sep 24,stable) }%DIFDELCMD < & %%%
-\DIFdelFL{(Oct--Dec 24, ramp) }%DIFDELCMD < & & & \\
+\DIFadd{Taken together the full pipeline improves on the static split by 176.3~MWh in the transition window and loses 100.0 }\DIFaddend and \DIFdelbegin \DIFdel{it is reported as such. }\DIFdelend \DIFaddbegin \DIFadd{104.2~MWh in 2025-S1 and 2025-S2, all three significant, netting $+32.4$~MWh over the whole test with an interval of $[-5,+75]$ that contains zero. Over the evaluation period as a whole, the complete method is not better than the static split it replaces.
+}\DIFaddend 
+
+\DIFdelbegin %DIFDELCMD < \begin{table*}[t]
+%DIFDELCMD < \centering
+%DIFDELCMD < \footnotesize
+%DIFDELCMD < \caption{Coverage and mean interval width of the conformal methods by period, on real data, with the 7-day horizon embargo. Each cell shows coverage in percent (clustered standard error by date in parentheses) over mean interval width in MWh. Nominal coverage is 90\%. The base-model CRPS is a property of the predictive, not of the calibration layer, and is reported once per period. Superscripts give the fraction of infinite intervals where nonzero.}
+%DIFDELCMD < \label{tab:results}
+%DIFDELCMD < \begin{tabular}{lccccc}
+%DIFDELCMD < \toprule
+%DIFDELCMD < Method & test\_pre & test\_ramp & 2025-S1 & 2025-S2 & 2026-S1 \\
+%DIFDELCMD <        & (Sep 24, stable) & (Oct--Dec 24, ramp) & & & \\
 %DIFDELCMD < \midrule
-%DIFDELCMD < %%%
-\DIFdelFL{Static split (PIT)      }%DIFDELCMD < & %%%
-\DIFdelFL{93.5\,(1.03) / 799 }%DIFDELCMD < & %%%
-\DIFdelFL{95.3\,(0.45) / 1203 }%DIFDELCMD < & %%%
-\DIFdelFL{89.4\,(1.04) / 455 }%DIFDELCMD < & %%%
-\DIFdelFL{94.0\,(0.45) / 750 }%DIFDELCMD < & %%%
-\DIFdelFL{92.5\,(0.58) / 535 }%DIFDELCMD < \\
-%DIFDELCMD < %%%
-\DIFdelFL{Sliding window 60d      }%DIFDELCMD < & %%%
-\DIFdelFL{93.0\,(1.04) / 742 }%DIFDELCMD < & %%%
-\DIFdelFL{92.0\,(0.73) / 834  }%DIFDELCMD < & %%%
-\DIFdelFL{85.4\,(1.16) / 323 }%DIFDELCMD < & %%%
-\DIFdelFL{92.9\,(0.51) / 650 }%DIFDELCMD < & %%%
-\DIFdelFL{89.5\,(0.76) / 419 }%DIFDELCMD < \\
-%DIFDELCMD < %%%
-\DIFdelFL{ACI ($\gamma{=}0.02$)   }%DIFDELCMD < & %%%
-\DIFdelFL{93.0\,(1.06) / 759 }%DIFDELCMD < & %%%
-\DIFdelFL{93.5\,(0.55) / 915  }%DIFDELCMD < & %%%
-\DIFdelFL{85.7\,(1.16) / 345 }%DIFDELCMD < & %%%
-\DIFdelFL{93.5\,(0.49) / 669 }%DIFDELCMD < & %%%
-\DIFdelFL{89.1\,(0.76) / 405 }%DIFDELCMD < \\
-%DIFDELCMD < %%%
-\DIFdelFL{ACI ($\gamma{=}0.05$)   }%DIFDELCMD < & %%%
-\DIFdelFL{92.4\,(1.16) / 718 }%DIFDELCMD < & %%%
-\DIFdelFL{92.1\,(0.67) / 822  }%DIFDELCMD < & %%%
-\DIFdelFL{86.6\,(1.14) / 405\textsuperscript{2.8} }%DIFDELCMD < & %%%
-\DIFdelFL{92.5\,(0.58) / 609\textsuperscript{11.8} }%DIFDELCMD < & %%%
-\DIFdelendFL \DIFaddbeginFL \DIFaddFL{, all three significant, netting $+32.4$~MWh over the whole test with an interval of $[-5,+75]$ that contains zero. Over the evaluation period as a whole, the complete method is not better than the static split it replaces.
-}
-
-\subsection{Metrics, infinite intervals and probabilistic benchmarks}
-\label{sec:metricas}
-
-\DIFaddFL{Table~\ref{tab:benchmarks} evaluates every method on the whole test period under the full metric set, alongside four probabilistic benchmarks that the submitted version did not include: a per-plant empirical quantile over a trailing year, a per-plant rolling historical distribution over 60 days, a one-sided conformalized quantile regression~\cite{romano2019} on the multi-quantile predictive, and a per-plant zero-inflated lognormal fitted without covariates. All four respect the same nominal level, the same embargo and the same evaluation rows.
-}
-
-\input{tab_benchmarks}
-
-\DIFaddFL{The benchmarks change the picture. Three of the four attain a better interval score than every method built on the hurdle, and the differences are significant under the day-block bootstrap. Two of them buy that score with coverage, and should be read accordingly: the rolling 60-day distribution reaches an interval score of 583 at 86.5\% coverage and the trailing-year quantile 656 at 87.2\%, both several points below nominal, so an operator who needs the stated level cannot use them. The conformalized quantile regression is the exception and is the most informative row of the table. It attains }\DIFaddendFL 89.8\DIFdelbeginFL \DIFdelFL{\,(0.75) / 446 }%DIFDELCMD < \\
-%DIFDELCMD < %%%
-\DIFdelendFL \DIFaddbeginFL \DIFaddFL{\% coverage, within half a point of nominal, with a mean width of 276~MWh and an interval score of 601, against 596~MWh and 1030 for the full pipeline of the submitted version. A standard construction from 2019, applied to a better base predictive, dominates the method this paper proposed.
-}
-
-\DIFaddFL{The treatment of infinite intervals matters and is now explicit. Three configurations of the submitted version produce infinite limits, up to 5.9 per cent of the test period, and under the width-over-finite-intervals convention they appear sharper than they are. The unrestricted interval score reports them as infinite, which is the correct verdict for a method that returns an uninformative interval on one case in sixteen.
-}
-
-\DIFaddFL{The cause is structural rather than incidental: the adaptive update is allowed to drive $\alpha_t$ to zero or below, at which point the required order statistic does not exist and the conformal quantile is $+\infty$. Bounding the update from below removes the problem entirely. Table~\ref{tab:cota} shows the effect of $\alpha_{\min}\in\{0.005,0.01,0.02\}$. At $\alpha_{\min}=0.005$ the fraction of infinite intervals falls to zero in all five windows and all four adaptive configurations, at a cost of at most half a point of marginal coverage, and the unrestricted interval score becomes finite and therefore comparable. We recommend the bound as a default. It is worth noting what it does not fix: with infinities removed and the score made comparable, the transported variants remain worse than pure adaptation, which is the finding of Section~\ref{sec:ablaciones} rather than an artefact of the infinities.
-}
-
-\input{tab_cota_alpha}
-
-\subsection{Panel dependence and conditional coverage}
-\label{sec:panel}
-
-\DIFaddFL{Clustered standard errors quantify the uncertainty that daily dependence induces in a reported coverage figure. They do not restore exchangeability, and the finite-sample guarantee of the split rests on exchangeability rather than on the width of a confidence interval. The distinction matters here because the dependence is severe: as reported in Section~\ref{sec:guarantees}, the intraclass correlation of the calibration score by date is 0.238, giving a design effect of 26.7 and an effective calibration sample of about 1}{\DIFaddFL{,}}\DIFaddFL{000 rows rather than 26}{\DIFaddFL{,}}\DIFaddFL{552.
-}
-
-\DIFaddFL{We tested three families of remedy, and report what each one actually buys. Table~\ref{tab:panel} gives marginal performance together with the worst absolute deviation from nominal on each conditioning axis, which is the operative measure of conditional coverage.
-}
-
-\input{tab_panel}
-
-\DIFaddFL{\emph{Block conformal.} Subsampling one plant per date makes the calibration scores approximately independent at the cost of reducing them from 26}{\DIFaddFL{,}}\DIFaddFL{552 to 244. Averaged over 200 replicates with a fixed seed, the conformal quantile moves from 0.9242 to 0.9263, a difference of two thousandths of a PIT unit, while the replicate standard deviation of that quantile is 0.0112. The point estimate is therefore close to unbiased; what the pooled construction misstates is not the level but the precision, since the guarantee is nominally stated at a sample size twenty-seven times larger than the effective one. Marginal performance is essentially unchanged and conditional coverage is marginally worse, so this is a correction to the interpretation rather than an improvement to the method.
-}
-
-\DIFaddFL{\emph{Group conformal.} Mondrian calibration with a separate conformal quantile per group restores group-conditional coverage by construction only if the group quantiles are well estimated. By technology and by capacity tercile the effect is small. By region it is harmful: the worst regional deviation rises from 4.8 to 7.2 percentage points, because several regions contribute too few calibration days for a stable quantile and the resulting estimates are noisy. Plant-level calibration, the finest partition, has the same problem in a stronger form and the same 7.2-point worst regional deviation, despite the best marginal interval score of the group. This is a negative result worth recording: partitioning the calibration set is not a free way to buy conditional validity when the partition is fine relative to the effective sample size.
-}
-
-\DIFaddFL{\emph{The adaptive schemes.} The best conditional coverage in the table belongs to plain adaptive conformal inference, with a worst deviation of 4.7 percentage points, better than every Mondrian variant. That is a point in favour of online adaptation, and it is consistent with the ablation result: adaptation is the component that works.
-}
-
-\DIFaddFL{One conditional result deserves emphasis because it runs against the interest of the method. On high-curtailment days, defined by the calibration-window ninetieth percentile of system-level daily curtailment and covering 254 of the 638 test days, the static split covers at 91.9 per cent while }\DIFaddendFL Transport+ACI \DIFdelbeginFL \DIFdelFL{($\gamma{=}0.02$) }%DIFDELCMD < & %%%
-\DIFdelFL{92.6\,(1.07) / 713 }%DIFDELCMD < & %%%
-\DIFdelFL{91.1\,(0.80) / 787 }%DIFDELCMD < & %%%
-\DIFdelFL{86.5\,(1.17) / 437\textsuperscript{0.6} }%DIFDELCMD < & %%%
-\DIFdelFL{92.4\,(0.60) / 986\textsuperscript{1.1} }%DIFDELCMD < & %%%
-\DIFdelFL{90.3\,(0.73) / 459 }%DIFDELCMD < \\
-%DIFDELCMD < %%%
-\DIFdelFL{Transport+ACI ($\gamma{=}0.05$) }%DIFDELCMD < & %%%
-\DIFdelFL{92.0\,(1.19) / 681 }%DIFDELCMD < & %%%
-\DIFdelFL{90.9\,(0.81) / 806 }%DIFDELCMD < & %%%
-\DIFdelFL{87.4\,(1.13) / 446\textsuperscript{9.9} }%DIFDELCMD < & %%%
-\DIFdelFL{91.6\,(0.63) / 718\textsuperscript{10.7} }%DIFDELCMD < & %%%
-\DIFdelFL{90.5\,(0.72) / 489 }%DIFDELCMD < \\
+%DIFDELCMD < Static split (PIT)      & 93.5\,(1.03) / 799 & 95.3\,(0.45) / 1203 & 89.4\,(1.04) / 455 & 94.0\,(0.45) / 750 & 92.5\,(0.58) / 535 \\
+%DIFDELCMD < Sliding window 60d      & 93.0\,(1.04) / 742 & 92.0\,(0.73) / 834  & 85.4\,(1.16) / 323 & 92.9\,(0.51) / 650 & 89.5\,(0.76) / 419 \\
+%DIFDELCMD < ACI ($\gamma{=}0.02$)   & 93.0\,(1.06) / 759 & 93.5\,(0.55) / 915  & 85.7\,(1.16) / 345 & 93.5\,(0.49) / 669 & 89.1\,(0.76) / 405 \\
+%DIFDELCMD < ACI ($\gamma{=}0.05$)   & 92.4\,(1.16) / 718 & 92.1\,(0.67) / 822  & 86.6\,(1.14) / 405\textsuperscript{2.8} & 92.5\,(0.58) / 609\textsuperscript{11.8} & 89.8\,(0.75) / 446 \\
+%DIFDELCMD < Transport+ACI ($\gamma{=}0.02$) & 92.6\,(1.07) / 713 & 91.1\,(0.80) / 787 & 86.5\,(1.17) / 437\textsuperscript{0.6} & 92.4\,(0.60) / 986\textsuperscript{1.1} & 90.3\,(0.73) / 459 \\
+%DIFDELCMD < Transport+ACI ($\gamma{=}0.05$) & 92.0\,(1.19) / 681 & 90.9\,(0.81) / 806 & 87.4\,(1.13) / 446\textsuperscript{9.9} & 91.6\,(0.63) / 718\textsuperscript{10.7} & 90.5\,(0.72) / 489 \\
 %DIFDELCMD < \midrule
-%DIFDELCMD < %%%
-\DIFdelFL{Base-model CRPS (MWh)   }%DIFDELCMD < & %%%
-\DIFdelFL{96.1 }%DIFDELCMD < & %%%
-\DIFdelFL{133.5 }%DIFDELCMD < & %%%
-\DIFdelFL{70.5 }%DIFDELCMD < & %%%
-\DIFdelFL{94.5 }%DIFDELCMD < & %%%
-\DIFdelFL{79.0 }%DIFDELCMD < \\
+%DIFDELCMD < Base-model CRPS (MWh)   & 96.1 & 133.5 & 70.5 & 94.5 & 79.0 \\
 %DIFDELCMD < \bottomrule
 %DIFDELCMD < \end{tabular}
 %DIFDELCMD < \end{table*}
 %DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \DIFadd{covers at 86.7 per cent. The economically important days are exactly where the adaptive scheme under-covers most, and a portfolio owner sizing an exposure on the largest days would be worse served by it than by the static split. Adaptive conformal inference sits between the two at 88.3 per cent.
-}\DIFaddend 
+\DIFdelend \DIFaddbegin \subsection{\DIFadd{Metrics, infinite intervals and probabilistic benchmarks}}
+\label{sec:metricas}
+\DIFaddend 
 
 \DIFdelbegin %DIFDELCMD < \begin{figure*}[t]
 %DIFDELCMD < \centering
@@ -783,11 +746,49 @@ The adaptive schemes pay off precisely there. Transport of the calibration score
 %DIFDELCMD < \label{fig:tradeoff}
 %DIFDELCMD < \end{figure*}
 %DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \subsection{Sensitivity to the window boundary and to the change-point dates}
-\label{sec:frontera}
-\DIFaddend 
+\DIFdelend \DIFaddbegin \DIFadd{Table~\ref{tab:benchmarks} evaluates every method on the whole test period under the full metric set, alongside four probabilistic benchmarks that the submitted version did not include: a per-plant empirical quantile over a trailing year, a per-plant rolling historical distribution over 60 days, a one-sided conformalized quantile regression~\cite{romano2019} on the multi-quantile predictive, and a per-plant zero-inflated lognormal fitted without covariates. All four respect the same nominal level, the same embargo and the same evaluation rows.
+}\DIFaddend 
 
-\DIFaddbegin \DIFadd{The transition window is defined by a measurable criterion, but the criterion still has to be applied to some boundary, and one might ask whether the results are an artefact of that choice. Table~\ref{tab:frontera} re-evaluates the three representative methods on six alternative definitions of the window, ranging from two months to seven. The Wasserstein-1 divergence from the calibration distribution varies from 0.99 to 1.34 across them, and the ordering of the methods is unchanged in every case: the static split over-covers by four to five points, adaptive conformal inference sits between, and the transported variant comes closest to nominal while carrying the worst interval score in four of the six. The narrower the window is drawn around October and November 2024, the larger the divergence and the larger the apparent gain, which is the same relationship established in Section~\ref{sec:agnostic}, here traced in the boundary rather than across base models.
+\DIFaddbegin \input{tab_benchmarks}
+
+\DIFadd{The benchmarks change the picture. Three of the four attain a better interval score than every method built on the hurdle, and the differences are significant under the day-block bootstrap. Two of them buy that score with coverage, and should be read accordingly: the rolling 60-day distribution reaches an interval score of 583 at 86.5\% coverage and the trailing-year quantile 656 at 87.2\%, both several points below nominal, so an operator who needs the stated level cannot use them. The conformalized quantile regression is the exception and is the most informative row of the table. It attains 89.8\% coverage, within half a point of nominal, with a mean width of 276~MWh and an interval score of 601, against 596~MWh and 1030 for the full pipeline of the submitted version. A standard construction from 2019, applied to a better base predictive, dominates the method this paper proposed.
+}
+
+\DIFadd{The treatment of infinite intervals matters and is now explicit. Three configurations of the submitted version produce infinite limits, up to 5.9 per cent of the test period, and under the width-over-finite-intervals convention they appear sharper than they are. The unrestricted interval score reports them as infinite, which is the correct verdict for a method that returns an uninformative interval on one case in sixteen.
+}
+
+\DIFadd{The cause is structural rather than incidental: the adaptive update is allowed to drive $\alpha_t$ to zero or below, at which point the required order statistic does not exist and the conformal quantile is $+\infty$. Bounding the update from below removes the problem entirely. Table~\ref{tab:cota} shows the effect of $\alpha_{\min}\in\{0.005,0.01,0.02\}$. At $\alpha_{\min}=0.005$ the fraction of infinite intervals falls to zero in all five windows and all four adaptive configurations, at a cost of at most half a point of marginal coverage, and the unrestricted interval score becomes finite and therefore comparable. We recommend the bound as a default. It is worth noting what it does not fix: with infinities removed and the score made comparable, the transported variants remain worse than pure adaptation, which is the finding of Section~\ref{sec:ablaciones} rather than an artefact of the infinities.
+}
+
+\input{tab_cota_alpha}
+
+\subsection{\DIFadd{Panel dependence and conditional coverage}}
+\label{sec:panel}
+
+\DIFadd{Clustered standard errors quantify the uncertainty that daily dependence induces in a reported coverage figure. They do not restore exchangeability, and the finite-sample guarantee of the split rests on exchangeability rather than on the width of a confidence interval. The distinction matters here because the dependence is severe: as reported in Section~\ref{sec:guarantees}, the intraclass correlation of the calibration score by date is 0.238, giving a design effect of 26.7 and an effective calibration sample of about 1}{\DIFadd{,}}\DIFadd{000 rows rather than 26}{\DIFadd{,}}\DIFadd{552.
+}
+
+\DIFadd{We tested three families of remedy, and report what each one actually buys. Table~\ref{tab:panel} gives marginal performance together with the worst absolute deviation from nominal on each conditioning axis, which is the operative measure of conditional coverage.
+}
+
+\input{tab_panel}
+
+\DIFadd{\emph{Block conformal.} Subsampling one plant per date makes the calibration scores approximately independent at the cost of reducing them from 26}{\DIFadd{,}}\DIFadd{552 to 244. Averaged over 200 replicates with a fixed seed, the conformal quantile moves from 0.9242 to 0.9263, a difference of two thousandths of a PIT unit, while the replicate standard deviation of that quantile is 0.0112. The point estimate is therefore close to unbiased; what the pooled construction misstates is not the level but the precision, since the guarantee is nominally stated at a sample size twenty-seven times larger than the effective one. Marginal performance is essentially unchanged and conditional coverage is marginally worse, so this is a correction to the interpretation rather than an improvement to the method.
+}
+
+\DIFadd{\emph{Group conformal.} Mondrian calibration with a separate conformal quantile per group restores group-conditional coverage by construction only if the group quantiles are well estimated. By technology and by capacity tercile the effect is small. By region it is harmful: the worst regional deviation rises from 4.8 to 7.2 percentage points, because several regions contribute too few calibration days for a stable quantile and the resulting estimates are noisy. Plant-level calibration, the finest partition, has the same problem in a stronger form and the same 7.2-point worst regional deviation, despite the best marginal interval score of the group. This is a negative result worth recording: partitioning the calibration set is not a free way to buy conditional validity when the partition is fine relative to the effective sample size.
+}
+
+\DIFadd{\emph{The adaptive schemes.} The best conditional coverage in the table belongs to plain adaptive conformal inference, with a worst deviation of 4.7 percentage points, better than every Mondrian variant. That is a point in favour of online adaptation, and it is consistent with the ablation result: adaptation is the component that works.
+}
+
+\DIFadd{One conditional result deserves emphasis because it runs against the interest of the method. On high-curtailment days, defined by the calibration-window ninetieth percentile of system-level daily curtailment and covering 254 of the 638 test days, the static split covers at 91.9 per cent while Transport+ACI covers at 86.7 per cent. The economically important days are exactly where the adaptive scheme under-covers most, and a portfolio owner sizing an exposure on the largest days would be worse served by it than by the static split. Adaptive conformal inference sits between the two at 88.3 per cent.
+}
+
+\subsection{\DIFadd{Sensitivity to the window boundary and to the change-point dates}}
+\label{sec:frontera}
+
+\DIFadd{The transition window is defined by a measurable criterion, but the criterion still has to be applied to some boundary, and one might ask whether the results are an artefact of that choice. Table~\ref{tab:frontera} re-evaluates the three representative methods on six alternative definitions of the window, ranging from two months to seven. The Wasserstein-1 divergence from the calibration distribution varies from 0.99 to 1.34 across them, and the ordering of the methods is unchanged in every case: the static split over-covers by four to five points, adaptive conformal inference sits between, and the transported variant comes closest to nominal while carrying the worst interval score in four of the six. The narrower the window is drawn around October and November 2024, the larger the divergence and the larger the apparent gain, which is the same relationship established in Section~\ref{sec:agnostic}, here traced in the boundary rather than across base models.
 }
 
 \input{tab_sensibilidad_frontera}
@@ -799,7 +800,7 @@ The adaptive schemes pay off precisely there. Transport of the calibration score
 \section{Discussion}
 \label{sec:discussion}
 
-\DIFdelbegin \DIFdel{The results carry a clear operational message. }\DIFdelend \DIFaddbegin \subsection{What the diagnostic means for practice}
+\DIFdelbegin \DIFdel{The results carry a clear operational message. }\DIFdelend \DIFaddbegin \subsection{\DIFadd{What the diagnostic means for practice}}
 
 \DIFadd{The central empirical result of this paper is negative, and it is worth stating what it does and does not license.
 }
@@ -813,7 +814,7 @@ The adaptive schemes pay off precisely there. Transport of the calibration score
 \DIFadd{There is a methodological point here that generalises beyond curtailment. A calibration layer evaluated against a single base model cannot distinguish between correcting a shift and correcting the model. The experiment that separates them is cheap, since a well-designed layer touches the base model only through a CDF and its inverse, and we would argue it should be standard in this literature. Our own construction did not survive it.
 }
 
-\subsection{Where the operational value actually lies}
+\subsection{\DIFadd{Where the operational value actually lies}}
 
 \DIFaddend For plant-level curtailment at a seven-day horizon, \DIFaddbegin \DIFadd{and within the information set available from public data, }\DIFaddend effort is better spent on reliable uncertainty quantification than on chasing point accuracy, which a calendar baseline already delivers. \DIFdelbegin \DIFdel{The value of the method is not that it predicts curtailment better in absolute terms, but that it attaches to each prediction an interval that remains informative even as the system changes regime. This is what a decision-maker who manages a portfolio of assets actually needs.
 }\DIFdelend \DIFaddbegin \DIFadd{That conclusion survives the revision. What changes is the recommendation about how to obtain the uncertainty: through a flexible, well-calibrated predictive distribution and a simple conformal wrapper, rather than through an elaborate adaptive layer over a rigid parametric one.
@@ -823,7 +824,7 @@ The adaptive schemes pay off precisely there. Transport of the calibration score
 First, exchangeability is violated even within a single regime, because the daily systemic state is shared across plants and the scores arrive in correlated daily blocks; the finite-sample guarantee of the static split is therefore marginal and approximate, and this is why every coverage figure is reported with }\DIFdelend \DIFaddbegin \DIFadd{Two operational details from Section~\ref{sec:results} are worth carrying forward. Bounding the online update from below is a free improvement: at $\alpha_{\min}=0.005$ it removes infinite prediction limits entirely, at a coverage cost of at most half a point, and it should be the default in any deployment where an uninformative interval is worse than a slightly wrong one. And conditional reliability on the largest days is the property a portfolio owner should check first, because it is where the schemes differ most and where the money is: on high-curtailment days the adaptive scheme under-covers by more than three points relative to the static split.
 }
 
-\subsection{The change in the record, and what we do not claim about it}
+\subsection{\DIFadd{The change in the record, and what we do not claim about it}}
 
 \DIFadd{The distributional change documented in Section~\ref{sec:regime} is real, is }\DIFaddend a \DIFdelbegin \DIFdel{date-clustered standard error.
 Second, coverage differences of one to three points between methods lie within that standard error, and we refrain from over-interpreting small gaps. Third}\DIFdelend \DIFaddbegin \DIFadd{ramp of roughly eighteen months between mid-2023 and late 2024, and is essentially complete before 2025 begins. On its causes we are deliberately agnostic, and the dataset released here cannot settle the question, because it records curtailment and not the assets or the network states that absorb it. Several mechanisms operate over the same months and cannot be separated with these data: the growth of solar capacity behind a saturated north-to-south corridor, reinforcements of that corridor, changes in northern mining demand, the entry of battery storage, and the mechanical saturation of curtailment itself once the corridor is full throughout the solar window. The literature discussed in Section~\ref{sec:related} makes clear how much would be needed to identify any of them: Mohamad et al.~\cite{mohamad2021} show that the effect of storage on curtailment depends on where it sits relative to the binding constraint, and Denholm and Mai~\cite{denholm2019} show that it depends on duration as much as on power. We have neither the locational network model nor the charge-discharge records that such an analysis requires.
@@ -835,17 +836,17 @@ Second, coverage differences of one to three points between methods lie within t
 \DIFadd{It is worth noting that the calibration layer responds to only one of these two kinds of change. A displacement of the level of the predictive law, such as the ramp of 2023 and 2024, appears as a displacement of the score distribution and is what the transport map and the online update are built to absorb. A break in the rate of growth is not, and none of the methods evaluated here detects it. That does not damage their coverage}\DIFaddend , because a \DIFdelbegin \DIFdel{decision-maker evaluates each plant individually, conditional reliability matters : a method that is sharper on average but less reliable on the largest plants, which carry the greatest economic weight, }\DIFdelend \DIFaddbegin \DIFadd{trend that flattens leaves no displacement to correct, but it matters for interpretation: reliability under shifts of level carries no guarantee under changes of trend, and the two are not distinguishable from coverage alone.
 }
 
-\subsection{The mid-2025 excursion}
+\subsection{\DIFadd{The mid-2025 excursion}}
 
 \DIFadd{The coverage dip visible in Figure~\ref{fig:rolling} can be given a date and a signature. It is concentrated in June 2025, the largest deseasonalised monthly anomaly of the entire post-calibration record: the monthly mean log-magnitude for northern solar stands well above the deseasonalised level of the calibration window, and the Wasserstein-1 distance between May to July 2025 and August to December 2025 }\DIFaddend is \DIFdelbegin \DIFdel{not necessarily preferable}\DIFdelend \DIFaddbegin \DIFadd{1.334, larger than the 1.147 of the transition contrast itself. Its signature is the reverse of the 2024 window: magnitudes rise while the occurrence probability falls, whereas in October to December 2024 the two rose together. It appears in solar and in wind separately and across four regions, which rules out a single plant or a residual erratum, and the operator's monthly report for that month records no storage system entering operation. A one-month excursion with an occurrence signature opposite to that of the main transition is the kind of event that a continuously adapting scheme absorbs only slowly and that a change-point trigger would catch, which is one of the directions we identify below}\DIFaddend .
 
-\DIFdelbegin \DIFdel{Several directions remain open}\DIFdelend \DIFaddbegin \subsection{Open directions}
+\DIFdelbegin \DIFdel{Several directions remain open}\DIFdelend \DIFaddbegin \subsection{\DIFadd{Open directions}}
 
 \DIFadd{Three follow directly from the results}\DIFaddend . A change-point detector could trigger recalibration at the onset of a \DIFdelbegin \DIFdel{regime }\DIFdelend shift rather than adapting continuously, which would address \DIFdelbegin \DIFdel{a coverage dip observed in mid-2025 that no method anticipates. A heteroscedastic base model with a conditional dispersion $\sigma(x)$ was tested and yielded sharper intervals on average but degraded conditional coverage on }\DIFdelend \DIFaddbegin \DIFadd{the June 2025 excursion; the machinery used offline in Section~\ref{sec:regime} to date the breaks is a natural starting point for an online version. Localised conformal prediction in the sense of Guan~\cite{guan2022}, which weights the calibration set by proximity to the test point, is a more principled route to conditional validity than the Mondrian partitions that failed in Section~\ref{sec:panel}, and it does not suffer from the small-group problem that defeated them. And extending the evaluation to the multivariate setting, across plants that share a transmission corridor and whose curtailment is therefore jointly determined, is the natural next step for an operator who manages a portfolio rather than an asset.
 }
 
 %DIF > ==================================================================
-\section{Limitations}
+\section{\DIFadd{Limitations}}
 \label{sec:limitations}
 
 \DIFadd{Both reviewers of the submitted version noted that its limitations were understated. They were, and the following are the ones we consider material.
@@ -930,10 +931,10 @@ which is~\eqref{eq:invert}. The two boundary cases are recovered as the limits o
 
 \emph{Static split.} If the calibration scores $s_1,\dots,s_n$ and the test score $s_{n+1}$ are exchangeable, then with $\hat q=s_{(k)}$, $k=\lceil(n+1)(1-\alpha)\rceil$, one has $\mathbb{P}(s_{n+1}\le\hat q)\ge k/(n+1)\ge 1-\alpha$, and since $F_x$ is monotone, $s_{n+1}\le\hat q$ if and only if $Y\le U(x)$; hence $\mathbb{P}(Y\le U(x))\ge 1-\alpha$. This is a \emph{marginal} statement, and it is exact only under exchangeability; the serial and cross-sectional dependence of the panel make it approximate\DIFaddbegin \DIFadd{. Section~\ref{sec:guarantees} quantifies how approximate: with an intraclass correlation by date of 0.238 and 108.8 plants per day, the effective $n$ is about 1}{\DIFaddend ,\DIFdelbegin \DIFdel{which is why the reported standard errors are clustered by date}\DIFdelend \DIFaddbegin }\DIFadd{000 rather than 26}{\DIFadd{,}}\DIFadd{552, so the guarantee should be read at the smaller sample size}\DIFaddend .
 
-\emph{Transported scores.} Let $P_{\mathrm{old}}$ and $P_{\mathrm{new}}$ be the laws of the score in the old and new regimes and $T=F_{\mathrm{new}}^{-1}\circ F_{\mathrm{old}}$ the monotone transport map. Under an \emph{oracle} map, $T(s)\sim P_{\mathrm{new}}$ for $s\sim P_{\mathrm{old}}$, so the transported calibration scores are exchangeable with the test score and the static guarantee transfers exactly. With an \emph{estimated} map $\hat T$ the transported scores are only approximately distributed as $P_{\mathrm{new}}$, and the coverage gap is bounded by the total-variation distance $d_{\mathrm{TV}}\big(\hat T_\# P_{\mathrm{old}},P_{\mathrm{new}}\big)$ through the weighted-exchangeability framework of Barber et al.~\cite{barber2023}. We do not rely on this bound in practice: because $\hat T$ is data-dependent and the gap is not directly controllable, we obtain validity operationally by feeding the transported scores into the adaptive update of Gibbs and Cand\`es~\cite{gibbs2021}, whose long-run coverage $\frac{1}{T}\sum_t\mathrm{err}_t\to\alpha$ holds for any sequence, so that the transport contributes sharpness and the online control contributes coverage. \DIFaddbegin \DIFadd{Section~\ref{sec:ablaciones} reports that on these data the sharpness contribution is negative once the online control is present.
-}\DIFaddend 
+\emph{Transported scores.} Let $P_{\mathrm{old}}$ and $P_{\mathrm{new}}$ be the laws of the score in the old and new regimes and $T=F_{\mathrm{new}}^{-1}\circ F_{\mathrm{old}}$ the monotone transport map. Under an \emph{oracle} map, $T(s)\sim P_{\mathrm{new}}$ for $s\sim P_{\mathrm{old}}$, so the transported calibration scores are exchangeable with the test score and the static guarantee transfers exactly. With an \emph{estimated} map $\hat T$ the transported scores are only approximately distributed as $P_{\mathrm{new}}$, and the coverage gap is bounded by the total-variation distance $d_{\mathrm{TV}}\big(\hat T_\# P_{\mathrm{old}},P_{\mathrm{new}}\big)$ through the weighted-exchangeability framework of Barber et al.~\cite{barber2023}. We do not rely on this bound in practice: because $\hat T$ is data-dependent and the gap is not directly controllable, we obtain validity operationally by feeding the transported scores into the adaptive update of Gibbs and Cand\`es~\cite{gibbs2021}, whose long-run coverage $\frac{1}{T}\sum_t\mathrm{err}_t\to\alpha$ holds for any sequence, so that the transport contributes sharpness and the online control contributes coverage\DIFaddbegin \DIFadd{. Section~\ref{sec:ablaciones} reports that on these data the sharpness contribution is negative once the online control is present.
+}
 
-\DIFaddbegin \section{Hyperparameters, constants and seeds}
+\section{\DIFadd{Hyperparameters, constants and seeds}}
 \label{app:hiper}
 
 \DIFadd{Table~\ref{tab:hiper} lists every constant of the pipeline. It is generated directly from the source code rather than transcribed, by a script that imports the modules and reads the constants and default arguments, so that it cannot drift from the implementation.
@@ -941,309 +942,259 @@ which is~\eqref{eq:invert}. The two boundary cases are recovered as the limits o
 
 \input{hiperparametros}
 
-\section{Reproducibility}
+\section{\DIFadd{Reproducibility}}
 \label{app:repro}
 
 \DIFadd{Every table and figure is regenerated by a versioned script from the frozen dataset. The environment is python 3.12.3 with pandas 3.0.3, numpy 2.4.6, scikit-learn 1.9.0, xgboost 3.2.0, ruptures 1.1.10 and statsmodels 0.15.0. The seeds are 42 for base-model training, 20260720 for the randomisation of the PIT atom and the bootstrap of the transport map, 11 for the CRPS sampling and 20260901 for the day-block bootstrap and the permutation nulls. The order in which the conformal generator is consumed is fixed and documented, which is what allows the hurdle arm of the model-agnosticism experiment to reproduce Table~\ref{tab:results} bit for bit. The command sequence that regenerates the entire set of results, together with a log of every run, is in the companion repository.
 }
 
-\DIFadd{The model-agnosticism experiment of Section~\ref{sec:agnostic} was reproduced independently from a clean clone of the repository, in an environment resolved from the specification file rather than copied, in which four of the five principal libraries resolved to versions other than the reference ones. The retrained multi-quantile base model matched the versioned one by SHA-256 checksum, and the regenerated tables matched the published ones cell by cell, the only difference being wall-clock timing columns. The dataset files, which are distributed through the archive rather than the repository, were verified against the checksums versioned here before use.
-}
+\DIFadd{The model-agnosticism experiment of Section~\ref{sec:agnostic} was reproduced independently from a clean clone of the repository, in an environment resolved from the specification file rather than copied, in which four of the five principal libraries resolved to versions other than the reference ones. The retrained multi-quantile base model matched the versioned one by SHA-256 checksum, and the regenerated tables matched the published ones cell by cell, the only difference being wall-clock timing columns. The dataset files, which are distributed through the archive rather than the repository, were verified against the checksums versioned here before use}\DIFaddend .
 
-\DIFaddend %==================================================================
+%==================================================================
 \begin{thebibliography}{99}
 
 \bibitem{oshaughnessy2020}
 E.~O'Shaughnessy, J.~R.~Cruce, K.~Xu,
 Too much of a good thing? Global trends in the curtailment of solar PV,
 Solar Energy 208 (2020) 1068--1077.
-\DIFaddbegin \DIFadd{doi:10.1016/j.solener.2020.08.075.
-}\DIFaddend 
+doi:10.1016/j.solener.2020.08.075.
 
-\DIFaddbegin \bibitem{henriot2015}
-\DIFadd{A.~Henriot,
+\bibitem{henriot2015}
+A.~Henriot,
 Economic curtailment of intermittent renewable energy sources,
 Energy Economics 49 (2015) 370--379.
 doi:10.1016/j.eneco.2015.03.002.
-}
 
 \bibitem{joos2018}
-\DIFadd{M.~Joos, I.~Staffell,
+M.~Joos, I.~Staffell,
 Short-term integration costs of variable renewable energy: wind curtailment and balancing in Britain and Germany,
 Renewable and Sustainable Energy Reviews 86 (2018) 45--65.
 doi:10.1016/j.rser.2018.01.009.
-}
 
 \bibitem{tang2018}
-\DIFadd{N.~Tang, Y.~Zhang, Y.~Niu, X.~Du,
+N.~Tang, Y.~Zhang, Y.~Niu, X.~Du,
 Solar energy curtailment in China: status quo, reasons and solutions,
 Renewable and Sustainable Energy Reviews 97 (2018) 509--528.
 doi:10.1016/j.rser.2018.07.021.
-}
 
 \bibitem{schermeyer2018}
-\DIFadd{H.~Schermeyer, C.~Vergara, W.~Fichtner,
+H.~Schermeyer, C.~Vergara, W.~Fichtner,
 Renewable energy curtailment: a case study on today's and tomorrow's congestion management,
 Energy Policy 112 (2018) 427--436.
 doi:10.1016/j.enpol.2017.10.037.
-}
 
 \bibitem{nycander2020}
-\DIFadd{E.~Nycander, L.~S\"oder, J.~Olauson, R.~Eriksson,
+E.~Nycander, L.~S\"oder, J.~Olauson, R.~Eriksson,
 Curtailment analysis for the Nordic power system considering transmission capacity, inertia limits and generation flexibility,
 Renewable Energy 152 (2020) 942--960.
 doi:10.1016/j.renene.2020.01.059.
-}
 
 \bibitem{yildiz2023}
-\DIFadd{B.~Yildiz, N.~Stringer, T.~Klymenko, M.~Syahman~Samhan, G.~Abramowitz, A.~Bruce, I.~MacGill, R.~Egan,
+B.~Yildiz, N.~Stringer, T.~Klymenko, M.~Syahman~Samhan, G.~Abramowitz, A.~Bruce, I.~MacGill, R.~Egan,
 Real-world data analysis of distributed PV and battery energy storage system curtailment in low voltage networks,
 Renewable and Sustainable Energy Reviews 186 (2023) 113696.
 doi:10.1016/j.rser.2023.113696.
-}
 
 \bibitem{bunodiere2020}
-\DIFadd{A.~Bunodiere, H.~S.~Lee,
+A.~Bunodiere, H.~S.~Lee,
 Renewable energy curtailment: prediction using a logic-based forecasting method and mitigation measures in Kyushu, Japan,
 Energies 13 (18) (2020) 4703.
 doi:10.3390/en13184703.
-}
 
 \bibitem{denholm2019}
-\DIFadd{P.~Denholm, T.~Mai,
+P.~Denholm, T.~Mai,
 Timescales of energy storage needed for reducing renewable energy curtailment,
 Renewable Energy 130 (2019) 388--399.
 doi:10.1016/j.renene.2018.06.079.
-}
 
 \bibitem{wang2019}
-\DIFadd{B.~Wang, M.~Zhou, B.~Xin, X.~Zhao, J.~Watada,
+B.~Wang, M.~Zhou, B.~Xin, X.~Zhao, J.~Watada,
 Analysis of operation cost and wind curtailment using multi-objective unit commitment with battery energy storage,
 Energy 178 (2019) 101--114.
 doi:10.1016/j.energy.2019.04.108.
-}
 
 \bibitem{rayit2021}
-\DIFadd{N.~S.~Rayit, J.~I.~Chowdhury, N.~Balta-Ozkan,
+N.~S.~Rayit, J.~I.~Chowdhury, N.~Balta-Ozkan,
 Techno-economic optimisation of battery storage for grid-level energy services using curtailed energy from wind,
 Journal of Energy Storage 39 (2021) 102641.
 doi:10.1016/j.est.2021.102641.
-}
 
 \bibitem{mohamad2021}
-\DIFadd{F.~Mohamad, J.~Teh, C.-M.~Lai,
+F.~Mohamad, J.~Teh, C.-M.~Lai,
 Optimum allocation of battery energy storage systems for power grid enhanced with solar energy,
 Energy 223 (2021) 120105.
 doi:10.1016/j.energy.2021.120105.
-}
 
 \bibitem{vargas2015}
-\DIFadd{L.~S.~Vargas, G.~Bustos-Turu, F.~Larrain,
+L.~S.~Vargas, G.~Bustos-Turu, F.~Larrain,
 Wind power curtailment and energy storage in transmission congestion management considering power plants ramp rates,
 IEEE Transactions on Power Systems 30 (5) (2015) 2498--2506.
 doi:10.1109/TPWRS.2014.2362922.
-}
 
 \bibitem{fang2021}
-\DIFadd{X.~Fang, H.~Cui, E.~Du, F.~Li, C.~Kang,
+X.~Fang, H.~Cui, E.~Du, F.~Li, C.~Kang,
 Characteristics of locational uncertainty marginal price for correlated uncertainties of variable renewable generation and demands,
 Applied Energy 282 (2021) 116064.
 doi:10.1016/j.apenergy.2020.116064.
-}
 
 \bibitem{foss1983}
-\DIFadd{S.~D.~Foss, S.~H.~Lin, R.~A.~Fernandes,
+S.~D.~Foss, S.~H.~Lin, R.~A.~Fernandes,
 Dynamic thermal line ratings part I: dynamic ampacity rating algorithm,
 IEEE Transactions on Power Apparatus and Systems PAS-102 (6) (1983) 1858--1864.
 doi:10.1109/TPAS.1983.317795.
-}
 
 \bibitem{teh2016}
-\DIFadd{J.~Teh, I.~Cotton,
+J.~Teh, I.~Cotton,
 Reliability impact of dynamic thermal rating system in wind power integrated network,
 IEEE Transactions on Reliability 65 (2) (2016) 1081--1089.
 doi:10.1109/TR.2015.2495173.
-}
 
 \bibitem{lai2022}
-\DIFadd{C.-M.~Lai, J.~Teh,
+C.-M.~Lai, J.~Teh,
 Comprehensive review of the dynamic thermal rating system for sustainable electrical power systems,
 Energy Reports 8 (2022) 3263--3288.
 doi:10.1016/j.egyr.2022.02.085.
-}
 
 \bibitem{glaum2023}
-\DIFadd{P.~Glaum, F.~Hofmann,
+P.~Glaum, F.~Hofmann,
 Leveraging the existing German transmission grid with dynamic line rating,
 Applied Energy 343 (2023) 121199.
 doi:10.1016/j.apenergy.2023.121199.
-}
 
 \bibitem{su2025}
-\DIFadd{Y.~Su, M.~Tan, J.~Teh,
+Y.~Su, M.~Tan, J.~Teh,
 Short-term transmission capacity prediction of hybrid renewable energy systems considering dynamic line rating based on data-driven model,
 IEEE Transactions on Industry Applications (2025).
 doi:10.1109/TIA.2025.3529824.
-}
 
 \bibitem{maximov2016}
-\DIFadd{S.~Maximov, V.~Venegas, J.~L.~Guardado, E.~L.~Moreno, R.~L\'opez,
+S.~Maximov, V.~Venegas, J.~L.~Guardado, E.~L.~Moreno, R.~L\'opez,
 Analysis of underground cable ampacity considering non-uniform soil temperature distributions,
 Electric Power Systems Research 132 (2016) 22--29.
 doi:10.1016/j.epsr.2015.11.005.
-}
 
 \bibitem{oclon2021}
-\DIFadd{P.~Ocło\'n,
+P.~Ocło\'n,
 The effect of soil thermal conductivity and cable ampacity on the thermal performance and material costs of underground transmission line,
 Energy 231 (2021) 120803.
 doi:10.1016/j.energy.2021.120803.
-}
 
 \bibitem{lei2021}
-\DIFadd{X.~Lei, Z.~Yang, J.~Yu, J.~Zhao, Q.~Gao, H.~Yu,
+X.~Lei, Z.~Yang, J.~Yu, J.~Zhao, Q.~Gao, H.~Yu,
 Data-driven optimal power flow: a physics-informed machine learning approach,
 IEEE Transactions on Power Systems 36 (1) (2021) 346--354.
 doi:10.1109/TPWRS.2020.3001919.
-}
 
 \bibitem{kruse2023}
-\DIFadd{J.~Kruse, E.~Cramer, B.~Sch\"afer, D.~Witthaut,
+J.~Kruse, E.~Cramer, B.~Sch\"afer, D.~Witthaut,
 Physics-informed machine learning for power grid frequency modeling,
 PRX Energy 2 (4) (2023) 043003.
 doi:10.1103/PRXEnergy.2.043003.
-}
 
 \bibitem{kirchnerbossi2024}
-\DIFadd{N.~Kirchner-Bossi, G.~Kathari, F.~Port\'e-Agel,
+N.~Kirchner-Bossi, G.~Kathari, F.~Port\'e-Agel,
 A hybrid physics-based and data-driven model for intra-day and day-ahead wind power forecasting considering a drastically expanded predictor search space,
 Applied Energy 367 (2024) 123375.
 doi:10.1016/j.apenergy.2024.123375.
-}
 
 \bibitem{maciejowska2016}
-\DIFadd{K.~Maciejowska, J.~Nowotarski, R.~Weron,
+K.~Maciejowska, J.~Nowotarski, R.~Weron,
 Probabilistic forecasting of electricity spot prices using factor quantile regression averaging,
 International Journal of Forecasting 32 (3) (2016) 957--965.
 doi:10.1016/j.ijforecast.2014.12.004.
-}
 
 \bibitem{uniejewski2021}
-\DIFadd{B.~Uniejewski, R.~Weron,
+B.~Uniejewski, R.~Weron,
 Regularized quantile regression averaging for probabilistic electricity price forecasting,
 Energy Economics 95 (2021) 105121.
 doi:10.1016/j.eneco.2021.105121.
-}
 
 \bibitem{vandermeer2018}
-\DIFadd{D.~W.~van~der~Meer, J.~Munkhammar, J.~Wid\'en,
+D.~W.~van~der~Meer, J.~Munkhammar, J.~Wid\'en,
 Probabilistic forecasting of solar power, electricity consumption and net load: investigating the effect of seasons, aggregation and penetration on prediction intervals,
 Solar Energy 171 (2018) 397--413.
 doi:10.1016/j.solener.2018.06.103.
-}
 
 \bibitem{mangalova2016}
-\DIFadd{E.~Mangalova, O.~Shesterneva,
+E.~Mangalova, O.~Shesterneva,
 K-nearest neighbors for GEFCom2014 probabilistic wind power forecasting,
 International Journal of Forecasting 32 (3) (2016) 1067--1073.
 doi:10.1016/j.ijforecast.2015.11.007.
-}
 
-\DIFaddend \bibitem{angelopoulos2023}
+\bibitem{angelopoulos2023}
 A.~N.~Angelopoulos, S.~Bates,
 Conformal prediction: a gentle introduction,
 Foundations and Trends in Machine Learning 16 (4) (2023) 494--591.
-\DIFaddbegin \DIFadd{doi:10.1561/2200000101.
-}\DIFaddend 
+doi:10.1561/2200000101.
 
 \bibitem{tibshirani2019}
 R.~J.~Tibshirani, R.~Foygel~Barber, E.~Cand\`es, A.~Ramdas,
 Conformal prediction under covariate shift,
-Advances in Neural Information Processing Systems 32 (2019) \DIFaddbegin \DIFadd{2530--2540}\DIFaddend .
+Advances in Neural Information Processing Systems 32 (2019) 2530--2540.
 
 \bibitem{barber2023}
 R.~Foygel~Barber, E.~J.~Cand\`es, A.~Ramdas, R.~J.~Tibshirani,
 Conformal prediction beyond exchangeability,
 The Annals of Statistics 51 (2) (2023) 816--845.
-\DIFaddbegin \DIFadd{doi:10.1214/23-AOS2276.
-}\DIFaddend 
+doi:10.1214/23-AOS2276.
 
 \bibitem{gibbs2021}
 I.~Gibbs, E.~Cand\`es,
 Adaptive conformal inference under distribution shift,
-Advances in Neural Information Processing Systems 34 (2021) \DIFaddbegin \DIFadd{1660--1672}\DIFaddend .
+Advances in Neural Information Processing Systems 34 (2021) 1660--1672.
 
-\DIFdelbegin \bibitem{gneiting2007}
-\DIFdel{T.~Gneiting,
-A.
-~E.~Raftery, Strictly proper scoring rules,
-prediction, and estimation,
-Journal of the American Statistical Association 102 (477) (2007) 359--378.
-}\DIFdelend \DIFaddbegin \bibitem{guan2022}
-\DIFadd{L.~Guan,
+\bibitem{guan2022}
+L.~Guan,
 Localized conformal prediction: a generalized inference framework for conformal prediction,
 Biometrika 110 (1) (2022) 33--50.
 doi:10.1093/biomet/asac040.
-}\DIFaddend 
 
-\DIFaddbegin \bibitem{chernozhukov2021}
-\DIFadd{V.~Chernozhukov, K.~W\"uthrich, Y.~Zhu,
+\bibitem{chernozhukov2021}
+V.~Chernozhukov, K.~W\"uthrich, Y.~Zhu,
 Distributional conformal prediction,
 Proceedings of the National Academy of Sciences 118 (48) (2021) e2107794118.
 doi:10.1073/pnas.2107794118.
-}
 
 \bibitem{romano2019}
-\DIFadd{Y.~Romano, E.~Patterson, E.~Cand\`es,
+Y.~Romano, E.~Patterson, E.~Cand\`es,
 Conformalized quantile regression,
 Advances in Neural Information Processing Systems 32 (2019) 3543--3553.
-}
 
 \bibitem{hu2022}
-\DIFadd{J.~Hu, Q.~Luo, J.~Tang, J.~Heng, Y.~Deng,
+J.~Hu, Q.~Luo, J.~Tang, J.~Heng, Y.~Deng,
 Conformalized temporal convolutional quantile regression networks for wind power interval forecasting,
 Energy 248 (2022) 123497.
 doi:10.1016/j.energy.2022.123497.
-}
 
 \bibitem{jensen2024}
-\DIFadd{V.~Jensen, F.~M.~Bianchi, S.~N.~Anfinsen,
+V.~Jensen, F.~M.~Bianchi, S.~N.~Anfinsen,
 Ensemble conformalized quantile regression for probabilistic time series forecasting,
 IEEE Transactions on Neural Networks and Learning Systems 35 (7) (2024) 9014--9025.
 doi:10.1109/TNNLS.2022.3217694.
-}
 
-\DIFaddend \bibitem{peyre2019}
+\bibitem{peyre2019}
 G.~Peyr\'e, M.~Cuturi,
-Computational optimal transport \DIFaddbegin \DIFadd{with applications to data sciences}\DIFaddend ,
+Computational optimal transport with applications to data sciences,
 Foundations and Trends in Machine Learning 11 (5--6) (2019) 355--607.
-\DIFaddbegin \DIFadd{doi:10.1561/2200000073.
-}\DIFaddend 
+doi:10.1561/2200000073.
 
-\DIFdelbegin \bibitem{chernozhukov2021}
-\DIFdelend \DIFaddbegin \bibitem{chernozhukov2010}
-\DIFaddend V.~Chernozhukov, \DIFdelbegin \DIFdel{K.~W\"uthrich, Y.~Zhu,
-Distributional conformal prediction,
-Proceedings of the National Academy of Sciences 118 (48) (2021) }\DIFdelend \DIFaddbegin \DIFadd{I.~Fern\'andez-Val, A.~Galichon,
+\bibitem{chernozhukov2010}
+V.~Chernozhukov, I.~Fern\'andez-Val, A.~Galichon,
 Quantile and probability curves without crossing,
 Econometrica 78 (3) (2010) 1093--1125.
-doi:10.3982/ECTA7880}\DIFaddend .
-\DIFaddbegin 
+doi:10.3982/ECTA7880.
 
 \bibitem{killick2012}
-\DIFadd{R.~Killick, P.~Fearnhead, I.~A.~Eckley,
+R.~Killick, P.~Fearnhead, I.~A.~Eckley,
 Optimal detection of changepoints with a linear computational cost,
 Journal of the American Statistical Association 107 (500) (2012) 1590--1598.
-}\DIFaddend doi:\DIFdelbegin \DIFdel{10.1073/pnas.2107794118.
-}\DIFdelend \DIFaddbegin \DIFadd{10.1080/01621459.2012.737745.
-}
+doi:10.1080/01621459.2012.737745.
 
 \bibitem{gneiting2007}
-\DIFadd{T.~Gneiting, A.~E.~Raftery,
+T.~Gneiting, A.~E.~Raftery,
 Strictly proper scoring rules, prediction, and estimation,
 Journal of the American Statistical Association 102 (477) (2007) 359--378.
 doi:10.1198/016214506000001437.
-}\DIFaddend 
 
 \bibitem{smith1985}
 J.~Q.~Smith,

@@ -815,3 +815,71 @@ la version 6.0 enviada". Es inexacto: la 6.0 se escribio el 10 y 12 de agosto,
 despues del envio, y es ya parte del reencuadre. La enviada es la 5.0. Es un
 comentario de LaTeX y no sale en el PDF, pero el baseline del diff se tomo del
 tag, no de ese comentario.
+
+## 16. Version marcada: configuracion de bloques atomicos
+
+Segunda pasada sobre la version marcada. La primera se reporto como rota solo en
+el titulo y el abstract, y estaba mal: el autor encontro ocho lugares mas, dos de
+ellos con la Tabla 3 completa derramada dentro de un parrafo de resultados.
+
+**Causa.** La version enviada traia las tablas en linea en el .tex; la actual las
+trae por `\input`. Al diffear, latexdiff desarmaba la tabla vieja celda por
+celda y **comentaba** los separadores `&`, de modo que el contenido de la tabla
+quedaba como texto corrido dentro del flotante. Medido: 66 separadores `&`
+comentados y 84 celdas sueltas marcadas (`DIFdelFL`) en el marcado anterior.
+
+**Configuracion nueva.** `flagship/revision/generar_marcado.py` (nuevo):
+
+```
+python flagship/revision/generar_marcado.py
+```
+
+Baseline sin cambios: `submitted-segan-v1` = commit 4af5ea7 del 28 de julio de
+2026, la version 5.0, la efectivamente enviada.
+
+- `--config PICTUREENV=` extendido con `table`, `tabular`, `figure`,
+  `algorithm`, `algorithmic`, `equation` y `thebibliography`, conservando los
+  tres del default. latexdiff convierte cada uno en un token unico
+  (`\PICTUREBLOCK...`, linea 3256 del fuente), asi que el entorno se marca
+  entero. Tras el cambio: **0** separadores comentados y 1 celda suelta.
+- `--math-markup=whole`: cada ecuacion como bloque.
+- `--disable-citation-markup`: sin marcado de citas.
+- `-t CCHANGEBAR`, sin cambios.
+
+**Bibliografia.** Se sustituye por la nueva en ambos archivos antes de diffear,
+de modo que aparezca una sola vez y sin marcas. El script comprueba antes que
+las 10 claves de la enviada sean subconjunto de las 43 nuevas, y lo son, asi que
+no queda ninguna cita sin resolver. Los cuatro defectos reportados quedaron
+resueltos: 43 entradas, ninguna vacia, ningun DOI duplicado y Gneiting una sola
+vez, en [41]. **Ninguno era un defecto del manuscrito**: la bibliografia real ya
+estaba limpia y todos eran artefactos del diff palabra por palabra.
+
+**Nota de cabecera.** Se inserta tras `\end{frontmatter}`, sin marcado de diff,
+con reglas arriba y abajo. Declara el reencuadre, el porcentaje de cuerpo nuevo,
+el crecimiento de la bibliografia y que el recuento cambio por cambio esta en la
+carta de respuesta.
+
+Dos numeros de la nota difieren de los que se habian pedido, y por que:
+
+- **70% y no 73%.** El 72,8% se midio sobre el marcado anterior, donde la
+  bibliografia se diffeaba palabra por palabra. Con la bibliografia fuera del
+  cuerpo marcado la medicion de este documento da 70,1%.
+- **4.753 a 15.804 palabras, y no 5.712 a 18.032.** Aquellos eran `wc -w` del
+  .tex entero, que cuenta comandos y comentarios de LaTeX: ya habia derivado a
+  18.092 solo por agregar cuatro lineas de comentario al preambulo, que no es un
+  cambio del manuscrito. El conteo de la nota es prosa del cuerpo sin
+  bibliografia, que es lo que describe el porcentaje de la misma frase.
+
+**Estado del PDF marcado:** 38 paginas, 0 errores, 0 referencias o citas sin
+resolver. Queda en `resultados/latexdiff/` y como `12_` en `entrega_revision/`.
+
+**Lo que la configuracion no puede arreglar.** Cinco de los siete lugares del
+cuerpo siguen rotos, mas el titulo y el abstract, y no por tablas: latexdiff
+alinea palabras y cuando un parrafo se reescribio completo empareja palabras
+incidentales de parrafos distintos e intercala. Eso solo se resuelve
+convirtiendo el bloque en reemplazo completo. Detalle en la seccion 17.
+
+**Correccion del preambulo.** El comentario decia "Cambios respecto de la
+version 6.0 enviada". Falso: la 6.0 se escribio el 10 y 12 de agosto, despues
+del envio, y es parte del reencuadre. Ahora declara la version 5.0, el tag, el
+commit y la fecha. Importa porque el .tex viaja dentro del zip que va al editor.
