@@ -492,3 +492,48 @@ dentro de cada brazo, asi que no lo toca.
 torno a los cien arboles. Ni anadir presupuesto ni gastarlo con mas cuidado
 cierra la brecha con la forma cuantilica, que es un enunciado mas fuerte que el
 que habia.
+
+## H10. El orden puntual de la Tabla 2 no es artefacto del hurdle elegido
+
+**Estado:** confirmado. **Fase:** cierre. **Consecuencia de:** H9.
+
+**Afirmacion afectada:** ninguna se cae. H9 declaro que el hurdle del paper no es
+el mejor disponible y que sus niveles cargan un descuento. La pregunta abierta
+era si ese descuento alcanzaba a la Tabla 2, es decir, si el naive estacional le
+gana al hurdle solo porque ajustamos un hurdle malo.
+
+**Comando:**
+`<venv>/bin/python flagship/revision/verificacion/obj1e_mae_hurdle_es.py`
+
+**Protocolo.** Se generan las predicciones puntuales del hurdle con detencion
+temprana (105 arboles, el de H9) sobre exactamente las mismas 104.420 filas y el
+mismo periodo fuera de muestra de la Tabla 2, y se toma la mediana de la mixtura
+igual que para el hurdle oficial. El script **aborta** si antes no reproduce la
+fila oficial del hurdle celda por celda; el control paso con desvio maximo de
+0.005 MWh sobre la particion anual 40.549 / 44.725 / 19.146.
+
+| Fila | 2024 | 2025 | 2026 | Total |
+|---|---|---|---|---|
+| Naive estacional (semanal) | 84.3 | 86.3 | 84.2 | **85.1** |
+| Hurdle oficial (mediana de la mixtura) | 104.4 | 104.8 | 101.6 | 104.1 |
+| **Hurdle con detencion temprana** | 110.1 | 108.8 | 104.6 | **108.6** |
+
+**Lo que cambia.** El hurdle detenido empeora el MAE en 4.3% respecto del
+oficial y queda **ultimo** entre las siete filas, 27.6% por detras del naive
+estacional. El orden de la Tabla 2 no depende del hurdle que ajustamos: el naive
+sigue ganando con el mejor hurdle que sabemos ajustar en este problema. La Tabla
+2 queda por eso **explicitamente fuera** de la lista de descuento de la Seccion
+7, porque el descuento tiene direccion incorporada ("nuestros niveles serian
+mejores con un hurdle mejor") y aqui la direccion es la contraria.
+
+**Lectura adicional.** Es una instancia medida de dependencia del criterio, no una
+anomalia: el mismo par de ajustes se ordena en un sentido por CRPS (el detenido
+mejora 5.7%) y en el sentido opuesto por MAE (empeora 4.3%). Es lo esperable
+cuando el ajuste detenido es la predictiva mas ancha y mejor calibrada, porque su
+mediana condicional se aleja del valor realizado. La Seccion 5.1 ya conjeturaba
+que un criterio distinto del MAE podria ordenar estos modelos de otro modo; esto
+lo convierte de hipotetico en medido, y es donde vive el contenido.
+
+**Lo que no cambia.** No se agrega fila a la Tabla 2: se reporta en prosa, igual
+que la escalera de capacidad en 5.4. Ni el diagnostico ni la comparacion contra
+la forma cuantilica se tocan.

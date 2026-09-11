@@ -713,3 +713,44 @@ $VENV flagship/revision/verificar_referencias_cruzadas.py   # 195 refs, exit 0
 # manuscrito 35 paginas, carta 19, cero errores y cero referencias sin resolver
 # numeracion de tablas y figuras sin cambios
 ```
+
+## 14. Control de robustez del orden puntual
+
+Un solo calculo y dos ediciones de texto, decididas tras medirlo.
+
+**El calculo.** `flagship/revision/verificacion/obj1e_mae_hurdle_es.py` (nuevo)
+genera las predicciones puntuales del hurdle con detencion temprana de H9 sobre
+las mismas 104.420 filas y el mismo periodo fuera de muestra de la Tabla 2, con
+la misma mediana de la mixtura. Escribe
+`resultados/verificacion/obj1e_mae_hurdle_es.json`.
+
+MAE total 108.55 MWh contra 104.08 del hurdle oficial (4.3% peor) y 85.1 del
+naive estacional (27.6% por detras). Queda ultimo entre las siete filas.
+Detalle en H10 de `HALLAZGOS_CRITICOS.md`.
+
+**Control obligatorio.** El script aborta si no reproduce antes la fila oficial
+del hurdle de la Tabla 2 celda por celda. Paso con desvio maximo de 0.005 MWh.
+Las filas de referencia se leen de `resultados/tablas_tex/tab_mae.tex`, no se
+escriben en el script: una version anterior las tenia escritas a mano y por eso
+omitio la fila del GBM multi-cuantil (87.6) al listar el orden. Regla 1.
+
+**Edicion 1, Seccion 5.1.** Parrafo nuevo despues del parrafo de alcance, con el
+control de robustez y su lectura como instancia medida de dependencia del
+criterio. Sin fila nueva en la Tabla 2: en prosa, igual que la escalera en 5.4.
+
+**Edicion 2, Seccion 7.** El item del descuento cierra declarando que la Tabla 2
+**no** esta en esa lista, con la razon, y remite a 5.1. El descuento tiene
+direccion incorporada y aqui la direccion es la contraria; ponerla en la misma
+lista obligaria al lector a deshacer una oracion que se contradice sola.
+
+**Guardias nuevas.** Cuatro comprobaciones en `verificar_manuscrito.py` para los
+numeros de 5.1 (mejora de CRPS, el par 104.1 a 108.6, el margen de 27.6% y que
+"last in this table" solo se pueda escribir si de hecho es el peor de
+`orden_tabla2`), mas una salida con error si el control de reproduccion de la
+Tabla 2 no consta en el JSON.
+
+**Al cierre:** 58 de 58 afirmaciones en prosa verifican, 206 referencias
+cruzadas cuadran contra el `.aux`, manuscrito de 35 paginas y carta de 19 sin
+errores ni referencias sin resolver, abstract intacto y por debajo de 250
+palabras con los dos criterios de conteo (249 y 246). La numeracion no se movio:
+la Tabla 2 sigue siendo la 2, la Seccion 5.1 sigue siendo 5.1.

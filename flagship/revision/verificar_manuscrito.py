@@ -425,6 +425,35 @@ def main():
         en_tex(f"from {e4['sigma']:.4f} to {ee['sigma']:.4f}"),
         'obj1d_deteccion_temprana.json')
 
+    # ---------------- control de robustez del orden puntual (Seccion 5.1) --
+    jm = _j2.load(open(RES / 'verificacion' / 'obj1e_mae_hurdle_es.json'))
+    # el control de reproduccion de la Tabla 2 tiene que haber pasado: si no,
+    # el numero de 5.1 no esta comparado contra las mismas filas
+    if not jm.get('control_reproduce_tabla2'):
+        raise SystemExit('obj1e no reprodujo la Tabla 2: 5.1 no es comparable')
+    mo, me = jm['mae_hurdle_oficial']['total'], jm['mae_hurdle_es']['total']
+    nv = jm['naive_estacional_total']
+    crps_mej = abs(100 * (ee['crps_test'] / e4['crps_test'] - 1))
+    chk('5.1', 'mejora de CRPS de la deteccion temprana',
+        f"{crps_mej:.1f} por ciento", f"{crps_mej:.1f}",
+        en_tex(f"improves its CRPS by {crps_mej:.1f} per cent"),
+        'obj1d_deteccion_temprana.json')
+    chk('5.1', 'MAE del hurdle oficial y del detenido temprano',
+        f"{mo:.1f} a {me:.1f} MWh", f"{mo:.1f} a {me:.1f}",
+        en_tex(f"from {mo:.1f} to {me:.1f}~MWh"),
+        'obj1e_mae_hurdle_es.json')
+    chk('5.1', 'margen del detenido temprano tras el naive estacional',
+        f"{100 * (me / nv - 1):.1f} por ciento",
+        f"{100 * (me / nv - 1):.1f}",
+        en_tex(f"{100 * (me / nv - 1):.1f} per cent behind the seasonal-naive"),
+        'obj1e_mae_hurdle_es.json')
+    # "would place it last in this table" solo se escribe si de hecho es el peor
+    peor = max(v for _, v in jm['orden_tabla2'])
+    chk('5.1', 'el detenido temprano queda ultimo en la Tabla 2',
+        'ultimo', 'ultimo' if me >= peor - 1e-9 else f'no, peor es {peor:.2f}',
+        (me >= peor - 1e-9) and en_tex('would place it last in this table'),
+        'obj1e_mae_hurdle_es.json')
+
     # ---------------- salida ----------------
     V = pd.DataFrame(filas)
     V.to_csv(RES / 'verificacion_manuscrito.csv', index=False)

@@ -53,3 +53,7 @@ C.11,"ventana seleccionada, campo de la tabla",120 dias,120 dias,si,fase3_hiperp
 5.4,arboles que elige la deteccion temprana,105 (59+46),105,si,obj1d_deteccion_temprana.json
 5.4,CRPS del hurdle con deteccion temprana,89.52 a 84.38,84.38,si,obj1d_deteccion_temprana.json
 5.4,dispersion del hurdle con deteccion temprana,1.7016 a 1.8274,1.8274,si,obj1d_deteccion_temprana.json
+5.1,mejora de CRPS de la deteccion temprana,5.7 por ciento,5.7,si,obj1d_deteccion_temprana.json
+5.1,MAE del hurdle oficial y del detenido temprano,104.1 a 108.6 MWh,104.1 a 108.6,si,obj1e_mae_hurdle_es.json
+5.1,margen del detenido temprano tras el naive estacional,27.6 por ciento,27.6,si,obj1e_mae_hurdle_es.json
+5.1,el detenido temprano queda ultimo en la Tabla 2,ultimo,ultimo,si,obj1e_mae_hurdle_es.json

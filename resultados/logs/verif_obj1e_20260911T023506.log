@@ -1,0 +1,53 @@
+========================================================================================
+MAE PUNTUAL DEL HURDLE CON DETECCION TEMPRANA, filas de la Tabla 2
+========================================================================================
+filas fuera de muestra: 104,420
+  2024: 40,549  OK
+  2025: 44,725  OK
+  2026: 19,146  OK
+
+----------------------------------------------------------------------------------------
+CONTROL: recomputar el MAE del hurdle OFICIAL con este pipeline
+----------------------------------------------------------------------------------------
+  800 arboles, sigma 1.7016
+  periodo    recomputado    Tabla 2      dif
+  2024            104.43     104.43   +0.005
+  2025            104.82     104.82   -0.001
+  2026            101.60     101.60   +0.004
+  total           104.08     104.08   +0.000
+
+  el pipeline reproduce la Tabla 2 celda a celda; la comparacion es valida
+
+----------------------------------------------------------------------------------------
+HURDLE CON DETECCION TEMPRANA
+----------------------------------------------------------------------------------------
+    seleccion: entrena 48,391 filas (< 2023-07-01), valida 18,641
+    arboles elegidos: ocurrencia 59, magnitud 46
+    105 arboles, sigma 1.8274
+
+========================================================================================
+RESULTADO: MAE (MWh) de la mediana de la mixtura
+========================================================================================
+  periodo    hurdle oficial   hurdle con ES    cambio
+  2024               104.43          110.12     +5.4%
+  2025               104.82          108.80     +3.8%
+  2026               101.60          104.64     +3.0%
+  total              104.08          108.55     +4.3%
+
+----------------------------------------------------------------------------------------
+ORDEN FRENTE A LOS BASELINES DE LA TABLA 2 (total, menor es mejor)
+----------------------------------------------------------------------------------------
+    85.10  Naive estacional (semanal)
+    88.33  GBM cuantilico (mediana)
+    92.23  Persistencia
+    92.97  XGBoost punto
+   104.08  Hurdle oficial (mediana mezcla)
+   108.55  Hurdle con deteccion temprana  <-- nuevo
+
+========================================================================================
+VEREDICTO: el naive estacional SIGUE GANANDO.
+  108.55 contra 85.10, +23.45 MWh, +27.6%
+  La afirmacion de la Seccion 5.1 no se ve afectada en su direccion.
+========================================================================================
+
+guardado /Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-research/resultados/verificacion/obj1e_mae_hurdle_es.json

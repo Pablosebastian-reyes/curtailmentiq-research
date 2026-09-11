@@ -1,0 +1,54 @@
+{
+ "filas": 104420,
+ "mae_hurdle_oficial": {
+  "2024": 104.43459211317337,
+  "2025": 104.81915018048194,
+  "2026": 101.6036637877818,
+  "total": 104.08023859701197
+ },
+ "mae_hurdle_es": {
+  "2024": 110.12129213332531,
+  "2025": 108.80385614095701,
+  "2026": 104.6391751765399,
+  "total": 108.55183287252004
+ },
+ "arboles_es": 105,
+ "sigma_es": 1.827358798802836,
+ "etapas_es": {
+  "ocurrencia": 59,
+  "magnitud": 46
+ },
+ "naive_estacional_total": 85.1,
+ "orden_tabla2": [
+  [
+   "Seasonal-naive (weekly)",
+   85.1
+  ],
+  [
+   "Multi-quantile GBM (median)",
+   87.6
+  ],
+  [
+   "Quantile GBM, 3 levels (median)",
+   88.3
+  ],
+  [
+   "Persistence",
+   92.2
+  ],
+  [
+   "Point XGBoost",
+   93.0
+  ],
+  [
+   "Hurdle (mixture median)",
+   104.1
+  ],
+  [
+   "Hurdle with early stopping",
+   108.55183287252004
+  ]
+ ],
+ "naive_sigue_ganando": true,
+ "control_reproduce_tabla2": true
+}
