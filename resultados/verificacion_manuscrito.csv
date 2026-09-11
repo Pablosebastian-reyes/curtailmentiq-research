@@ -57,3 +57,5 @@ C.11,"ventana seleccionada, campo de la tabla",120 dias,120 dias,si,fase3_hiperp
 5.1,MAE del hurdle oficial y del detenido temprano,104.1 a 108.6 MWh,104.1 a 108.6,si,obj1e_mae_hurdle_es.json
 5.1,margen del detenido temprano tras el naive estacional,27.6 por ciento,27.6,si,obj1e_mae_hurdle_es.json
 5.1,el detenido temprano queda ultimo en la Tabla 2,ultimo,ultimo,si,obj1e_mae_hurdle_es.json
+C.13,"las semillas se imprimen en el PDF, no solo en el .tex",4 filas de semillas,4 impresas,si,texto extraido de build/SEGAN_paper_FINAL.pdf
+C.13,todas las filas de la tabla llegan al PDF,37 filas,37 en el PDF,si,texto extraido de build/SEGAN_paper_FINAL.pdf

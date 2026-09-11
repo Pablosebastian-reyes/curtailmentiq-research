@@ -1,14 +1,27 @@
 %% generado por flagship/revision/fase1_hiperparametros.py
 %% NO EDITAR A MANO: se lee del codigo fuente
-\begin{table*}[t]
-\centering
+%% longtable y no table*: con table* la tabla no cabia en una pagina
+%% y LaTeX descartaba las ultimas filas sin error (ver H11).
+\begingroup
 \footnotesize
+\setlength{\LTcapwidth}{\textwidth}
+\begin{longtable}{p{0.30\textwidth}p{0.22\textwidth}p{0.40\textwidth}}
 \caption{Complete hyperparameter specification. Generated from the source by \texttt{flagship/revision/fase1\_hiperparametros.py}; the companion CSV records where each value lives in the code.}
-\label{tab:hiper}
-\begin{tabular}{p{0.30\textwidth}p{0.22\textwidth}p{0.42\textwidth}}
+\label{tab:hiper} \\
 \toprule
 Item & Value & Detail \\
 \midrule
+\endfirsthead
+\multicolumn{3}{l}{\emph{Table \ref{tab:hiper}, continued.}} \\
+\toprule
+Item & Value & Detail \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\emph{continued on the next page}} \\
+\endfoot
+\bottomrule
+\endlastfoot
 \multicolumn{3}{l}{\emph{Modelo base}} \\
 Horizonte de pronostico & 7 dias & prediccion directa; toda feature dinamica es un shift >= H \\
 Ultimo target de entrenamiento & 2023-12-31 & el modelo nunca ve el periodo de evaluacion \\
@@ -57,6 +70,5 @@ Entrenamiento de los modelos base & 42 & XGBoost hist determinista, n\_jobs = 4,
 Aleatorizacion del atomo PIT y bootstrap del mapa & 20260720 & un unico generador consumido en orden: primero el score, luego gamma = 0.02 y luego gamma = 0.05 \\
 Muestreo del CRPS & 11 &  \\
 Bootstrap de diferencias, bloques y permutaciones & 20260901 &  \\
-\bottomrule
-\end{tabular}
-\end{table*}
+\end{longtable}
+\endgroup

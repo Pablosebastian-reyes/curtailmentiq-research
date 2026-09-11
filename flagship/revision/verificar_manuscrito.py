@@ -454,6 +454,57 @@ def main():
         (me >= peor - 1e-9) and en_tex('would place it last in this table'),
         'obj1e_mae_hurdle_es.json')
 
+    # ------- lo que el .tex dice y el PDF no imprime (Seccion C.13) -------
+    # Un numero puede estar correcto en el .tex, verificar aqui, y no llegar al
+    # PDF: un flotante mas alto que la pagina descarta filas en silencio, sin
+    # error, dejando solo un aviso en el log. Asi se perdieron las cuatro filas
+    # de semillas de la Tabla C.13 (H11). Se lee el TEXTO DEL PDF, no el .tex.
+    import subprocess as _sp
+    pdf = R.REPO / 'build' / 'SEGAN_paper_FINAL.pdf'
+    if not pdf.exists():
+        raise SystemExit(f'no existe {pdf}: compila el manuscrito antes')
+    txt = _sp.run(['pdftotext', '-layout', str(pdf), '-'],
+                  capture_output=True, text=True).stdout
+    lineas = [re.sub(r'\s+', ' ', l).strip() for l in txt.split('\n')]
+
+    hp_csv = pd.read_csv(RES / 'fase1' / 'hiperparametros.csv')
+    semillas = hp_csv[hp_csv.bloque == 'Semillas']
+    if len(semillas) == 0:
+        raise SystemExit('no hay bloque de semillas en hiperparametros.csv')
+
+    def impresa(etiqueta, valor):
+        """La etiqueta y su valor en una misma linea del PDF.
+
+        Se cotejan las primeras cuatro palabras de la etiqueta y no la etiqueta
+        entera, porque la celda se parte en varias lineas dentro de su columna.
+        """
+        clave = ' '.join(str(etiqueta).split()[:4])
+        return any(clave in l and str(valor) in l for l in lineas)
+
+    faltan = [(r.hiperparametro, r.valor) for _, r in semillas.iterrows()
+              if not impresa(r.hiperparametro, r.valor)]
+    chk('C.13', 'las semillas se imprimen en el PDF, no solo en el .tex',
+        f'{len(semillas)} filas de semillas',
+        f'{len(semillas) - len(faltan)} impresas' if faltan else
+        f'{len(semillas)} impresas',
+        not faltan, 'texto extraido de build/SEGAN_paper_FINAL.pdf')
+    if faltan:
+        for k, v in faltan:
+            print(f'    NO SE IMPRIME: {k} = {v}')
+
+    # y ninguna fila de la tabla puede quedarse fuera del PDF
+    filas_csv = [str(x) for x in hp_csv.hiperparametro]
+    crudo = re.sub(r'\s+', ' ',
+                   _sp.run(['pdftotext', str(pdf), '-'],
+                           capture_output=True, text=True).stdout)
+    perdidas = [f for f in filas_csv if f not in crudo]
+    chk('C.13', 'todas las filas de la tabla llegan al PDF',
+        f'{len(filas_csv)} filas', f'{len(filas_csv) - len(perdidas)} en el PDF',
+        not perdidas, 'texto extraido de build/SEGAN_paper_FINAL.pdf')
+    if perdidas:
+        for f in perdidas:
+            print(f'    FILA PERDIDA: {f}')
+
     # ---------------- salida ----------------
     V = pd.DataFrame(filas)
     V.to_csv(RES / 'verificacion_manuscrito.csv', index=False)

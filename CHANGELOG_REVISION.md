@@ -957,7 +957,7 @@ Por seccion, lo que un lector no puede leer:
 | 4.4 | "structure aboveof Section 4.2" |
 | 4.5, encabezado y primer parrafo | "EvaluationThe adaptive scheme in full" |
 | 4.8, tres parrafos | "January to August 2024; the 2024. The first test month , September is September 2024" |
-| 5.1, encabezado y primer parrafo | "Point forecasting offers adds littlemarginal value", "Section 33.3" |
+| 5.1, encabezado y primer parrafo | `littlemarginal value`, `Section 33.3` |
 | 5.2, encabezado y dos parrafos | "regime changehurdle base model", "in the ramptransition window" |
 | 5.5, primer parrafo | "can be isolated: the per-point implementation..." |
 | 6.2, 6.3 continuacion, 6.4, 6.5 | "reported with Two operational details", "conditional reliability matters : a method", "preferable1.334" |
@@ -966,3 +966,79 @@ Por seccion, lo que un lector no puede leer:
 
 `bloques_marcado.BLOQUES` es una lista: agregar un ancla por pasaje los convierte
 con la misma verificacion contra las dos fuentes.
+
+## 19. Tabla C.13: de table* a longtable
+
+Arreglo de H11. `fase1_hiperparametros.py` emitia la tabla como `table*`, un
+flotante, y un flotante no se parte entre paginas: con 38 filas era mas alto que
+la caja de texto y LaTeX descartaba las ultimas cuatro en silencio, dejando solo
+`Float too large for page by 173.5222pt` en el log.
+
+Ahora emite un `longtable`, con `\endfirsthead`, `\endhead`, `\endfoot` y
+`\endlastfoot`, de modo que se parte sola y **no vuelve a fallar si la tabla
+crece**. Se agrego `\usepackage{longtable}` al preambulo; es un paquete de TeX
+Live estandar y no hay que empaquetarlo.
+
+```
+<venv>/bin/python flagship/revision/fase1_hiperparametros.py
+```
+
+**Comprobado sobre el texto del PDF, no sobre el .tex.** Las cuatro filas de
+semillas se imprimen, con su valor, y las 37 filas de la tabla llegan al PDF.
+La numeracion no se movio: la tabla sigue siendo C.13 y las tablas 2 a 12 siguen
+en su lugar. El manuscrito pasa de 35 a 36 paginas.
+
+**Guardas.** Dos comprobaciones nuevas en `verificar_manuscrito.py`, que leen el
+texto extraido del PDF con `pdftotext`: que cada fila de semillas aparezca junto
+a su valor, y que ninguna fila de la tabla se quede fuera. Se coteja la etiqueta
+por sus primeras cuatro palabras porque la celda se parte dentro de su columna.
+La guarda de `empaquetar_fuentes.sh` se mantiene. Control negativo: las dos
+comprobaciones **fallan** contra el PDF anterior, el de 35 paginas, reportando
+las cuatro semillas y las cuatro filas perdidas.
+
+**El verificador de referencias abortaba** tras el cambio, y con razon: su parser
+no conocia `longtable` y calculaba "C" en vez de "C.13" para `tab:hiper`. El
+autochequeo contra el `.aux` lo detuvo antes de auditar con una numeracion
+equivocada, que es para lo que se escribio. Se le enseño `longtable`.
+
+**Barrido del log completo.** Ningun otro aviso que descarte contenido:
+`Float too large` 0, `Overfull \vbox` 0, `No room for a new` 0, `Too many
+unprocessed floats` 0, `Missing character` 0, y ningun `LaTeX Warning`. Quedan
+un `Overfull \hbox` de 1,30pt, 17 `Underfull \hbox` y cuatro avisos de hyperref
+que quitan `\cnotenum` y `\@corref` de los metadatos del PDF, de la maquinaria
+de autores de elsarticle. Ninguno descarta contenido ni se ve en la pagina.
+
+## 20. Reemplazo de bloque en los pasajes fuera de la lista de ocho
+
+`bloques_marcado.py` pasa de una lista de ocho anclas a una tabla de politica
+por seccion, porque el encargo pedia cosas distintas en cada una: de 4.3 y 4.5
+solo el encabezado, de 5.5 solo el primer parrafo, de 3.3 solo el tercero, y de
+1, 2.4, 4.1, 4.2, 4.8, 6.2, 6.4, 6.5, 8 y el apendice B la seccion entera. Las
+secciones se identifican por su encabezado en el manuscrito final y no por
+numero, porque la numeracion se corre en el marcado.
+
+**40 bloques convertidos**, los 8 explicitos mas 32 del barrido: 4 encabezados y
+28 parrafos. Los 40 verifican contra las dos fuentes.
+
+**Cuatro pasajes omitidos a proposito**, y se reportan: contienen matematica en
+display. El texto viejo completo incluiria un `equation*`, y eso dentro de
+`\DIFdel{}` no compila. Son dos de 4.2, uno de 4.1 y uno de 4.8.
+
+**La verificacion se endurecio.** Antes comprobaba que el texto emitido
+apareciera en su fuente, lo que era casi una tautologia desde que el texto se
+extrae de la fuente. Ahora son dos: que este literal en su fuente, y que sea EL
+pasaje, cotejado contra la proyeccion del diff con `_cotejan`.
+
+**Tres defectos propios mas, encontrados por esa verificacion.**
+
+- `norm` corria antes de quitar llaves, y quedaba "approximate , which" con
+  espacio antes de la coma. Las tres normalizaciones (llaves, espacio en blanco,
+  espacio antes de puntuacion) se unificaron en `canon()`, en una sola pasada y
+  con mapa de indices al original.
+- El separador de miles del manuscrito, escrito `{,}`, lo parte latexdiff:
+  `1{,}000` sale como `\DIFadd{...1}{\DIFaddend ,` ... `}\DIFadd{000...}`, y esas
+  llaves terminaban del lado viejo de la proyeccion aunque pertenezcan solo al
+  texto nuevo. `canon()` las ignora al cotejar y el texto se emite desde la
+  fuente, donde las llaves estan donde corresponde.
+- La firma de fusion exigia letra a ambos lados y no veia `preferable1.334` ni
+  `1,which`. Ahora admite digitos y puntuacion.

@@ -221,20 +221,39 @@ def main():
         lineas.append(f'{esc(r.hiperparametro)} & {esc(r.valor)} & '
                       f'{esc(r.detalle)} \\\\')
     cuerpo = '\n'.join(x for x in lineas if x)
-    # se emite el FLOAT COMPLETO, no solo el cuerpo: TeX no acepta un \input
-    # cuyo primer token sea \multicolumn dentro de un tabular.
+    # Se emite un LONGTABLE, no un table*. Un table* es un flotante y no se
+    # parte entre paginas: con 38 filas era mas alto que la caja de texto y
+    # LaTeX descartaba en silencio las cuatro filas del bloque de semillas,
+    # dejando solo el aviso "Float too large for page" en el log (H11). El
+    # longtable se parte solo y no vuelve a fallar si la tabla crece.
+    #
+    # Se emite el entorno COMPLETO, no solo el cuerpo: TeX no acepta un \input
+    # cuyo primer token sea \multicolumn dentro de una tabla.
+    cab = ('\\toprule\nItem & Value & Detail \\\\\n\\midrule\n')
     doc = (
         '%% generado por flagship/revision/fase1_hiperparametros.py\n'
         '%% NO EDITAR A MANO: se lee del codigo fuente\n'
-        '\\begin{table*}[t]\n\\centering\n\\footnotesize\n'
+        '%% longtable y no table*: con table* la tabla no cabia en una pagina\n'
+        '%% y LaTeX descartaba las ultimas filas sin error (ver H11).\n'
+        '\\begingroup\n\\footnotesize\n'
+        '\\setlength{\\LTcapwidth}{\\textwidth}\n'
+        '\\begin{longtable}{p{0.30\\textwidth}p{0.22\\textwidth}p{0.40\\textwidth}}\n'
         '\\caption{Complete hyperparameter specification. Generated from the '
         'source by \\texttt{flagship/revision/fase1\\_hiperparametros.py}; the '
         'companion CSV records where each value lives in the code.}\n'
-        '\\label{tab:hiper}\n'
-        '\\begin{tabular}{p{0.30\\textwidth}p{0.22\\textwidth}p{0.42\\textwidth}}\n'
-        '\\toprule\nItem & Value & Detail \\\\\n\\midrule\n'
+        '\\label{tab:hiper} \\\\\n'
+        + cab +
+        '\\endfirsthead\n'
+        '\\multicolumn{3}{l}{\\emph{Table \\ref{tab:hiper}, continued.}} \\\\\n'
+        + cab +
+        '\\endhead\n'
+        '\\midrule\n'
+        '\\multicolumn{3}{r}{\\emph{continued on the next page}} \\\\\n'
+        '\\endfoot\n'
+        '\\bottomrule\n'
+        '\\endlastfoot\n'
         + cuerpo +
-        '\n\\bottomrule\n\\end{tabular}\n\\end{table*}\n')
+        '\n\\end{longtable}\n\\endgroup\n')
     (SAL / 'hiperparametros.tex').write_text(doc)
 
     print('=' * 92)

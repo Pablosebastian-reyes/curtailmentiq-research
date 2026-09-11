@@ -97,13 +97,18 @@ def numerar_manuscrito(texto):
 
     patron = re.compile(
         r'\\(appendix|section\*?|subsection\*?|label|caption)\s*(?:\{((?:[^{}]|\{[^{}]*\})*)\})?'
-        r'|\\begin\{(figure\*?|table\*?|algorithm|equation)\}')
+        # longtable cuenta como tabla: no es un flotante, pero incrementa
+        # el mismo contador. La Tabla C.13 se emite asi desde que un
+        # table* mas alto que la pagina perdia filas en silencio (H11).
+        r'|\\begin\{(figure\*?|table\*?|longtable\*?|algorithm|equation)\}')
 
     for m in patron.finditer(texto):
         cmd, arg, entorno = m.group(1), m.group(2), m.group(3)
 
         if entorno:
             base = entorno.rstrip('*')
+            if base == 'longtable':
+                base = 'table'
             if base == 'figure':
                 fig += 1
                 ultimo = ('figure', f'{letra}.{fig}' if en_apendice else str(fig))

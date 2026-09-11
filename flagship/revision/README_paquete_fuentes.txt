@@ -41,7 +41,8 @@ tab_benchmarks.tex           Table 9
 tab_cota_alpha.tex           Table 10
 tab_panel.tex                Table 11
 tab_sensibilidad_frontera.tex Table 12
-hiperparametros.tex          Table C.13, appendix
+hiperparametros.tex          Table C.13, appendix (a longtable, so it
+                             breaks across pages instead of losing rows)
 
 fig1_plants_map.pdf          Figure 1
 fig2_distribution.pdf        Figure 2
@@ -60,8 +61,8 @@ OTHER PACKAGES
 --------------
 Beyond elsarticle.cls the source uses only packages shipped with a
 standard TeX Live or MiKTeX installation: amsmath, amssymb, amsfonts,
-graphicx, booktabs, url, hyperref, siunitx, multirow, algorithm and
-algpseudocode. None is included here.
+graphicx, booktabs, url, hyperref, siunitx, multirow, longtable,
+algorithm and algpseudocode. None is included here.
 
 PROVENANCE
 ----------
