@@ -69,11 +69,20 @@ pag=$(pdfinfo SEGAN_paper_FINAL.pdf | awk '/^Pages/{print $2}')
 err=$(grep -c '^!' pass3.log || true)
 und=$(grep -ci 'undefined' pass3.log || true)
 nof=$(grep -ci "not found" pass3.log || true)
+# Un flotante mas alto que la pagina PIERDE filas en silencio: el PDF sale sin
+# error y sin PDF truncado visible, solo con este aviso en el log. Paso asi la
+# Tabla C.13, que se corta y se lleva las cuatro filas de semillas.
+flo=$(grep -c "Float too large for page" pass3.log || true)
 
 [ "$pag" = "$PAGINAS_ESPERADAS" ] || { echo "FALLA: $pag paginas, se esperaban $PAGINAS_ESPERADAS" >&2; fallas=1; }
 [ "$err" -eq 0 ] || { echo "FALLA: $err errores de LaTeX" >&2; fallas=1; }
 [ "$und" -eq 0 ] || { echo "FALLA: $und referencias o citas sin resolver" >&2; fallas=1; }
 [ "$nof" -eq 0 ] || { echo "FALLA: $nof archivos no encontrados (falta algo en el zip)" >&2; fallas=1; }
+if [ "$flo" -ne 0 ]; then
+  echo "FALLA: $flo flotante(s) mas altos que la pagina; se pierden filas" >&2
+  grep "Float too large for page" pass3.log | sed 's/^/       /' >&2
+  fallas=1
+fi
 
 echo "paquete:  $ZIP"
 echo "  archivos:  $(unzip -l "$ZIP" | tail -1 | awk '{print $2}')"
@@ -84,5 +93,6 @@ echo "  paginas:               $pag"
 echo "  errores de LaTeX:      $err"
 echo "  refs/citas sin resolver: $und"
 echo "  archivos no hallados:  $nof"
+echo "  flotantes sobredimensionados: $flo"
 [ "$fallas" -eq 0 ] && echo "RESULTADO: el zip compila limpio en aislamiento" \
                     || { echo "RESULTADO: el zip NO esta completo o no compila" >&2; exit 1; }

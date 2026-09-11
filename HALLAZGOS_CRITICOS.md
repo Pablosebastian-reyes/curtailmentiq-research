@@ -537,3 +537,53 @@ lo convierte de hipotetico en medido, y es donde vive el contenido.
 **Lo que no cambia.** No se agrega fila a la Tabla 2: se reporta en prosa, igual
 que la escalera de capacidad en 5.4. Ni el diagnostico ni la comparacion contra
 la forma cuantilica se tocan.
+
+## H11. La Tabla C.13 esta truncada y se lleva las cuatro filas de semillas
+
+**Estado:** confirmado. **Fase:** auditoria de la version marcada, pagina por
+pagina. **No es un defecto del marcado: esta en el manuscrito limpio.**
+
+**Afirmacion afectada:** el Apendice C dice que "Table C.13 lists every constant
+of the pipeline" y que se genera desde el codigo "so that it cannot drift from
+the implementation". La tabla se genera bien; lo que falla es que no cabe.
+
+**Comando:** `grep "Float too large for page" build/SEGAN_paper_FINAL.log`
+
+**Lo que pasa.** `hiperparametros.tex` produce un `table*` con 38 filas cuyo
+`tabular` es mas alto que la caja de texto. Un flotante no se parte entre
+paginas, asi que LaTeX imprime lo que cabe y **descarta el resto en silencio**:
+no hay error, el PDF se produce, y el unico rastro es un aviso en el log,
+`Float too large for page by 173.5222pt on input line 62`. En el PDF el numero
+de pagina queda encima de una fila de la tabla, que es la senal visible.
+
+**Lo que se pierde.** De las 38 filas de la fuente, 4 no llegan al PDF, y son
+justo las del bloque de semillas. El encabezado `Semillas` si se imprime, al pie
+de la pagina, y debajo no hay nada:
+
+| Fila de la fuente que no aparece | Valor |
+|---|---|
+| Entrenamiento de los modelos base | 42 |
+| Aleatorizacion del atomo PIT y bootstrap del mapa | 20260720 |
+| Muestreo del CRPS | 11 |
+| Bootstrap de diferencias, bloques y permutaciones | 20260901 |
+
+**Por que importa.** La Regla 4 del encargo pide que las semillas queden
+registradas explicitamente en el manuscrito. Estan en el codigo y en el
+`.tex` generado, pero **no en el PDF ni en el que se envio en julio**, y el
+paper es de reproducibilidad. Ademas viaja asi dentro del zip de fuentes.
+
+**Por que no lo detectaron los verificadores.** `verificar_manuscrito.py`
+compara afirmaciones en prosa contra archivos de resultados y
+`verificar_referencias_cruzadas.py` compara referencias contra el `.aux`.
+Ninguno lee los avisos de maquetacion del log. Un numero puede estar correcto en
+el `.tex`, verificar, y no llegar a imprimirse.
+
+**Guarda nueva.** `empaquetar_fuentes.sh` ahora falla con estado distinto de
+cero si el log trae `Float too large for page`, e imprime el aviso. Con eso el
+paquete de fuentes queda **bloqueado** hasta que se decida el arreglo.
+
+**Arreglo, pendiente de decision del autor.** No se toco: cambiarlo modifica el
+manuscrito, que estaba excluido del encargo, y mueve el numero de paginas. La
+salida natural es que `fase9_tablas_tex.py` emita esa tabla como `longtable`, que
+si se parte entre paginas, o que la parta en dos `table*`. Cualquiera de las dos
+cambia el conteo de 35 paginas.

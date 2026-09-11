@@ -883,3 +883,86 @@ convirtiendo el bloque en reemplazo completo. Detalle en la seccion 17.
 version 6.0 enviada". Falso: la 6.0 se escribio el 10 y 12 de agosto, despues
 del envio, y es parte del reencuadre. Ahora declara la version 5.0, el tag, el
 commit y la fecha. Importa porque el .tex viaja dentro del zip que va al editor.
+
+## 17. Reemplazo de bloque completo en la version marcada
+
+Los ocho pasajes que el intercalado de latexdiff dejaba ilegibles se convierten
+a reemplazo de bloque: el pasaje viejo entero marcado como borrado y despues el
+nuevo entero marcado como agregado, sin intercalado dentro del bloque.
+
+`flagship/revision/bloques_marcado.py` (nuevo), llamado desde
+`generar_marcado.py`. No toca las fuentes: opera sobre el `.tex` que produce
+latexdiff. Baseline sin cambios, `submitted-segan-v1`, y sigue en CCHANGEBAR.
+
+**Como se de-intercala.** latexdiff ya emparejo viejo con nuevo, asi que el
+pasaje se proyecta dos veces: borrando los grupos `\DIFadd` se obtiene el texto
+viejo, y borrando los `\DIFdel` el nuevo. La unidad es la natural: el argumento
+de `\title`, el entorno `abstract`, o el parrafo completo que contiene el ancla.
+
+**El texto emitido sale de la fuente, no de la proyeccion.** La proyeccion se
+usa para ubicar el pasaje por sus dos extremos, y se emite lo que hay en la
+fuente entre ellos. Hizo falta porque latexdiff pierde caracteres: en el
+abstract de la version enviada se come el espacio de "system operator figures" y
+lo emite como "operatorfigures", dentro de un unico `\DIFdel`.
+
+**Verificacion automatica, no a ojo.** Cada bloque se compara contra las dos
+fuentes: el lado viejo tiene que aparecer literal en 4af5ea7 y el nuevo en el
+manuscrito final, normalizando solo el espacio en blanco, que LaTeX trata como
+equivalente. `generar_marcado.py` **aborta** si algun bloque no verifica. Los
+ocho verifican: siete exactos en los dos lados y el abstract con el lado viejo
+reconstruido desde la fuente, en 2.137 caracteres, que es el largo completo del
+abstract de la 5.0.
+
+**Tres defectos propios, encontrados y corregidos en el camino.**
+
+- La proyeccion conservaba el contenido del otro lado cuando el parrafo empieza
+  a mitad de una region, porque latexdiff abre el `\DIFaddbegin` en el parrafo
+  anterior si la adicion abarca varios. Se borra por comando y no por region.
+- Al reemplazar ese parrafo quedaba un `\DIFaddbegin` sin cierre. Se preservan
+  los cierres colgantes contandolos en el fragmento.
+- El separador entre el bloque borrado y el agregado va DENTRO del grupo de
+  `\DIFdel`. Puesto entre `\DIFdelend` y `\DIFaddbegin`, TeX lo descarta por
+  venir despues de una palabra de control, y quedaba
+  "...Electricity SystemAn open curtailment dataset".
+
+**Estado:** 38 paginas, 0 errores, 0 referencias o citas sin resolver, 70,2% del
+cuerpo marcado como añadido.
+
+**Auditoria pagina por pagina.** Se reviso el PDF completo, las 38 paginas. Las
+ocho conversiones se leen como bloque. La Tabla 3 se imprime entera y alineada,
+con `test_transition`, y `test_ramp` no aparece ninguna vez. La bibliografia sale
+sin marcar, con las 43 entradas completas. Tablas, figuras, ecuaciones y el
+Algoritmo 1 salen intactos. La auditoria encontro dos cosas mas, en las
+secciones 18 y H11.
+
+## 18. Pasajes ilegibles fuera de la lista de ocho
+
+La auditoria encontro daño de intercalado en pasajes que no estaban en la lista.
+Se reportan y no se tocan: la lista era de ocho.
+
+Detectados mecanicamente, no a ojo: 14 fusiones de palabra impresas en el borde
+de un cambio, mas los parrafos donde un fragmento viejo corto queda inyectado en
+medio de texto nuevo.
+
+Por seccion, lo que un lector no puede leer:
+
+| Seccion | Ejemplo |
+|---|---|
+| 1, Introduction, casi completa | "informative settingcase at hand", "regions in the northnorthern regions", "post-storage regimeone part", "core of this workTwo properties", "highly variablevary widely", "adaptive layerupdate", "its constructiondates" |
+| 2.4, tres parrafos | "a density ratiobetween", "integral transformfollowing", "probabilistic forecastsmap" |
+| 3.3, tercer parrafo | "storage deployment shifted change in the distribution" |
+| 4.1, dos parrafos | "means ending at twe predict curtailment" |
+| 4.2, dos parrafos | "under regime changemotivated", "(probit) scaletranslation", "inverting the mixturein closed form" |
+| 4.3, encabezado y primer parrafo | "Coverage under regime changeThree guarantees", "by all plantsIt is easy" |
+| 4.4 | "structure aboveof Section 4.2" |
+| 4.5, encabezado y primer parrafo | "EvaluationThe adaptive scheme in full" |
+| 4.8, tres parrafos | "January to August 2024; the 2024. The first test month , September is September 2024" |
+| 5.1, encabezado y primer parrafo | "Point forecasting offers adds littlemarginal value", "Section 33.3" |
+| 5.2, encabezado y dos parrafos | "regime changehurdle base model", "in the ramptransition window" |
+| 5.5, primer parrafo | "can be isolated: the per-point implementation..." |
+| 6.2, 6.3 continuacion, 6.4, 6.5 | "reported with Two operational details", "conditional reliability matters : a method", "preferable1.334" |
+| 8, Conclusion, dos parrafos | "into over-coveredand , wider bands", "the method negative result" |
+| Apendice B | "efectivo n is about 1,which is why" y "clustered by date000 rather than 26,552" |
+
+`bloques_marcado.BLOQUES` es una lista: agregar un ancla por pasaje los convierte
+con la misma verificacion contra las dos fuentes.

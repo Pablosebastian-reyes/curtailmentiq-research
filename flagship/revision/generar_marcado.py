@@ -27,6 +27,9 @@ enviada sean un subconjunto de las nuevas, para no dejar citas sin resolver.
 """
 import argparse, pathlib, re, shutil, string, subprocess, sys, tempfile
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import bloques_marcado as BM
+
 RAIZ = pathlib.Path(__file__).resolve().parents[2]
 BASELINE = 'submitted-segan-v1'
 PRINCIPAL = 'flagship/segan/SEGAN_paper_FINAL.tex'
@@ -113,6 +116,23 @@ def main():
     for w in (l for l in r.stderr.splitlines() if l.strip()):
         print(f'    aviso: {w}')
     marcado = r.stdout
+
+    # --- reemplazo de bloque completo en los pasajes que quedan ilegibles ---
+    # latexdiff alinea palabras, y donde un parrafo se reescribio completo
+    # empareja palabras incidentales de parrafos distintos e intercala. Eso no
+    # lo arregla ninguna opcion: hay que emitir el pasaje viejo entero y
+    # despues el nuevo entero. El texto de cada lado sale de la fuente
+    # correspondiente, no de la proyeccion, y se verifica contra ella.
+    marcado, informe = BM.convertir(marcado, vieja, nueva)
+    print('  reemplazo de bloque completo:')
+    fallos = 0
+    for nom, est, ov, on, lv, ln in informe:
+        f = lambda x: 'si' if x else ('n/a' if x is None else 'NO')
+        if ov is False or on is False or 'fallo' in est: fallos += 1
+        print(f'    {nom:<9} {est:<22} viejo en baseline: {f(ov):<4} '
+              f'nuevo en final: {f(on):<4} ({lv} / {ln} car)')
+    if fallos:
+        sys.exit(f'ERROR: {fallos} bloques no verifican contra sus fuentes')
 
     # --- cuanto queda marcado, medido sobre el cuerpo sin bibliografia ---
     cuerpo = marcado.split(r'\begin{document}', 1)[1].split(r'\begin{thebibliography}', 1)[0]

@@ -20,615 +20,492 @@ Document Style - pseudocode environments for use with the `algorithmicx' style
 (./marcado.out) (./marcado.out) (/Users/pabloreyescerda/Library/TinyTeX/texmf-dist/tex/latex/txfonts/ot1txr.fd) (/Users/pabloreyescerda/Library/TinyTeX/texmf-dist/tex/latex/txfonts/utxmia.fd) (/Users/pabloreyescerda/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd) (/Users/pabloreyescerda/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd) (/Users/pabloreyescerda/Library/TinyTeX/texmf-dist/tex/latex/txfonts/utxsyc.fd)
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
+(hyperref)                removing `\<let>-command' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
+(hyperref)                removing `\includegraphics' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFdelincludegraphics' on input line 153.
+(hyperref)                removing `\DIFdelincludegraphics' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
+(hyperref)                removing `\<let>-command' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
+(hyperref)                removing `\includegraphics' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 153.
+(hyperref)                removing `\DIFOincludegraphics' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
+(hyperref)                removing `\<let>-command' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
+(hyperref)                removing `\includegraphics' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFaddincludegraphics' on input line 153.
+(hyperref)                removing `\DIFaddincludegraphics' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
+(hyperref)                removing `\<let>-command' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
+(hyperref)                removing `\includegraphics' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 153.
+(hyperref)                removing `\DIFOincludegraphics' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
+(hyperref)                removing `\<def>-command' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
+(hyperref)                removing `\cnotenum' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFaddincludegraphics' on input line 153.
+(hyperref)                removing `\<def>-command' on input line 148.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFdelincludegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFaddincludegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFdelincludegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFaddincludegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\cnotenum' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 153.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@corref' on input line 153.
+(hyperref)                removing `\@corref' on input line 148.
 
 [1{/Users/pabloreyescerda/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}] [2] [3] [4] [5] [6] [7
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.279 
-       <./fig1_plants_map.pdf>]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 320--321
- [][][] 
-[8] [9
+l.276 T
+       wo independent checks establish the fidelity of the result. Annual to... <./fig1_plants_map.pdf>] [8] [9
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.327 
-       <./fig2_distribution.pdf>] [10
+l.315 
+       <./fig2_distribution.pdf>]
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 318--319
+ [][][] 
+(./tab_estacional.tex) [10
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.327 
-       <./fig5_regime_changepoints.pdf>] (./tab_estacional.tex) [11
-pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.353 \end{equation}
-                    
+l.343 
+      
 pdfTeX warning (ext4): destination with the same identifier (name{subsection.4.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.353 \end{equation}
-                    ] [12]
+l.343 
+       <./fig5_regime_changepoints.pdf>] [11
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.364 
+      ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 392.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 392.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFdelincludegraphics' on input line 392.
+(hyperref)                removing `\<let>-command' on input line 390.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 392.
+(hyperref)                removing `\includegraphics' on input line 390.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 392.
+(hyperref)                removing `\DIFdelincludegraphics' on input line 390.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 392.
+(hyperref)                removing `\<let>-command' on input line 390.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 392.
+(hyperref)                removing `\includegraphics' on input line 390.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 392.
+(hyperref)                removing `\DIFOincludegraphics' on input line 390.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFaddincludegraphics' on input line 392.
+(hyperref)                removing `\<let>-command' on input line 390.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 392.
+(hyperref)                removing `\includegraphics' on input line 390.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 392.
+(hyperref)                removing `\DIFaddincludegraphics' on input line 390.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 392.
-
-[13]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 424.
+(hyperref)                removing `\<let>-command' on input line 390.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 424.
+(hyperref)                removing `\includegraphics' on input line 390.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFdelincludegraphics' on input line 424.
+(hyperref)                removing `\DIFOincludegraphics' on input line 390.
+
+[12] [13]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 422.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 424.
+(hyperref)                removing `\includegraphics' on input line 422.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 424.
+(hyperref)                removing `\DIFdelincludegraphics' on input line 422.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 424.
+(hyperref)                removing `\<let>-command' on input line 422.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 424.
+(hyperref)                removing `\includegraphics' on input line 422.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 424.
+(hyperref)                removing `\DIFOincludegraphics' on input line 422.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFaddincludegraphics' on input line 424.
+(hyperref)                removing `\<let>-command' on input line 422.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 424.
+(hyperref)                removing `\includegraphics' on input line 422.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 424.
+(hyperref)                removing `\DIFaddincludegraphics' on input line 422.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 424.
+(hyperref)                removing `\<let>-command' on input line 422.
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 449--450
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\includegraphics' on input line 422.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\DIFOincludegraphics' on input line 422.
+
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 447--448
  [][][] 
 [14] [15
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.503 
+l.510 
        <./fig6_algorithm_flow.pdf>] [16]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 530.
+(hyperref)                removing `\<let>-command' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 530.
+(hyperref)                removing `\includegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFdelincludegraphics' on input line 530.
+(hyperref)                removing `\DIFdelincludegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 530.
+(hyperref)                removing `\<let>-command' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 530.
+(hyperref)                removing `\includegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 530.
+(hyperref)                removing `\DIFOincludegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 530.
+(hyperref)                removing `\<let>-command' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 530.
+(hyperref)                removing `\includegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFaddincludegraphics' on input line 530.
+(hyperref)                removing `\DIFaddincludegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 530.
+(hyperref)                removing `\<let>-command' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 530.
+(hyperref)                removing `\includegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 530.
+(hyperref)                removing `\DIFOincludegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 530.
+(hyperref)                removing `\<let>-command' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 530.
+(hyperref)                removing `\includegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFdelincludegraphics' on input line 530.
+(hyperref)                removing `\DIFdelincludegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 530.
+(hyperref)                removing `\<let>-command' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 530.
+(hyperref)                removing `\includegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 530.
+(hyperref)                removing `\DIFOincludegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 530.
+(hyperref)                removing `\<let>-command' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 530.
+(hyperref)                removing `\includegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFaddincludegraphics' on input line 530.
+(hyperref)                removing `\DIFaddincludegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 530.
+(hyperref)                removing `\<let>-command' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 530.
+(hyperref)                removing `\includegraphics' on input line 528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 530.
+(hyperref)                removing `\DIFOincludegraphics' on input line 528.
 
 (./tab_mae.tex)
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 562.
+(hyperref)                removing `\<let>-command' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 562.
+(hyperref)                removing `\includegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFdelincludegraphics' on input line 562.
+(hyperref)                removing `\DIFdelincludegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 562.
+(hyperref)                removing `\<let>-command' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 562.
+(hyperref)                removing `\includegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 562.
+(hyperref)                removing `\DIFOincludegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 562.
+(hyperref)                removing `\<let>-command' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 562.
+(hyperref)                removing `\includegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFaddincludegraphics' on input line 562.
+(hyperref)                removing `\DIFaddincludegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 562.
+(hyperref)                removing `\<let>-command' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 562.
+(hyperref)                removing `\includegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 562.
+(hyperref)                removing `\DIFOincludegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 562.
+(hyperref)                removing `\<let>-command' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 562.
+(hyperref)                removing `\includegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFdelincludegraphics' on input line 562.
+(hyperref)                removing `\DIFdelincludegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 562.
+(hyperref)                removing `\<let>-command' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 562.
+(hyperref)                removing `\includegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 562.
+(hyperref)                removing `\DIFOincludegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 562.
+(hyperref)                removing `\<let>-command' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 562.
+(hyperref)                removing `\includegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFaddincludegraphics' on input line 562.
+(hyperref)                removing `\DIFaddincludegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<let>-command' on input line 562.
+(hyperref)                removing `\<let>-command' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\includegraphics' on input line 562.
+(hyperref)                removing `\includegraphics' on input line 560.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\DIFOincludegraphics' on input line 562.
+(hyperref)                removing `\DIFOincludegraphics' on input line 560.
 
-[17]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 577--578
- [][][] 
-(./tab_results.tex)
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 590--591
- [][][] 
-[18
+[17
 pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.602 }
-       
-pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.602 }
-       ] (./tab_model_agnostic.tex)
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 611--612
+l.565 
+      ]
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 575--576
  [][][] 
-(./tab_diagnostico.tex [19
+(./tab_results.tex)
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 588--589
+ [][][] 
+[18
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.36 \end{table*}
-                  <./fig3_rolling_coverage.pdf>]) (./tab_diag_ampliado.tex) [20
+l.600 }
+        <./fig3_rolling_coverage.pdf>] (./tab_model_agnostic.tex)
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 609--610
+ [][][] 
+(./tab_diagnostico.tex) (./tab_diag_ampliado.tex) [19
+pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.626 
+      ] [20
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.634 
-       <./fig4_coverage_width.pdf>] [21
+l.635 
+       <./fig4_coverage_width.pdf>] (./tab_escalera.tex) [21
 pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.644 \subsection
-                 {\DIFadd{Model form against fitted capacity}}] (./tab_escalera.tex) [22
+l.655 
+      ] [22
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.669 
+l.670 
        <./fig7_model_agnostic.pdf>] [23
 pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.678 
-      
+l.687 ...ested in review, so that each component }
+                                                  \DIFaddend can be isolated...
 pdfTeX warning (ext4): destination with the same identifier (name{table.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.678 
-      ]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 681--682
+l.687 ...ested in review, so that each component }
+                                                  \DIFaddend can be isolated...] (./tab_ablaciones.tex)
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 694--695
  [][][] 
 [24
 pdfTeX warning (ext4): destination with the same identifier (name{table.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.691 
+l.707 
       
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.691 
-       <./fig9_escalera_diagnostico.pdf>] (./tab_ablaciones.tex)
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 696--697
- [][][] 
-[25
+l.707 
+       <./fig9_escalera_diagnostico.pdf>] (./tab_benchmarks.tex
+Overfull \hbox (1.2961pt too wide) in paragraph at lines 8--31
+ [][] 
+) [25
 pdfTeX warning (ext4): destination with the same identifier (name{table.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.738 \DIFdelend \DIFaddbegin \subsection
-                                         {\DIFadd{Metrics, infinite interval...
+l.754 
+      
 pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.738 \DIFdelend \DIFaddbegin \subsection
-                                         {\DIFadd{Metrics, infinite interval... <./fig8_ablations.pdf>] (./tab_benchmarks.tex
-Overfull \hbox (1.2961pt too wide) in paragraph at lines 8--31
- [][] 
-) (./tab_cota_alpha.tex [26
+l.754 
+       <./fig8_ablations.pdf>] (./tab_cota_alpha.tex) [26
 pdfTeX warning (ext4): destination with the same identifier (name{table.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.25 \end{table*}
-                 ]) (./tab_panel.tex) [27
+l.771 
+      ] (./tab_panel.tex) [27
 pdfTeX warning (ext4): destination with the same identifier (name{table.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.781 
+l.785 
       
 pdfTeX warning (ext4): destination with the same identifier (name{table.11}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.781 
+l.785 
       ] (./tab_sensibilidad_frontera.tex) [28
 pdfTeX warning (ext4): destination with the same identifier (name{table.12}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.800 \section
-              {Discussion}] [29] [30] [31] [32] [33] (./hiperparametros.tex
+l.807 }
+       ] [29] [30] [31] [32] [33] (./hiperparametros.tex
 Underfull \hbox (badness 10000) in paragraph at lines 26--26
 []|\T1/txr/m/n/8 orden es-tadis-tico k =
 
@@ -650,46 +527,46 @@ Overfull \hbox (7.92114pt too wide) in paragraph at lines 8--62
 LaTeX Warning: Float too large for page by 173.5222pt on input line 62.
 
 )
-Underfull \hbox (badness 1014) in paragraph at lines 969--973
+Underfull \hbox (badness 1014) in paragraph at lines 967--971
 []\T1/txr/m/n/10 M. Joos, I. Staffell, Short-term in-te-gra-tion costs of vari-able re-new-able en-ergy: wind cur-tail-ment and
 
-Underfull \hbox (badness 3000) in paragraph at lines 969--973
+Underfull \hbox (badness 3000) in paragraph at lines 967--971
 \T1/txr/m/n/10 bal-anc-ing in Britain and Ger-many, Re-new-able and Sus-tain-able En-ergy Re-views 86 (2018) 45--65.
 [34]
-Underfull \hbox (badness 2735) in paragraph at lines 1011--1015
+Underfull \hbox (badness 2735) in paragraph at lines 1009--1013
 []\T1/txr/m/n/10 B. Wang, M. Zhou, B. Xin, X. Zhao, J. Watada, Anal-y-sis of op-er-a-tion cost and wind cur-tail-
 
-Underfull \hbox (badness 1371) in paragraph at lines 1041--1045
+Underfull \hbox (badness 1371) in paragraph at lines 1039--1043
 \T1/txr/m/n/10 ing al-go-rithm, IEEE Trans-ac-tions on Power Ap-pa-ra-tus and Sys-tems PAS-102 (6) (1983) 1858--1864.
-[35]
-Underfull \hbox (badness 2326) in paragraph at lines 1083--1087
+
+Underfull \hbox (badness 2326) in paragraph at lines 1081--1085
 []\T1/txr/m/n/10 X. Lei, Z. Yang, J. Yu, J. Zhao, Q. Gao, H. Yu, Data-driven op-ti-mal power flow: a physics-
 
-Underfull \hbox (badness 1668) in paragraph at lines 1083--1087
+Underfull \hbox (badness 1668) in paragraph at lines 1081--1085
 \T1/txr/m/n/10 informed ma-chine learn-ing ap-proach, IEEE Trans-ac-tions on Power Sys-tems 36 (1) (2021) 346--354.
-
-Underfull \hbox (badness 3354) in paragraph at lines 1101--1105
+[35]
+Underfull \hbox (badness 3354) in paragraph at lines 1099--1103
 []\T1/txr/m/n/10 K. Ma-ciejowska, J. Nowotarski, R. Weron, Prob-a-bilis-tic fore-cast-ing of elec-tric-ity spot prices us-
 
-Underfull \hbox (badness 1406) in paragraph at lines 1101--1105
+Underfull \hbox (badness 1406) in paragraph at lines 1099--1103
 \T1/txr/m/n/10 ing fac-tor quan-tile re-gres-sion av-er-ag-ing, In-ter-na-tional Jour-nal of Fore-cast-ing 32 (3) (2016) 957--965.
 [36]
-Underfull \hbox (badness 2689) in paragraph at lines 1206--1209
+Underfull \hbox (badness 2689) in paragraph at lines 1204--1207
 []\T1/txr/m/n/10 P. Reyes Cerda, K. Cea Morales, An errata-corrected, plant-level dataset of so-lar, wind and hy-
 
-Underfull \hbox (badness 1655) in paragraph at lines 1206--1209
+Underfull \hbox (badness 1655) in paragraph at lines 1204--1207
 \T1/txr/m/n/10 dropower cur-tail-ment in Chile's Na-tional Elec-tric-ity Sys-tem (2022--2026) [Data set], Zen-odo (2026).
 [37] [38
 pdfTeX warning (ext4): destination with the same identifier (name{table.13}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1212 \end{document}
+l.1210 \end{document}
                      ]
 
 Package Changebar Warning: Changebar info has changed.
-(Changebar)                Rerun to get the bars right on input line 1212.
+(Changebar)                Rerun to get the bars right on input line 1210.
 
 (./marcado.aux) )
 (see the transcript file for additional information) </Users/pabloreyescerda/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk> </Users/pabloreyescerda/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/txfonts/txex.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on marcado.pdf (38 pages, 785748 bytes).
+Output written on marcado.pdf (38 pages, 784522 bytes).
 Transcript written on marcado.log.
