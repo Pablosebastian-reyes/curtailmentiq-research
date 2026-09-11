@@ -76,10 +76,13 @@ flo=$(grep -c "Float too large for page" pass3.log || true)
 
 # Y la consecuencia, comprobada sobre el PDF y no sobre el .tex: las semillas
 # de la Tabla C.13 tienen que estar impresas. Es el contenido que se perdia.
+# El texto se extrae UNA vez a un archivo y se busca ahi: con pipefail,
+# grep -q corta la tuberia, pdftotext recibe SIGPIPE y el pipeline devuelve
+# error aunque el valor este, lo que daba cuatro falsos negativos.
+pdftotext -layout SEGAN_paper_FINAL.pdf pdf.txt 2>/dev/null || true
 sem=0
 for v in 42 20260720 11 20260901; do
-  pdftotext -layout SEGAN_paper_FINAL.pdf - 2>/dev/null \
-    | tr -s " " | grep -q "$v" || sem=$((sem+1))
+  grep -qF "$v" pdf.txt || sem=$((sem+1))
 done
 
 [ "$pag" = "$PAGINAS_ESPERADAS" ] || { echo "FALLA: $pag paginas, se esperaban $PAGINAS_ESPERADAS" >&2; fallas=1; }
