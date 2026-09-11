@@ -88,11 +88,20 @@ midió:
 | GBM multi-cuantil | 2.700 | 71.38 |
 | GBM multi-cuantil | 5.400 | 68.33 |
 | GBM multi-cuantil | 21.600 | 67.97 |
+| **Hurdle con detención temprana** | **105** | **84.38** |
 
 A presupuesto idéntico la ventaja casi desaparece (−2.4%, no −24%). **Pero el
 hurdle no puede comprar la paridad: con cinco veces el presupuesto empeora.** El
 mecanismo se verificó: el deterioro es de localización (μ), no de dispersión (σ),
 que es la contraparte experimental de algo que el paper ya reportaba.
+
+La última fila es de la pasada final y es incómoda: con detención temprana el
+hurdle elige 105 árboles, un octavo del presupuesto del modelo base del paper, y
+**mejora a ese modelo base en 5.7%**. El modelo base oficial del paper no es
+entonces el mejor hurdle disponible, y así quedó declarado en §5.4 y en §7. No
+cambia el orden: el hurdle detenido sigue 33% por detrás del GBM en la
+ventana de transición. Y no toca el diagnóstico, que es un contraste dentro de
+cada brazo.
 
 ---
 
@@ -135,7 +144,7 @@ Las opciones, sin que este documento elija ninguna:
 
 ---
 
-## 5. Dos cosas que hay que saber al entrar
+## 5. Tres cosas que hay que saber al entrar
 
 **El resultado del shrinkage cambió hace dos días.** Al reconciliar dos tablas se
 descubrió que ninguna reproducía la corrida canónica, por el orden de consumo del
@@ -153,11 +162,22 @@ esté. Por eso la afirmación quedó acotada a la sobre-cobertura y no se enunci
 forma simétrica. Si alguien empuja por el enunciado simétrico, la respuesta es
 que los datos no lo sostienen.
 
+**El paper declara por escrito que su propio modelo base no es el mejor
+disponible.** Es la consecuencia de la fila nueva de la sección 2.5, y está en §7
+con la lista de todo lo que hay que leer con ese descuento: las Tablas 3, 8, 9,
+10, 11 y 12 y las Figuras 5, 6 y 9. Es una concesión fuerte y deliberada: la
+alternativa era dejar que la encontrara un revisor. El descuento corre en una
+sola dirección y no cambia ningún orden reportado.
+
 ---
 
-## 6. Pendiente técnico
+## 6. Qué quedó cerrado y qué no
 
-El manuscrito concede que un hurdle con detención temprana probablemente
-recuperaría su rendimiento a 800 árboles, y ese experimento no se corrió. Son
-unos diez minutos de cómputo. No cambia ninguna conclusión: el orden se establece
-al presupuesto propio del hurdle, donde el sobreajuste no está en juego.
+Cerrado todo lo técnico. Los dos verificadores automáticos pasan, 54 de 54
+afirmaciones numéricas y 195 referencias cruzadas, el manuscrito y la carta
+compilan sin errores, y el abstract cumple el límite de 250 palabras con tres de
+margen. La Fase 0 está reproducida de forma independiente desde un clon limpio,
+con coincidencia de checksum del modelo reentrenado.
+
+No queda ningún experimento pendiente. Lo único abierto es la decisión de la
+sección 4, que no es técnica.
