@@ -1042,3 +1042,33 @@ pasaje, cotejado contra la proyeccion del diff con `_cotejan`.
   fuente, donde las llaves estan donde corresponde.
 - La firma de fusion exigia letra a ambos lados y no veia `preferable1.334` ni
   `1,which`. Ahora admite digitos y puntuacion.
+
+## 21. Estado al cierre de la version marcada
+
+**Manuscrito** 36 paginas, 0 errores, 0 referencias o citas sin resolver.
+**Marcado** 40 paginas, 0 errores, 0 sin resolver, 71,6% del cuerpo marcado.
+**Zip** 36 paginas en aislamiento, y en cero los errores, las referencias sin
+resolver, los archivos no hallados, los flotantes sobredimensionados y las
+semillas sin imprimir.
+**verificar_manuscrito.py** 60 de 60. **verificar_referencias_cruzadas.py**
+todas cuadran, y su autochequeo contra el `.aux` pasa.
+
+**Fusiones de palabra impresas: de 14 a 3.** Las tres quedan explicadas, no
+sueltas:
+
+| Fusion | Seccion | Por que sigue |
+|---|---|---|
+| `mixturein closed form` | 4.2 | el pasaje tiene un `equation*`: omitido a proposito |
+| `plantsIt is easy` | 4.3 | de 4.3 se pidio solo el encabezado |
+| `structure aboveof Section` | 4.4 | 4.4 no estaba en la lista |
+
+**Parrafos mezclados en el cuerpo: 61.** De esos, 46 estan en forma de bloque
+(un borrado, despues un agregado, sin intercalar) y 9 siguen intercalados: los
+4 omitidos por matematica en display, el de 4.3, los 3 de 4.4, y el segundo
+parrafo de 6.3, que tampoco estaba en la lista. Los 6 restantes son lineas de
+encabezado donde el titulo viejo se imprime como borrado junto al nuevo, que se
+verifico a la vista y se lee bien.
+
+Convertir los cuatro con matematica en display exige emitir el bloque partido a
+ambos lados de la ecuacion, que es un cambio de diseño y no un ajuste; 4.4 y el
+segundo parrafo de 6.3 solo necesitan una linea en la tabla de politica.
