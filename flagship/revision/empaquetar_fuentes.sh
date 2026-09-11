@@ -74,10 +74,19 @@ nof=$(grep -ci "not found" pass3.log || true)
 # Tabla C.13, que se corta y se lleva las cuatro filas de semillas.
 flo=$(grep -c "Float too large for page" pass3.log || true)
 
+# Y la consecuencia, comprobada sobre el PDF y no sobre el .tex: las semillas
+# de la Tabla C.13 tienen que estar impresas. Es el contenido que se perdia.
+sem=0
+for v in 42 20260720 11 20260901; do
+  pdftotext -layout SEGAN_paper_FINAL.pdf - 2>/dev/null \
+    | tr -s " " | grep -q "$v" || sem=$((sem+1))
+done
+
 [ "$pag" = "$PAGINAS_ESPERADAS" ] || { echo "FALLA: $pag paginas, se esperaban $PAGINAS_ESPERADAS" >&2; fallas=1; }
 [ "$err" -eq 0 ] || { echo "FALLA: $err errores de LaTeX" >&2; fallas=1; }
 [ "$und" -eq 0 ] || { echo "FALLA: $und referencias o citas sin resolver" >&2; fallas=1; }
 [ "$nof" -eq 0 ] || { echo "FALLA: $nof archivos no encontrados (falta algo en el zip)" >&2; fallas=1; }
+[ "$sem" -eq 0 ] || { echo "FALLA: $sem semillas de la Tabla C.13 no se imprimen" >&2; fallas=1; }
 if [ "$flo" -ne 0 ]; then
   echo "FALLA: $flo flotante(s) mas altos que la pagina; se pierden filas" >&2
   grep "Float too large for page" pass3.log | sed 's/^/       /' >&2
@@ -94,5 +103,6 @@ echo "  errores de LaTeX:      $err"
 echo "  refs/citas sin resolver: $und"
 echo "  archivos no hallados:  $nof"
 echo "  flotantes sobredimensionados: $flo"
+echo "  semillas C.13 sin imprimir:   $sem"
 [ "$fallas" -eq 0 ] && echo "RESULTADO: el zip compila limpio en aislamiento" \
                     || { echo "RESULTADO: el zip NO esta completo o no compila" >&2; exit 1; }
