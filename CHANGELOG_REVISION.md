@@ -754,3 +754,64 @@ cruzadas cuadran contra el `.aux`, manuscrito de 35 paginas y carta de 19 sin
 errores ni referencias sin resolver, abstract intacto y por debajo de 250
 palabras con los dos criterios de conteo (249 y 246). La numeracion no se movio:
 la Tabla 2 sigue siendo la 2, la Seccion 5.1 sigue siendo 5.1.
+
+## 15. Entregables para Editorial Manager: fuentes y version marcada
+
+Editorial Manager no acepta PDF para el manuscrito en revision.
+
+**Paquete de fuentes.** `flagship/revision/empaquetar_fuentes.sh` (nuevo) arma
+`entrega_revision/11_fuentes_latex.zip`: 25 archivos planos, 558.506 bytes.
+Todo se extrae del commit con `git show`, no del arbol de trabajo, para que el
+zip corresponda demostrablemente a un estado versionado.
+
+```
+bash flagship/revision/empaquetar_fuentes.sh 77f8625
+```
+
+Contiene el .tex principal, los 13 .tex que entran por `\input` (12 tablas mas
+`hiperparametros.tex`), las 9 figuras PDF, `elsarticle.cls` v3.5 y un README de
+compilacion. Los demas paquetes son de TeX Live estandar y no van incluidos.
+
+**No hay .bbl y no hace falta.** La bibliografia son 43 `\bibitem` en un
+`thebibliography` escrito en linea en el .tex. No se corre BibTeX en ningun
+momento, asi que el build no puede depender de un .bst en el servidor. El script
+lo comprueba y **falla** si algun dia el .tex pasa a usar `\bibliography{}` sin
+que se incluya el .bbl.
+
+**La prueba.** El script extrae el zip en un directorio temporal con `TEXINPUTS`
+restringido al directorio actual y al arbol del sistema, compila tres veces y
+exige 35 paginas, cero errores, cero referencias sin resolver y cero archivos no
+encontrados. Si falta algo en el zip, ahi se descubre, porque no hay camino de
+vuelta al repo. Resultado: 35 paginas, todo en cero, y el texto del PDF aislado
+es identico caracter por caracter al del build del repo (1.974 lineas de
+`pdftotext -layout`). Las 9 figuras del zip son byte a byte las que produjeron
+ese PDF.
+
+**Control negativo.** El mismo zip sin `tab_mae.tex` y sin `fig7` no produce PDF
+y el log declara el archivo que falta. La prueba que pasa, entonces, discrimina.
+
+**Version marcada: el diff crudo no compila.** Baseline `submitted-segan-v1`
+(commit 4af5ea7, 2026-07-28, VERSION 5.0), que es la efectivamente enviada.
+`latexdiff` con las opciones por omision produce un .tex que da 32 errores de
+LaTeX, todos de `\UL@stop`: el subrayado de `ulem` no puede cruzar limites de
+parrafo, ni `\caption{}`, ni celdas de `tabular`, ni ecuaciones en display. Se
+conserva en `resultados/latexdiff/marcado_crudo_NO_COMPILA.tex` con su log.
+
+Dos tipos de marcado que no usan `ulem` compilan limpios en 37 paginas, cero
+errores y cero referencias sin resolver: `-t CCHANGEBAR` y `-t CFONT`, ambos con
+`--math-markup=off --graphics-markup=none` y excluyendo `caption` y los
+comandos de seccion. Quedan en `resultados/latexdiff/` y como candidatos
+`12_` y `13_` en `entrega_revision/`.
+
+**Legibilidad, medida.** Del cuerpo del marcado sin bibliografia, 17.669
+palabras: **72,8% marcado como añadido** y solo 11 de 149 parrafos de mas de 25
+palabras quedan sin marca alguna. Las secciones nuevas enteras se leen bien. El
+titulo, el abstract y el arranque de 4.1, que se reescribieron en su lugar,
+salen como intercalado rojo/azul palabra por palabra. Decision pendiente del
+autor.
+
+**Nota de trazabilidad.** El comentario del preambulo dice "Cambios respecto de
+la version 6.0 enviada". Es inexacto: la 6.0 se escribio el 10 y 12 de agosto,
+despues del envio, y es ya parte del reencuadre. La enviada es la 5.0. Es un
+comentario de LaTeX y no sale en el PDF, pero el baseline del diff se tomo del
+tag, no de ese comentario.
