@@ -80,10 +80,18 @@ flo=$(grep -c "Float too large for page" pass3.log || true)
 # grep -q corta la tuberia, pdftotext recibe SIGPIPE y el pipeline devuelve
 # error aunque el valor este, lo que daba cuatro falsos negativos.
 pdftotext -layout SEGAN_paper_FINAL.pdf pdf.txt 2>/dev/null || true
+# Se buscan las ETIQUETAS y no los valores: "42" y "11" aparecen en otras
+# partes del texto, asi que buscar el valor desnudo no discrimina. Cada una de
+# estas cuatro solo existe en la Tabla C.13.
 sem=0
-for v in 42 20260720 11 20260901; do
-  grep -qF "$v" pdf.txt || sem=$((sem+1))
-done
+while IFS= read -r etq; do
+  grep -qF "$etq" pdf.txt || sem=$((sem+1))
+done <<'ETIQUETAS'
+Entrenamiento de los modelos
+Aleatorizacion del atomo PIT
+Muestreo del CRPS
+Bootstrap de diferencias
+ETIQUETAS
 
 [ "$pag" = "$PAGINAS_ESPERADAS" ] || { echo "FALLA: $pag paginas, se esperaban $PAGINAS_ESPERADAS" >&2; fallas=1; }
 [ "$err" -eq 0 ] || { echo "FALLA: $err errores de LaTeX" >&2; fallas=1; }
