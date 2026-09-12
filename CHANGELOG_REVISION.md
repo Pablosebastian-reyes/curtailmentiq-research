@@ -1186,3 +1186,26 @@ carta sigue en 19 paginas.
 siguen omitiendo a proposito los 4 parrafos con matematica en display.
 Las palabras fundidas impresas bajan de 9 a 1; la que queda esta en uno de esos
 parrafos omitidos, en 4.2.
+
+## 24. Carta: el third point of disclosure, sin el borrador
+
+La primera mitad del "third point of disclosure" de la carta a la editora
+divulgaba un error de un borrador de esta revision que los revisores nunca
+vieron ("An earlier draft of this revision claimed..."). La divulgacion tiene
+que ser sobre el manuscrito, no sobre versiones previas de la respuesta. Se
+reescribio esa mitad y sale solo la referencia al borrador.
+
+La sustancia se conserva entera: la ventaja de CRPS del predictivo
+multi-cuantil, de dieciocho a treinta por ciento, exige un presupuesto del
+orden de cinco mil arboles y casi desaparece al presupuesto propio del hurdle,
+de ochocientos; los dos brazos comparten protocolo y no presupuesto; y la
+Seccion 5.4 separa forma de presupuesto y reporta los dos efectos. Las tres
+oraciones sobre el hurdle con deteccion temprana siguen igual.
+
+Los numeros se derivan al insertar y la insercion aborta si no calzan con su
+palabra: el 18 y el 30, de `fase0_tabla_por_modelo.csv` con el mismo calculo que
+usa `verificar_manuscrito.py` para 5.3; el cinco mil, del brazo mas chico de la
+escalera cuyo CRPS del test completo queda a menos de 0.5 MWh del mas grande
+(5.400 arboles, la formulacion de 6.1); el ochocientos, del hurdle de
+referencia. Lo que ocurre a presupuesto igual se dice con la frase del propio
+manuscrito, "nearly disappears".
