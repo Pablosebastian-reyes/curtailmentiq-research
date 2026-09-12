@@ -1045,6 +1045,9 @@ pasaje, cotejado contra la proyeccion del diff con `_cotejan`.
 
 ## 21. Estado al cierre de la version marcada
 
+*Corregido en la seccion 22: el conteo de fusiones y la clasificacion de los
+parrafos que no quedaron en bloque estaban mal.*
+
 **Manuscrito** 36 paginas, 0 errores, 0 referencias o citas sin resolver.
 **Marcado** 40 paginas, 0 errores, 0 sin resolver, 71,6% del cuerpo marcado.
 **Zip** 36 paginas en aislamiento, y en cero los errores, las referencias sin
@@ -1072,3 +1075,48 @@ verifico a la vista y se lee bien.
 Convertir los cuatro con matematica en display exige emitir el bloque partido a
 ambos lados de la ecuacion, que es un cambio de diseño y no un ajuste; 4.4 y el
 segundo parrafo de 6.3 solo necesitan una linea en la tabla de politica.
+
+## 22. Correccion: el conteo de fusiones y lo que queda sin convertir
+
+La seccion 21 dice que las fusiones impresas bajaron de 14 a 3 y que, de los
+parrafos que no quedaron en bloque, seis eran lineas de encabezado legibles.
+Las dos cosas estaban mal.
+
+**Fusiones: de 32 a 9, no de 14 a 3.** El detector solo miraba bordes entre dos
+regiones marcadas. Hay otro tipo, texto sin marcar pegado a una region marcada
+("attentionthan", "unaffectedby", "inference(ACI"), que no veia. Ademas el 14
+se conto con la regex que solo admitia letras y el 3 con la ampliada, asi que no
+eran comparables. `flagship/revision/auditar_marcado.py` (nuevo) cuenta los
+tres tipos de borde y **confirma cada candidata contra el texto del PDF**: la
+que no sale pegada no cuenta.
+
+```
+<venv>/bin/python flagship/revision/auditar_marcado.py --antes cc39ef5
+```
+
+Antes de convertir, 32 (19 entre regiones marcadas y 13 de texto sin marcar
+contra una region marcada). Ahora 9, y las nueve estan fuera de lo convertido:
+6 en 4.4, 1 en 2.1, 1 en 4.3 (se pidio solo el encabezado) y 1 en 4.2, en un
+parrafo omitido por contener matematica en display.
+
+**Los 15 parrafos mezclados que no quedaron en bloque**, clasificados uno por
+uno y verificados a la vista sobre el PDF:
+
+| Cuantos | Donde | Estado |
+|---|---|---|
+| 4 | 4.1, 4.2 (dos), 4.8 | omitidos a proposito: contienen matematica en display |
+| 4 | 4.4 | intercalados; 4.4 no estaba en la lista |
+| 1 | 4.3 | intercalado; se pidio solo el encabezado |
+| 1 | 2.1 | intercalado; no estaba en la lista |
+| 1 | 6.3, segundo parrafo | intercalado; no estaba en la lista |
+| 1 | 3.3, segundo parrafo | legible: sustitucion de una expresion corta |
+| 1 | 6.2 | legible: borrado y despues agregado |
+| 2 | 6.4 y 6.5, lineas de encabezado | legibles |
+
+4.4 tiene cuatro parrafos intercalados, no tres. 6.2, que si estaba en la
+lista, quedo bien: se reviso por la duda y se lee como bloque.
+
+**El conversor no se toco.** Su criterio (`ilegible()` en `bloques_marcado.py`)
+sigue viendo solo el primer tipo de borde. Ampliarlo cambiaria que parrafos se
+convierten dentro de las secciones barridas, y con eso el marcado entero; queda
+para cuando se decida si se convierten 2.1, 4.3, 4.4 y 6.3.

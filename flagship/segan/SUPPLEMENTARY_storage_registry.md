@@ -1,6 +1,6 @@
 # Supplementary material: registry of energy storage systems in the Chilean SEN
 
-Companion to *Probabilistic forecasting of renewable curtailment under regime change*
+Companion to *An open curtailment dataset and a diagnostic for adaptive conformal calibration under regime change*
 (manuscript SEGAN-D-26-03850). Compiled 4 August 2026; every source consulted on that date.
 
 This registry is provided so that the hypothesis discussed in Section 6, that the entry of

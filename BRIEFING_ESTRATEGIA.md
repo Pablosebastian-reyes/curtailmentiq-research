@@ -1,183 +1,189 @@
-# SEGAN-D-26-03850: dónde está el paper y qué hay que decidir
+# SEGAN-D-26-03850: estado al 12 de septiembre
 
-Documento único para la conversación de estrategia. Se lee solo, no necesita
-adjuntos. Todos los números salen de archivos de resultados versionados y se
-regeneran con un comando; ninguno está escrito a mano.
-
----
-
-## 1. La situación en un párrafo
-
-El paper se envió proponiendo un método de calibración conforme adaptativa
-(transporte de scores + shrinkage de cola + ACI) y reportando que reduce el ancho
-de los intervalos en un tercio bajo cambio de régimen. El Revisor 1 pidió
-probarlo con otro modelo base. Al hacerlo, **la ganancia no se replica**. El
-paper está hoy reencuadrado alrededor de ese hallazgo, como resultado
-diagnóstico, y esa reescritura ya está hecha y verificada. La pregunta abierta no
-es técnica: es si ese reencuadre basta para publicar en esta revista.
+Documento único para la conversación de estrategia. Reemplaza al briefing
+anterior, que quedó desfasado y se contradecía en sus propios conteos. Todo
+número sale de un archivo versionado o de un build y se regenera con un
+comando. Reenvío: **14 de septiembre de 2026**.
 
 ---
 
-## 2. Lo que muestran los datos
+## 1. En una línea
 
-### 2.1 La ganancia era del modelo base, no de la capa
+Lo técnico está cerrado y probado. Quedan tres decisiones de contenido y un
+archivo que falta en la entrega.
 
-Ventana de máxima divergencia (oct–dic 2024), nominal 90%. Split estático contra
-el método propuesto:
+---
 
-| Modelo base | Split estático | Transporte+ACI | Cambio de ancho |
-|---|---|---|---|
-| Hurdle, σ constante (el del paper) | 95.3% / 1203 MWh | 90.9% / 806 MWh | **−33.1%** |
-| Hurdle, σ(x) | 91.7% / 770 MWh | 89.5% / 733 MWh | −4.8% |
-| GBM multi-cuantil | 90.6% / 410 MWh | 90.5% / 425 MWh | **+3.6%** |
+## 2. Qué recibe Editorial Manager
 
-Con un modelo base bien calibrado el split estático ya está en el nivel nominal y
-la capa adaptativa **ensancha**. Lo que la capa recuperaba era la sobre-dispersión
-del hurdle.
-
-### 2.2 La relación es cuantificable y robusta
-
-Sobre 40 celdas (8 modelos base × 5 ventanas), con bootstrap por bloques de día:
-
-| | Valor | IC 95% |
+| Pieza | Archivo | Estado |
 |---|---|---|
-| Correlación de Pearson | −0.873 | [−0.912, −0.645] |
-| Pendiente (% de ancho por punto de sobre-cobertura) | −4.89 | [−5.62, −3.30] |
-| Intercepto (%) | +5.76 | [+1.60, +9.84] |
+| Fuentes LaTeX | `11_fuentes_latex.zip` | 25 archivos. Compila en un directorio que contiene solo el zip: 36 páginas, 0 errores, 0 referencias sin resolver |
+| Versión marcada | `12_marcado_CCHANGEBAR.pdf` | 40 páginas, contra la versión enviada el 28 de julio |
+| Carta de respuesta | `2_carta_respuesta.pdf` | 19 páginas |
+| Suplementario | `13_suplementario_registro_almacenamiento.md` | **no estaba en la entrega**; ver 4.1 |
 
-Dejar fuera cualquier celda mueve r dentro de [−0.889, −0.820]. Dejar fuera un
-brazo entero, dentro de [−0.899, −0.792]. **No lo sostiene ningún punto ni ningún
-modelo en particular.**
+No hay `.bbl` y no hace falta: las 43 referencias están escritas en línea en el
+`.tex`, así que el servidor no tiene que correr BibTeX. El README del zip lo
+explica.
 
-### 2.3 Los dos componentes distintivos del método no se pagan
+---
 
-Aporte marginal al interval score sobre el test completo, en MWh, negativo es
-mejor:
+## 3. Qué cambió desde el briefing anterior
 
-| Componente | Efecto | IC 95% | Significativo |
-|---|---|---|---|
-| Adaptación online (ACI sobre el split estático) | −37.8 | [−60, −10] | sí |
-| **Transporte, sobre el ACI ya presente** | **+74.2** | [+47, +105] | **sí, empeora** |
-| **Shrinkage de cola, sobre el transporte** | **−6.5** | [−10, −3] | sí, pero es 0.6% |
-| Pipeline completo sobre el split estático | +32.4 | [−5, +75] | no |
+### 3.1 Control de robustez de la Tabla 2
 
-El transporte empeora una vez que la adaptación está. El shrinkage, que es el
-dispositivo más intrincado de la construcción, aporta seis décimas de uno por
-ciento y consume el 91% del tiempo de cómputo.
+El hurdle con detención temprana (105 árboles) mejora el CRPS en 5.7% pero
+empeora el error absoluto medio de 104.1 a 108.6 MWh y queda último en la
+Tabla 2, 27.6% detrás del naive estacional (85.1). El orden del pronóstico
+puntual no es un artefacto del hurdle que ajustamos. Entró en §5.1 en prosa, sin
+fila nueva, y la Tabla 2 quedó explícitamente fuera de la lista de descuento de
+§7, porque ese descuento tiene dirección incorporada y aquí la dirección es la
+contraria.
 
-### 2.4 Un método estándar de 2019 lo domina
+### 3.2 La Tabla C.13 perdía sus cuatro filas de semillas
 
-Test completo, mismo nivel nominal, mismas filas:
+La tabla de hiperparámetros era un flotante más alto que la página, y LaTeX
+descartaba en silencio sus cuatro últimas filas: sin error, con un solo aviso en
+el log. Ahora se parte entre páginas. El manuscrito pasa de 35 a 36 páginas y
+ninguna numeración se movió.
 
-| Método | Cobertura | Ancho | Interval score |
-|---|---|---|---|
-| CQR unilateral (Romano et al. 2019) sobre el GBM | 89.8% | **276 MWh** | **601** |
-| Transporte+ACI, el método propuesto | 90.1% | 596 MWh | 1030 |
-| Split estático | 92.5% | 678 MWh | 973 |
+Las semillas nunca faltaron del manuscrito: el Apéndice D las enuncia en prosa.
+Lo que era falso es una remisión de la carta, que manda dos veces a esa tabla
+por las semillas (la fila de R1.2 del cuadro resumen y la respuesta a R2.4).
+Con el arreglo es cierta. No hay nada que divulgar: la versión de julio no tenía
+Apéndice C, así que los revisores nunca vieron la tabla truncada.
 
-### 2.5 Forma del modelo contra presupuesto, separado experimentalmente
+### 3.3 La versión marcada
 
-La objeción previsible era que el GBM gana por tener 54 modelos contra 2. Se
-midió:
+El `latexdiff` crudo no compilaba (32 errores) y donde compilaba era ilegible.
+Se configuró para tratar tablas, figuras, ecuaciones y bibliografía como
+bloques enteros, y la bibliografía se muestra una sola vez sin marcas. Los 40
+pasajes que se reescribieron completos se convirtieron a reemplazo de bloque: el
+texto viejo entero tachado y después el nuevo entero, sin intercalar. Cada
+bloque se comprobó automáticamente, el lado viejo literal contra la versión de
+julio y el nuevo literal contra el final.
 
-| Modelo | Árboles | CRPS |
+Al inicio lleva una nota de media página, sin marcas: reencuadre sustancial y
+no corrección incremental, alrededor del 72% del cuerpo es texto nuevo, el
+cuerpo pasó de 4.753 a 15.805 palabras sin contar la bibliografía, la
+bibliografía pasó de 10 a 43 entradas, y el recuento cambio por cambio está en
+la carta.
+
+Resultado: las palabras que salen fundidas en el PDF bajaron de 32 a 9, y de 61
+párrafos con texto viejo y nuevo mezclado, 46 quedaron en forma de bloque. Las
+9 fusiones que quedan están todas fuera de lo que se convirtió (ver 4.3).
+
+### 3.4 Un dato falso que viajaba en las fuentes
+
+El preámbulo del `.tex` decía "cambios respecto de la versión 6.0 enviada". La
+enviada es la 5.0; la 6.0 se escribió en agosto y nunca se envió. Es un
+comentario que no se imprime, pero va dentro del zip que recibe la editorial.
+Corregido.
+
+---
+
+## 4. Lo que falta decidir
+
+### 4.1 El suplementario
+
+El manuscrito lo promete tres veces (§6.3, §7 y la declaración de
+disponibilidad de datos) y la carta una vez, en la respuesta a R2.2, que es la
+del almacenamiento. Es el registro de sistemas de almacenamiento con sus fechas
+de operación comercial, 1.921 palabras y cuatro tablas, y es agnóstico en causas:
+dice por escrito que ninguna afirmación causal del manuscrito descansa en él.
+
+Tenía el título viejo del paper; se corrigió hoy tomándolo del `\title` del
+manuscrito. Está en Markdown y no hay `pandoc` instalado.
+
+**Recomendación:** subirlo como PDF. El revisor que abra la respuesta a R2.2 va
+a ir a buscarlo, y un `.md` en Editorial Manager se ve como texto plano.
+Convertirlo toma minutos una vez instalado `pandoc`.
+
+### 4.2 La carta no dice que el modelo base del paper no es el mejor hurdle
+
+§5.4 y §7 lo declaran: el hurdle con detención temprana supera al modelo base
+en 5.7% de CRPS, y §7 lista las tablas y figuras que hay que leer con ese
+descuento. La carta no lo menciona. Y la carta divulga, uno por uno, todo lo
+demás que reduce el reclamo: la ganancia que no replica, el residuo de
+nomenclatura de `test_ramp`, la ventaja del GBM a presupuesto igual, los
+hiperparámetros que no se seleccionaron sobre datos reales y las seis
+afirmaciones descriptivas que no reprodujeron. Un revisor que llegue a §7 va a
+encontrar la concesión sin aviso, y la omisión rompe el patrón que la carta
+misma estableció.
+
+**Recomendación:** dos o tres oraciones al final del "third point of
+disclosure" de la carta a la editora, que ya trata de §5.4. Con 3.1 como la
+contracara tranquilizadora: el orden del pronóstico puntual no cambia. No toca
+el manuscrito.
+
+### 4.3 Cuánto más limpiar la versión marcada
+
+Quedan 9 palabras fundidas impresas, todas fuera de lo que se convirtió:
+
+| Dónde | Cuántas | Por qué sigue |
 |---|---|---|
-| Hurdle | 800 | 89.52 |
-| Hurdle | 4.000 | **95.46** (empeora) |
-| GBM multi-cuantil | 810 | 87.40 |
-| GBM multi-cuantil | 2.700 | 71.38 |
-| GBM multi-cuantil | 5.400 | 68.33 |
-| GBM multi-cuantil | 21.600 | 67.97 |
-| **Hurdle con detención temprana** | **105** | **84.38** |
+| §4.4 | 6 | no estaba en la lista; sus cuatro párrafos siguen intercalados |
+| §2.1 | 1 | no estaba en la lista |
+| §4.3 | 1 | se pidió convertir solo el encabezado |
+| §4.2 | 1 | el párrafo contiene una ecuación en display; el texto viejo completo pondría la ecuación dentro de la marca de borrado, y eso no compila |
 
-A presupuesto idéntico la ventaja casi desaparece (−2.4%, no −24%). **Pero el
-hurdle no puede comprar la paridad: con cinco veces el presupuesto empeora.** El
-mecanismo se verificó: el deterioro es de localización (μ), no de dispersión (σ),
-que es la contraparte experimental de algo que el paper ya reportaba.
+Sigue además intercalado el segundo párrafo de §6.3: sin fusiones, pero con un
+fragmento viejo largo en medio de una oración nueva. Convertir §2.1, §4.3, §4.4
+y §6.3 es una línea cada uno, se reverifica solo, y eliminaría 8 de las 9
+fusiones. Los cuatro párrafos con ecuación en display exigen cambiar el diseño
+del conversor.
 
-La última fila es de la pasada final y es incómoda: con detención temprana el
-hurdle elige 105 árboles, un octavo del presupuesto del modelo base del paper, y
-**mejora a ese modelo base en 5.7%**. El modelo base oficial del paper no es
-entonces el mejor hurdle disponible, y así quedó declarado en §5.4 y en §7. No
-cambia el orden: el hurdle detenido sigue 33% por detrás del GBM en la
-ventana de transición. Y no toca el diagnóstico, que es un contraste dentro de
-cada brazo.
+**Recomendación:** convertir §2.1, §4.3, §4.4 y §6.3 y dejar los cuatro con
+ecuación como están. La versión marcada es una ayuda de lectura, y su propia
+nota remite a la carta para el recuento exacto.
 
 ---
 
-## 3. Lo que ya está hecho
+## 5. Una corrección que hay que conocer
 
-Los quince comentarios están respondidos. El manuscrito y la carta compilan
-limpios, 34 y 19 páginas. Dos verificadores automáticos pasan: 51 de 51
-afirmaciones numéricas contrastadas contra su archivo de resultados, y 192
-referencias cruzadas contra la numeración real del documento compilado.
+En el reporte anterior se dijo que las semillas no llegaban al PDF y que eso
+afectaba la regla de registrar las semillas en el manuscrito. Era falso, y está
+corregido en el registro de hallazgos: el Apéndice D siempre las imprimió. El
+defecto real es el de 3.2, una tabla que perdía filas y una remisión de la carta
+que por eso era falsa, y ya está arreglado. En esa misma corrección la cita de
+la carta se atribuyó a R1.2; está en la respuesta a R2.4.
 
-La Fase 0 fue **reproducida de forma independiente** desde un clon limpio, en un
-entorno donde cuatro de cinco librerías resolvieron en versiones distintas de las
-de referencia. El modelo reentrenado coincidió por checksum SHA-256 y las tablas
-publicadas coincidieron celda por celda. Eso está declarado en el Apéndice D como
-credencial de reproducibilidad.
-
----
-
-## 4. La decisión que hay que tomar
-
-**El paper propone un método y termina mostrando que sus dos componentes
-distintivos no se pagan, y que un método estándar de 2019 sobre un mejor modelo
-base lo dobla en nitidez a la misma cobertura.**
-
-El reencuadre diagnóstico es honesto y está bien sostenido. La contribución pasa
-a ser: *la ganancia aparente de una capa conformal adaptativa mide la mala
-calibración del modelo base, y la relación es cuantificable*. Más el dataset
-abierto, que no cambió.
-
-Las opciones, sin que este documento elija ninguna:
-
-1. **Sostener el reencuadre diagnóstico tal como está.** Es lo que está escrito.
-   Riesgo: un revisor puede leer que el paper ya no tiene un método propio y
-   preguntarse si la contribución alcanza para SEGAN.
-2. **Reposicionar como paper de dataset con estudio metodológico negativo
-   anexo.** El dataset es sólido e independiente del hallazgo. Implica reescribir
-   el encuadre completo otra vez.
-3. **Retirar y reenviar a otra revista** donde un resultado negativo
-   metodológico tenga mejor encaje.
+El conteo de palabras fundidas que se reportó, de 14 a 3, estaba subcontado en
+los dos extremos. El detector solo miraba bordes entre dos regiones marcadas y
+no veía texto sin marcar pegado a texto marcado ("attentionthan",
+"unaffectedby"). Con los tres tipos de borde, y confirmando cada fusión en el
+texto del PDF, son 32 antes de convertir y 9 ahora. También se dijo que §4.4
+tenía tres párrafos intercalados; son cuatro.
 
 ---
 
-## 5. Tres cosas que hay que saber al entrar
+## 6. Para quien entra sin contexto
 
-**El resultado del shrinkage cambió hace dos días.** Al reconciliar dos tablas se
-descubrió que ninguna reproducía la corrida canónica, por el orden de consumo del
-generador aleatorio. Al alinearlas, el shrinkage pasó de "no aporta nada medible"
-a un aporte pequeño pero estadísticamente detectable. La conclusión cualitativa
-se sostiene, pero la redacción anterior era incorrecta y se corrigió. Si alguien
-leyó una versión previa, ese número cambió.
+El paper se envió proponiendo una capa de calibración conforme adaptativa que
+reducía el ancho de los intervalos en un tercio bajo cambio de régimen. Al
+probarla con otro modelo base, como pidió el Revisor 1, la ganancia no se
+replicó, y el paper se reencuadró como resultado diagnóstico.
 
-**La salvedad más delicada es la forma funcional del diagnóstico.** Hay un
-quiebre de nivel en el nominal, y es robusto a dejar brazos fuera. Pero la forma
-no está determinada: fuera de muestra el quiebre empata con la recta única
-(RMSE 8.85 contra 8.82), y un término cuadrático pasa de irrelevante sobre las 40
-celdas (p = 0.71) a fuertemente significativo sobre 35 (F = 27.9) según qué brazo
-esté. Por eso la afirmación quedó acotada a la sobre-cobertura y no se enunció de
-forma simétrica. Si alguien empuja por el enunciado simétrico, la respuesta es
-que los datos no lo sostienen.
-
-**El paper declara por escrito que su propio modelo base no es el mejor
-disponible.** Es la consecuencia de la fila nueva de la sección 2.5, y está en §7
-con la lista de todo lo que hay que leer con ese descuento: las Tablas 3, 8, 9,
-10, 11 y 12 y las Figuras 5, 6 y 9. Es una concesión fuerte y deliberada: la
-alternativa era dejar que la encontrara un revisor. El descuento corre en una
-sola dirección y no cambia ningún orden reportado.
+| Hecho | Número |
+|---|---|
+| Cambio de ancho en la ventana de transición, por modelo base | −33.1% hurdle, −4.8% hurdle σ(x), +3.6% GBM multi-cuantil |
+| Diagnóstico sobre 40 celdas, correlación | −0.873, IC 95% [−0.912, −0.645] |
+| Diagnóstico, pendiente (% de ancho por punto de sobre-cobertura) | −4.89, IC 95% [−5.62, −3.30] |
+| Transporte sobre ACI, interval score | +74.2 MWh, IC [+47, +105], empeora |
+| Shrinkage de cola, interval score | −6.5 MWh, IC [−10, −3] |
+| CQR sobre el GBM contra el método propuesto | 276 contra 596 MWh de ancho, a 89.8% y 90.1% de cobertura |
 
 ---
 
-## 6. Qué quedó cerrado y qué no
+## 7. Verificaciones al cierre
 
-Cerrado todo lo técnico. Los dos verificadores automáticos pasan, 54 de 54
-afirmaciones numéricas y 195 referencias cruzadas, el manuscrito y la carta
-compilan sin errores, y el abstract cumple el límite de 250 palabras con tres de
-margen. La Fase 0 está reproducida de forma independiente desde un clon limpio,
-con coincidencia de checksum del modelo reentrenado.
-
-No queda ningún experimento pendiente. Lo único abierto es la decisión de la
-sección 4, que no es técnica.
+- `verificar_manuscrito.py`: 60 de 60 afirmaciones numéricas contra su archivo
+  de resultados, incluidas dos nuevas que leen el texto del PDF y no el `.tex`.
+- `verificar_referencias_cruzadas.py`: 221 referencias, todas cuadran, y su
+  autochequeo contra la numeración real del documento compilado pasa.
+- Abstract: 249 y 246 palabras con los dos criterios de conteo, límite 250.
+- Log de compilación: ningún aviso que descarte contenido.
+- `auditar_marcado.py`: regenera el conteo de fusiones y de párrafos en forma
+  de bloque de la versión marcada.
+- Todo en la rama `revision/reframing`.
