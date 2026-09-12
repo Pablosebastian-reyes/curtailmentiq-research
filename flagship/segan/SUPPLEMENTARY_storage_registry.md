@@ -43,7 +43,7 @@ commercial operation dates.**
 Ordered by commercial operation date. "Certainty" flags what is not confirmed by a primary source.
 
 | # | System | Owner | Region | Municipality | MW | MWh | Commercial operation | Certainty |
-|---|---|---|---|---|---|---|---|---|
+|--|-------------|---------------|--------------|-------------|------|------|------------|--------------|
 | 1 | Andes Solar IIB (BESS component) | AES Andes | Antofagasta | Antofagasta | 112.0 | ~560 | 2023-07-12 | MWh derived as 112 MW x 5 h, not a published figure |
 | 2 | BESS Coya | ENGIE Chile | Antofagasta | María Elena | 139.0 | 638 | 2024-03-18 | day approximate (CEN authorisation that week) |
 | 3 | BESS Ampliación Andes II-B | AES Andes | Antofagasta | Antofagasta | 17.0 | 85 | 2024-05 | high |
@@ -127,13 +127,13 @@ All consulted 4 August 2026.
 
 | Source | Location |
 |---|---|
-| CEN, monthly SEN reports (40 issues, Apr 2023 to Jul 2026; tables of installations in testing and delivered to operation) | `https://www.coordinador.cl/reportes-y-estadisticas/` |
-| CEN, Annual Performance Report of the SEN (Art. 72-15), year 2024, Tables 10 and 11 | `https://www.coordinador.cl/wp-content/uploads/2025/04/CEN-Reporte-Art-72-15-ano-2024.pdf` |
-| Ministry of Energy, Reporte de Proyectos (41 monthly issues, 2023-01 to 2026-06) | `https://energia.gob.cl/sites/default/files/documentos/reporte_de_proyectos_-_<month>_<year>.pdf` |
-| CNE, Reporte Mensual del Sector Energético, January 2026 | `https://www.cne.cl/wp-content/uploads/2026/01/RMensual_v202601.pdf` |
-| CNE, Reporte Ciudadano: Almacenamiento, July-August 2024 | `https://www.cne.cl/wp-content/uploads/2024/08/RCiudadano_v202408.pdf` |
-| ENGIE Chile, start of commercial operation of BESS Coya | `https://www.engie.cl/inicia-su-operacion-comercial-el-sistema-de-almacenamiento-mas-grande-de-america-latina/` |
-| AES Andes, Andes Solar IIB, 112 MW of batteries in operation from July 2023 | `https://www.aesandes.com/en/press-release/historic-milestone-aes-andes-latin-americas-largest-solar-battery-storage-system-goes` |
+| CEN, monthly SEN reports (40 issues, Apr 2023 to Jul 2026; tables of installations in testing and delivered to operation) | <https://www.coordinador.cl/reportes-y-estadisticas/> |
+| CEN, Annual Performance Report of the SEN (Art. 72-15), year 2024, Tables 10 and 11 | <https://www.coordinador.cl/wp-content/uploads/2025/04/CEN-Reporte-Art-72-15-ano-2024.pdf> |
+| Ministry of Energy, Reporte de Proyectos (41 monthly issues, 2023-01 to 2026-06) | \url{https://energia.gob.cl/sites/default/files/documentos/reporte_de_proyectos_-_<month>_<year>.pdf} |
+| CNE, Reporte Mensual del Sector Energético, January 2026 | <https://www.cne.cl/wp-content/uploads/2026/01/RMensual_v202601.pdf> |
+| CNE, Reporte Ciudadano: Almacenamiento, July-August 2024 | <https://www.cne.cl/wp-content/uploads/2024/08/RCiudadano_v202408.pdf> |
+| ENGIE Chile, start of commercial operation of BESS Coya | <https://www.engie.cl/inicia-su-operacion-comercial-el-sistema-de-almacenamiento-mas-grande-de-america-latina/> |
+| AES Andes, Andes Solar IIB, 112 MW of batteries in operation from July 2023 | <https://www.aesandes.com/en/press-release/historic-milestone-aes-andes-latin-americas-largest-solar-battery-storage-system-goes> |
 
 **Coverage note.** The operator lists in its delivered-to-operation table only storage entering as
 a new installation; storage retrofitted to an already operating plant appears in the Ministry

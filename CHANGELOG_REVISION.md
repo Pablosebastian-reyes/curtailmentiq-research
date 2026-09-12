@@ -1120,3 +1120,69 @@ lista, quedo bien: se reviso por la duda y se lee como bloque.
 sigue viendo solo el primer tipo de borde. Ampliarlo cambiaria que parrafos se
 convierten dentro de las secciones barridas, y con eso el marcado entero; queda
 para cuando se decida si se convierten 2.1, 4.3, 4.4 y 6.3.
+
+## 23. Cierre: suplementario en PDF, divulgacion del hurdle detenido y ultimos bloques
+
+**Pandoc.** Homebrew no pudo instalarlo: exige actualizar las Command Line Tools
+de Xcode. Se instalo el binario oficial del release de GitHub, sin pasar por
+brew:
+
+```
+https://github.com/jgm/pandoc/releases/download/3.11/pandoc-3.11-x86_64-macOS.zip
+zip     26.145.603 bytes, sha256 3b1c1b57f160112c821d02f23d946ede8b7f57a6ccf4632a25a512d334a9291f
+binario ~/.local/bin/pandoc (pandoc 3.11), sha256 aec1331ed5eea2b6d497ac3610b6ad35dc1f10b4d41b6deac38e2dd005354e12
+```
+
+Paquetes de LaTeX agregados con tlmgr: `caption` y `xurl`.
+
+**Suplementario en PDF.** `flagship/revision/suplementario_pdf.py` (nuevo)
+convierte `SUPPLEMENTARY_storage_registry.md` a
+`entrega_revision/13_suplementario_registro_almacenamiento.pdf`, 4 paginas. El
+PDF sale de compilar con pdflatex el .tex que genera pandoc, para poder leer el
+log. Falla si: falta el titulo actual del manuscrito o aparece el viejo; no hay
+una longtable por cada tabla del Markdown; la primera celda con texto de alguna
+tabla no llega al PDF; alguna URL del Markdown no llega entera; hay errores de
+LaTeX o algun desborde de linea de mas de 2pt.
+
+Al renderizar se encontraron tres defectos de formato del suplementario, los
+tres corregidos en el Markdown sin tocar su contenido:
+
+- Las URLs estaban entre backticks. Pandoc las emite como `\texttt{}`, que no
+  tiene puntos de corte, y se salian del margen, cortadas en el borde de la
+  pagina. Las seis URLs reales pasan a enlaces, que pandoc emite como `\url{}`
+  y `xurl` parte.
+- Una de las siete no es una URL sino un patron con marcadores,
+  `..._-_<month>_<year>.pdf`. Como enlace, pandoc lo cortaba en el primer `>` y
+  el PDF imprimia `%3Cmonth_.pdf>`. Vuelve a su forma literal con `\url{}` en
+  crudo, que imprime los marcadores tal cual y se parte igual.
+- El registro tenia nueve columnas de igual ancho, y "ContourGlobal" y
+  "Metropolitana" se salian 10,1pt y 8,0pt sobre la columna vecina. Pandoc toma
+  los anchos de los guiones de la linea separadora; ahora son proporcionales.
+
+Y tres falsos negativos en las comprobaciones del propio script, tambien
+corregidos: la clave de la tabla del registro era "1", el numero de fila, que
+esta en cualquier texto; el respaldo unia la fila entera, que nunca sale
+contiguo; y el cotejo de URLs fallaba porque `pdftotext` quita el guion de final
+de linea ("CEN-" + "Reporte" sale "CENReporte"), asi que ahora ignora espacios y
+guiones. Un control confirma que ese cotejo sigue detectando el enlace con
+`%3C`.
+
+El `.md` sigue siendo la fuente en `flagship/segan/`; su copia en
+`entrega_revision/` se retiro, porque el PDF la reemplaza.
+
+**Carta.** Tres oraciones al final del "third point of disclosure": el modelo
+base del paper no es el mejor hurdle disponible; detenido temprano, elige un
+octavo de los arboles y lo supera en 5.7% de CRPS; la Seccion 7 lista lo que hay
+que leer con ese descuento; y el descuento no cambia ningun orden reportado,
+incluido el del pronostico puntual, donde el hurdle detenido es peor en MAE,
+como mide la Seccion 5.1. Los numeros se toman de `obj1d_deteccion_temprana.json`
+al insertar, y la insercion aborta si 800/105 no redondea a un octavo. La
+apertura del parrafo, sobre un borrador anterior de la respuesta, no se toco. La
+carta sigue en 19 paginas.
+
+**Version marcada.** En la tabla de politica de `bloques_marcado.py` entran 2.1,
+4.4 y 6.3 como seccion entera, y 4.3 pasa de solo encabezado a seccion entera.
+9 bloques nuevos, 49 en total, y todos verifican contra las dos fuentes; se
+siguen omitiendo a proposito los 4 parrafos con matematica en display.
+Las palabras fundidas impresas bajan de 9 a 1; la que queda esta en uno de esos
+parrafos omitidos, en 4.2.

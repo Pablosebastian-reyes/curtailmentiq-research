@@ -31,21 +31,25 @@ SECCIONES_BARRIDAS = [
     #   primero     solo el primer parrafo mezclado
     #
     # La politica sigue el encargo seccion por seccion, no un umbral unico:
-    # de 4.3 y 4.5 se pidio solo el encabezado, de 5.5 solo el primer parrafo,
-    # de 3.3 solo el tercero, y de 1, 4.1, 4.2, 4.8, 6.2, 6.4, 6.5, 8 y el
-    # apendice B la seccion entera.
+    # de 4.5 se pidio solo el encabezado, de 5.5 solo el primer parrafo, de 3.3
+    # solo el tercero, y de 1, 2.1, 4.1, 4.2, 4.3, 4.4, 4.8, 6.2, 6.3, 6.4, 6.5,
+    # 8 y el apendice B la seccion entera. 2.1, 4.4 y 6.3 se agregaron, y 4.3
+    # paso de solo encabezado a seccion entera, en la ultima ronda.
     ('Introduction',                                   'mixtos'),
+    ('Curtailment: causes, measurement and forecasting', 'mixtos'),
     ('Probabilistic forecasting and conformal predic',  'mixtos'),
     ('Exploratory characterisation',                    'criterio'),
     ('Problem setup and base forecasters',              'mixtos'),
     ('Conformal calibration with a PIT score',          'mixtos'),
-    ('Three guarantees, and which one applies where',   'encabezado'),
+    ('Three guarantees, and which one applies where',   'mixtos'),
+    ('Responses to the shift',                          'mixtos'),
     ('The adaptive scheme in full',                     'encabezado'),
     ('Evaluation',                                      'mixtos'),
     ('Point forecasting adds little, within the scope', 'enc+crit'),
     ('With the hurdle base model',                      'enc+crit'),
     ('Which components earn their cost',                'primero'),
     ('Where the operational value actually lies',       'mixtos'),
+    ('The change in the record, and what we do not',    'mixtos'),
     ('The mid-2025 excursion',                          'mixtos'),
     ('Open directions',                                 'mixtos'),
     ('Conclusion',                                      'mixtos'),
