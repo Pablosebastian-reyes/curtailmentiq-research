@@ -12,7 +12,7 @@ Place every file of this archive in a single flat directory and run:
     pdflatex SEGAN_paper_FINAL.tex
 
 Three passes are required to resolve cross-references. The result is a
-35-page PDF with no unresolved references and no warnings about missing
+__PAGINAS__-page PDF with no unresolved references and no warnings about missing
 citations.
 
 BIBLIOGRAPHY: NO BibTeX RUN IS NEEDED

@@ -38,7 +38,15 @@ for f in "${FIGURAS[@]}"; do
   git show "${C}:flagship/segan/figuras/${f}.pdf" > "$PAQ/${f}.pdf"
 done
 cp "$(kpsewhich elsarticle.cls)" "$PAQ/"
-cp "$REPO/flagship/revision/README_paquete_fuentes.txt" "$PAQ/00_README_COMPILATION.txt"
+# El README tambien sale del commit, como todo lo demas, y el conteo de paginas
+# se escribe desde PAGINAS_ESPERADAS, que es el mismo numero que la prueba en
+# aislamiento exige: un conteo escrito a mano quedo en "35-page" cuando el
+# manuscrito paso a 36.
+git show "${C}:flagship/revision/README_paquete_fuentes.txt" \
+  | sed "s/__PAGINAS__/${PAGINAS_ESPERADAS}/g" > "$PAQ/00_README_COMPILATION.txt"
+if grep -q "__PAGINAS__" "$PAQ/00_README_COMPILATION.txt"; then
+  echo "ERROR: quedo un marcador sin sustituir en el README" >&2; exit 1
+fi
 
 # No hay .bbl ni .bib: la bibliografia es un thebibliography en linea. Se
 # comprueba, porque si algun dia se pasa a BibTeX el zip deja de ser completo.

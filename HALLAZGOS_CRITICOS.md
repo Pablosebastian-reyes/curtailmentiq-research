@@ -567,10 +567,29 @@ de la pagina, y debajo no hay nada:
 | Muestreo del CRPS | 11 |
 | Bootstrap de diferencias, bloques y permutaciones | 20260901 |
 
-**Por que importa.** La Regla 4 del encargo pide que las semillas queden
-registradas explicitamente en el manuscrito. Estan en el codigo y en el
-`.tex` generado, pero **no en el PDF ni en el que se envio en julio**, y el
-paper es de reproducibilidad. Ademas viaja asi dentro del zip de fuentes.
+**Por que importa, y por que menos de lo que se dijo primero.** Las semillas
+nunca faltaron del manuscrito: el Apendice D las enuncia en prosa ("The seeds
+are 42 for base-model training, 20260720 for the randomisation of the PIT atom
+and the bootstrap of the transport map, 11 for the CRPS sampling and 20260901
+for the day-block bootstrap and the permutation nulls"), y ese parrafo si se
+imprimia en el PDF de 35 paginas. La Regla 4 se cumplia.
+
+Lo que fallaba era la tabla, y con ella una remision de la carta. El Apendice C
+dice que la Tabla C.13 "lists every constant of the pipeline", y la carta, en la
+respuesta a R1.2, remite a los revisores a "Appendix C, Table C.13, every
+parameter and all four seeds". Con la tabla truncada esa remision era falsa: el
+revisor que fuera a la tabla no encontraba las semillas. Con el arreglo de la
+seccion 19 del changelog es cierta. El .tex con la tabla truncada viajaba ademas
+dentro del zip de fuentes.
+
+La version enviada en julio no tenia Apendice C ni Apendice D, ni semillas en
+ninguna parte. No se perdieron ahi: no estaban.
+
+*Correccion del 12 de septiembre de 2026.* La primera redaccion de este hallazgo
+decia que las semillas no llegaban al PDF y que eso afectaba la Regla 4. Era
+falso. Se verifico sobre el PDF de 35 paginas del commit 46ebfe0: el Apendice D
+imprime las cuatro. Es tambien la razon por la que una guarda que buscaba los
+valores desnudos no discriminaba (seccion 19 del changelog).
 
 **Por que no lo detectaron los verificadores.** `verificar_manuscrito.py`
 compara afirmaciones en prosa contra archivos de resultados y
