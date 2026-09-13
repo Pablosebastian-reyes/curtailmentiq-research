@@ -431,10 +431,10 @@ def main():
     cav = ca[ca.periodo == 'TEST_COMPLETO']
     caida = float((cav[cav.cota == 'sin cota'].set_index('metodo').cobertura
                    - cav[cav.cota == 'alpha_min=0.005'].set_index('metodo').cobertura).max())
-    d = campo('Recorte de alpha_t recomendado')
+    d = campo('Recommended bound on alpha_t')
     chk('C.11', 'costo de cobertura de la cota de alpha, campo de la tabla',
         f'{caida:.1f} puntos', d[:70] + '...' if len(d) > 70 else d,
-        f'a lo mas {caida:.1f} puntos de cobertura' in d
+        f'at most {caida:.1f} points of coverage' in d
         and en_tex('at most half a point'),
         'fase1/hiperparametros.csv + fase4_cota_alpha.csv')
 
@@ -443,14 +443,14 @@ def main():
     sel = json.load(open(RES / 'fase3' / 'fase3_hiperparametros_elegidos.json'))
     g_aci = sel['elegidos']['ACI']['gamma']
     v_tr = sel['elegidos']['Transporte+ACI']['ventana']
-    d = campo('gamma seleccionado por origen rodante')
+    d = campo('gamma selected by rolling origin')
     chk('C.11', 'gamma seleccionado, campo de la tabla', str(g_aci),
-        campo('gamma seleccionado por origen rodante')[:60],
-        str(g_aci) in str(hp[hp.hiperparametro == 'gamma seleccionado por origen rodante'].iloc[0].valor),
+        campo('gamma selected by rolling origin')[:60],
+        str(g_aci) in str(hp[hp.hiperparametro == 'gamma selected by rolling origin'].iloc[0].valor),
         'fase3_hiperparametros_elegidos.json')
     chk('C.11', 'ventana seleccionada, campo de la tabla', f'{v_tr} dias',
-        str(hp[hp.hiperparametro == 'Ventana seleccionada por origen rodante'].iloc[0].valor),
-        str(v_tr) in str(hp[hp.hiperparametro == 'Ventana seleccionada por origen rodante'].iloc[0].valor),
+        str(hp[hp.hiperparametro == 'Window selected by rolling origin'].iloc[0].valor),
+        str(v_tr) in str(hp[hp.hiperparametro == 'Window selected by rolling origin'].iloc[0].valor),
         'fase3_hiperparametros_elegidos.json')
 
     # todo campo de la tabla que contenga un numero con decimales tiene que
@@ -527,7 +527,7 @@ def main():
     lineas = [re.sub(r'\s+', ' ', l).strip() for l in txt.split('\n')]
 
     hp_csv = pd.read_csv(RES / 'fase1' / 'hiperparametros.csv')
-    semillas = hp_csv[hp_csv.bloque == 'Semillas']
+    semillas = hp_csv[hp_csv.bloque == 'Seeds']
     if len(semillas) == 0:
         raise SystemExit('no hay bloque de semillas en hiperparametros.csv')
 

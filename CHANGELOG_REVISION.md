@@ -1311,3 +1311,22 @@ remisiones de la carta, el README del paquete, los mensajes del empaquetador y
 `REVISION_PLAN.md`. Las menciones historicas de `Tabla C.13` en este changelog
 quedan entre comillas de codigo, que es el convenio del verificador para citas
 de numeracion vieja. Manuscrito 36 paginas; carta 20.
+
+### B9. Tabla C.14 en ingles
+
+El cuerpo de la tabla de hiperparametros salia en espanol en el PDF ("Horizonte
+de pronostico", "Semillas"). `fase1_hiperparametros.py` emite ahora las filas en
+ingles, en el CSV y en el .tex, y la cabecera del .tex, que viaja en el paquete,
+tambien en ingles y sin la mencion a H11. De paso dejan de estar tipeados los
+valores que son resultados y no constantes: gamma y ventana elegidos por origen
+rodante se leen de `fase3_hiperparametros_elegidos.json`, los dias y filas de la
+calibracion de `fase5_diagnostico_dependencia.csv`, y las muestras del CRPS y del
+bootstrap de las firmas de `crps_pred` y `bootstrap_diferencia`.
+
+Las etiquetas de las semillas son cortas y no aparecen en la prosa ("Training of
+the base models", "PIT atom and map bootstrap", "Sampling of the CRPS",
+"Bootstrap of differences, blocks and permutations"), porque la guarda del
+empaquetador y `verificar_manuscrito.py` las buscan en el PDF para comprobar que
+cada fila se imprime. Se actualizan las dos, y las busquedas por nombre del
+verificador.
+

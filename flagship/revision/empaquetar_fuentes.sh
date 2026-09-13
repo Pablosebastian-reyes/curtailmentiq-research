@@ -95,10 +95,10 @@ sem=0
 while IFS= read -r etq; do
   grep -qF "$etq" pdf.txt || sem=$((sem+1))
 done <<'ETIQUETAS'
-Entrenamiento de los modelos
-Aleatorizacion del atomo PIT
-Muestreo del CRPS
-Bootstrap de diferencias
+Training of the base
+PIT atom and map
+Sampling of the CRPS
+Bootstrap of differences
 ETIQUETAS
 
 [ "$pag" = "$PAGINAS_ESPERADAS" ] || { echo "FALLA: $pag paginas, se esperaban $PAGINAS_ESPERADAS" >&2; fallas=1; }

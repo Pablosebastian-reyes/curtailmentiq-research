@@ -1,7 +1,5 @@
-%% generado por flagship/revision/fase1_hiperparametros.py
-%% NO EDITAR A MANO: se lee del codigo fuente
-%% longtable y no table*: con table* la tabla no cabia en una pagina
-%% y LaTeX descartaba las ultimas filas sin error (ver H11).
+%% generated from the source code by flagship/revision/fase1_hiperparametros.py
+%% do not edit by hand
 \begingroup
 \footnotesize
 \setlength{\LTcapwidth}{\textwidth}
@@ -22,53 +20,53 @@ Item & Value & Detail \\
 \endfoot
 \bottomrule
 \endlastfoot
-\multicolumn{3}{l}{\emph{Modelo base}} \\
-Horizonte de pronostico & 7 dias & prediccion directa; toda feature dinamica es un shift >= H \\
-Ultimo target de entrenamiento & 2023-12-31 & el modelo nunca ve el periodo de evaluacion \\
-Arboles / tasa de aprendizaje / profundidad & 400 / 0.05 / 6 & fijados a priori, nunca ajustados contra 2024-2026 \\
-min\_child\_weight / subsample / colsample & 5 / 0.9 / 0.9 & idem \\
-Numero de features & 12 & mwh\_t, mwh\_lag1, mwh\_lag7, mwh\_lag14, ma7\_t, ma30\_t, occ\_t, dow\_target, doy\_target, log\_potencia\_mw, region, tecnologia \\
-Estimacion de sigma del hurdle & out-of-fold, KFold 5 & los residuos in-sample de un GBM subestiman la dispersion \\
-Rejilla de cuantiles del GBM multi-cuantil & 54 niveles, de 0.005 a 0.999 & 0.02 a 0.98 en pasos de 0.02, mas 0.005, 0.01, 0.99, 0.995 y 0.999; rearrangement por fila contra el cruce de cuantiles \\
+\multicolumn{3}{l}{\emph{Base model}} \\
+Forecast horizon & 7 days & direct forecast; every dynamic feature is a shift of at least H days \\
+Last training target & 2023-12-31 & the model never sees the evaluation period \\
+Trees / learning rate / depth & 400 / 0.05 / 6 & fixed a priori, never tuned against 2024-2026 \\
+min\_child\_weight / subsample / colsample & 5 / 0.9 / 0.9 & as above \\
+Number of features & 12 & mwh\_t, mwh\_lag1, mwh\_lag7, mwh\_lag14, ma7\_t, ma30\_t, occ\_t, dow\_target, doy\_target, log\_potencia\_mw, region, tecnologia \\
+Dispersion of the hurdle & out of fold, KFold 5 & in-sample residuals of a boosted model understate the dispersion \\
+Quantile grid of the multi-quantile GBM & 54 levels, from 0.005 to 0.999 & 0.02 to 0.98 in steps of 0.02, plus 0.005, 0.01, 0.99, 0.995 and 0.999; row-wise rearrangement against quantile crossing \\
 \midrule
-\multicolumn{3}{l}{\emph{Capa conformal}} \\
-Nivel nominal & 1 - alpha = 0.90 & limite de prediccion superior unilateral [0, U] \\
-Score de no conformidad & s = F\_x(y) (PIT) & atomo en y=0 randomizado, s = (1-p)U con U ~ Uniforme(0,1) \\
-Ventana de calibracion & 2024-01-01 a 2024-09-01 & 244 dias, 26.552 filas \\
-Embargo de horizonte & 7 dias & toda ventana online termina en t-7 y la retroalimentacion de alpha se retrasa 7 pasos \\
-Cuantil conformal & orden estadistico k = ceil((n+1)(1-alpha\_t)) & q = +infinito si k > n, que es el origen de los intervalos infinitos \\
+\multicolumn{3}{l}{\emph{Conformal layer}} \\
+Nominal level & 1 - alpha = 0.90 & one-sided upper prediction limit [0, U] \\
+Nonconformity score & s = F\_x(y) (PIT) & atom at y = 0 randomised, s = (1-p)U with U ~ Uniform(0,1) \\
+Calibration window & 2024-01-01 to 2024-09-01 & 244 days, 26,552 rows \\
+Horizon embargo & 7 days & every online window ends at t-7 and the feedback of alpha is delayed by 7 steps \\
+Conformal quantile & order statistic k = ceil((n+1)(1-alpha\_t)) & q = +infinity if k > n, which is the origin of the infinite intervals \\
 \midrule
-\multicolumn{3}{l}{\emph{Transporte}} \\
-Largo de la ventana reciente & 60 dias & la ventana termina en t menos el embargo, no en t \\
-Periodo de refresco del mapa & 7 dias & el mapa se recalcula cada 7 dias; entre refrescos el pool se congela \\
-Minimo de scores recientes para refrescar & 100 & si la ventana reciente tiene menos, se conserva el pool anterior \\
-Regla de seleccion de cuantiles empiricos & rejilla equiespaciada de g niveles en [0,1], g = min(100, max(20, m/2)) & m es el numero de scores de la ventana reciente; el segundo termino evita una rejilla mas fina que los datos \\
-Esquema de interpolacion & lineal por tramos, dos veces & primero s -> nivel sobre (q\_old, niveles), luego nivel -> q\_reg sobre (niveles, q\_reg); equivale al reordenamiento creciente T = F\_new\^\{\}\{-1\} o F\_old \\
-Repeticiones bootstrap del mapa & B = 150 & remuestreo con reemplazo de la ventana reciente; el promedio de las B replicas es el mapa (bagging) y su desviacion estandar por nivel es la banda \\
-Funcion de shrinkage de cola & lambda(u) = 1 / (1 + (sd\_boot(u)/tau)\^\{\}2) & q\_reg(u) = (1-lambda(u)) q\_old(u) + lambda(u) q\_new\_bag(u); lambda ~ 1 donde el mapa es estable y ~ 0 donde es ruidoso, con lambda = 0 la identidad, es decir el cuantil viejo \\
-Intensidad del shrinkage & tau = 0.05 en unidades PIT & escala de regularizacion FIJA, no ajustada contra el test \\
-Monotonizacion posterior & maximo acumulado y recorte a [0,1] & garantiza que el mapa transportado siga siendo una funcion cuantil \\
+\multicolumn{3}{l}{\emph{Transport}} \\
+Length of the recent window & 60 days & the window ends at t minus the embargo, not at t \\
+Refresh period of the map & 7 days & the map is recomputed every 7 days; between refreshes the pool is frozen \\
+Minimum recent scores for a refresh & 100 & with fewer scores in the recent window the previous pool is kept \\
+Rule for the empirical quantiles & equispaced grid of g levels on [0,1], g = min(100, max(20, m/2)) & m is the number of scores in the recent window; the second term prevents a grid finer than the data \\
+Interpolation scheme & piecewise linear, twice & first s -> level on (q\_old, levels), then level -> q\_reg on (levels, q\_reg); this is the increasing rearrangement T = F\_new\^\{\}\{-1\} o F\_old \\
+Bootstrap repetitions of the map & B = 150 & resampling of the recent window with replacement; the mean of the B replicates is the map (bagging) and their standard deviation per level is the band \\
+Tail shrinkage function & lambda(u) = 1 / (1 + (sd\_boot(u)/tau)\^\{\}2) & q\_reg(u) = (1-lambda(u)) q\_old(u) + lambda(u) q\_new\_bag(u); lambda ~ 1 where the map is stable and ~ 0 where it is noisy, and lambda = 0 is the identity, that is the old quantile \\
+Shrinkage strength & tau = 0.05 in PIT units & fixed regularisation scale, not tuned against the test set \\
+Monotonisation & running maximum and clip to [0,1] & keeps the transported map a quantile function \\
 \midrule
 \multicolumn{3}{l}{\emph{ACI}} \\
-Actualizacion & alpha\_\{t+1\} = alpha\_t + gamma (alpha - err\_t) & err\_t = 1\{Y\_t > U\_t\}, promediado sobre las centrales del dia t \\
-gamma reportado en el manuscrito & 0.02 y 0.05 & valores de la version enviada, conservados por continuidad \\
-gamma seleccionado por origen rodante & 0.005 & menor interval score en la validacion interna, Fase 3; produce cero intervalos infinitos \\
-Ventana seleccionada por origen rodante & 120 dias & idem, para Transporte+ACI \\
-Recorte de alpha\_t, version enviada & [-1, 2] & permite alpha\_t <= 0 y por tanto q = +infinito: es el origen de los intervalos infinitos \\
-Recorte de alpha\_t recomendado & alpha\_min = 0.005 & elimina por completo los intervalos infinitos en las cinco ventanas a un costo de a lo mas 0.5 puntos de cobertura (Fase 4) \\
-ORDEN DE EJECUCION & refresco del mapa, luego cuantil, luego intervalo, luego ACI & en la fecha t: (i) si toca refresco se recalcula el mapa con la ventana que termina en t-7 y se transporta todo el pool de calibracion; (ii) se toma el cuantil del pool transportado al alpha\_t VIGENTE, que aun no incorpora el error de t; (iii) se emite el intervalo; (iv) el error de t entra a la cola de embargo y actualiza alpha solo 7 pasos despues. El mapa nunca usa el alpha del ACI y el ACI nunca usa el mapa: el unico acoplamiento es el pool \\
+Update & alpha\_\{t+1\} = alpha\_t + gamma (alpha - err\_t) & err\_t = 1\{Y\_t > U\_t\}, averaged over the plants of day t \\
+gamma reported in the submitted version & 0.02 and 0.05 & kept in the tables for continuity \\
+gamma selected by rolling origin & 0.005 & lowest interval score on the inner validation set; no infinite intervals there \\
+Window selected by rolling origin & 120 days & as above, for Transport+ACI \\
+Bound on alpha\_t, submitted version & [-1, 2] & allows alpha\_t <= 0 and hence q = +infinity: the origin of the infinite intervals \\
+Recommended bound on alpha\_t & alpha\_min = 0.005 & removes infinite intervals in all five windows at a cost of at most 0.5 points of coverage \\
+Order of execution & map refresh, then quantile, then interval, then ACI & on date t: (i) if a refresh is due, the map is recomputed from the window ending at t-7 and the whole calibration pool is transported; (ii) the quantile is taken from the transported pool at the CURRENT alpha\_t, which does not yet include the error of t; (iii) the interval is emitted; (iv) the error of t enters the embargo queue and updates alpha only 7 steps later. The map never uses the alpha of ACI and ACI never uses the map: the only coupling is the pool \\
 \midrule
-\multicolumn{3}{l}{\emph{Evaluacion}} \\
-Metrica principal & interval score unilateral IS = U + (2/alpha) max(y-U, 0) & propio, en MWh, e infinito si U es infinito \\
-Error estandar de la cobertura & clusterizado por fecha & promedia la cobertura de cada dia y calcula el error entre dias \\
-Bootstrap de las diferencias entre metodos & 2000 remuestreos de dias completos & la unidad remuestreada es el dia, no la fila; IC de percentil al 95\% \\
-Muestras para el CRPS & 300 por fila & CRPS por muestreo, E|X-y| - 0.5 E|X-X'| \\
-Deteccion de puntos de cambio & PELT y segmentacion binaria, coste L2, pen = sigma\^\{\}2 log n, min\_size = 3 & penalizacion BIC con k = 1; la sensibilidad recorre k en \{0.5, 1, 2, 3, 5\} y min\_size en \{2, 3, 4\} \\
+\multicolumn{3}{l}{\emph{Evaluation}} \\
+Primary metric & one-sided interval score IS = U + (2/alpha) max(y-U, 0) & proper, in MWh, and infinite if U is infinite \\
+Standard error of coverage & clustered by date & averages the coverage of each day and takes the error across days \\
+Bootstrap of the differences between methods & 2000 resamples of whole days & the resampled unit is the day, not the row; 95\% percentile interval \\
+Samples for the CRPS & 300 per row & sampled CRPS, E|X-y| - 0.5 E|X-X'| \\
+Change-point detection & PELT and binary segmentation, L2 cost, pen = sigma\^\{\}2 log n, min\_size = 3 & BIC penalty with k = 1; the sensitivity grid spans k in \{0.5, 1, 2, 3, 5\} and min\_size in \{2, 3, 4\} \\
 \midrule
-\multicolumn{3}{l}{\emph{Semillas}} \\
-Entrenamiento de los modelos base & 42 & XGBoost hist determinista, n\_jobs = 4, KFold \\
-Aleatorizacion del atomo PIT y bootstrap del mapa & 20260720 & un unico generador consumido en orden: primero el score, luego gamma = 0.02 y luego gamma = 0.05 \\
-Muestreo del CRPS & 11 &  \\
-Bootstrap de diferencias, bloques y permutaciones & 20260901 &  \\
+\multicolumn{3}{l}{\emph{Seeds}} \\
+Training of the base models & 42 & deterministic XGBoost hist, n\_jobs = 4, KFold \\
+PIT atom and map bootstrap & 20260720 & a single generator consumed in order: first the score, then gamma = 0.02 and then gamma = 0.05 \\
+Sampling of the CRPS & 11 &  \\
+Bootstrap of differences, blocks and permutations & 20260901 &  \\
 \end{longtable}
 \endgroup

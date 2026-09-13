@@ -9,18 +9,23 @@ ejecucion entre el mapa de transporte y la actualizacion de ACI. Mas semillas.
 
 Este script NO escribe ningun valor a mano: importa los modulos y lee las
 constantes y las firmas de las funciones, de modo que la tabla del manuscrito no
-pueda desincronizarse del codigo. Si alguien cambia una constante y no regenera,
-la tabla del paper queda mal y esta linea lo delata.
+pueda desincronizarse del codigo. Los valores que son RESULTADOS y no constantes
+(gamma y ventana elegidos por origen rodante, dias y filas de la calibracion,
+costo de la cota de alpha) se leen de su archivo de resultados.
+
+La tabla se emite en ingles, que es el idioma del manuscrito: hasta el cierre
+del 14 de septiembre salia en espanol en el PDF (bloque B9).
 
 Salidas:
   resultados/fase1/hiperparametros.csv
-  resultados/fase1/hiperparametros.tex   (cuerpo de la tabla, para \\input)
+  resultados/fase1/hiperparametros.tex   (tabla completa, para \\input)
 
 Comando:
   <venv>/bin/python flagship/revision/fase1_hiperparametros.py
 """
 from pathlib import Path
 import inspect
+import json
 import sys
 
 import pandas as pd
@@ -35,6 +40,7 @@ import fase0_entrenar_qgbm as QG        # noqa: E402
 
 SAL = R.REPO / 'resultados' / 'fase1'
 SAL.mkdir(parents=True, exist_ok=True)
+RES = R.REPO / 'resultados'
 
 
 def costo_cobertura_cota_alpha():
@@ -42,13 +48,25 @@ def costo_cobertura_cota_alpha():
 
     Este campo se escribia a mano y quedo desincronizado: decia 0.4 puntos
     cuando el manuscrito y la carta ya decian medio punto. Ahora sale del mismo
-    CSV que alimenta la Tabla 8, asi que no puede volver a divergir.
+    CSV que alimenta la Tabla 10, asi que no puede volver a divergir.
     """
-    c = pd.read_csv(R.REPO / 'resultados' / 'fase4' / 'fase4_cota_alpha.csv')
+    c = pd.read_csv(RES / 'fase4' / 'fase4_cota_alpha.csv')
     v = c[c.periodo == 'TEST_COMPLETO']
     sin = v[v.cota == 'sin cota'].set_index('metodo').cobertura
     con = v[v.cota == 'alpha_min=0.005'].set_index('metodo').cobertura
     return float((sin - con).max())
+
+
+def seleccion_fase3():
+    """gamma y ventana elegidos por origen rodante, del JSON de la Fase 3."""
+    el = json.load(open(RES / 'fase3' / 'fase3_hiperparametros_elegidos.json'))['elegidos']
+    return el['ACI']['gamma'], el['Transporte+ACI']['gamma'], el['Transporte+ACI']['ventana']
+
+
+def calibracion():
+    """Dias y filas de la ventana de calibracion, de la Fase 5."""
+    d = pd.read_csv(RES / 'fase5' / 'fase5_diagnostico_dependencia.csv').iloc[0]
+    return int(d.n_dias), int(d.n_filas)
 
 
 def defecto(fn, nombre):
@@ -56,149 +74,143 @@ def defecto(fn, nombre):
 
 
 def main():
-    tr = inspect.signature(R.transporte_aci).parameters
-    mb = inspect.signature(cm.mapa_transporte_banda).parameters
+    g_aci, g_tra, v_tra = seleccion_fase3()
+    n_dias, n_filas = calibracion()
+    g_sel = f'{g_aci}' if g_aci == g_tra else f'{g_aci} (ACI), {g_tra} (Transport+ACI)'
 
     filas = [
         # --- modelo base ---
-        ('Modelo base', 'Horizonte de pronostico', f'{EB.H} dias',
-         'prediccion directa; toda feature dinamica es un shift >= H', 'entrenar_baselines.py:H'),
-        ('Modelo base', 'Ultimo target de entrenamiento',
-         str(EB.CORTE_TRAIN.date()),
-         'el modelo nunca ve el periodo de evaluacion', 'entrenar_baselines.py:CORTE_TRAIN'),
-        ('Modelo base', 'Arboles / tasa de aprendizaje / profundidad',
+        ('Base model', 'Forecast horizon', f'{EB.H} days',
+         'direct forecast; every dynamic feature is a shift of at least H days',
+         'entrenar_baselines.py:H'),
+        ('Base model', 'Last training target', str(EB.CORTE_TRAIN.date()),
+         'the model never sees the evaluation period', 'entrenar_baselines.py:CORTE_TRAIN'),
+        ('Base model', 'Trees / learning rate / depth',
          f"{EB.XGB_PARAMS['n_estimators']} / {EB.XGB_PARAMS['learning_rate']} / "
          f"{EB.XGB_PARAMS['max_depth']}",
-         'fijados a priori, nunca ajustados contra 2024-2026', 'entrenar_baselines.py:XGB_PARAMS'),
-        ('Modelo base', 'min_child_weight / subsample / colsample',
+         'fixed a priori, never tuned against 2024-2026', 'entrenar_baselines.py:XGB_PARAMS'),
+        ('Base model', 'min_child_weight / subsample / colsample',
          f"{EB.XGB_PARAMS['min_child_weight']} / {EB.XGB_PARAMS['subsample']} / "
-         f"{EB.XGB_PARAMS['colsample_bytree']}", 'idem', 'entrenar_baselines.py:XGB_PARAMS'),
-        ('Modelo base', 'Numero de features', str(len(EB.FEATS)),
+         f"{EB.XGB_PARAMS['colsample_bytree']}", 'as above', 'entrenar_baselines.py:XGB_PARAMS'),
+        ('Base model', 'Number of features', str(len(EB.FEATS)),
          ', '.join(EB.FEATS), 'entrenar_baselines.py:FEATS'),
-        ('Modelo base', 'Estimacion de sigma del hurdle',
-         'out-of-fold, KFold 5',
-         'los residuos in-sample de un GBM subestiman la dispersion', 'entrenar_baselines.py'),
-        ('Modelo base', 'Rejilla de cuantiles del GBM multi-cuantil',
-         f'{len(QG.TAUS)} niveles, de {QG.TAUS[0]} a {QG.TAUS[-1]}',
-         '0.02 a 0.98 en pasos de 0.02, mas 0.005, 0.01, 0.99, 0.995 y 0.999; '
-         'rearrangement por fila contra el cruce de cuantiles',
+        ('Base model', 'Dispersion of the hurdle', 'out of fold, KFold 5',
+         'in-sample residuals of a boosted model understate the dispersion',
+         'entrenar_baselines.py'),
+        ('Base model', 'Quantile grid of the multi-quantile GBM',
+         f'{len(QG.TAUS)} levels, from {QG.TAUS[0]} to {QG.TAUS[-1]}',
+         '0.02 to 0.98 in steps of 0.02, plus 0.005, 0.01, 0.99, 0.995 and 0.999; '
+         'row-wise rearrangement against quantile crossing',
          'fase0_entrenar_qgbm.py:TAUS'),
         # --- score y ventanas ---
-        ('Capa conformal', 'Nivel nominal', f'1 - alpha = {1 - R.ALPHA:.2f}',
-         'limite de prediccion superior unilateral [0, U]', 'rev_lib.py:ALPHA'),
-        ('Capa conformal', 'Score de no conformidad', 's = F_x(y) (PIT)',
-         'atomo en y=0 randomizado, s = (1-p)U con U ~ Uniforme(0,1)',
+        ('Conformal layer', 'Nominal level', f'1 - alpha = {1 - R.ALPHA:.2f}',
+         'one-sided upper prediction limit [0, U]', 'rev_lib.py:ALPHA'),
+        ('Conformal layer', 'Nonconformity score', 's = F_x(y) (PIT)',
+         'atom at y = 0 randomised, s = (1-p)U with U ~ Uniform(0,1)',
          'conformal_metodos.py:pit_score'),
-        ('Capa conformal', 'Ventana de calibracion',
-         f'{R.CAL_INI.date()} a {R.CAL_FIN.date()}',
-         '244 dias, 26.552 filas', 'rev_lib.py:CAL_INI, CAL_FIN'),
-        ('Capa conformal', 'Embargo de horizonte', f'{R.EMBARGO_DIAS} dias',
-         'toda ventana online termina en t-7 y la retroalimentacion de alpha '
-         'se retrasa 7 pasos', 'rev_lib.py:EMBARGO_DIAS'),
-        ('Capa conformal', 'Cuantil conformal',
-         'orden estadistico k = ceil((n+1)(1-alpha_t))',
-         'q = +infinito si k > n, que es el origen de los intervalos infinitos',
+        ('Conformal layer', 'Calibration window',
+         f'{R.CAL_INI.date()} to {R.CAL_FIN.date()}',
+         f'{n_dias} days, {n_filas:,} rows', 'rev_lib.py:CAL_INI, CAL_FIN'),
+        ('Conformal layer', 'Horizon embargo', f'{R.EMBARGO_DIAS} days',
+         'every online window ends at t-7 and the feedback of alpha is delayed by '
+         '7 steps', 'rev_lib.py:EMBARGO_DIAS'),
+        ('Conformal layer', 'Conformal quantile',
+         'order statistic k = ceil((n+1)(1-alpha_t))',
+         'q = +infinity if k > n, which is the origin of the infinite intervals',
          'conformal_metodos.py:q_conformal'),
         # --- transporte ---
-        ('Transporte', 'Largo de la ventana reciente',
-         f'{defecto(R.transporte_aci, "ventana_dias")} dias',
-         'la ventana termina en t menos el embargo, no en t',
+        ('Transport', 'Length of the recent window',
+         f'{defecto(R.transporte_aci, "ventana_dias")} days',
+         'the window ends at t minus the embargo, not at t',
          'rev_lib.py:transporte_aci(ventana_dias)'),
-        ('Transporte', 'Periodo de refresco del mapa',
-         f'{defecto(R.transporte_aci, "refresco_dias")} dias',
-         'el mapa se recalcula cada 7 dias; entre refrescos el pool se congela',
+        ('Transport', 'Refresh period of the map',
+         f'{defecto(R.transporte_aci, "refresco_dias")} days',
+         'the map is recomputed every 7 days; between refreshes the pool is frozen',
          'rev_lib.py:transporte_aci(refresco_dias)'),
-        ('Transporte', 'Minimo de scores recientes para refrescar', '100',
-         'si la ventana reciente tiene menos, se conserva el pool anterior',
+        ('Transport', 'Minimum recent scores for a refresh', '100',
+         'with fewer scores in the recent window the previous pool is kept',
          'rev_lib.py:transporte_aci'),
-        ('Transporte', 'Regla de seleccion de cuantiles empiricos',
-         f'rejilla equiespaciada de g niveles en [0,1], '
+        ('Transport', 'Rule for the empirical quantiles',
+         f'equispaced grid of g levels on [0,1], '
          f'g = min({defecto(cm.mapa_transporte_banda, "n_grid")}, max(20, m/2))',
-         'm es el numero de scores de la ventana reciente; el segundo termino '
-         'evita una rejilla mas fina que los datos',
-         'conformal_metodos.py:mapa_transporte_banda'),
-        ('Transporte', 'Esquema de interpolacion',
-         'lineal por tramos, dos veces',
-         'primero s -> nivel sobre (q_old, niveles), luego nivel -> q_reg '
-         'sobre (niveles, q_reg); equivale al reordenamiento creciente '
-         'T = F_new^{-1} o F_old',
+         'm is the number of scores in the recent window; the second term prevents '
+         'a grid finer than the data', 'conformal_metodos.py:mapa_transporte_banda'),
+        ('Transport', 'Interpolation scheme', 'piecewise linear, twice',
+         'first s -> level on (q_old, levels), then level -> q_reg on '
+         '(levels, q_reg); this is the increasing rearrangement T = F_new^{-1} o F_old',
          'conformal_metodos.py:mapa_transporte_banda.T'),
-        ('Transporte', 'Repeticiones bootstrap del mapa',
+        ('Transport', 'Bootstrap repetitions of the map',
          f'B = {defecto(cm.mapa_transporte_banda, "B")}',
-         'remuestreo con reemplazo de la ventana reciente; el promedio de las '
-         'B replicas es el mapa (bagging) y su desviacion estandar por nivel '
-         'es la banda', 'conformal_metodos.py:mapa_transporte_banda(B)'),
-        ('Transporte', 'Funcion de shrinkage de cola',
+         'resampling of the recent window with replacement; the mean of the B '
+         'replicates is the map (bagging) and their standard deviation per level '
+         'is the band', 'conformal_metodos.py:mapa_transporte_banda(B)'),
+        ('Transport', 'Tail shrinkage function',
          'lambda(u) = 1 / (1 + (sd_boot(u)/tau)^2)',
-         'q_reg(u) = (1-lambda(u)) q_old(u) + lambda(u) q_new_bag(u); '
-         'lambda ~ 1 donde el mapa es estable y ~ 0 donde es ruidoso, '
-         'con lambda = 0 la identidad, es decir el cuantil viejo',
-         'conformal_metodos.py:mapa_transporte_banda'),
-        ('Transporte', 'Intensidad del shrinkage',
-         f'tau = {defecto(cm.mapa_transporte_banda, "tau")} en unidades PIT',
-         'escala de regularizacion FIJA, no ajustada contra el test',
+         'q_reg(u) = (1-lambda(u)) q_old(u) + lambda(u) q_new_bag(u); lambda ~ 1 '
+         'where the map is stable and ~ 0 where it is noisy, and lambda = 0 is the '
+         'identity, that is the old quantile', 'conformal_metodos.py:mapa_transporte_banda'),
+        ('Transport', 'Shrinkage strength',
+         f'tau = {defecto(cm.mapa_transporte_banda, "tau")} in PIT units',
+         'fixed regularisation scale, not tuned against the test set',
          'conformal_metodos.py:mapa_transporte_banda(tau)'),
-        ('Transporte', 'Monotonizacion posterior',
-         'maximo acumulado y recorte a [0,1]',
-         'garantiza que el mapa transportado siga siendo una funcion cuantil',
+        ('Transport', 'Monotonisation', 'running maximum and clip to [0,1]',
+         'keeps the transported map a quantile function',
          'conformal_metodos.py:mapa_transporte_banda'),
         # --- ACI ---
-        ('ACI', 'Actualizacion', 'alpha_{t+1} = alpha_t + gamma (alpha - err_t)',
-         'err_t = 1{Y_t > U_t}, promediado sobre las centrales del dia t',
-         'rev_lib.py:aci'),
-        ('ACI', 'gamma reportado en el manuscrito', '0.02 y 0.05',
-         'valores de la version enviada, conservados por continuidad',
-         'rev_lib.py'),
-        ('ACI', 'gamma seleccionado por origen rodante', '0.005',
-         'menor interval score en la validacion interna, Fase 3; produce cero '
-         'intervalos infinitos', 'fase3_seleccion_hiperparametros.py'),
-        ('ACI', 'Ventana seleccionada por origen rodante', '120 dias',
-         'idem, para Transporte+ACI', 'fase3_seleccion_hiperparametros.py'),
-        ('ACI', 'Recorte de alpha_t, version enviada', '[-1, 2]',
-         'permite alpha_t <= 0 y por tanto q = +infinito: es el origen de los '
-         'intervalos infinitos', 'rev_lib.py:aci(alpha_min, alpha_max)'),
-        ('ACI', 'Recorte de alpha_t recomendado', 'alpha_min = 0.005',
-         'elimina por completo los intervalos infinitos en las cinco ventanas '
-         f'a un costo de a lo mas {costo_cobertura_cota_alpha():.1f} puntos de '
-         'cobertura (Fase 4)',
+        ('ACI', 'Update', 'alpha_{t+1} = alpha_t + gamma (alpha - err_t)',
+         'err_t = 1{Y_t > U_t}, averaged over the plants of day t', 'rev_lib.py:aci'),
+        ('ACI', 'gamma reported in the submitted version', '0.02 and 0.05',
+         'kept in the tables for continuity', 'rev_lib.py'),
+        ('ACI', 'gamma selected by rolling origin', g_sel,
+         'lowest interval score on the inner validation set; no infinite intervals '
+         'there', 'fase3_hiperparametros_elegidos.json'),
+        ('ACI', 'Window selected by rolling origin', f'{v_tra} days',
+         'as above, for Transport+ACI', 'fase3_hiperparametros_elegidos.json'),
+        ('ACI', 'Bound on alpha_t, submitted version', '[-1, 2]',
+         'allows alpha_t <= 0 and hence q = +infinity: the origin of the infinite '
+         'intervals', 'rev_lib.py:aci(alpha_min, alpha_max)'),
+        ('ACI', 'Recommended bound on alpha_t', 'alpha_min = 0.005',
+         'removes infinite intervals in all five windows at a cost of at most '
+         f'{costo_cobertura_cota_alpha():.1f} points of coverage',
          'fase4_metricas_benchmarks.py'),
-        ('ACI', 'ORDEN DE EJECUCION',
-         'refresco del mapa, luego cuantil, luego intervalo, luego ACI',
-         'en la fecha t: (i) si toca refresco se recalcula el mapa con la '
-         'ventana que termina en t-7 y se transporta todo el pool de '
-         'calibracion; (ii) se toma el cuantil del pool transportado al '
-         'alpha_t VIGENTE, que aun no incorpora el error de t; (iii) se emite '
-         'el intervalo; (iv) el error de t entra a la cola de embargo y '
-         'actualiza alpha solo 7 pasos despues. El mapa nunca usa el alpha del '
-         'ACI y el ACI nunca usa el mapa: el unico acoplamiento es el pool',
-         'rev_lib.py:transporte_aci'),
+        ('ACI', 'Order of execution',
+         'map refresh, then quantile, then interval, then ACI',
+         'on date t: (i) if a refresh is due, the map is recomputed from the window '
+         'ending at t-7 and the whole calibration pool is transported; (ii) the '
+         'quantile is taken from the transported pool at the CURRENT alpha_t, which '
+         'does not yet include the error of t; (iii) the interval is emitted; (iv) '
+         'the error of t enters the embargo queue and updates alpha only 7 steps '
+         'later. The map never uses the alpha of ACI and ACI never uses the map: the '
+         'only coupling is the pool', 'rev_lib.py:transporte_aci'),
         # --- evaluacion ---
-        ('Evaluacion', 'Metrica principal',
-         'interval score unilateral IS = U + (2/alpha) max(y-U, 0)',
-         'propio, en MWh, e infinito si U es infinito', 'rev_lib.py:interval_score_unilateral'),
-        ('Evaluacion', 'Error estandar de la cobertura',
-         'clusterizado por fecha',
-         'promedia la cobertura de cada dia y calcula el error entre dias',
+        ('Evaluation', 'Primary metric',
+         'one-sided interval score IS = U + (2/alpha) max(y-U, 0)',
+         'proper, in MWh, and infinite if U is infinite',
+         'rev_lib.py:interval_score_unilateral'),
+        ('Evaluation', 'Standard error of coverage', 'clustered by date',
+         'averages the coverage of each day and takes the error across days',
          'conformal_metodos.py:cobertura_clusterizada'),
-        ('Evaluacion', 'Bootstrap de las diferencias entre metodos',
-         '2000 remuestreos de dias completos',
-         'la unidad remuestreada es el dia, no la fila; IC de percentil al 95%',
+        ('Evaluation', 'Bootstrap of the differences between methods',
+         f'{defecto(R.bootstrap_diferencia, "B")} resamples of whole days',
+         'the resampled unit is the day, not the row; 95% percentile interval',
          'rev_lib.py:bootstrap_diferencia'),
-        ('Evaluacion', 'Muestras para el CRPS', '300 por fila',
-         'CRPS por muestreo, E|X-y| - 0.5 E|X-X\'|', 'conformal_metodos.py:crps'),
-        ('Evaluacion', 'Deteccion de puntos de cambio',
-         'PELT y segmentacion binaria, coste L2, pen = sigma^2 log n, min_size = 3',
-         'penalizacion BIC con k = 1; la sensibilidad recorre k en '
-         '{0.5, 1, 2, 3, 5} y min_size en {2, 3, 4}', 'fase6_cronologia.py:puntos_de_cambio'),
+        ('Evaluation', 'Samples for the CRPS', f'{defecto(R.crps_pred, "n")} per row',
+         "sampled CRPS, E|X-y| - 0.5 E|X-X'|", 'rev_lib.py:crps_pred'),
+        ('Evaluation', 'Change-point detection',
+         'PELT and binary segmentation, L2 cost, pen = sigma^2 log n, min_size = 3',
+         'BIC penalty with k = 1; the sensitivity grid spans k in '
+         '{0.5, 1, 2, 3, 5} and min_size in {2, 3, 4}', 'fase6_cronologia.py:puntos_de_cambio'),
         # --- semillas ---
-        ('Semillas', 'Entrenamiento de los modelos base', str(R.SEED_BASE),
-         'XGBoost hist determinista, n_jobs = 4, KFold', 'entrenar_baselines.py:SEED'),
-        ('Semillas', 'Aleatorizacion del atomo PIT y bootstrap del mapa',
-         str(R.SEED_CONFORMAL),
-         'un unico generador consumido en orden: primero el score, luego '
-         'gamma = 0.02 y luego gamma = 0.05', 'rev_lib.py:SEED_CONFORMAL'),
-        ('Semillas', 'Muestreo del CRPS', str(R.SEED_CRPS), '', 'rev_lib.py:SEED_CRPS'),
-        ('Semillas', 'Bootstrap de diferencias, bloques y permutaciones',
+        # Las etiquetas son cortas y no aparecen en la prosa, para que la guarda
+        # del empaquetador y verificar_manuscrito.py puedan comprobar sobre el
+        # PDF que cada fila se imprime (H11).
+        ('Seeds', 'Training of the base models', str(R.SEED_BASE),
+         'deterministic XGBoost hist, n_jobs = 4, KFold', 'entrenar_baselines.py:SEED'),
+        ('Seeds', 'PIT atom and map bootstrap', str(R.SEED_CONFORMAL),
+         'a single generator consumed in order: first the score, then gamma = 0.02 '
+         'and then gamma = 0.05', 'rev_lib.py:SEED_CONFORMAL'),
+        ('Seeds', 'Sampling of the CRPS', str(R.SEED_CRPS), '', 'rev_lib.py:SEED_CRPS'),
+        ('Seeds', 'Bootstrap of differences, blocks and permutations',
          str(R.SEED_BOOTSTRAP), '', 'rev_lib.py:SEED_BOOTSTRAP'),
     ]
 
@@ -228,13 +240,12 @@ def main():
     # longtable se parte solo y no vuelve a fallar si la tabla crece.
     #
     # Se emite el entorno COMPLETO, no solo el cuerpo: TeX no acepta un \input
-    # cuyo primer token sea \multicolumn dentro de una tabla.
+    # cuyo primer token sea \multicolumn dentro de una tabla. La cabecera del
+    # .tex va en ingles porque el archivo viaja en el paquete de fuentes.
     cab = ('\\toprule\nItem & Value & Detail \\\\\n\\midrule\n')
     doc = (
-        '%% generado por flagship/revision/fase1_hiperparametros.py\n'
-        '%% NO EDITAR A MANO: se lee del codigo fuente\n'
-        '%% longtable y no table*: con table* la tabla no cabia en una pagina\n'
-        '%% y LaTeX descartaba las ultimas filas sin error (ver H11).\n'
+        '%% generated from the source code by flagship/revision/fase1_hiperparametros.py\n'
+        '%% do not edit by hand\n'
         '\\begingroup\n\\footnotesize\n'
         '\\setlength{\\LTcapwidth}{\\textwidth}\n'
         '\\begin{longtable}{p{0.30\\textwidth}p{0.22\\textwidth}p{0.40\\textwidth}}\n'
@@ -258,7 +269,7 @@ def main():
 
     print('=' * 92)
     print('FASE 1 - TABLA DE HIPERPARAMETROS (R1.2, R2.4)')
-    print(f'{len(df)} entradas, leidas del codigo, no escritas a mano')
+    print(f'{len(df)} entradas, leidas del codigo y de los resultados, no escritas a mano')
     print('=' * 92)
     for b, g in df.groupby('bloque', sort=False):
         print(f'\n--- {b} ---')
