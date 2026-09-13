@@ -151,6 +151,16 @@ def main():
           f'r = {r15:.4f}  pendiente = {m15:.4f}  intercepto = {b15:.4f}')
     print(f'  rango cubierto: [{x0[orig].min():+.2f}, {x0[orig].max():+.2f}] pp')
 
+    # El enunciado se acota a la sobre-cobertura, asi que se reporta tambien el
+    # ajuste sobre las celdas en que el split estatico sobre-cubre (x >= 0). El
+    # conjunto se fija en la muestra completa y en cada replica se recomputan x
+    # e y de esas mismas celdas; no consume numeros aleatorios, de modo que los
+    # intervalos de las cuarenta celdas no cambian.
+    sob = x0 >= 0
+    rs, ms, bs = ajuste(x0[sob], y0[sob])
+    print(f'\nrestringido a las celdas que sobre-cubren ({int(sob.sum())} celdas): '
+          f'r = {rs:.4f}  pendiente = {ms:.4f}  intercepto = {bs:.4f}')
+
     # ---------- bootstrap por bloques de dia, comun a todas las celdas -------
     rng = np.random.default_rng(SEMILLA)
     por_dia, dias_ventana = {}, {}
@@ -162,7 +172,7 @@ def main():
             por_dia[modelo][nombre] = g
             dias_ventana.setdefault(nombre, len(g))
 
-    reps = []
+    reps, reps_sob = [], []
     for _ in range(B):
         elegidos = {nm: rng.integers(0, n, n) for nm, n in dias_ventana.items()}
         sel = {}
@@ -176,7 +186,8 @@ def main():
         c = celdas(series, sel)
         if c is not None:
             reps.append(ajuste(c[0], c[1]))
-    reps = np.array(reps)
+            reps_sob.append(ajuste(c[0][sob], c[1][sob]))
+    reps, reps_sob = np.array(reps), np.array(reps_sob)
 
     ic = {}
     print(f'\nbootstrap ({len(reps)} replicas validas de {B}):')
@@ -186,6 +197,13 @@ def main():
                       excluye_cero=bool(lo * hi > 0))
         print(f'  {nm:11s} {[r0, m0, b0][j]:+9.4f}   IC 95% [{lo:+.4f}, {hi:+.4f}]'
               f'   {"excluye el cero" if lo * hi > 0 else "CRUZA CERO"}')
+    ic_sob = {}
+    print(f'  celdas que sobre-cubren ({int(sob.sum())}):')
+    for j, nm in enumerate(('r', 'pendiente', 'intercepto')):
+        lo, hi = np.percentile(reps_sob[:, j], [2.5, 97.5])
+        ic_sob[nm] = dict(punto=[rs, ms, bs][j], lo=float(lo), hi=float(hi),
+                          excluye_cero=bool(lo * hi > 0))
+        print(f'  {nm:11s} {[rs, ms, bs][j]:+9.4f}   IC 95% [{lo:+.4f}, {hi:+.4f}]')
 
     # ---------- robustez ------------------------------------------------
     loo = [(etq[i], *ajuste(np.delete(x0, i), np.delete(y0, i)))
@@ -294,6 +312,9 @@ def main():
         simetrico=dict(n_celdas_bajo_menos2=n_neg, condicion_i=bool(cond_i),
                        F=float(Fst), p=p_chow, condicion_ii=bool(cond_ii),
                        adoptar=bool(adoptar), quiebre=quiebre),
+        sobrecubren=dict(n=int(sob.sum()), r=rs, pendiente=ms, intercepto=bs,
+                         rango=[float(x0[sob].min()), float(x0[sob].max())],
+                         ic_bootstrap=ic_sob),
     ), open(SAL / 'fase0b_diagnostico.json', 'w'), indent=1)
     print(f'\nguardado en {SAL.relative_to(R.REPO)}/')
 

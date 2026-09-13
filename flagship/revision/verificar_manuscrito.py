@@ -112,6 +112,32 @@ def main():
         f'[{d15.min():+.2f}, {d15.max():+.2f}]', f'[{d15.min():+.2f}, {d15.max():+.2f}]',
         en_tex(f'only over $[{d15.min():+.2f}, {d15.max():+.2f}]$ percentage points'),
         'fase0_diagnostico.csv')
+    # C2: el ajuste de las celdas que sobre-cubren, en la Tabla 6 y en 5.3, y
+    # el verbo del abstract, que no puede afirmar una forma lineal que la
+    # Seccion 5.3 declara no determinada por debajo del nominal
+    sb, isb = jb['sobrecubren'], jb['sobrecubren']['ic_bootstrap']
+    c40 = pd.read_csv(RES / 'fase0b' / 'fase0b_celdas.csv')
+    fila = (f"Restricted to the {sb['n']} cells in which the static split over-covers & ${sb['r']:.3f}$ & "
+            f"${sb['pendiente']:.2f}$ & ${sb['intercepto']:+.2f}$ \\\\")
+    chk('Tabla 6', 'ajuste sobre las celdas que sobre-cubren', f"{sb['n']} celdas, r {sb['r']:.3f}",
+        f"r {sb['r']:.3f}, pendiente {sb['pendiente']:.2f}, intercepto {sb['intercepto']:+.2f}",
+        sb['n'] == int((c40.sobrecobertura_pp >= 0).sum()) and en_tex(fila),
+        'fase0b_diagnostico.json + fase0b_celdas.csv')
+    frase = (f"Restricted to the {palabra(sb['n'])} cells in which the static split over-covers, the region to which "
+             f"the claim is scoped, the slope is steeper, ${sb['pendiente']:.2f}$ with a bootstrap interval of "
+             f"$[{isb['pendiente']['lo']:.2f}, {isb['pendiente']['hi']:.2f}]$ against ${cb['pendiente']:.2f}$ over all "
+             f"{palabra(jb['n_celdas'])} cells, and the relationship keeps its sign and its strength, "
+             f"$r={sb['r']:.3f}$, $[{isb['r']['lo']:.3f}, {isb['r']['hi']:.3f}]$")
+    # "mas empinada", "mismo signo" y "misma fuerza" se exigen a los numeros, no solo al texto
+    chk('5.3', 'celdas que sobre-cubren: pendiente mas empinada, mismo signo y fuerza',
+        f"{sb['pendiente']:.2f} contra {cb['pendiente']:.2f}; r {sb['r']:.3f} contra {cb['r']:.3f}",
+        f"IC de r [{isb['r']['lo']:.3f}, {isb['r']['hi']:.3f}]",
+        sb['pendiente'] < cb['pendiente'] < 0 and isb['pendiente']['hi'] < 0 and isb['r']['hi'] < 0
+        and abs(sb['r'] - cb['r']) < 0.01
+        and en_tex(frase, f"Of the {jb['n_celdas'] - sb['n']} cells below nominal"), 'fase0b_diagnostico.json')
+    chk('abstract', 'verbo del diagnostico', 'grows with', 'sin "is linear in"',
+        en_tex('the width reduction grows with how much the static split over-covers') and 'is linear in' not in TEX,
+        'Seccion 5.3')
     chk('5.4', 'ventaja del GBM a presupuesto equiparado', '2.4 % y 1.8 %',
         'segun obj1_capacidad.csv',
         en_tex('2.4 per cent', '1.8 per cent'), 'obj1_capacidad.csv')

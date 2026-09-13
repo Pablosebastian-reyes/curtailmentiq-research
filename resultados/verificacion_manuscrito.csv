@@ -5,6 +5,9 @@ Tabla 5,ajuste sobre las quince celdas,"-0.755, -4.36, +5.45","-0.755, -4.36, +5
 5.3,intervalo bootstrap del intercepto ampliado,"[+1.60, +9.84]","[+1.60, +9.84]",si,fase0b_diagnostico.json
 5.3,rango de sobre-cobertura cubierto por las cuarenta celdas,"[-8.42, +5.34]","[-8.42, +5.34]",si,fase0b_diagnostico.json
 5.3,rango de sobre-cobertura de las quince celdas,"[-2.06, +5.34]","[-2.06, +5.34]",si,fase0_diagnostico.csv
+Tabla 6,ajuste sobre las celdas que sobre-cubren,"25 celdas, r -0.870","r -0.870, pendiente -6.97, intercepto +11.97",si,fase0b_diagnostico.json + fase0b_celdas.csv
+5.3,"celdas que sobre-cubren: pendiente mas empinada, mismo signo y fuerza",-6.97 contra -4.89; r -0.870 contra -0.873,"IC de r [-0.928, -0.528]",si,fase0b_diagnostico.json
+abstract,verbo del diagnostico,grows with,"sin ""is linear in""",si,Seccion 5.3
 5.4,ventaja del GBM a presupuesto equiparado,2.4 % y 1.8 %,segun obj1_capacidad.csv,si,obj1_capacidad.csv
 5.4,deterioro del hurdle al quintuplicar capacidad,89.5 a 95.5 MWh,segun obj1_capacidad.csv,si,obj1_capacidad.csv
 5.4,desplazamiento del cuantil conformal por mu,"0.9242 a 0.9532, 93 % por mu",segun obj1c_mecanismo.json,si,obj1c_mecanismo.json

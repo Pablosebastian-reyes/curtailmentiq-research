@@ -564,6 +564,8 @@ def tabla_diagnostico_ampliado():
     import json
     j = json.load(open(RES / 'fase0b' / 'fase0b_diagnostico.json'))
     c, q, ic = j['cuarenta'], j['quince_originales'], j['ic_bootstrap']
+    # C2: el enunciado se acota a la sobre-cobertura; su ajuste, con su propio IC
+    s, isb = j['sobrecubren'], j['sobrecubren']['ic_bootstrap']
     # el rango de las quince celdas estaba tipeado; se lee del diagnostico
     d15 = pd.read_csv(RES / 'fase0' / 'fase0_diagnostico.csv').sobrecobertura_pp_exacta
     nrep = format(j['B'], ',').replace(',', '{,}')
@@ -575,6 +577,12 @@ def tabla_diagnostico_ampliado():
          '\\addlinespace',
          f"Restricted to the {q['n']} cells of the three-model design (Table~\\ref{{tab:diagnostico}}) & "
          f"${q['r']:.3f}$ & ${q['pendiente']:.2f}$ & ${q['intercepto']:+.2f}$ \\\\",
+         '\\addlinespace',
+         f"Restricted to the {s['n']} cells in which the static split over-covers & "
+         f"${s['r']:.3f}$ & ${s['pendiente']:.2f}$ & ${s['intercepto']:+.2f}$ \\\\",
+         f"\\quad 95\\% bootstrap interval & $[{isb['r']['lo']:.3f}, {isb['r']['hi']:.3f}]$ & "
+         f"$[{isb['pendiente']['lo']:.2f}, {isb['pendiente']['hi']:.2f}]$ & "
+         f"$[{isb['intercepto']['lo']:+.2f}, {isb['intercepto']['hi']:+.2f}]$ \\\\",
          '\\addlinespace',
          f"Range of over-coverage covered & \\multicolumn{{3}}{{c}}{{"
          f"$[{j['rango_x'][0]:+.2f}, {j['rango_x'][1]:+.2f}]$ pp over "
@@ -593,7 +601,9 @@ def tabla_diagnostico_ampliado():
                 f"cells, {nrep} replicates, seed {j['semilla']}. "
                 'The restriction to the fifteen cells of the three-model design '
                 'of Table~\\ref{tab:diagnostico} is shown for '
-                'comparison. Generated from '
+                f"comparison, as is the fit over the {s['n']} cells in which the static split "
+                'over-covers, the region to which the claim is scoped, with intervals from the '
+                'same replicates. Generated from '
                 '\\texttt{resultados/fase0b/fase0b\\_diagnostico.json}.',
         label='tab:diag_ampliado')
 

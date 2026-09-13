@@ -1576,3 +1576,35 @@ una paginacion corrida en cuatro o cinco paginas (tibshirani2019, 2526-2536
 contra 2530-2540 en la entrada; romano2019, 3538-3548 contra 3543-3553).
 NeurIPS circula con dos paginaciones.
 
+### C2. El diagnostico en la region a la que se acota el enunciado
+
+`fase0b_diagnostico_ampliado.py` agrega el ajuste sobre las 25 celdas en que el
+split estatico sobre-cubre (sobre-cobertura >= 0), con su IC sobre las mismas
+2 000 replicas de bloques de dia. El conjunto se fija en la muestra completa y no
+consume numeros aleatorios, asi que todo lo anterior del json queda identico
+(comprobado clave a clave contra 9981eb3, igual que `fase0b_celdas.csv`); la unica
+clave nueva es `sobrecubren`. r = -0.870 [-0.928, -0.528], pendiente -6.97
+[-7.90, -3.60], intercepto +11.97 [+3.06, +17.07].
+
+```
+$VENV flagship/revision/fase0b_diagnostico_ampliado.py
+$VENV flagship/revision/fase9_tablas_tex.py      # solo cambia tab_diag_ampliado.tex
+```
+
+- Tabla 6: fila nueva con su intervalo; la leyenda la nombra.
+- 5.3: una oracion, al final del parrafo que acota el enunciado a la
+  sobre-cobertura: en esa region la pendiente es mas empinada y la relacion
+  conserva signo y fuerza. Las tres cosas se exigen a los numeros en el
+  verificador, no solo a la frase.
+- Abstract: "is linear in" pasa a "grows with". El titular sigue en -4.89 sobre
+  cuarenta celdas; lo que no sobrevivia era la forma lineal, que la Seccion 5.3
+  declara no determinada por debajo del nominal.
+- No se tocan las frases con "linearly related" de 5.3 (quince celdas), de la
+  Seccion 8 ni de la carta (quince celdas, r = -0.755): las tres hablan de la
+  sobre-cobertura, donde la relacion se sostiene.
+
+```
+$VENV flagship/revision/verificar_manuscrito.py   # 79 de 79
+# manuscrito 37 paginas, carta 21, cero errores y cero referencias sin resolver
+```
+
