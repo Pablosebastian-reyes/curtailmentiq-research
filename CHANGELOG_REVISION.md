@@ -1768,3 +1768,27 @@ $VENV flagship/revision/verificar_manuscrito.py   # 81 de 81
 # manuscrito 37 paginas, carta 20, sin paginas en blanco, cero errores
 ```
 
+### Notas en documentos internos y ronda tres (encima del tag `submission-2026-09-14`)
+
+El tag `submission-2026-09-14` queda en a95d31b, que es lo enviado; esto viene
+despues. Nada se regenera ni se recompila.
+
+- `BRIEFING_ESTRATEGIA.md` y `resultados/fase0_model_agnostic.md` llevan una nota
+  de cabecera en vez de reescribirse. Son documentos internos fechados, y es la
+  misma politica que la carta declara en R2.2, punto 4: los documentos internos
+  fechados se anotan, no se reescriben. La del segundo es la que importa: vive en
+  el repositorio que cita el paper, y desde C1 decia que la diferencia de interval
+  score del GBM contenia el cero cuando el paper dice que lo excluye. La nota da
+  ademas la causa de su ajuste de quince celdas (-0.757, -4.39, +5.49): se calculo
+  sobre las entradas de `fase0_diagnostico.csv` redondeadas a un decimal, lo que
+  corrigio D1 (seccion 10.4). Comprobado reajustando esas dos columnas del CSV de
+  77556ca: -0.7567, -4.386, +5.4864.
+- `REVISION_PLAN.md`: la Seccion 7 tiene nueve limitaciones, no diez (C5b), y el
+  inventario gana la fila de la Tabla 13, que B4 agrego al manuscrito y no al plan.
+- `DECISIONS.md`, ronda tres: el empate de la Fase 3 (761.2 contra 762.6), el
+  "statistically indistinguishable" sin bootstrap pareado y la paginacion de
+  NeurIPS.
+- `entrega_revision/`: las copias 4, 5, 8 y 9 quedan iguales a sus fuentes. La 6 y
+  la 7 no cambian: la verificacion independiente declara el commit que verifico y
+  el informe de los revisores es literal.
+

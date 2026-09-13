@@ -4,6 +4,8 @@
 **Estado:** ejecutado. **El resultado es una condicion de parada tipo (a)**: 
 ver `HALLAZGOS_CRITICOS.md`, hallazgo H1.
 
+> **Nota del 14 de septiembre.** Las cifras de interval score de esta nota (tabla principal, diferencia +13.9 [−10.7, +37.8] y tabla de la mejor combinación) son anteriores a C1 y usan 2/α. Con 1/α la diferencia del GBM en la transición es +14.5 [+4.9, +24.0] y excluye el cero, y el GBM con split estático es el mejor en cuatro de las cinco ventanas. El ajuste de quince celdas de esta nota (−0.757, −4.39, +5.49) se calculó sobre las entradas de `fase0_diagnostico.csv` redondeadas a un decimal; sobre las series sin redondear, como se hace desde la corrección D1 (`CHANGELOG_REVISION.md`, sección 10.4), es −0.755, −4.36, +5.45. Coberturas, anchos y CRPS no cambian; los valores vigentes están en los CSV listados al final.
+
 ## Pregunta
 
 El revisor pide implementar un modelo base probabilistico competitivo alternativo

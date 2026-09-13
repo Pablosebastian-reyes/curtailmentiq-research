@@ -70,7 +70,7 @@ Leyenda de estado: `hecho` / `en curso` / `pendiente` / `refutado`.
 | **Q3** | R1 marca **No** en "¿son apropiados y estan bien descritos los analisis estadisticos?" | Reporte estadistico insuficiente | Cubierto por R1.4 (seleccion), R1.5 (metricas propias e IC de las diferencias) y R2.5 (dependencia de panel cuantificada). Todo IC de diferencia entre metodos ahora es bootstrap por bloques de dia | **hecho** |
 | **Q5** | R1 marca **No** en "¿la interpretacion y las conclusiones estan sostenidas por los datos?"; R2 pide expansion | La conclusion excedia lo que los datos sostienen | Es el mismo problema que detecta H1. La contribucion se reencuadra como diagnostico y la afirmacion de la reduccion de un tercio se acota al modelo base evaluado | **hecho** |
 | **Q4** | Ambos: "¿se beneficiaria de tablas o figuras adicionales?" | Faltan figuras | Tres figuras nuevas: diagrama de flujo del algoritmo (fig. 6), comparacion entre modelos base (fig. 7) y aporte marginal por componente (fig. 8) | **hecho** |
-| **Q7** | Ambos marcan **No** en "¿se declaran las limitaciones?" | Limitaciones insuficientes | Seccion 7 nueva y dedicada, con diez limitaciones declaradas | **hecho** |
+| **Q7** | Ambos marcan **No** en "¿se declaran las limitaciones?" | Limitaciones insuficientes | Seccion 7 nueva y dedicada, con nueve limitaciones declaradas | **hecho** |
 | **Q8/Q9** | Ambos: estructura, flujo y edicion de lenguaje | Reestructuracion y edicion | Secciones reordenadas, subsecciones anadidas y edicion de lenguaje en todo el manuscrito | **hecho** |
 | **ED** | Nota editorial | Titulo muy largo; cuestiona la mencion a Chile | Tres titulos alternativos sin el pais; la descripcion del sistema se mueve al abstract | **hecho** |
 
@@ -90,6 +90,7 @@ Leyenda de estado: `hecho` / `en curso` / `pendiente` / `refutado`.
 | Tabla 10, cota de alpha | `resultados/fase4/fase4_cota_alpha.csv` | `fase4_metricas_benchmarks.py` |
 | Tabla 11, dependencia de panel y cobertura desagregada | `resultados/fase5/fase5_remedios.csv`, `fase5_diagnostico_dependencia.csv`, `fase5_cobertura_desagregada.csv` | `fase5_dependencia_panel.py` |
 | Tabla 12, sensibilidad de la frontera | `resultados/fase6/fase6_sensibilidad_frontera.csv` | `fase6_cronologia.py` |
+| Tabla 13, sensibilidad gamma x ventana sobre el test | `resultados/fase3/fase3_sensibilidad_test.csv` | `fase3_seleccion_hiperparametros.py` |
 | Tabla 7, escalera de capacidad | `resultados/verificacion/obj1_capacidad.csv`, `obj1b_escalera.csv` | `verificacion/obj1_capacidad_contra_forma.py`, `obj1b_escalera_capacidad.py` |
 | Tabla 6, diagnostico sobre cuarenta celdas | `resultados/fase0b/fase0b_diagnostico.json` | `fase0b_diagnostico_ampliado.py` |
 | Tabla C.14, hiperparametros (apendice C) | `resultados/fase1/hiperparametros.csv` | `fase1_hiperparametros.py` |

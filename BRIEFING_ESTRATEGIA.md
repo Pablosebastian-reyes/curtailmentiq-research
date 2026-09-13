@@ -1,5 +1,7 @@
 # SEGAN-D-26-03850: estado al 12 de septiembre
 
+> **Instantánea superada.** Estado al 12 de septiembre, anterior al cierre del 14 (C1 a C8, C5b y L1): sus conteos, la numeración de la Tabla C.13 (hoy C.14) y los interval score quedaron atrás y no se actualizan. El estado enviado es el tag `submission-2026-09-14`; el detalle está en `CHANGELOG_REVISION.md`, sección 25.
+
 Documento único para la conversación de estrategia. Reemplaza al briefing
 anterior, que quedó desfasado y se contradecía en sus propios conteos. Todo
 número sale de un archivo versionado o de un build y se regenera con un
