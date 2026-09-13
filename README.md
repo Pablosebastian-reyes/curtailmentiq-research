@@ -83,6 +83,7 @@ The same checksum file also lists the 53 original CEN files of `data-raw/`; thos
 | 19 | `python flagship/revision/fase8_buscar_referencias.py cotejar` | `resultados/fase8/bibliografia_cotejada.csv`, every DOI of the bibliography resolved against Crossref or DataCite and compared with its entry. Needs network access. | none |
 | 20 | `python flagship/revision/fase9_tablas_tex.py` and `fase9_figuras_revision.py` | The table bodies in `resultados/tablas_tex/` that the manuscript reads with `\input`, and Figures 4, 7, 8 and 9. Needs steps 9 to 18. | deterministic |
 | 21 | `python flagship/revision/verificar_manuscrito.py` | `resultados/verificacion_manuscrito.csv`: every number written in the prose of the manuscript, checked against the result file that produces it, including the rows of the compiled PDF in `build/`. | deterministic |
+| 22 | `python flagship/revision/verificar_referencias_cruzadas.py` | Checks every literal reference to a section, table, figure, algorithm or appendix in the response letter, `REVISION_PLAN.md` and `CHANGELOG_REVISION.md` against the numbering of the manuscript, after checking its own parser against `build/SEGAN_paper_FINAL.aux`. Writes nothing; exits 1 on any broken or misdirected reference. | deterministic |
 
 The complete execution order, and the command behind every change made in the revision, are in [REVISION_PLAN.md](REVISION_PLAN.md) and [CHANGELOG_REVISION.md](CHANGELOG_REVISION.md).
 

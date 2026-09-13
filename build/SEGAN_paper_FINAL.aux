@@ -1,0 +1,249 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\emailauthor{pablo.reyes.ce@usach.cl}{Pablo Reyes Cerda\corref {cor1}}
+\emailauthor{kceam@ubiobio.cl}{Kerven Cea Morales}
+\Newlabel{cor1}{1}
+\citation{oshaughnessy2020}
+\Newlabel{usach}{a}
+\Newlabel{ubb}{b}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\citation{romano2019}
+\citation{henriot2015}
+\citation{joos2018}
+\citation{tang2018}
+\citation{schermeyer2018}
+\citation{nycander2020}
+\citation{yildiz2023}
+\citation{bunodiere2020}
+\citation{denholm2019}
+\citation{wang2019}
+\citation{rayit2021}
+\citation{mohamad2021}
+\citation{vargas2015}
+\citation{fang2021}
+\citation{foss1983}
+\citation{teh2016}
+\citation{lai2022}
+\citation{glaum2023}
+\citation{su2025}
+\citation{maximov2016}
+\citation{oclon2021}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related work}{3}{section.2}\protected@file@percent }
+\newlabel{sec:related}{{2}{3}{Related work}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Curtailment: causes, measurement and forecasting}{3}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Storage, congestion and network capacity as the physical drivers}{3}{subsection.2.2}\protected@file@percent }
+\citation{lei2021}
+\citation{kruse2023}
+\citation{kirchnerbossi2024}
+\citation{maciejowska2016}
+\citation{uniejewski2021}
+\citation{vandermeer2018}
+\citation{mangalova2016}
+\citation{angelopoulos2023}
+\citation{tibshirani2019}
+\citation{barber2023}
+\citation{gibbs2021}
+\citation{guan2022}
+\citation{chernozhukov2021}
+\citation{romano2019}
+\citation{hu2022}
+\citation{jensen2024}
+\citation{peyre2019}
+\citation{chernozhukov2010}
+\citation{killick2012}
+\citation{gneiting2007}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Hybrid physical and data-driven modelling}{4}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Probabilistic forecasting and conformal prediction}{4}{subsection.2.4}\protected@file@percent }
+\citation{dataset2026}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Data}{5}{section.3}\protected@file@percent }
+\newlabel{sec:data}{{3}{5}{Data}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Source and scope}{5}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Construction and validation}{5}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Exploratory characterisation}{5}{subsection.3.3}\protected@file@percent }
+\newlabel{sec:eda}{{3.3}{5}{Exploratory characterisation}{subsection.3.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Geographic distribution of the 300 power plants in the dataset, coloured and shaped by technology, with marker area proportional to each plant's cumulative curtailed energy over January 2022 to May 2026.}}{6}{figure.1}\protected@file@percent }
+\newlabel{fig:map}{{1}{6}{Geographic distribution of the 300 power plants in the dataset, coloured and shaped by technology, with marker area proportional to each plant's cumulative curtailed energy over January 2022 to May 2026}{figure.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Distributional structure of plant-level curtailment. Top: share of zero-valued plant-days by technology. Bottom: distribution of positive magnitudes on a logarithmic scale, with the 50th, 90th and 99th percentiles marked. The combination of a large point mass at zero and a heavy right tail motivates the two-part model of Section~\ref {sec:methods}.}}{7}{figure.2}\protected@file@percent }
+\newlabel{fig:dist}{{2}{7}{Distributional structure of plant-level curtailment. Top: share of zero-valued plant-days by technology. Bottom: distribution of positive magnitudes on a logarithmic scale, with the 50th, 90th and 99th percentiles marked. The combination of a large point mass at zero and a heavy right tail motivates the two-part model of Section~\ref {sec:methods}}{figure.2}{}}
+\citation{killick2012}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Dating the distributional change}{8}{subsection.3.4}\protected@file@percent }
+\newlabel{sec:regime}{{3.4}{8}{Dating the distributional change}{subsection.3.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Methods}{8}{section.4}\protected@file@percent }
+\newlabel{sec:methods}{{4}{8}{Methods}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Problem setup and base forecasters}{8}{subsection.4.1}\protected@file@percent }
+\newlabel{sec:base}{{4.1}{8}{Problem setup and base forecasters}{subsection.4.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Monthly mean of $\log Y$ over positive plant-days, solar plants in Antofagasta and Atacama. Top: raw series, dominated by the austral annual cycle. Bottom: the same series net of a calendar-month median, with the two change points returned by PELT and by binary segmentation marked by vertical lines (May 2023 and January 2024) and the calibration and transition windows of Section~\ref {sec:methods} shaded. Neither algorithm returns a break in October 2024 or in 2025; the deseasonalised level reaches its maximum in October and November 2024 and then stops rising. The isolated spike of June 2025, discussed in Section~\ref {sec:discussion}, is the largest deseasonalised anomaly of the post-calibration record.}}{9}{figure.3}\protected@file@percent }
+\newlabel{fig:regime}{{3}{9}{Monthly mean of $\log Y$ over positive plant-days, solar plants in Antofagasta and Atacama. Top: raw series, dominated by the austral annual cycle. Bottom: the same series net of a calendar-month median, with the two change points returned by PELT and by binary segmentation marked by vertical lines (May 2023 and January 2024) and the calibration and transition windows of Section~\ref {sec:methods} shaded. Neither algorithm returns a break in October 2024 or in 2025; the deseasonalised level reaches its maximum in October and November 2024 and then stops rising. The isolated spike of June 2025, discussed in Section~\ref {sec:discussion}, is the largest deseasonalised anomaly of the post-calibration record}{figure.3}{}}
+\citation{chernozhukov2010}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Decomposition of the January--September to October--December shift in the monthly mean of $\log Y$ over positive plant-days, in log units, by year. The seasonal component is the difference between the calendar-month effects of the two windows and is by construction the same in every year; the secular component is the remainder. The 2024 row is the contrast that defines the transition window used in the evaluation; the final row of each block repeats the decomposition on the calibration window itself (January to August against October to December 2024), which is the pair the evaluation actually uses. Generated from \texttt  {resultados/fase6/fase6\_descomposicion\_estacional.csv}.}}{10}{table.1}\protected@file@percent }
+\newlabel{tab:seasonal}{{1}{10}{Decomposition of the January--September to October--December shift in the monthly mean of $\log Y$ over positive plant-days, in log units, by year. The seasonal component is the difference between the calendar-month effects of the two windows and is by construction the same in every year; the secular component is the remainder. The 2024 row is the contrast that defines the transition window used in the evaluation; the final row of each block repeats the decomposition on the calibration window itself (January to August against October to December 2024), which is the pair the evaluation actually uses. Generated from \texttt {resultados/fase6/fase6\_descomposicion\_estacional.csv}}{table.1}{}}
+\newlabel{eq:hurdle}{{1}{10}{Problem setup and base forecasters}{equation.1}{}}
+\citation{chernozhukov2021}
+\citation{smith1985}
+\citation{gibbs2021}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Conformal calibration with a PIT score}{11}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:pit}{{4.2}{11}{Conformal calibration with a PIT score}{subsection.4.2}{}}
+\newlabel{eq:pit}{{2}{11}{Conformal calibration with a PIT score}{equation.2}{}}
+\newlabel{eq:invert}{{3}{11}{Conformal calibration with a PIT score}{equation.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Three guarantees, and which one applies where}{11}{subsection.4.3}\protected@file@percent }
+\newlabel{sec:guarantees}{{4.3}{11}{Three guarantees, and which one applies where}{subsection.4.3}{}}
+\citation{tibshirani2019}
+\citation{barber2023}
+\citation{gibbs2021}
+\citation{peyre2019}
+\citation{barber2023}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Responses to the shift}{12}{subsection.4.4}\protected@file@percent }
+\newlabel{sec:respuestas}{{4.4}{12}{Responses to the shift}{subsection.4.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}The adaptive scheme in full}{12}{subsection.4.5}\protected@file@percent }
+\newlabel{sec:algoritmo}{{4.5}{12}{The adaptive scheme in full}{subsection.4.5}{}}
+\citation{chernozhukov2021}
+\citation{smith1985}
+\citation{gibbs2021}
+\citation{peyre2019}
+\citation{chernozhukov2010}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Data flow of the adaptive scheme, from the base predictive to the upper prediction limit. The transport branch (left) estimates and regularises the map; the adaptive branch (right) maintains the effective miscoverage level. The two are coupled only through the transported calibration pool, and the order of operations within a date is stated at the top: the conformal quantile is taken at the level in force before the day's own error is observed, and that error is fed back only after the seven-day horizon embargo.}}{13}{figure.4}\protected@file@percent }
+\newlabel{fig:flow}{{4}{13}{Data flow of the adaptive scheme, from the base predictive to the upper prediction limit. The transport branch (left) estimates and regularises the map; the adaptive branch (right) maintains the effective miscoverage level. The two are coupled only through the transported calibration pool, and the order of operations within a date is stated at the top: the conformal quantile is taken at the level in force before the day's own error is observed, and that error is fed back only after the seven-day horizon embargo}{figure.4}{}}
+\newlabel{eq:shrink}{{4}{13}{The adaptive scheme in full}{equation.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}What is new here, and what is not}{13}{subsection.4.6}\protected@file@percent }
+\newlabel{sec:novedad}{{4.6}{13}{What is new here, and what is not}{subsection.4.6}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Transport + ACI with tail shrinkage. Constants and seeds in \ref {app:hiper}.}}{14}{algorithm.1}\protected@file@percent }
+\newlabel{alg:transporte}{{1}{14}{The adaptive scheme in full}{algorithm.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Hyperparameter selection}{14}{subsection.4.7}\protected@file@percent }
+\newlabel{sec:seleccion}{{4.7}{14}{Hyperparameter selection}{subsection.4.7}{}}
+\citation{gneiting2007}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Evaluation}{15}{subsection.4.8}\protected@file@percent }
+\newlabel{sec:evaluacion}{{4.8}{15}{Evaluation}{subsection.4.8}{}}
+\newlabel{eq:is}{{5}{15}{Evaluation}{equation.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{15}{section.5}\protected@file@percent }
+\newlabel{sec:results}{{5}{15}{Results}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Point forecasting adds little, within the scope tested}{15}{subsection.5.1}\protected@file@percent }
+\newlabel{sec:punto}{{5.1}{15}{Point forecasting adds little, within the scope tested}{subsection.5.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Mean absolute error (MWh) of the base forecasters on the out-of-sample period, on the common row set. Lower is better. The comparison is between these model classes on this feature set at this horizon under this criterion; see the scope statement in the text. Computed from \texttt  {flagship/predicciones/}.}}{16}{table.2}\protected@file@percent }
+\newlabel{tab:mae}{{2}{16}{Mean absolute error (MWh) of the base forecasters on the out-of-sample period, on the common row set. Lower is better. The comparison is between these model classes on this feature set at this horizon under this criterion; see the scope statement in the text. Computed from \texttt {flagship/predicciones/}}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}With the hurdle base model, the shift inflates intervals and adaptation recovers them}{16}{subsection.5.2}\protected@file@percent }
+\newlabel{sec:hurdle}{{5.2}{16}{With the hurdle base model, the shift inflates intervals and adaptation recovers them}{subsection.5.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Rolling empirical coverage (90-day window) of the conformal methods on real data with the hurdle base model, computed with the 7-day horizon embargo. The dashed line marks the 90\% nominal level and the shaded band marks the window of maximum divergence from the calibration distribution, October to December 2024. The static split drifts into over-coverage as that window advances, whereas the adaptive schemes remain close to nominal.}}{17}{figure.5}\protected@file@percent }
+\newlabel{fig:rolling}{{5}{17}{Rolling empirical coverage (90-day window) of the conformal methods on real data with the hurdle base model, computed with the 7-day horizon embargo. The dashed line marks the 90\% nominal level and the shaded band marks the window of maximum divergence from the calibration distribution, October to December 2024. The static split drifts into over-coverage as that window advances, whereas the adaptive schemes remain close to nominal}{figure.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}The gain does not survive a change of base model}{17}{subsection.5.3}\protected@file@percent }
+\newlabel{sec:agnostic}{{5.3}{17}{The gain does not survive a change of base model}{subsection.5.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Coverage and mean interval width of the conformal methods by period, on real data with the hurdle base model, with the 7-day horizon embargo. Each cell shows coverage in percent (clustered standard error by date in parentheses) over mean interval width in MWh. Nominal coverage is 90\%. The base-model CRPS is a property of the predictive, not of the calibration layer, and is reported once per period. Superscripts give the fraction of infinite intervals where nonzero; Section~\ref {sec:metricas} reports the metric that does not let those cases improve a method's score. Generated from \texttt  {flagship/conformal\_v3\_tabla.csv}.}}{18}{table.3}\protected@file@percent }
+\newlabel{tab:results}{{3}{18}{Coverage and mean interval width of the conformal methods by period, on real data with the hurdle base model, with the 7-day horizon embargo. Each cell shows coverage in percent (clustered standard error by date in parentheses) over mean interval width in MWh. Nominal coverage is 90\%. The base-model CRPS is a property of the predictive, not of the calibration layer, and is reported once per period. Superscripts give the fraction of infinite intervals where nonzero; Section~\ref {sec:metricas} reports the metric that does not let those cases improve a method's score. Generated from \texttt {flagship/conformal\_v3\_tabla.csv}}{table.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Coverage and sharpness by method and period, hurdle base model. Left: empirical coverage with date-clustered standard errors against the 90\% nominal level. Right: mean interval width. Asterisks mark bars whose mean width is computed over finite intervals only, because the corresponding configuration returns at least 1\% of infinite intervals.}}{19}{figure.6}\protected@file@percent }
+\newlabel{fig:tradeoff}{{6}{19}{Coverage and sharpness by method and period, hurdle base model. Left: empirical coverage with date-clustered standard errors against the 90\% nominal level. Right: mean interval width. Asterisks mark bars whose mean width is computed over finite intervals only, because the corresponding configuration returns at least 1\% of infinite intervals}{figure.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Model form against fitted capacity}{19}{subsection.5.4}\protected@file@percent }
+\newlabel{sec:escalera}{{5.4}{19}{Model form against fitted capacity}{subsection.5.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces The same calibration layer over three base predictives, transition window (October to December 2024), nominal 90\%. Coverage in percent with date-clustered standard error, mean width in MWh over finite intervals, interval score of the one-sided limit in MWh restricted to finite intervals, fraction of infinite intervals, and base-model CRPS in MWh. Only the base model differs across blocks; the score, the windows, the embargo, the seeds and every constant of the calibration layer are identical. Generated from \texttt  {resultados/fase0/fase0\_tabla\_por\_modelo.csv}.}}{20}{table.4}\protected@file@percent }
+\newlabel{tab:agnostic}{{4}{20}{The same calibration layer over three base predictives, transition window (October to December 2024), nominal 90\%. Coverage in percent with date-clustered standard error, mean width in MWh over finite intervals, interval score of the one-sided limit in MWh restricted to finite intervals, fraction of infinite intervals, and base-model CRPS in MWh. Only the base model differs across blocks; the score, the windows, the embargo, the seeds and every constant of the calibration layer are identical. Generated from \texttt {resultados/fase0/fase0\_tabla\_por\_modelo.csv}}{table.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Left: mean interval width in the transition window for the static split and for Transport+ACI, by base model, with empirical coverage above each bar (nominal 90\%) and the width change marked by the arrow. Right: the diagnostic. Over the fifteen cells given by three base models and five evaluation windows, the width change achieved by Transport+ACI is linearly related to how far above nominal the static split sits in that cell. When the static split is already at nominal the adaptive layer costs width rather than saving it.}}{21}{figure.7}\protected@file@percent }
+\newlabel{fig:agnostic}{{7}{21}{Left: mean interval width in the transition window for the static split and for Transport+ACI, by base model, with empirical coverage above each bar (nominal 90\%) and the width change marked by the arrow. Right: the diagnostic. Over the fifteen cells given by three base models and five evaluation windows, the width change achieved by Transport+ACI is linearly related to how far above nominal the static split sits in that cell. When the static split is already at nominal the adaptive layer costs width rather than saving it}{figure.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Which components earn their cost}{21}{subsection.5.5}\protected@file@percent }
+\newlabel{sec:ablaciones}{{5.5}{21}{Which components earn their cost}{subsection.5.5}{}}
+\citation{romano2019}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces The diagnostic, over the fifteen cells given by three base models and five evaluation windows. Over-coverage is the coverage of the static split minus the 90\% nominal level. The width change is that of Transport+ACI ($\gamma =0.05$) relative to the static split in the same cell. Generated from \texttt  {resultados/fase0/fase0\_diagnostico.csv}.}}{22}{table.5}\protected@file@percent }
+\newlabel{tab:diagnostico}{{5}{22}{The diagnostic, over the fifteen cells given by three base models and five evaluation windows. Over-coverage is the coverage of the static split minus the 90\% nominal level. The width change is that of Transport+ACI ($\gamma =0.05$) relative to the static split in the same cell. Generated from \texttt {resultados/fase0/fase0\_diagnostico.csv}}{table.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces The diagnostic relationship over the forty cells given by eight base models and five evaluation windows, with 95\% bootstrap intervals resampling whole days, common to all cells, 2{,}000 replicates, seed 20260901. The restriction to the fifteen cells of the three-model design of Table~\ref {tab:diagnostico} is shown for comparison, as is the fit over the 25 cells in which the static split over-covers, the region to which the claim is scoped, with intervals from the same replicates. Generated from \texttt  {resultados/fase0b/fase0b\_diagnostico.json}.}}{22}{table.6}\protected@file@percent }
+\newlabel{tab:diag_ampliado}{{6}{22}{The diagnostic relationship over the forty cells given by eight base models and five evaluation windows, with 95\% bootstrap intervals resampling whole days, common to all cells, 2{,}000 replicates, seed 20260901. The restriction to the fifteen cells of the three-model design of Table~\ref {tab:diagnostico} is shown for comparison, as is the fit over the 25 cells in which the static split over-covers, the region to which the claim is scoped, with intervals from the same replicates. Generated from \texttt {resultados/fase0b/fase0b\_diagnostico.json}}{table.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Capacity ladder at a fixed 54-level quantile grid. Every arm shares the features, the rows, the training cut-off, the per-model hyperparameters and the seed; only the tree budget and the model form change. CRPS is that of the base predictive, in MWh; the fifth column is the change in CRPS over the whole test relative to the reference hurdle. Static coverage is that of the split conformal layer over the whole test, nominal 90\%. Generated from \texttt  {resultados/verificacion/obj1\_capacidad.csv} and \texttt  {obj1b\_escalera.csv}.}}{23}{table.7}\protected@file@percent }
+\newlabel{tab:escalera}{{7}{23}{Capacity ladder at a fixed 54-level quantile grid. Every arm shares the features, the rows, the training cut-off, the per-model hyperparameters and the seed; only the tree budget and the model form change. CRPS is that of the base predictive, in MWh; the fifth column is the change in CRPS over the whole test relative to the reference hurdle. Static coverage is that of the split conformal layer over the whole test, nominal 90\%. Generated from \texttt {resultados/verificacion/obj1\_capacidad.csv} and \texttt {obj1b\_escalera.csv}}{table.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Left: base-model CRPS over the whole test against the number of fitted trees, at a fixed 54-level quantile grid for the multi-quantile predictive. The hurdle is shown at its own budget and at five times it. Right: the diagnostic relationship over the forty cells, with the fifteen cells of the three-model design of Table~\ref {tab:diagnostico} marked separately, the fitted line over all forty, and its bootstrap interval. The new arms populate the region below nominal coverage, where the three-model design had no point.}}{23}{figure.8}\protected@file@percent }
+\newlabel{fig:escalera}{{8}{23}{Left: base-model CRPS over the whole test against the number of fitted trees, at a fixed 54-level quantile grid for the multi-quantile predictive. The hurdle is shown at its own budget and at five times it. Right: the diagnostic relationship over the forty cells, with the fifteen cells of the three-model design of Table~\ref {tab:diagnostico} marked separately, the fitted line over all forty, and its bootstrap interval. The new arms populate the region below nominal coverage, where the three-model design had no point}{figure.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Metrics, infinite intervals and probabilistic benchmarks}{23}{subsection.5.6}\protected@file@percent }
+\newlabel{sec:metricas}{{5.6}{23}{Metrics, infinite intervals and probabilistic benchmarks}{subsection.5.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Marginal contribution of each component to the mean interval score, in MWh, with 95\% bootstrap intervals resampling whole days. Negative is an improvement. Runtime is the additional wall-clock cost of the component over the 638 test dates. Generated from \texttt  {resultados/fase2/fase2\_aporte\_por\_componente.csv}.}}{24}{table.8}\protected@file@percent }
+\newlabel{tab:ablaciones}{{8}{24}{Marginal contribution of each component to the mean interval score, in MWh, with 95\% bootstrap intervals resampling whole days. Negative is an improvement. Runtime is the additional wall-clock cost of the component over the 638 test dates. Generated from \texttt {resultados/fase2/fase2\_aporte\_por\_componente.csv}}{table.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Marginal contribution of each component of the adaptive scheme to the mean interval score, by window, with 95\% bootstrap intervals resampling whole days. Green marks a significant improvement, orange a significant deterioration, grey an interval containing zero. Runtime is the additional wall-clock cost of each component.}}{24}{figure.9}\protected@file@percent }
+\newlabel{fig:ablaciones}{{9}{24}{Marginal contribution of each component of the adaptive scheme to the mean interval score, by window, with 95\% bootstrap intervals resampling whole days. Green marks a significant improvement, orange a significant deterioration, grey an interval containing zero. Runtime is the additional wall-clock cost of each component}{figure.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.7}Panel dependence and conditional coverage}{24}{subsection.5.7}\protected@file@percent }
+\newlabel{sec:panel}{{5.7}{24}{Panel dependence and conditional coverage}{subsection.5.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces All methods on the whole test period, September 2024 to May 2026. Coverage in percent with date-clustered standard error, mean width in MWh over finite intervals, fraction of infinite intervals, interval score restricted to finite intervals, unrestricted interval score, and the bootstrap difference in interval score against the static split resampling whole days. The unrestricted score is the verdict: it is infinite for any method producing even one infinite limit. Generated from \texttt  {resultados/fase4/}.}}{25}{table.9}\protected@file@percent }
+\newlabel{tab:benchmarks}{{9}{25}{All methods on the whole test period, September 2024 to May 2026. Coverage in percent with date-clustered standard error, mean width in MWh over finite intervals, fraction of infinite intervals, interval score restricted to finite intervals, unrestricted interval score, and the bootstrap difference in interval score against the static split resampling whole days. The unrestricted score is the verdict: it is infinite for any method producing even one infinite limit. Generated from \texttt {resultados/fase4/}}{table.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Effect of bounding the online update of $\alpha $ from below, whole test period. A bound of $\alpha _{\min }=0.005$ removes infinite intervals entirely at negligible cost in coverage, and makes the unrestricted interval score finite and therefore comparable across methods. Generated from \texttt  {resultados/fase4/fase4\_cota\_alpha.csv}.}}{26}{table.10}\protected@file@percent }
+\newlabel{tab:cota}{{10}{26}{Effect of bounding the online update of $\alpha $ from below, whole test period. A bound of $\alpha _{\min }=0.005$ removes infinite intervals entirely at negligible cost in coverage, and makes the unrestricted interval score finite and therefore comparable across methods. Generated from \texttt {resultados/fase4/fase4\_cota\_alpha.csv}}{table.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Calibration schemes designed to address panel dependence, whole test period. The last four columns give the worst absolute deviation from the 90\% nominal level over the groups of each axis, in percentage points, which is the measure of conditional coverage; smaller is better. Width and interval score are means over finite intervals, with the fraction of infinite intervals beside them. Generated from \texttt  {resultados/fase5/}.}}{26}{table.11}\protected@file@percent }
+\newlabel{tab:panel}{{11}{26}{Calibration schemes designed to address panel dependence, whole test period. The last four columns give the worst absolute deviation from the 90\% nominal level over the groups of each axis, in percentage points, which is the measure of conditional coverage; smaller is better. Width and interval score are means over finite intervals, with the fraction of infinite intervals beside them. Generated from \texttt {resultados/fase5/}}{table.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.8}Sensitivity to the window boundary, the change-point dates and the calibration hyperparameters}{26}{subsection.5.8}\protected@file@percent }
+\newlabel{sec:frontera}{{5.8}{26}{Sensitivity to the window boundary, the change-point dates and the calibration hyperparameters}{subsection.5.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Calibration hyperparameters}{26}{section*.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Sensitivity to alternative definitions of the transition window, hurdle base model. $W_1$ is the Wasserstein-1 distance between the positive log-magnitudes of the window and those of the calibration set. Width and interval score are means over finite intervals, with the fraction of infinite intervals beside them. Generated from \texttt  {resultados/fase6/fase6\_sensibilidad\_frontera.csv}.}}{27}{table.12}\protected@file@percent }
+\newlabel{tab:frontera}{{12}{27}{Sensitivity to alternative definitions of the transition window, hurdle base model. $W_1$ is the Wasserstein-1 distance between the positive log-magnitudes of the window and those of the calibration set. Width and interval score are means over finite intervals, with the fraction of infinite intervals beside them. Generated from \texttt {resultados/fase6/fase6\_sensibilidad\_frontera.csv}}{table.12}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Discussion}{27}{section.6}\protected@file@percent }
+\newlabel{sec:discussion}{{6}{27}{Discussion}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}What the diagnostic means for practice}{27}{subsection.6.1}\protected@file@percent }
+\citation{mohamad2021}
+\citation{denholm2019}
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces Sensitivity of the adaptive schemes to the step $\gamma $ and to the length of the recent window, whole test period, September 2024 to May 2026. This table is a display produced after the selection of Section~\ref {sec:seleccion} was closed, never a criterion: the selection used only the inner validation set. Pure ACI has no window. Bold marks the configuration selected by rolling origin; the 60-day cells at $\gamma =0.02$ and $0.05$ are the configurations of the submitted version and coincide with Table~\ref {tab:benchmarks}. $^\dagger $The configuration produces infinite limits, so its unrestricted interval score is infinite. Generated from \texttt  {resultados/fase3/fase3\_sensibilidad\_test.csv}.}}{28}{table.13}\protected@file@percent }
+\newlabel{tab:sens_hiper}{{13}{28}{Sensitivity of the adaptive schemes to the step $\gamma $ and to the length of the recent window, whole test period, September 2024 to May 2026. This table is a display produced after the selection of Section~\ref {sec:seleccion} was closed, never a criterion: the selection used only the inner validation set. Pure ACI has no window. Bold marks the configuration selected by rolling origin; the 60-day cells at $\gamma =0.02$ and $0.05$ are the configurations of the submitted version and coincide with Table~\ref {tab:benchmarks}. $^\dagger $The configuration produces infinite limits, so its unrestricted interval score is infinite. Generated from \texttt {resultados/fase3/fase3\_sensibilidad\_test.csv}}{table.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Where the operational value actually lies}{28}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}The change in the record, and what we do not claim about it}{28}{subsection.6.3}\protected@file@percent }
+\citation{guan2022}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}The mid-2025 excursion}{29}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Open directions}{29}{subsection.6.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Limitations}{29}{section.7}\protected@file@percent }
+\newlabel{sec:limitations}{{7}{29}{Limitations}{section.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{30}{section.8}\protected@file@percent }
+\newlabel{sec:conclusion}{{8}{30}{Conclusion}{section.8}{}}
+\@writefile{toc}{\let\numberline\tmptocnumberline}
+\citation{barber2023}
+\citation{gibbs2021}
+\gdef \LT@i {\LT@entry 
+    {1}{152.40143pt}\LT@entry 
+    {1}{114.96057pt}\LT@entry 
+    {1}{199.19714pt}}
+\@writefile{toc}{\contentsline {section}{\numberline {Appendix~A}Inversion of the PIT limit}{32}{appendix.A}\protected@file@percent }
+\newlabel{app:inversion}{{Appendix~A}{32}{Inversion of the PIT limit}{appendix.A}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {Appendix~B}Coverage under score transport}{32}{appendix.B}\protected@file@percent }
+\newlabel{app:coverage}{{Appendix~B}{32}{Coverage under score transport}{appendix.B}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {Appendix~C}Hyperparameters, constants and seeds}{32}{appendix.C}\protected@file@percent }
+\newlabel{app:hiper}{{Appendix~C}{32}{Hyperparameters, constants and seeds}{appendix.C}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {C.14}{Complete hyperparameter specification. Generated from the source by \texttt  {flagship/revision/fase1\_hiperparametros.py}; the companion CSV records where each value lives in the code.}}{32}{table.14}\protected@file@percent }
+\newlabel{tab:hiper}{{C.14}{32}{Complete hyperparameter specification. Generated from the source by \texttt {flagship/revision/fase1\_hiperparametros.py}; the companion CSV records where each value lives in the code}{table.14}{}}
+\bibcite{oshaughnessy2020}{{1}{}{{}}{{}}}
+\bibcite{henriot2015}{{2}{}{{}}{{}}}
+\bibcite{joos2018}{{3}{}{{}}{{}}}
+\@writefile{toc}{\contentsline {section}{\numberline {Appendix~D}Reproducibility}{34}{appendix.D}\protected@file@percent }
+\newlabel{app:repro}{{Appendix~D}{34}{Reproducibility}{appendix.D}{}}
+\bibcite{tang2018}{{4}{}{{}}{{}}}
+\bibcite{schermeyer2018}{{5}{}{{}}{{}}}
+\bibcite{nycander2020}{{6}{}{{}}{{}}}
+\bibcite{yildiz2023}{{7}{}{{}}{{}}}
+\bibcite{bunodiere2020}{{8}{}{{}}{{}}}
+\bibcite{denholm2019}{{9}{}{{}}{{}}}
+\bibcite{wang2019}{{10}{}{{}}{{}}}
+\bibcite{rayit2021}{{11}{}{{}}{{}}}
+\bibcite{mohamad2021}{{12}{}{{}}{{}}}
+\bibcite{vargas2015}{{13}{}{{}}{{}}}
+\bibcite{fang2021}{{14}{}{{}}{{}}}
+\bibcite{foss1983}{{15}{}{{}}{{}}}
+\bibcite{teh2016}{{16}{}{{}}{{}}}
+\bibcite{lai2022}{{17}{}{{}}{{}}}
+\bibcite{glaum2023}{{18}{}{{}}{{}}}
+\bibcite{su2025}{{19}{}{{}}{{}}}
+\bibcite{maximov2016}{{20}{}{{}}{{}}}
+\bibcite{oclon2021}{{21}{}{{}}{{}}}
+\bibcite{lei2021}{{22}{}{{}}{{}}}
+\bibcite{kruse2023}{{23}{}{{}}{{}}}
+\bibcite{kirchnerbossi2024}{{24}{}{{}}{{}}}
+\bibcite{maciejowska2016}{{25}{}{{}}{{}}}
+\bibcite{uniejewski2021}{{26}{}{{}}{{}}}
+\bibcite{vandermeer2018}{{27}{}{{}}{{}}}
+\bibcite{mangalova2016}{{28}{}{{}}{{}}}
+\bibcite{angelopoulos2023}{{29}{}{{}}{{}}}
+\bibcite{tibshirani2019}{{30}{}{{}}{{}}}
+\bibcite{barber2023}{{31}{}{{}}{{}}}
+\bibcite{gibbs2021}{{32}{}{{}}{{}}}
+\bibcite{guan2022}{{33}{}{{}}{{}}}
+\bibcite{chernozhukov2021}{{34}{}{{}}{{}}}
+\bibcite{romano2019}{{35}{}{{}}{{}}}
+\bibcite{hu2022}{{36}{}{{}}{{}}}
+\bibcite{jensen2024}{{37}{}{{}}{{}}}
+\bibcite{peyre2019}{{38}{}{{}}{{}}}
+\bibcite{chernozhukov2010}{{39}{}{{}}{{}}}
+\bibcite{killick2012}{{40}{}{{}}{{}}}
+\bibcite{gneiting2007}{{41}{}{{}}{{}}}
+\bibcite{smith1985}{{42}{}{{}}{{}}}
+\bibcite{dataset2026}{{43}{}{{}}{{}}}
+\providecommand\NAT@force@numbers{}\NAT@force@numbers
+\gdef \@abspage@last{37}
