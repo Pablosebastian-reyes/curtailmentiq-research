@@ -47,18 +47,74 @@ def _expandir(t, prof=0):
     return re.sub(r'\\input\{([^}]*)\}', _r, t)
 
 
+TEX_PROSA = TEX            # sin expandir: la prosa, sin los cuerpos de tabla generados
 TEX = _expandir(TEX)
 filas = []
 
 
-def chk(seccion, afirmacion, en_texto, valor, ok, fuente):
-    filas.append(dict(seccion=seccion, afirmacion=afirmacion,
-                      en_el_texto=en_texto, regenerado=valor,
-                      verifica='si' if ok else 'NO', fuente=fuente))
+def _mapa_secciones(t):
+    """(posicion, numero) de cada section y subsection numerada, con la regla de
+    LaTeX: las de asterisco no cuentan y tras appendix las secciones son letras.
+    Lo anterior a la primera es el abstract."""
+    marcas, s, ss, apendice = [], 0, 0, False
+    for m in re.finditer(r'\\appendix\b|\\(section|subsection)(\*?)\{', t):
+        if m.group(0).startswith('\\appendix'):
+            apendice, s, ss = True, 0, 0
+            continue
+        if m.group(2):
+            continue
+        if m.group(1) == 'section':
+            s, ss = s + 1, 0
+        else:
+            ss += 1
+        marcas.append((m.start(), (chr(64 + s) if apendice else str(s)) + (f'.{ss}' if ss else '')))
+    return marcas
+
+
+_MAPA, _MAPA_PROSA = _mapa_secciones(TEX), _mapa_secciones(TEX_PROSA)
+_vistas = []
+
+
+def _buscar(texto, mapa, frases):
+    ok = True
+    for f in frases:
+        i = texto.find(f)
+        if i < 0:
+            ok = False
+            continue
+        cab = 'abstract'
+        for p, c in mapa:
+            if p > i:
+                break
+            cab = c
+        if cab not in _vistas:
+            _vistas.append(cab)
+    return ok
 
 
 def en_tex(*frases):
-    return all(f in TEX for f in frases)
+    """Busca en el manuscrito con los cuerpos de tabla expandidos."""
+    return _buscar(TEX, _MAPA, frases)
+
+
+def en_prosa(*frases):
+    """Busca solo en la prosa. Una cifra que tambien esta en una tabla generada
+    no puede dar por buena una frase que falta en el texto (C6 ii)."""
+    return _buscar(TEX_PROSA, _MAPA_PROSA, frases)
+
+
+def chk(seccion, afirmacion, en_texto, valor, ok, fuente):
+    # C6: la seccion se lee de donde se encontro la frase, con la numeracion
+    # vigente, asi que el CSV es un mapa de cobertura que no puede quedar
+    # desfasado. La etiqueta escrita a mano queda para las filas de tabla y
+    # para los chequeos que no buscan texto.
+    vistas = list(_vistas)
+    _vistas.clear()
+    if vistas and not re.match(r'(Tabla|C\.)', seccion):
+        seccion = ', '.join(vistas)
+    filas.append(dict(seccion=seccion, afirmacion=afirmacion,
+                      en_el_texto=en_texto, regenerado=valor,
+                      verifica='si' if ok else 'NO', fuente=fuente))
 
 
 _UNI = ('zero one two three four five six seven eight nine ten eleven twelve '
@@ -90,21 +146,25 @@ def main():
     import json as _js
     jb = _js.load(open(RES / 'fase0b' / 'fase0b_diagnostico.json'))
     cb, icb = jb['cuarenta'], jb['ic_bootstrap']
+    q15, ir = jb['quince_originales'], jb['ic_bootstrap']['r']
     chk('abstract, 5.3', 'correlacion del diagnostico ampliado',
         f"{cb['r']:.3f}", f"{cb['r']:.3f}",
-        en_tex(f"{cb['r']:.3f}"), 'fase0b_diagnostico.json')
+        en_prosa(f"($r={cb['r']:.3f}$, bootstrap interval $[{ir['lo']:.3f}, {ir['hi']:.3f}]$",
+                 f"$r$ goes from ${q15['r']:.3f}$ to ${cb['r']:.3f}$"), 'fase0b_diagnostico.json')
     chk('abstract, 5.3', 'pendiente del diagnostico ampliado',
         f"{cb['pendiente']:.2f}", f"{cb['pendiente']:.2f}",
-        en_tex(f"{cb['pendiente']:.2f}"), 'fase0b_diagnostico.json')
+        en_prosa(f"slope ${cb['pendiente']:.2f}$ per cent of width per percentage point",
+                 f"the slope from ${q15['pendiente']:.2f}$ to ${cb['pendiente']:.2f}$ per percentage point"),
+        'fase0b_diagnostico.json')
     chk('5.3', 'intervalo bootstrap del intercepto ampliado',
         f"[{icb['intercepto']['lo']:+.2f}, {icb['intercepto']['hi']:+.2f}]",
         f"[{icb['intercepto']['lo']:+.2f}, {icb['intercepto']['hi']:+.2f}]",
-        en_tex(f"{icb['intercepto']['lo']:+.2f}", f"{icb['intercepto']['hi']:+.2f}"),
+        en_prosa(f"is now $[{icb['intercepto']['lo']:+.2f}, {icb['intercepto']['hi']:+.2f}]$"),
         'fase0b_diagnostico.json')
     chk('5.3', 'rango de sobre-cobertura cubierto por las cuarenta celdas',
         f"[{jb['rango_x'][0]:+.2f}, {jb['rango_x'][1]:+.2f}]",
         f"[{jb['rango_x'][0]:+.2f}, {jb['rango_x'][1]:+.2f}]",
-        en_tex(f"{jb['rango_x'][0]:+.2f}"), 'fase0b_diagnostico.json')
+        en_prosa(f"the low-capacity arms reach ${jb['rango_x'][0]:+.2f}$"), 'fase0b_diagnostico.json')
     # el rango de las quince celdas se citaba en la prosa de 5.3 y en la Tabla 6
     # sin que nadie lo leyera de un archivo
     d15 = d.sobrecobertura_pp_exacta
@@ -152,15 +212,42 @@ def main():
         pp.max() >= 50 and en_tex('the per-point implementation returns infinite intervals for a large fraction of '
                                   'test points (\\texttt{flagship/conformal\\_v2.py} in the companion repository)'),
         'v_enviada/conformal_v2_tabla.csv')
-    chk('5.4', 'ventaja del GBM a presupuesto equiparado', '2.4 % y 1.8 %',
-        'segun obj1_capacidad.csv',
-        en_tex('2.4 per cent', '1.8 per cent'), 'obj1_capacidad.csv')
-    chk('5.4', 'deterioro del hurdle al quintuplicar capacidad',
-        '89.5 a 95.5 MWh', 'segun obj1_capacidad.csv',
-        en_tex('89.5 to 95.5'), 'obj1_capacidad.csv')
-    chk('5.4', 'desplazamiento del cuantil conformal por mu',
-        '0.9242 a 0.9532, 93 % por mu', 'segun obj1c_mecanismo.json',
-        en_tex('0.9242 to 0.9532', '0.9512', '93 per cent'),
+    # C6 (i): estas tres filas solo buscaban la frase; ahora abren el archivo,
+    # recalculan y arman la frase desde el valor
+    cap = pd.read_csv(RES / 'verificacion' / 'obj1_capacidad.csv').drop_duplicates(['modelo', 'periodo'])
+    esc = pd.read_csv(RES / 'verificacion' / 'obj1b_escalera.csv').drop_duplicates(['modelo', 'periodo'])
+
+    def crps(d, pref, per):
+        return float(d[d.modelo.str.startswith(pref) & (d.periodo == per)].crps.iloc[0])
+
+    def mejora(a, b):
+        return (100 * (1 - Decimal(str(a)) / Decimal(str(b)))).quantize(Decimal('0.1'), ROUND_HALF_UP)
+    h4t, h4r = crps(cap, 'hurdle_400', 'TEST_COMPLETO'), crps(cap, 'hurdle_400', 'test_transition')
+    g8t, g8r = crps(cap, 'qgbm_54x15', 'TEST_COMPLETO'), crps(cap, 'qgbm_54x15', 'test_transition')
+    h20t, h20r = crps(cap, 'hurdle_2000', 'TEST_COMPLETO'), crps(cap, 'hurdle_2000', 'test_transition')
+    g27r = crps(esc, 'qgbm_54x50', 'test_transition')
+    v6 = f'{mejora(g8t, h4t)} % y {mejora(g8r, h4r)} %'
+    chk('5.4', 'ventaja del GBM a presupuesto equiparado', v6, v6,
+        en_tex(f'improve the CRPS of the whole test by {mejora(g8t, h4t)} per cent and that of the '
+               f'transition window by {mejora(g8r, h4r)} per cent'), 'obj1_capacidad.csv')
+    v7 = f'{h4t:.1f} a {h20t:.1f} y {h4r:.1f} a {h20r:.1f}; GBM de 2700 arboles {g27r:.1f}'
+    chk('5.4', 'deterioro del hurdle al quintuplicar capacidad', v7, v7,
+        h20t > h4t and h20r > h4r
+        and en_tex(f'its CRPS rises from {h4t:.1f} to {h20t:.1f}~MWh over the whole test and from '
+                   f'{h4r:.1f} to {h20r:.1f} in the transition window',
+                   f'the CRPS is {g27r:.1f} against {h20r:.1f}'),
+        'obj1_capacidad.csv + obj1b_escalera.csv')
+    jm = _js.load(open(RES / 'verificacion' / 'obj1c_mecanismo.json'))
+    pit, dq = jm['pit'], jm['pit_desplazamiento_q']
+    q400, q2000 = pit['mu 400, sigma 400 (referencia)']['q'], pit['mu 2000, sigma 2000 (observado)']['q']
+    qmu, qsig = pit['mu 2000, sigma 400']['q'], pit['mu 400, sigma 2000']['q']
+    smu = Decimal(str(dq['share_mu'])).quantize(Decimal('1'), ROUND_HALF_UP)
+    v8 = f'{q400:.4f} a {q2000:.4f}; {qmu:.4f}, {smu} % por mu; {qsig:.4f} por sigma'
+    chk('5.4', 'desplazamiento del cuantil conformal por mu', v8, v8,
+        abs(100 * (qmu - q400) / (q2000 - q400) - dq['share_mu']) < 1e-9
+        and en_tex(f'{q400:.4f} to {q2000:.4f}',
+                   f'{qmu:.4f}, that is {smu} per cent of the total displacement, while substituting only '
+                   f'the smaller $\\hat\\sigma$ moves it to {qsig:.4f}'),
         'obj1c_mecanismo.json')
 
     t = pd.read_csv(RES / 'fase0' / 'fase0_tabla_por_modelo.csv')
@@ -182,10 +269,8 @@ def main():
         f'{-mej.max():.1f} a {-mej.min():.1f}',
         18 <= -mej.max() <= 19 and 30 <= -mej.min() <= 31
         and en_tex('18 to 30 per cent'), 'fase0_tabla_por_modelo.csv')
-    chk('5.3', 'CRPS en la transicion', '92.9 contra 133.5',
-        f'{c.loc["test_transition","qgbm_multi"]:.1f} contra '
-        f'{c.loc["test_transition","hurdle"]:.1f}',
-        en_tex('92.9 against 133.5'), 'fase0_tabla_por_modelo.csv')
+    ctr = f'{c.loc["test_transition", "qgbm_multi"]:.1f} against {c.loc["test_transition", "hurdle"]:.1f}'
+    chk('5.3', 'CRPS en la transicion', ctr, ctr, en_tex(ctr), 'fase0_tabla_por_modelo.csv')
 
     bt = pd.read_csv(RES / 'fase0' / 'fase0_diferencias_bootstrap.csv')
     q = bt[(bt.modelo_base == 'qgbm_multi') & (bt.metodo == '4_transporte_banda_g05')
@@ -490,10 +575,9 @@ def main():
         and abs(ve.p_ocurrencia.max() - 0.815) < 5e-4
         and en_tex('between 0.750 and 0.815'),
         'fase6_por_ventana_solar_norte.csv')
-    chk('3.3', 'mediana de positivos, calibracion a transicion', '92 a 267 MWh',
-        f'{ve.loc["calibracion"].mediana_positivos:.0f} a '
-        f'{ve.loc["test_transition"].mediana_positivos:.0f} MWh',
-        en_tex('from 92~MWh in the calibration window to 267~MWh'),
+    med = (f'{ve.loc["calibracion"].mediana_positivos:.0f}~MWh in the calibration window to '
+           f'{ve.loc["test_transition"].mediana_positivos:.0f}~MWh')
+    chk('3.3', 'mediana de positivos, calibracion a transicion', med, med, en_tex(f'from {med}'),
         'fase6_por_ventana_solar_norte.csv')
     pf = pd.read_csv(RES / 'fase6' / 'fase6_perfil_intradiario.csv')
     tvp = pf[pf.semestre >= '2023-H1'].tv_vs_semestre_previo.dropna()
@@ -569,7 +653,7 @@ def main():
     caida = float((cav[cav.cota == 'sin cota'].set_index('metodo').cobertura
                    - cav[cav.cota == 'alpha_min=0.005'].set_index('metodo').cobertura).max())
     d = campo('Recommended bound on alpha_t')
-    chk('C.11', 'costo de cobertura de la cota de alpha, campo de la tabla',
+    chk('C.14', 'costo de cobertura de la cota de alpha, campo de la tabla',
         f'{caida:.1f} puntos', d[:70] + '...' if len(d) > 70 else d,
         f'at most {caida:.1f} points of coverage' in d
         and en_tex('at most half a point'),
@@ -581,11 +665,11 @@ def main():
     g_aci = sel['elegidos']['ACI']['gamma']
     v_tr = sel['elegidos']['Transporte+ACI']['ventana']
     d = campo('gamma selected by rolling origin')
-    chk('C.11', 'gamma seleccionado, campo de la tabla', str(g_aci),
+    chk('C.14', 'gamma seleccionado, campo de la tabla', str(g_aci),
         campo('gamma selected by rolling origin')[:60],
         str(g_aci) in str(hp[hp.hiperparametro == 'gamma selected by rolling origin'].iloc[0].valor),
         'fase3_hiperparametros_elegidos.json')
-    chk('C.11', 'ventana seleccionada, campo de la tabla', f'{v_tr} dias',
+    chk('C.14', 'ventana seleccionada, campo de la tabla', f'{v_tr} dias',
         str(hp[hp.hiperparametro == 'Window selected by rolling origin'].iloc[0].valor),
         str(v_tr) in str(hp[hp.hiperparametro == 'Window selected by rolling origin'].iloc[0].valor),
         'fase3_hiperparametros_elegidos.json')
@@ -679,7 +763,7 @@ def main():
 
     faltan = [(r.hiperparametro, r.valor) for _, r in semillas.iterrows()
               if not impresa(r.hiperparametro, r.valor)]
-    chk('C.13', 'las semillas se imprimen en el PDF, no solo en el .tex',
+    chk('C.14', 'las semillas se imprimen en el PDF, no solo en el .tex',
         f'{len(semillas)} filas de semillas',
         f'{len(semillas) - len(faltan)} impresas' if faltan else
         f'{len(semillas)} impresas',
@@ -694,7 +778,7 @@ def main():
                    _sp.run(['pdftotext', str(pdf), '-'],
                            capture_output=True, text=True).stdout)
     perdidas = [f for f in filas_csv if f not in crudo]
-    chk('C.13', 'todas las filas de la tabla llegan al PDF',
+    chk('C.14', 'todas las filas de la tabla llegan al PDF',
         f'{len(filas_csv)} filas', f'{len(filas_csv) - len(perdidas)} en el PDF',
         not perdidas, 'texto extraido de build/SEGAN_paper_FINAL.pdf')
     if perdidas:

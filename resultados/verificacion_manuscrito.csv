@@ -10,67 +10,67 @@ Tabla 6,ajuste sobre las celdas que sobre-cubren,"25 celdas, r -0.870","r -0.870
 abstract,verbo del diagnostico,grows with,"sin ""is linear in""",si,Seccion 5.3
 "abstract, 3.1",hidro desde junio de 2024 en el alcance de los 53 meses,June 2024,June 2024,si,Seccion 3.1
 4.4,weighted conformal por punto en el panel sintetico: fraccion de infinitos,a large fraction of test points,"test_pre 0.0%, test_ramp 76.0%, 2025-S1 49.3%, 2025-S2 19.9%, 2026-S1 71.9%, post_total 46.2%",si,v_enviada/conformal_v2_tabla.csv
-5.4,ventaja del GBM a presupuesto equiparado,2.4 % y 1.8 %,segun obj1_capacidad.csv,si,obj1_capacidad.csv
-5.4,deterioro del hurdle al quintuplicar capacidad,89.5 a 95.5 MWh,segun obj1_capacidad.csv,si,obj1_capacidad.csv
-5.4,desplazamiento del cuantil conformal por mu,"0.9242 a 0.9532, 93 % por mu",segun obj1c_mecanismo.json,si,obj1c_mecanismo.json
-"5.2, 5.3",qgbm_multi / 1_estatico_pit,90.6% / 410 MWh,90.6% / 410 MWh,si,fase0_tabla_por_modelo.csv
-"5.2, 5.3",qgbm_multi / 4_transporte_banda_g05,90.5% / 425 MWh,90.5% / 425 MWh,si,fase0_tabla_por_modelo.csv
-"5.2, 5.3",hurdle / 1_estatico_pit,95.3% / 1203 MWh,95.3% / 1203 MWh,si,fase0_tabla_por_modelo.csv
-"5.2, 5.3",hurdle / 4_transporte_banda_g05,90.9% / 806 MWh,90.9% / 806 MWh,si,fase0_tabla_por_modelo.csv
+5.4,ventaja del GBM a presupuesto equiparado,2.4 % y 1.8 %,2.4 % y 1.8 %,si,obj1_capacidad.csv
+5.4,deterioro del hurdle al quintuplicar capacidad,89.5 a 95.5 y 133.5 a 141.1; GBM de 2700 arboles 100.6,89.5 a 95.5 y 133.5 a 141.1; GBM de 2700 arboles 100.6,si,obj1_capacidad.csv + obj1b_escalera.csv
+5.4,desplazamiento del cuantil conformal por mu,"0.9242 a 0.9532; 0.9512, 93 % por mu; 0.9270 por sigma","0.9242 a 0.9532; 0.9512, 93 % por mu; 0.9270 por sigma",si,obj1c_mecanismo.json
+5.3,qgbm_multi / 1_estatico_pit,90.6% / 410 MWh,90.6% / 410 MWh,si,fase0_tabla_por_modelo.csv
+5.3,qgbm_multi / 4_transporte_banda_g05,90.5% / 425 MWh,90.5% / 425 MWh,si,fase0_tabla_por_modelo.csv
+5.2,hurdle / 1_estatico_pit,95.3% / 1203 MWh,95.3% / 1203 MWh,si,fase0_tabla_por_modelo.csv
+5.2,hurdle / 4_transporte_banda_g05,90.9% / 806 MWh,90.9% / 806 MWh,si,fase0_tabla_por_modelo.csv
 5.3,mejora de CRPS del qgbm,18 a 30 por ciento,18.3 a 30.4,si,fase0_tabla_por_modelo.csv
-5.3,CRPS en la transicion,92.9 contra 133.5,92.9 contra 133.5,si,fase0_tabla_por_modelo.csv
+5.3,CRPS en la transicion,92.9 against 133.5,92.9 against 133.5,si,fase0_tabla_por_modelo.csv
 5.3,diferencia de ancho con qgbm y su IC,"+15.1, [+0.0, +30.3]","+15.1, [+0.0, +30.3]",si,fase0_diferencias_bootstrap.csv
 5.3,"diferencia de interval score con qgbm, excluye el cero","+14.5, [+4.9, +24.0]","+14.5, [+4.9, +24.0]",si,fase0_diferencias_bootstrap.csv
 5.3,"mejor de las dieciocho: siempre el GBM, con split estatico en n ventanas",four,4 de 5,si,fase0_tabla_por_modelo.csv
-5.4,adaptacion online (A1 - A0) en test_transition,-297.9,-297.9,si,fase2_aporte_por_componente.csv
-5.4,adaptacion online (A1 - A0) en TEST_COMPLETO,-95.9,-95.9,si,fase2_aporte_por_componente.csv
-5.4,transporte sobre ACI (A3 - A1) en TEST_COMPLETO,+68.6,+68.6,si,fase2_aporte_por_componente.csv
-5.4,shrinkage de cola (A4 - A3) en TEST_COMPLETO,-6.4,-6.4,si,fase2_aporte_por_componente.csv
-5.4,pipeline completo (A4 - A0) en TEST_COMPLETO,-32.3,-32.3,si,fase2_aporte_por_componente.csv
+5.5,adaptacion online (A1 - A0) en test_transition,-297.9,-297.9,si,fase2_aporte_por_componente.csv
+5.5,adaptacion online (A1 - A0) en TEST_COMPLETO,-95.9,-95.9,si,fase2_aporte_por_componente.csv
+5.5,transporte sobre ACI (A3 - A1) en TEST_COMPLETO,+68.6,+68.6,si,fase2_aporte_por_componente.csv
+5.5,shrinkage de cola (A4 - A3) en TEST_COMPLETO,-6.4,-6.4,si,fase2_aporte_por_componente.csv
+5.5,pipeline completo (A4 - A0) en TEST_COMPLETO,-32.3,-32.3,si,fase2_aporte_por_componente.csv
 5.5,pipeline completo por ventana: transicion y los tres semestres,-286.5 si / +58.8 no / +14.3 no / -14.7 si,-286.5 / +58.8 / +14.3 / -14.7,si,fase2_aporte_por_componente.csv
 5.5,ventanas en que el transporte empeora sobre ACI,"4 de 5, 3 significativas","4, 3",si,fase2_aporte_por_componente.csv
-5.5,costo del shrinkage sobre el total,"6.16 de 6.79 s, 91%","6.16 de 6.79 s, 91%",si,fase2_aporte_por_componente.csv
+"5.5, 4.6",costo del shrinkage sobre el total,"6.16 de 6.79 s, 91%","6.16 de 6.79 s, 91%",si,fase2_aporte_por_componente.csv
 5.5,costo del transporte solo contra la adaptacion sola,thirty-seven veces,7.75 / 0.21 = 37,si,fase2_aporte_por_componente.csv
 5.6,CQR unilateral sobre el GBM,89.8% / 276 MWh / IS 438,89.8% / 276 MWh / IS 438,si,fase4_metricas_completas.csv
-5.5,pipeline completo en el test completo,596 MWh / IS 813,596 MWh / IS 813,si,fase4_metricas_completas.csv
+5.6,pipeline completo en el test completo,596 MWh / IS 813,596 MWh / IS 813,si,fase4_metricas_completas.csv
 5.6,B2 distribucion movil 60d,433 a 86.5%,433 a 86.5%,si,fase4_metricas_completas.csv
 5.6,B1 cuantil empirico 365d,486 a 87.2%,486 a 87.2%,si,fase4_metricas_completas.csv
 5.6,B4 lognormal inflada en cero,639 a 82.4%,639 a 82.4%,si,fase4_metricas_completas.csv
 5.6,benchmarks mejores que todo esquema sobre el hurdle,4 de 4,4; todos distinguibles del estatico: True,si,fase4_metricas_completas.csv + fase4_diferencias_bootstrap.csv
 5.5,shrinkage relativo al interval score del pipeline,0.8% de 812.9,"eight decimos, about 810",si,fase2_aporte_por_componente.csv + fase4_metricas_completas.csv
 5.6,"con la cota, el transporte sigue peor que la adaptacion pura",6 de 6 pares,menor diferencia +41.4,si,fase4_cota_alpha.csv
-5.5,maximo de intervalos infinitos,hasta 5.9 por ciento,5.9,si,fase4_metricas_completas.csv
-5.5,la cota elimina todos los infinitos,0 en las cinco ventanas,max 0.0%,si,fase4_cota_alpha.csv
-5.5,costo de cobertura de la cota,a lo mas medio punto,0.5 puntos,si,fase4_cota_alpha.csv
+5.6,maximo de intervalos infinitos,hasta 5.9 por ciento,5.9,si,fase4_metricas_completas.csv
+5.6,la cota elimina todos los infinitos,0 en las cinco ventanas,max 0.0%,si,fase4_cota_alpha.csv
+5.6,costo de cobertura de la cota,a lo mas medio punto,0.5 puntos,si,fase4_cota_alpha.csv
 4.3,correlacion intraclase por fecha,0.238,0.2381,si,fase5_diagnostico_dependencia.csv
 4.3,efecto de diseno,26.7,26.67,si,fase5_diagnostico_dependencia.csv
 4.3,n efectivo,cerca de 1000 contra 26.552,996 contra 26552.0,si,fase5_diagnostico_dependencia.csv
 4.3,centrales por dia,108.8,108.82,si,fase5_diagnostico_dependencia.csv
-5.6,cobertura en dias de alto vertimiento,"estatico 91.9, Transporte+ACI 86.7, ACI 88.3","91.9, 86.7, 88.3",si,fase5_cobertura_desagregada.csv
-5.6,"peor desvio regional, agrupado contra Mondrian por region",4.8 sube a 7.2,4.8 sube a 7.2,si,fase5_cobertura_desagregada.csv
+5.7,cobertura en dias de alto vertimiento,"estatico 91.9, Transporte+ACI 86.7, ACI 88.3","91.9, 86.7, 88.3",si,fase5_cobertura_desagregada.csv
+5.7,"peor desvio regional, agrupado contra Mondrian por region",4.8 sube a 7.2,4.8 sube a 7.2,si,fase5_cobertura_desagregada.csv
 5.7,los dos mejores IS marginales del grupo de panel,region y por central,"['M2 Mondrian por region', 'M3 conformal por central']",si,fase5_remedios.csv
-5.6,mejor cobertura condicional (ACI puro),4.7 puntos,4.7,si,fase5_cobertura_desagregada.csv
-4.6,gamma y ventana seleccionados,"gamma 0.005, ventana 120 d","gamma 0.005, ventana 120 d",si,fase3_hiperparametros_elegidos.json
-4.6,infinitos en validacion con gamma 0.05,34 a 42 por ciento,34.3 a 41.7,si,fase3_seleccion_validacion.csv
+5.7,mejor cobertura condicional (ACI puro),4.7 puntos,4.7,si,fase5_cobertura_desagregada.csv
+4.7,gamma y ventana seleccionados,"gamma 0.005, ventana 120 d","gamma 0.005, ventana 120 d",si,fase3_hiperparametros_elegidos.json
+4.7,infinitos en validacion con gamma 0.05,34 a 42 por ciento,34.3 a 41.7,si,fase3_seleccion_validacion.csv
 5.8,rejilla gamma x ventana: cobertura del transporte en toda la rejilla,89.9 a 90.1,89.90 a 90.07 en 30 celdas,si,fase3_sensibilidad_test.csv
 5.8,rejilla gamma x ventana: intervalos infinitos,ninguno a gamma <= 0.01; 21.9 a 23.0 a gamma = 0.20,ninguno: True; 21.88 a 23.01,si,fase3_sensibilidad_test.csv
 3.4,configuraciones de deteccion sin quiebre en 2025 ni oct-2024,"180, ninguna","180, 0 y 0",si,fase6_sensibilidad_puntos_de_cambio.csv
-4.7,rango de W1 de las demas ventanas,0.28 a 0.95,0.28 a 0.95,si,fase6_wasserstein.csv
+4.8,rango de W1 de las demas ventanas,0.28 a 0.95,0.28 a 0.95,si,fase6_wasserstein.csv
 3.4,contraste oct-dic 2024 contra 2025 y su umbral,0.085 y 0.115,0.085 y 0.115,si,fase6_wasserstein.csv
 5.2,contraste 2025-S1 con IC y umbral,"0.1722, [0.0703, 0.3665], 0.1931","0.1722, [0.0703, 0.3665], 0.1931",si,fase6_wasserstein.csv
 3.3,ocurrencia por ventana,0.750 a 0.815,0.750 a 0.815,si,fase6_por_ventana_solar_norte.csv
-3.3,"mediana de positivos, calibracion a transicion",92 a 267 MWh,92 a 267 MWh,si,fase6_por_ventana_solar_norte.csv
+3.3,"mediana de positivos, calibracion a transicion",92~MWh in the calibration window to 267~MWh,92~MWh in the calibration window to 267~MWh,si,fase6_por_ventana_solar_norte.csv
 3.3,variacion total entre semestres,0.032 a 0.079,0.032 a 0.079,si,fase6_perfil_intradiario.csv
 3.3,movimiento maximo del centroide,hasta 22 minutos,22 minutos,si,fase6_perfil_intradiario.csv
-5.7,rango de divergencia de las fronteras alternativas,0.99 a 1.34,0.99 a 1.34,si,fase6_sensibilidad_frontera.csv
+5.8,rango de divergencia de las fronteras alternativas,0.99 a 1.34,0.99 a 1.34,si,fase6_sensibilidad_frontera.csv
 5.8,fronteras: orden por cobertura y sobre-cobertura del estatico,4.0 a 5.3,orden por cobertura en todas: True,si,fase6_sensibilidad_frontera.csv
 5.8,fronteras: peor IS finito y ventanas con infinitos del transporte,estatico en todas; infinitos en 3,['Split estatico']; 5.5 a 8.1,si,fase6_sensibilidad_frontera.csv
 5.8,fronteras: la ganancia sigue a la sobre-cobertura,r = -0.844,r = -0.844,si,fase6_sensibilidad_frontera.csv
 5.8,numero de fronteras alternativas,five,5 mas la oficial,si,fase6_sensibilidad_frontera.csv
-5.6,cuantil conformal agrupado y por bloques,"0.9242 a 0.9263, sd 0.0112",segun el log de la Fase 5,si,logs/fase5_*.log
-C.11,"costo de cobertura de la cota de alpha, campo de la tabla",0.5 puntos,removes infinite intervals in all five windows at a cost of at most 0....,si,fase1/hiperparametros.csv + fase4_cota_alpha.csv
-C.11,"gamma seleccionado, campo de la tabla",0.005,lowest interval score on the inner validation set; no infini,si,fase3_hiperparametros_elegidos.json
-C.11,"ventana seleccionada, campo de la tabla",120 dias,120 days,si,fase3_hiperparametros_elegidos.json
+5.7,cuantil conformal agrupado y por bloques,"0.9242 a 0.9263, sd 0.0112",segun el log de la Fase 5,si,logs/fase5_*.log
+C.14,"costo de cobertura de la cota de alpha, campo de la tabla",0.5 puntos,removes infinite intervals in all five windows at a cost of at most 0....,si,fase1/hiperparametros.csv + fase4_cota_alpha.csv
+C.14,"gamma seleccionado, campo de la tabla",0.005,lowest interval score on the inner validation set; no infini,si,fase3_hiperparametros_elegidos.json
+C.14,"ventana seleccionada, campo de la tabla",120 dias,120 days,si,fase3_hiperparametros_elegidos.json
 5.4,arboles que elige la deteccion temprana,105 (59+46),105,si,obj1d_deteccion_temprana.json
 5.4,CRPS del hurdle con deteccion temprana,89.52 a 84.38,84.38,si,obj1d_deteccion_temprana.json
 5.4,dispersion del hurdle con deteccion temprana,1.7016 a 1.8274,1.8274,si,obj1d_deteccion_temprana.json
@@ -78,5 +78,5 @@ C.11,"ventana seleccionada, campo de la tabla",120 dias,120 days,si,fase3_hiperp
 5.1,MAE del hurdle oficial y del detenido temprano,104.1 a 108.6 MWh,104.1 a 108.6,si,obj1e_mae_hurdle_es.json
 5.1,margen del detenido temprano tras el naive estacional,27.6 por ciento,27.6,si,obj1e_mae_hurdle_es.json
 5.1,el detenido temprano queda ultimo en la Tabla 2,ultimo,ultimo,si,obj1e_mae_hurdle_es.json
-C.13,"las semillas se imprimen en el PDF, no solo en el .tex",4 filas de semillas,4 impresas,si,texto extraido de build/SEGAN_paper_FINAL.pdf
-C.13,todas las filas de la tabla llegan al PDF,42 filas,42 en el PDF,si,texto extraido de build/SEGAN_paper_FINAL.pdf
+C.14,"las semillas se imprimen en el PDF, no solo en el .tex",4 filas de semillas,4 impresas,si,texto extraido de build/SEGAN_paper_FINAL.pdf
+C.14,todas las filas de la tabla llegan al PDF,42 filas,42 en el PDF,si,texto extraido de build/SEGAN_paper_FINAL.pdf

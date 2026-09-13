@@ -1671,3 +1671,34 @@ bootstrap es contra el split estatico. Lo demas:
 $VENV flagship/revision/verificar_manuscrito.py   # 81 de 81
 ```
 
+### C6. El verificador
+
+Sobre la prueba de mutacion de la auditoria (60 chequeos, solo caian 2):
+
+- (i) Las filas que solo buscaban la frase abren ahora su archivo y la arman
+  desde el valor: ventaja del GBM a presupuesto equiparado y deterioro del hurdle
+  al quintuplicar capacidad desde `obj1_capacidad.csv` y `obj1b_escalera.csv`
+  (incluido el 100.6 contra 141.1 de 2 700 arboles); desplazamiento del cuantil
+  conformal desde `obj1c_mecanismo.json`, que ademas recalcula el 93 %; CRPS de la
+  transicion y mediana de positivos desde sus CSV.
+- (ii) Las cuatro filas del diagnostico ampliado buscan solo en la prosa
+  (`en_prosa`, el .tex sin expandir los cuerpos de tabla) y con la frase entera
+  del abstract y de 5.3, no con la cifra suelta, que tambien esta en la Tabla 6.
+- (iii) Contraste de 2025-S1: hecho en C5 (punto, IC, umbral y veredicto).
+- (iv) Segundos del shrinkage: la tolerancia de 0.6 s ya se habia quitado en B3.
+- (v) Cruce de la carta contra el manuscrito sobre los dos PDF: se corre como
+  compuerta antes de empaquetar y no se commitea. Sobre el build de C5 marca siete
+  numeros de la carta sin contraparte en el manuscrito: cinco son citas de la
+  lista de correcciones (0.04, 0.06, 0.08, 0.105, 0.947), 0.59 es la concordancia
+  de ancho del log de la Fase 0 y 9.5 es el reparto de `obj1c_mecanismo.json`, que
+  el manuscrito da como 0.9270. Ninguno es un numero movido por el rerun.
+- Etiquetas de seccion: la columna `seccion` del CSV ya no se escribe a mano.
+  `chk` la toma de donde `en_tex` o `en_prosa` encontro la frase, numerando
+  secciones y subsecciones con la regla de LaTeX, asi que no puede desfasarse; las
+  filas de tabla conservan su etiqueta (Tabla 5, Tabla 6, C.14, antes C.11 y
+  C.13).
+
+```
+$VENV flagship/revision/verificar_manuscrito.py   # 81 de 81
+```
+
