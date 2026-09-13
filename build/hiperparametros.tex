@@ -50,11 +50,18 @@ Monotonisation & running maximum and clip to [0,1] & keeps the transported map a
 \multicolumn{3}{l}{\emph{ACI}} \\
 Update & alpha\_\{t+1\} = alpha\_t + gamma (alpha - err\_t) & err\_t = 1\{Y\_t > U\_t\}, averaged over the plants of day t \\
 gamma reported in the submitted version & 0.02 and 0.05 & kept in the tables for continuity \\
-gamma selected by rolling origin & 0.005 & lowest interval score on the inner validation set; no infinite intervals there \\
-Window selected by rolling origin & 120 days & as above, for Transport+ACI \\
 Bound on alpha\_t, submitted version & [-1, 2] & allows alpha\_t <= 0 and hence q = +infinity: the origin of the infinite intervals \\
 Recommended bound on alpha\_t & alpha\_min = 0.005 & removes infinite intervals in all five windows at a cost of at most 0.5 points of coverage \\
 Order of execution & map refresh, then quantile, then interval, then ACI & on date t: (i) if a refresh is due, the map is recomputed from the window ending at t-7 and the whole calibration pool is transported; (ii) the quantile is taken from the transported pool at the CURRENT alpha\_t, which does not yet include the error of t; (iii) the interval is emitted; (iv) the error of t enters the embargo queue and updates alpha only 7 steps later. The map never uses the alpha of ACI and ACI never uses the map: the only coupling is the pool \\
+\midrule
+\multicolumn{3}{l}{\emph{Hyperparameter selection}} \\
+Grid for gamma & \{0.005, 0.01, 0.02, 0.05, 0.10, 0.20\} & the test set is not used in the selection \\
+Grid for the recent window & \{30, 45, 60, 90, 120\} days & Transport+ACI only \\
+Inner calibration pool & 2024-01-01 to 2024-05-01 & first part of the calibration window \\
+Inner validation set & 2024-05-01 to 2024-09-01 & rolling origin with the same 7-day refresh and 7-day embargo as the test protocol \\
+Selection criterion & mean one-sided interval score & +infinity if any interval is infinite, so such a configuration is disqualified by the criterion itself; the generator uses the seed of the PIT atom \\
+gamma selected by rolling origin & 0.005 & lowest interval score on the inner validation set; no infinite intervals there \\
+Window selected by rolling origin & 120 days & as above, for Transport+ACI \\
 \midrule
 \multicolumn{3}{l}{\emph{Evaluation}} \\
 Primary metric & one-sided interval score IS = U + (2/alpha) max(y-U, 0) & proper, in MWh, and infinite if U is infinite \\

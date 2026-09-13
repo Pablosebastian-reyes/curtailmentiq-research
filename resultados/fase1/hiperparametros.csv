@@ -22,11 +22,16 @@ Transport,Shrinkage strength,tau = 0.05 in PIT units,"fixed regularisation scale
 Transport,Monotonisation,"running maximum and clip to [0,1]",keeps the transported map a quantile function,conformal_metodos.py:mapa_transporte_banda
 ACI,Update,alpha_{t+1} = alpha_t + gamma (alpha - err_t),"err_t = 1{Y_t > U_t}, averaged over the plants of day t",rev_lib.py:aci
 ACI,gamma reported in the submitted version,0.02 and 0.05,kept in the tables for continuity,rev_lib.py
-ACI,gamma selected by rolling origin,0.005,lowest interval score on the inner validation set; no infinite intervals there,fase3_hiperparametros_elegidos.json
-ACI,Window selected by rolling origin,120 days,"as above, for Transport+ACI",fase3_hiperparametros_elegidos.json
 ACI,"Bound on alpha_t, submitted version","[-1, 2]",allows alpha_t <= 0 and hence q = +infinity: the origin of the infinite intervals,"rev_lib.py:aci(alpha_min, alpha_max)"
 ACI,Recommended bound on alpha_t,alpha_min = 0.005,removes infinite intervals in all five windows at a cost of at most 0.5 points of coverage,fase4_metricas_benchmarks.py
 ACI,Order of execution,"map refresh, then quantile, then interval, then ACI","on date t: (i) if a refresh is due, the map is recomputed from the window ending at t-7 and the whole calibration pool is transported; (ii) the quantile is taken from the transported pool at the CURRENT alpha_t, which does not yet include the error of t; (iii) the interval is emitted; (iv) the error of t enters the embargo queue and updates alpha only 7 steps later. The map never uses the alpha of ACI and ACI never uses the map: the only coupling is the pool",rev_lib.py:transporte_aci
+Hyperparameter selection,Grid for gamma,"{0.005, 0.01, 0.02, 0.05, 0.10, 0.20}",the test set is not used in the selection,fase3_seleccion_hiperparametros.py:GAMMAS
+Hyperparameter selection,Grid for the recent window,"{30, 45, 60, 90, 120} days",Transport+ACI only,fase3_seleccion_hiperparametros.py:VENTANAS
+Hyperparameter selection,Inner calibration pool,2024-01-01 to 2024-05-01,first part of the calibration window,"fase3_seleccion_hiperparametros.py:CAL_INT_INI, CAL_INT_FIN"
+Hyperparameter selection,Inner validation set,2024-05-01 to 2024-09-01,rolling origin with the same 7-day refresh and 7-day embargo as the test protocol,fase3_seleccion_hiperparametros.py:VAL_INT_FIN
+Hyperparameter selection,Selection criterion,mean one-sided interval score,"+infinity if any interval is infinite, so such a configuration is disqualified by the criterion itself; the generator uses the seed of the PIT atom",fase3_seleccion_hiperparametros.py
+Hyperparameter selection,gamma selected by rolling origin,0.005,lowest interval score on the inner validation set; no infinite intervals there,fase3_hiperparametros_elegidos.json
+Hyperparameter selection,Window selected by rolling origin,120 days,"as above, for Transport+ACI",fase3_hiperparametros_elegidos.json
 Evaluation,Primary metric,"one-sided interval score IS = U + (2/alpha) max(y-U, 0)","proper, in MWh, and infinite if U is infinite",rev_lib.py:interval_score_unilateral
 Evaluation,Standard error of coverage,clustered by date,averages the coverage of each day and takes the error across days,conformal_metodos.py:cobertura_clusterizada
 Evaluation,Bootstrap of the differences between methods,2000 resamples of whole days,"the resampled unit is the day, not the row; 95% percentile interval",rev_lib.py:bootstrap_diferencia

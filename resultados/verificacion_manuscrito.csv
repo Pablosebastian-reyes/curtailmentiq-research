@@ -50,6 +50,7 @@ Tabla 5,ajuste sobre las quince celdas,"-0.755, -4.36, +5.45","-0.755, -4.36, +5
 3.3,variacion total entre semestres,0.032 a 0.079,0.032 a 0.079,si,fase6_perfil_intradiario.csv
 3.3,movimiento maximo del centroide,hasta 22 minutos,22 minutos,si,fase6_perfil_intradiario.csv
 5.7,rango de divergencia de las fronteras alternativas,0.99 a 1.34,0.99 a 1.34,si,fase6_sensibilidad_frontera.csv
+5.8,numero de fronteras alternativas,five,5 mas la oficial,si,fase6_sensibilidad_frontera.csv
 5.6,cuantil conformal agrupado y por bloques,"0.9242 a 0.9263, sd 0.0112",segun el log de la Fase 5,si,logs/fase5_*.log
 C.11,"costo de cobertura de la cota de alpha, campo de la tabla",0.5 puntos,removes infinite intervals in all five windows at a cost of at most 0....,si,fase1/hiperparametros.csv + fase4_cota_alpha.csv
 C.11,"gamma seleccionado, campo de la tabla",0.005,lowest interval score on the inner validation set; no infini,si,fase3_hiperparametros_elegidos.json
@@ -62,4 +63,4 @@ C.11,"ventana seleccionada, campo de la tabla",120 dias,120 days,si,fase3_hiperp
 5.1,margen del detenido temprano tras el naive estacional,27.6 por ciento,27.6,si,obj1e_mae_hurdle_es.json
 5.1,el detenido temprano queda ultimo en la Tabla 2,ultimo,ultimo,si,obj1e_mae_hurdle_es.json
 C.13,"las semillas se imprimen en el PDF, no solo en el .tex",4 filas de semillas,4 impresas,si,texto extraido de build/SEGAN_paper_FINAL.pdf
-C.13,todas las filas de la tabla llegan al PDF,37 filas,37 en el PDF,si,texto extraido de build/SEGAN_paper_FINAL.pdf
+C.13,todas las filas de la tabla llegan al PDF,42 filas,42 en el PDF,si,texto extraido de build/SEGAN_paper_FINAL.pdf

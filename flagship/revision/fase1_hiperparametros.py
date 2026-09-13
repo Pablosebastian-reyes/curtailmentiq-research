@@ -37,6 +37,7 @@ sys.path.insert(0, str(R.FLAGSHIP))
 import conformal_metodos as cm          # noqa: E402
 import entrenar_baselines as EB         # noqa: E402
 import fase0_entrenar_qgbm as QG        # noqa: E402
+import fase3_seleccion_hiperparametros as F3  # noqa: E402
 
 SAL = R.REPO / 'resultados' / 'fase1'
 SAL.mkdir(parents=True, exist_ok=True)
@@ -161,11 +162,6 @@ def main():
          'err_t = 1{Y_t > U_t}, averaged over the plants of day t', 'rev_lib.py:aci'),
         ('ACI', 'gamma reported in the submitted version', '0.02 and 0.05',
          'kept in the tables for continuity', 'rev_lib.py'),
-        ('ACI', 'gamma selected by rolling origin', g_sel,
-         'lowest interval score on the inner validation set; no infinite intervals '
-         'there', 'fase3_hiperparametros_elegidos.json'),
-        ('ACI', 'Window selected by rolling origin', f'{v_tra} days',
-         'as above, for Transport+ACI', 'fase3_hiperparametros_elegidos.json'),
         ('ACI', 'Bound on alpha_t, submitted version', '[-1, 2]',
          'allows alpha_t <= 0 and hence q = +infinity: the origin of the infinite '
          'intervals', 'rev_lib.py:aci(alpha_min, alpha_max)'),
@@ -182,6 +178,29 @@ def main():
          'the error of t enters the embargo queue and updates alpha only 7 steps '
          'later. The map never uses the alpha of ACI and ACI never uses the map: the '
          'only coupling is the pool', 'rev_lib.py:transporte_aci'),
+        # --- seleccion por origen rodante (R1.4): rejillas, particion y criterio,
+        # leidos de las constantes de la Fase 3 ---
+        ('Hyperparameter selection', 'Grid for gamma',
+         '{' + ', '.join(f'{g:.3f}' if g < 0.01 else f'{g:.2f}' for g in F3.GAMMAS) + '}',
+         'the test set is not used in the selection', 'fase3_seleccion_hiperparametros.py:GAMMAS'),
+        ('Hyperparameter selection', 'Grid for the recent window',
+         '{' + ', '.join(str(v) for v in F3.VENTANAS) + '} days', 'Transport+ACI only',
+         'fase3_seleccion_hiperparametros.py:VENTANAS'),
+        ('Hyperparameter selection', 'Inner calibration pool',
+         f'{F3.CAL_INT_INI.date()} to {F3.CAL_INT_FIN.date()}',
+         'first part of the calibration window', 'fase3_seleccion_hiperparametros.py:CAL_INT_INI, CAL_INT_FIN'),
+        ('Hyperparameter selection', 'Inner validation set',
+         f'{F3.CAL_INT_FIN.date()} to {F3.VAL_INT_FIN.date()}',
+         f'rolling origin with the same {defecto(R.transporte_aci, "refresco_dias")}-day refresh and '
+         f'{R.EMBARGO_DIAS}-day embargo as the test protocol', 'fase3_seleccion_hiperparametros.py:VAL_INT_FIN'),
+        ('Hyperparameter selection', 'Selection criterion', 'mean one-sided interval score',
+         '+infinity if any interval is infinite, so such a configuration is disqualified by the '
+         'criterion itself; the generator uses the seed of the PIT atom', 'fase3_seleccion_hiperparametros.py'),
+        ('Hyperparameter selection', 'gamma selected by rolling origin', g_sel,
+         'lowest interval score on the inner validation set; no infinite intervals there',
+         'fase3_hiperparametros_elegidos.json'),
+        ('Hyperparameter selection', 'Window selected by rolling origin', f'{v_tra} days',
+         'as above, for Transport+ACI', 'fase3_hiperparametros_elegidos.json'),
         # --- evaluacion ---
         ('Evaluation', 'Primary metric',
          'one-sided interval score IS = U + (2/alpha) max(y-U, 0)',

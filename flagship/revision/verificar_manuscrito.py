@@ -402,6 +402,13 @@ def main():
         abs(fr.w1_vs_calibracion.min() - 0.99) < 0.006
         and abs(fr.w1_vs_calibracion.max() - 1.34) < 0.006
         and en_tex('from 0.99 to 1.34'), 'fase6_sensibilidad_frontera.csv')
+    # la oficial no es alternativa: el texto decia "six alternative" contando
+    # los seis bloques de la Tabla 12, que son la oficial mas cinco
+    n_alt = fr.periodo.nunique() - 1
+    chk('5.8', 'numero de fronteras alternativas', palabra(n_alt), f'{n_alt} mas la oficial',
+        bool(fr.periodo.str.startswith('oficial').any())
+        and en_tex(f'on {palabra(n_alt)} alternative definitions of the window besides the one used'),
+        'fase6_sensibilidad_frontera.csv')
 
     # ---------------- Fase 5: bloques ----------------
     log = sorted((RES / 'logs').glob('fase5_*.log'))[-1].read_text()

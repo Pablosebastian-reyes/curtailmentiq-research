@@ -69,7 +69,7 @@ R1.4 & Rolling-origin selection inside the calibration window; test reserved for
 R1.5 & One-sided interval score adopted; infinite limits handled explicitly; $\alpha$ bound evaluated; four benchmarks added; all differences with day-block bootstrap & \S4.8, \S5.6, Tables 9--10 \\
 R2.1 & Bibliography expanded from 10 to 43 entries, every DOI verified, no grouped citations & \S2 \\
 R2.2 & \texttt{test\_ramp} renamed, footnote removed, storage mentions audited; rename verified to change labels only & \S4.8, \S5.2, Table~3, Figs.~5--6, code \\
-R2.3 & Single chronology; 180 detection configurations; six alternative window boundaries evaluated & \S3.4, \S5.8, Table~12 \\
+R2.3 & Single chronology; 180 detection configurations; five alternative window boundaries evaluated & \S3.4, \S5.8, Table~12 \\
 R2.4 & Explicit statement of what is new and what is taken from the literature & \S4.6 \\
 R2.5 & ICC and design effect quantified; block, group and plant-level conformal tested; coverage disaggregated on four axes & \S4.3, \S5.7, Table~11 \\
 R2.6 & Empirical quantiles, CQR, rolling historical distributions and zero-inflated parametric benchmarks; six metrics reported & \S5.6, Table~9 \\
@@ -101,7 +101,7 @@ We considered two alternatives and record them here in case the Editor prefers o
 \item \emph{When does adaptive conformal calibration pay? Evidence from renewable curtailment} --- foregrounds the question rather than the answer.
 \end{enumerate}
 
-\where{Title page. The description of the system, its size and the 19{,}000~GWh curtailed over 2022 to mid-2026, has moved into the abstract, second sentence, so that no information is lost. The abstract was also brought within the 250-word limit of the guide for authors, from 431 words to 248, without dropping the diagnostic result, the fitted relationship or the separation of the three guarantee regimes. The country still appears in the abstract, in Section~3 and in the keywords, where it is a statement of provenance rather than a limitation of scope.}
+\where{Title page. The description of the system, its size and the 19{,}000~GWh curtailed over 2022 to mid-2026, has moved into the abstract, second sentence, so that no information is lost. The abstract was also brought within the 250-word limit of the guide for authors, from 431 words to 248, without dropping the diagnostic result, the fitted relationship or the separation of the three guarantee regimes. The country still appears in the abstract and in Section~3, where it is a statement of provenance rather than a limitation of scope.}
 
 \clearpage
 \section{Reviewer 1}
@@ -150,7 +150,7 @@ The mechanism corroborates a result already in the manuscript. When the hurdle i
 
 We considered stating the relationship symmetrically, since the low-capacity arms under-cover and the layer widens their intervals, which is the mirror of the over-covered case. We do not, because the data do not support it: fitting the two sides separately improves the fit by more than chance ($p=0.0032$), and the improvement is one of level rather than of rate ($p=0.0009$ for the level, $p=0.41$ for the slope). The claim therefore stays scoped to over-coverage, and the under-covered arms are reported as evidence that the mechanism does not stop at the nominal level rather than as a symmetric law.
 
-\where{Section~4.1 describes the base models. Section~5.3 is a new subsection reporting the result, with Table~4 (the three arms in the transition window), Table~5 (the fifteen cells and the fitted relationship), Table~6 (the forty cells with their bootstrap intervals) and Figure~7. Section~5.4 is a further new subsection with the capacity ladder, Table~7 and Figure~8. The abstract, the introduction (contribution paragraphs), Section~6.1 and the conclusion are rewritten around it. Section~7 states the limits of the diagnostic. The commands that regenerate it are in Appendix~D.}
+\where{Section~4.1 describes the base models. Section~5.3 is a new subsection reporting the result, with Table~4 (the three arms in the transition window), Table~5 (the fifteen cells and the fitted relationship), Table~6 (the forty cells with their bootstrap intervals) and Figure~7. Section~5.4 is a further new subsection with the capacity ladder, Table~7 and Figure~8. The abstract, the introduction (contribution paragraphs), Section~6.1 and the conclusion are rewritten around it. Section~7 states the limits of the diagnostic. Appendix~D gives the environment and the seeds, and points to the command sequence in the companion repository.}
 
 \subsection*{R1.2 --- Implementation detail and algorithm flowchart}
 
@@ -167,12 +167,12 @@ Taking the seven items in the reviewer's order:
 \item \textbf{Selection rule for empirical quantiles.} An equispaced grid of $g$ levels on $[0,1]$ with $g=\min(100,\max(20,m/2))$, where $m$ is the number of scores in the recent window; the second term prevents a grid finer than the data support.
 \item \textbf{Interpolation scheme.} Two successive piecewise-linear interpolations, first from a score to its level on the old empirical quantile function, then from that level to the regularised new quantile. This is the increasing rearrangement evaluated pointwise.
 \item \textbf{Bootstrap repetitions.} $B=150$ resamples of the recent window. The map is the mean of the replicate quantile functions, a bagged estimate; the replicate standard deviation at each level is the band.
-\item \textbf{Exact tail shrinkage function.} Now given as equation~(5) of the manuscript: $\hat q_{\mathrm{reg}}(u)=(1-\lambda(u))\hat q_{\mathrm{old}}(u)+\lambda(u)\hat q^{\mathrm{bag}}_{\mathrm{new}}(u)$ with $\lambda(u)=[1+(\mathrm{sd}_{\mathrm{boot}}(u)/\tau)^2]^{-1}$, followed by a running maximum and a clip to $[0,1]$.
+\item \textbf{Exact tail shrinkage function.} Now given as equation~(4) of the manuscript: $\hat q_{\mathrm{reg}}(u)=(1-\lambda(u))\hat q_{\mathrm{old}}(u)+\lambda(u)\hat q^{\mathrm{bag}}_{\mathrm{new}}(u)$ with $\lambda(u)=[1+(\mathrm{sd}_{\mathrm{boot}}(u)/\tau)^2]^{-1}$, followed by a running maximum and a clip to $[0,1]$.
 \item \textbf{Shrinkage strength.} $\tau=0.05$ in PIT units, fixed a priori and never tuned against the test set.
 \item \textbf{Execution order.} Stated explicitly and marked in the figure. On date $t$: (i) if a refresh is due, recompute the map from the window ending at $t-7$ and transport the whole calibration pool; (ii) take the conformal quantile from the transported pool at the \emph{current} $\alpha_t$, which does not yet include the error of day $t$; (iii) emit the interval; (iv) push the error of day $t$ onto the embargo queue, which updates $\alpha$ seven steps later. The map never uses the adaptive level and the adaptive update never uses the map; the only coupling is the pool.
 \end{itemize}
 
-\where{Section~4.5 gives the three items above that belong in the body. Algorithm~1 gives the full procedure in pseudocode. Figure~4 is the flowchart the reviewer asked for, with the execution order marked along the top and the two branches drawn separately so the coupling point is visible. Appendix~C, Table~C.14, is the complete hyperparameter specification including all four seeds. Appendix~D gives the environment and the command sequence.}
+\where{Section~4.5 gives the three items above that belong in the body. Algorithm~1 gives the full procedure in pseudocode. Figure~4 is the flowchart the reviewer asked for, with the execution order marked along the top and the two branches drawn separately so the coupling point is visible. Appendix~C, Table~C.14, is the complete hyperparameter specification including all four seeds. Appendix~D gives the environment and points to the command sequence in the companion repository.}
 
 \subsection*{R1.3 --- Ablations}
 
@@ -204,7 +204,7 @@ Online adaptation earns its cost: $-215.8$~MWh in the transition window, $[-274,
 
 Taken together the full pipeline gains 177.0~MWh in the transition window and loses 96.0 and 119.0 in 2025-S1 and 2025-S2, all three significant, netting $+32.4$ over the whole test with an interval containing zero. Over the evaluation period as a whole it is not better than the static split it replaces.
 
-\where{Section~5.5 is a new subsection. Table~8 gives the marginal contributions with intervals and runtimes; Figure~9 shows them window by window. Section~4.6 now states which parts of the construction are new (see R2.4) and Section~4.6 closes by noting that neither survives its ablation, which we judged better placed there than left for the reader to discover in Section~5.}
+\where{Section~5.5 is a new subsection. Table~8 gives the marginal contributions with intervals and runtimes; Figure~9 shows them window by window. Section~4.6 now states which parts of the construction are new (see R2.4) and Section~4.6 closes by noting that the combination does not survive its ablation and that the tail shrinkage survives it but does not pay for its cost, which we judged better placed there than left for the reader to discover in Section~5.}
 
 \subsection*{R1.4 --- Hyperparameter selection and the reservation of the test set}
 
@@ -300,7 +300,7 @@ What we did:
 
 On the evidence the reviewer asks for, we state plainly in Section~6.3 what we can and cannot do. We have compiled from the operator's public records a registry of the storage systems of the system with their commercial operation dates and locations, which is supplied as supplementary material. We do not have charge-discharge data, network topology, transmission outage records or nodal prices, and without them the analysis the reviewer describes cannot be done. The literature we now cite makes the point sharper: Mohamad et al.\ show the effect of storage on curtailment depends on its position relative to the binding constraint, and Denholm and Mai show it depends on duration as much as on power, so a capacity-and-date registry alone is not sufficient even in principle.
 
-We did not construct a causal study of storage, and we want to say why explicitly rather than leave it implicit. The methodological contribution never depended on knowing the cause of the shift. A calibration layer that only works when the analyst can name the cause would be of little operational use, and the revision makes that explicit rather than papering over it. The evaluation window is now justified on a measurable criterion, maximum divergence from the calibration distribution, which is the property that actually matters for a conformal layer, and Section~5.8 shows the conclusions are unchanged across six alternative boundary definitions.
+We did not construct a causal study of storage, and we want to say why explicitly rather than leave it implicit. The methodological contribution never depended on knowing the cause of the shift. A calibration layer that only works when the analyst can name the cause would be of little operational use, and the revision makes that explicit rather than papering over it. The evaluation window is now justified on a measurable criterion, maximum divergence from the calibration distribution, which is the property that actually matters for a conformal layer, and Section~5.8 shows the conclusions are unchanged across five alternative boundary definitions.
 
 \where{Section~4.8 and Table~3, footnote removed and column renamed. Sections~3.4, 5.2 and 6.3. Figures~5 and 6, labels regenerated. Section~7, limitation on causal identification. Code and result files throughout the companion repository.}
 
@@ -320,7 +320,7 @@ The chronology: the distributional shift is a ramp of roughly eighteen months, w
 
 First, on the detection itself. We repeated the analysis over 180 configurations, crossing two strata, three deseasonalisation methods (calendar-month median, calendar-month mean, robust STL), five penalty multipliers and three minimum segment lengths, with both algorithms. \emph{No configuration returns a break in 2025, and none returns a break in October 2024.} The two dates that do appear are the most frequent across the whole grid.
 
-Second, on the consequences for the evaluation. We re-ran the calibration comparison on six alternative definitions of the transition window, from two months to seven, whose divergence from the calibration distribution ranges from 0.99 to 1.34. The ordering of the methods is unchanged in every case, and the size of the apparent adaptive gain tracks the divergence, which is the same relationship established in Section~5.3.
+Second, on the consequences for the evaluation. We re-ran the calibration comparison on five alternative definitions of the transition window, from two months to seven, whose divergence from the calibration distribution ranges from 0.99 to 1.34. The ordering of the methods is unchanged in every case, and the size of the apparent adaptive gain tracks the divergence, which is the same relationship established in Section~5.3.
 
 We also record a correction of process. In preparing this revision we found that our internal log described the change-point penalty as $3\hat\sigma^2\log n$, which does not reproduce the published dates; the standard BIC penalty $\hat\sigma^2\log n$ does, returning both dates and both jump sizes exactly. The published result was correct; the internal description of how it was obtained was not. The penalty is now stated in the manuscript and the sensitivity grid spans it.
 
@@ -344,7 +344,7 @@ Second, the experiment was reproduced independently from a clean clone, in an en
 
 We then report, in the same subsection, how each fares under ablation, and the two answers differ. The combination does not survive: with the online update in place, adding the transport worsens the interval score by 74.2~MWh over the whole test, with an interval excluding zero. The device does survive its ablation but not its price: the shrinkage improves the score by 6.5~MWh, with a bootstrap interval that also excludes zero, which is six tenths of one per cent of the score for ninety-two per cent of the runtime. We regard stating that plainly as more useful than the novelty claim it replaces, and it is what the reframing of the paper is built on.
 
-\where{Section~4.6, attribution and novelty. Algorithm~1 and Figure~4, the complete procedure. Appendix~C, Table~C.14, every parameter and all four seeds (42 for base-model training, 20260720 for the PIT atom randomisation and the transport bootstrap, 11 for the CRPS sampling, 20260901 for the day-block bootstrap and permutation nulls). Appendix~D, environment and commands. Section~5.5, the ablations.}
+\where{Section~4.6, attribution and novelty. Algorithm~1 and Figure~4, the complete procedure. Appendix~C, Table~C.14, every parameter and all four seeds (42 for base-model training, 20260720 for the PIT atom randomisation and the transport bootstrap, 11 for the CRPS sampling, 20260901 for the day-block bootstrap and permutation nulls). Appendix~D, environment, seeds and a pointer to the commands in the companion repository. Section~5.5, the ablations.}
 
 \subsection*{R2.5 --- Conformal validity under panel dependence}
 
@@ -400,11 +400,11 @@ The claims should be moderated. The conclusion that point forecasting offers lit
 \item \emph{Empirical coverage in a dependent panel}, which is what we measure, is described by neither of the above, and varies across technologies, plant sizes, regions and high-curtailment days in the ways reported.
 \end{itemize}
 
-The abstract closes on that distinction, Section~4.3 is a new subsection devoted to it, and the conclusion restates it as its penultimate paragraph.
+The abstract states that distinction in its third sentence from the end, Section~4.3 is a new subsection devoted to it, and the conclusion restates it as its penultimate paragraph.
 
 \textbf{Beyond the comment.} Since the reviewer's concern is over-claiming, we note that the central claim of the submitted version, the one-third reduction, is no longer made as a property of the method. It is reported as what it is: a result specific to one base model, and a measurement of that model's miscalibration.
 
-\where{Abstract, final two sentences. Section~4.3, the three regimes. Section~5.1, the scope of the point-forecasting result. Section~7, the limitations section. Section~8, conclusion.}
+\where{Abstract, third sentence from the end. Section~4.3, the three regimes. Section~5.1, the scope of the point-forecasting result. Section~7, the limitations section. Section~8, conclusion.}
 
 \clearpage
 \section{Structured questions and further changes}
@@ -427,7 +427,7 @@ The abstract closes on that distinction, Section~4.3 is a new subsection devoted
 
 \subsection*{Q8 and Q9 --- Structure, flow and language (both reviewers: Yes)}
 
-\action{Section~4 is now subdivided into seven subsections separating the base models, the score, the guarantees, the responses to the shift, the algorithm, the novelty statement, the selection protocol and the evaluation, which were previously interleaved. Section~5 is subdivided into seven result subsections, each answering one question. Discussion and limitations, previously mixed, are now Sections~6 and 7. The manuscript has been edited for language throughout, with attention to the passive constructions and long compound sentences of the submitted version.}
+\action{Section~4 is now subdivided into eight subsections separating the base models, the score, the guarantees, the responses to the shift, the algorithm, the novelty statement, the selection protocol and the evaluation, which were previously interleaved. Section~5 is subdivided into eight result subsections, each answering one question. Discussion and limitations, previously mixed, are now Sections~6 and 7. The manuscript has been edited for language throughout, with attention to the passive constructions and long compound sentences of the submitted version.}
 
 \subsection{Corrections we made on our own initiative}
 \label{sec:correcciones}

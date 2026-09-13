@@ -1330,3 +1330,29 @@ empaquetador y `verificar_manuscrito.py` las buscan en el PDF para comprobar que
 cada fila se imprime. Se actualizan las dos, y las busquedas por nombre del
 verificador.
 
+### B7. Remisiones erradas en el cuerpo de la carta
+
+- R1.2: "equation (5)" para el shrinkage pasa a (4); la (5) es el interval score.
+  Ancla nueva en `verificar_referencias_cruzadas.py` para esa ecuacion.
+- R1.3: "Section 4.6 closes by noting that neither survives its ablation" decia lo
+  contrario de 4.6 y de la propia respuesta a R2.4. Ahora: la combinacion no
+  sobrevive su ablacion y el shrinkage la sobrevive pero no paga su costo. Se
+  actualiza el ancla del verificador, que fijaba la frase vieja.
+- R2.7: la distincion de las tres garantias esta en la antepenultima oracion del
+  abstract, no en las dos ultimas; se corrigen las dos menciones.
+- Nota editorial: el pais no aparece en las keywords; sale esa mencion.
+- Q8/Q9: las Secciones 4 y 5 tienen eight y eight subsecciones, no siete; el numero se
+  cuenta sobre el .tex al insertar.
+- Fronteras de la ventana: son cinco definiciones alternativas mas la oficial, no
+  "six alternative". Criterio unico en la carta (cuadro resumen, R2.2, R2.3) y en
+  5.8, que ahora dice "five alternative definitions of the window besides the one
+  used"; el numero sale de `fase6_sensibilidad_frontera.csv` y lo chequea el
+  verificador.
+- Apendice D: da el entorno y las semillas y remite al repositorio para la
+  secuencia de comandos. Las tres remisiones de la carta dicen ahora eso.
+- Apendice C: la carta decia que las rejillas estaban en la tabla y no estaban.
+  `fase1_hiperparametros.py` suma un bloque "Hyperparameter selection" con la
+  rejilla de gamma, la de la ventana, la particion interna y el criterio, leidos
+  de las constantes de `fase3_seleccion_hiperparametros.py`, y mueve ahi las dos
+  filas de lo elegido.
+
