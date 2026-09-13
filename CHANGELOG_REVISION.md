@@ -1712,3 +1712,29 @@ $VENV flagship/revision/verificar_manuscrito.py   # 81 de 81
   (1/alpha), y la ronda tres con las cuatro notas P2 y la comparacion de las
   configuraciones de la Fase 3.
 
+### C5b. Fuera la lista de correcciones atribuida a la version enviada
+
+Decision del autor, sobre el item retenido de C5. La subseccion "Corrections we
+made on our own initiative" de la carta atribuia a la version enviada seis
+afirmaciones descriptivas que no estan en ella: el .tex de `submitted-segan-v1` no
+contiene ninguna, y salen del borrador de esta revision que verifico
+`fase6_verificacion_afirmaciones.csv`. Lo mismo valia para sus dos "matters of
+process" y para la linea de las veinticuatro afirmaciones. Se quita la
+subseccion entera, y la carta al editor pierde la frase que remitia a ella y
+queda con un solo punto de divulgacion, la seleccion de hiperparametros. El
+umbral 0.215 a 0.193 queda sin efecto.
+
+El manuscrito tenia la misma afirmacion como item de la Seccion 7 ("Six
+descriptive statements of the submitted version did not reproduce ... twenty-four
+in total") y se quita con el mismo criterio. La Seccion 7 pasa de diez a nueve
+items; la carta lo dice asi en la fila Q7 del cuadro resumen y en la respuesta a
+Q7, con el conteo hecho sobre el .tex. Las correcciones siguen en el texto (3.3 y
+4.8); lo que se quita es la atribucion. HALLAZGOS H4 lleva la nota.
+
+```
+$VENV flagship/revision/verificar_manuscrito.py   # 81 de 81
+# manuscrito 37 paginas, carta , cero errores y cero referencias sin resolver
+# compuerta carta contra manuscrito: quedan 0.59 (log de la Fase 0) y 9.5
+# (obj1c_mecanismo.json), los dos con fuente propia
+```
+

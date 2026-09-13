@@ -213,6 +213,12 @@ cambia: ninguno de los dos se paga a si mismo.
 
 ## H4. Seis afirmaciones descriptivas de la seccion 3.3 y 4.4 no reproducen
 
+*Nota del 14 de septiembre.* Estas seis afirmaciones estaban en el borrador de esta
+revision, no en la version enviada: el .tex del tag `submitted-segan-v1` no contiene ninguna.
+Por eso se quitaron la subseccion de correcciones de la carta, la frase de la carta al
+editor que remitia a ella y el item de la Seccion 7 que las atribuia a la version
+enviada. Las correcciones siguen en el texto; lo que se quito es la atribucion.
+
 **Estado:** confirmado. **Fase:** 6.
 **Comando:** `<venv>/bin/python flagship/revision/fase6_cronologia.py`
 **Archivo:** `resultados/fase6/fase6_verificacion_afirmaciones.csv`
