@@ -312,12 +312,15 @@ def fig9_escalera_y_diagnostico():
 
     # --- panel derecho: diagnostico ampliado
     orig = cel.en_las_quince_originales.values.astype(bool)
+    # Los conteos se leen de las celdas, no se tipean, y la etiqueta ya no habla
+    # de una "revision previa" que los revisores nunca vieron (B6): las quince
+    # celdas son el diseno de tres modelos de la Tabla 5.
     a2.scatter(cel.sobrecobertura_pp[~orig], cel.cambio_ancho_pct[~orig], s=30,
                marker='o', facecolor='white', edgecolor=AZUL, linewidth=0.9,
-               zorder=3, label='New arms (25 cells)')
+               zorder=3, label=f'New arms ({int((~orig).sum())} cells)')
     a2.scatter(cel.sobrecobertura_pp[orig], cel.cambio_ancho_pct[orig], s=34,
                marker='D', facecolor=TINTA_1, edgecolor='white', linewidth=0.6,
-               zorder=4, label='Cells of the previous revision (15)')
+               zorder=4, label=f'Three-model design ({int(orig.sum())} cells)')
     x = cel.sobrecobertura_pp.values
     xs = np.linspace(x.min() - 0.4, x.max() + 0.4, 60)
     c = j['cuarenta']

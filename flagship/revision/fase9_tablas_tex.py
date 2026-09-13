@@ -559,18 +559,21 @@ def tabla_diagnostico_ampliado():
     import json
     j = json.load(open(RES / 'fase0b' / 'fase0b_diagnostico.json'))
     c, q, ic = j['cuarenta'], j['quince_originales'], j['ic_bootstrap']
+    # el rango de las quince celdas estaba tipeado; se lee del diagnostico
+    d15 = pd.read_csv(RES / 'fase0' / 'fase0_diagnostico.csv').sobrecobertura_pp_exacta
+    nrep = format(j['B'], ',').replace(',', '{,}')
     L = [f"Fit over all {j['n_celdas']} cells & ${c['r']:.3f}$ & "
          f"${c['pendiente']:.2f}$ & ${c['intercepto']:+.2f}$ \\\\",
          f"\\quad 95\\% bootstrap interval & $[{ic['r']['lo']:.3f}, {ic['r']['hi']:.3f}]$ & "
          f"$[{ic['pendiente']['lo']:.2f}, {ic['pendiente']['hi']:.2f}]$ & "
          f"$[{ic['intercepto']['lo']:+.2f}, {ic['intercepto']['hi']:+.2f}]$ \\\\",
          '\\addlinespace',
-         f"Restricted to the {q['n']} cells of the submitted revision & "
+         f"Restricted to the {q['n']} cells of the three-model design (Table~\\ref{{tab:diagnostico}}) & "
          f"${q['r']:.3f}$ & ${q['pendiente']:.2f}$ & ${q['intercepto']:+.2f}$ \\\\",
          '\\addlinespace',
          f"Range of over-coverage covered & \\multicolumn{{3}}{{c}}{{"
          f"$[{j['rango_x'][0]:+.2f}, {j['rango_x'][1]:+.2f}]$ pp over "
-         f"{j['n_celdas']} cells, against $[-2.06, +5.34]$ over {q['n']}}} \\\\",
+         f"{j['n_celdas']} cells, against $[{d15.min():+.2f}, {d15.max():+.2f}]$ over {q['n']}}} \\\\",
          f"Leave-one-cell-out range of $r$ & \\multicolumn{{3}}{{c}}{{"
          f"$[{min(j['loo_r']):.3f}, {max(j['loo_r']):.3f}]$}} \\\\",
          f"Leave-one-base-model-out range of $r$ & \\multicolumn{{3}}{{c}}{{"
@@ -582,8 +585,9 @@ def tabla_diagnostico_ampliado():
         caption='The diagnostic relationship over the forty cells given by '
                 'eight base models and five evaluation windows, with 95\\% '
                 'bootstrap intervals resampling whole days, common to all '
-                'cells, 2{,}000 replicates, seed 20260901. The restriction to '
-                'the fifteen cells of the previous revision is shown for '
+                f"cells, {nrep} replicates, seed {j['semilla']}. "
+                'The restriction to the fifteen cells of the three-model design '
+                'of Table~\\ref{tab:diagnostico} is shown for '
                 'comparison. Generated from '
                 '\\texttt{resultados/fase0b/fase0b\\_diagnostico.json}.',
         label='tab:diag_ampliado')

@@ -105,6 +105,13 @@ def main():
         f"[{jb['rango_x'][0]:+.2f}, {jb['rango_x'][1]:+.2f}]",
         f"[{jb['rango_x'][0]:+.2f}, {jb['rango_x'][1]:+.2f}]",
         en_tex(f"{jb['rango_x'][0]:+.2f}"), 'fase0b_diagnostico.json')
+    # el rango de las quince celdas se citaba en la prosa de 5.3 y en la Tabla 6
+    # sin que nadie lo leyera de un archivo
+    d15 = d.sobrecobertura_pp_exacta
+    chk('5.3', 'rango de sobre-cobertura de las quince celdas',
+        f'[{d15.min():+.2f}, {d15.max():+.2f}]', f'[{d15.min():+.2f}, {d15.max():+.2f}]',
+        en_tex(f'only over $[{d15.min():+.2f}, {d15.max():+.2f}]$ percentage points'),
+        'fase0_diagnostico.csv')
     chk('5.4', 'ventaja del GBM a presupuesto equiparado', '2.4 % y 1.8 %',
         'segun obj1_capacidad.csv',
         en_tex('2.4 per cent', '1.8 per cent'), 'obj1_capacidad.csv')

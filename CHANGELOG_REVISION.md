@@ -1371,3 +1371,28 @@ hipotesis acotada para el quiebre de tendencia (6.3 y 7), como literatura (2.1 y
 la observacion de que ningun sistema entro en operacion en junio de 2025 (6.4) y
 en la declaracion de disponibilidad. Sale "not the distributional shift".
 
+### B6. Referencias a versiones que los revisores nunca vieron
+
+Carta: sale "the previous version of this response asserted it ... That was our
+error and it is corrected" (R1.1), junto con "the part that goes against the
+previous wording" y "than we first used", que aludian al mismo borrador; sale
+"an earlier draft of this revision named only the method" (nota editorial); y
+sale la cifra "from 431 words to 248", porque 431 era un borrador interno (el
+abstract enviado tenia unas 290 palabras segun la regla de conteo) y el limite
+de 250 se cumple con cualquier regla. Quedan "brought within the 250-word limit"
+y la sustancia de cada parrafo.
+
+Manuscrito: la leyenda de la Figura 8, la de la Tabla 6 y su fila decian "the
+previous revision" o "the submitted revision"; la version enviada no tenia ese
+analisis ni tres modelos base, asi que no se usa "submitted": las quince celdas
+son "the three-model design of Table 5", que es lo que son. Lo mismo en las dos
+menciones de "the original design" en 5.3, y en 7 "a question the previous
+revision could only declare" pasa a "a question that the comparison of Section
+5.3 leaves open". La leyenda quemada de la figura (`fase9_figuras_revision.py`)
+dice ahora "Three-model design (15 cells)", con los conteos leidos de las celdas.
+
+Numeros que estaban tipeados en el generador de la Tabla 6 y ahora se leen: el
+rango de sobre-cobertura de las quince celdas, [-2.06, +5.34], de
+`fase0_diagnostico.csv`; las 2,000 replicas y la semilla, de
+`fase0b_diagnostico.json`. Chequeo nuevo del rango en la prosa de 5.3.
+
