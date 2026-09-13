@@ -57,7 +57,7 @@ abstract,verbo del diagnostico,grows with,"sin ""is linear in""",si,Seccion 5.3
 3.4,configuraciones de deteccion sin quiebre en 2025 ni oct-2024,"180, ninguna","180, 0 y 0",si,fase6_sensibilidad_puntos_de_cambio.csv
 4.7,rango de W1 de las demas ventanas,0.28 a 0.95,0.28 a 0.95,si,fase6_wasserstein.csv
 3.4,contraste oct-dic 2024 contra 2025 y su umbral,0.085 y 0.115,0.085 y 0.115,si,fase6_wasserstein.csv
-5.2,contraste 2025-S1 con IC y umbral,"0.172, [0.070, 0.367], 0.193","0.172, [0.070, 0.366], 0.193",si,fase6_wasserstein.csv
+5.2,contraste 2025-S1 con IC y umbral,"0.1722, [0.0703, 0.3665], 0.1931","0.1722, [0.0703, 0.3665], 0.1931",si,fase6_wasserstein.csv
 3.3,ocurrencia por ventana,0.750 a 0.815,0.750 a 0.815,si,fase6_por_ventana_solar_norte.csv
 3.3,"mediana de positivos, calibracion a transicion",92 a 267 MWh,92 a 267 MWh,si,fase6_por_ventana_solar_norte.csv
 3.3,variacion total entre semestres,0.032 a 0.079,0.032 a 0.079,si,fase6_perfil_intradiario.csv

@@ -473,11 +473,15 @@ def main():
         abs(r_.w1 - 0.085) < 5e-4 and abs(r_.nulo_q95 - 0.115) < 5e-4
         and en_tex('is 0.085, below the 0.115 threshold'), 'fase6_wasserstein.csv')
     r_ = W.loc['ene-sep 2024 vs ene-jun 2025']
-    chk('5.2', 'contraste 2025-S1 con IC y umbral',
-        '0.172, [0.070, 0.367], 0.193',
-        f'{r_.w1:.3f}, [{r_.ic_lo:.3f}, {r_.ic_hi:.3f}], {r_.nulo_q95:.3f}',
-        abs(r_.w1 - 0.172) < 5e-4 and en_tex('is 0.172', '$[0.070,0.367]$',
-                                             'threshold of 0.193'),
+    # C5: el texto imprime los cuatro decimales del archivo; a tres, el 0.3665 del
+    # IC se leia 0.367 por doble redondeo. Se comparan punto, IC y umbral, y el
+    # veredicto de no significancia, no solo el punto
+    f4 = '{:.4f}'.format
+    txt = (f'is {f4(r_.w1)}, with a 95\\% bootstrap interval of $[{f4(r_.ic_lo)},{f4(r_.ic_hi)}]$ resampling '
+           f'whole days, against a threshold of {f4(r_.nulo_q95)} under a permutation null')
+    val = f'{f4(r_.w1)}, [{f4(r_.ic_lo)}, {f4(r_.ic_hi)}], {f4(r_.nulo_q95)}'
+    chk('5.2', 'contraste 2025-S1 con IC y umbral', val, val,
+        r_.significativo == 'no' and r_.w1 < r_.nulo_q95 and r_.ic_lo <= r_.w1 <= r_.ic_hi and en_tex(txt),
         'fase6_wasserstein.csv')
     ve = pd.read_csv(RES / 'fase6' / 'fase6_por_ventana_solar_norte.csv').set_index('ventana')
     chk('3.3', 'ocurrencia por ventana', '0.750 a 0.815',

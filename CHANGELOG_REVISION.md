@@ -1644,3 +1644,30 @@ $VENV flagship/revision/verificar_manuscrito.py   # 81 de 81
 # manuscrito 37 paginas, carta 21, cero errores y cero referencias sin resolver
 ```
 
+### C5. Carta y texto contra sus archivos
+
+Ya forzado por C1: R2.3 acota el orden a la cobertura y R2.6 dice que el
+bootstrap es contra el split estatico. Lo demas:
+
+- 5.2: el contraste de 2025-S1 se imprime desde `fase6_wasserstein.csv` con los
+  cuatro decimales del archivo: W1 0.1722, IC [0.0703, 0.3665], umbral 0.1931. A
+  tres decimales el 0.3665 se leia 0.367, y la propia verificacion de la Fase 6
+  lo imprime 0.366; el valor sin redondear no esta guardado, asi que se imprime
+  el del archivo. El verificador compara punto, IC, umbral y veredicto.
+- R1.1: "100.6 against 141.1" queda rotulado como ventana de transicion
+  (`obj1b_escalera.csv` y `obj1_capacidad.csv`, test_transition: 100.58 y 141.07).
+- R1.1: "almost none" pasa a "9.5 per cent" (`obj1c_mecanismo.json`,
+  `share_sigma` 9.53).
+- **Retenido para decision del autor:** el umbral de 2025-S1, 0.215 a 0.193, no
+  se agrega a la lista de correcciones de la carta. Ninguna de las seis filas de
+  esa lista esta en la version enviada (tag `submitted-segan-v1`: el .tex no
+  contiene "Wasserstein", "permutation", "0.28", "hour 16", "fifteen minutes" ni
+  "0.04"). Son las seis filas con reproduce = NO de
+  `fase6_verificacion_afirmaciones.csv`, que verifico el borrador de esta
+  revision, y la tabla entro en 77556ca rotulada como version enviada. Agregar
+  una septima con el mismo criterio repetiria el error.
+
+```
+$VENV flagship/revision/verificar_manuscrito.py   # 81 de 81
+```
+
