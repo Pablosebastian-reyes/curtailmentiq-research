@@ -1,46 +1,20 @@
-%% SEGAN manuscript - CurtailmentIQ
+%DIF 1-6c1-6
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL vieja.tex   Sat Sep 12 05:48:53 2026
-%DIF ADD nueva.tex   Sat Sep 12 05:48:53 2026
-%% Elsevier elsarticle template. Compile with pdfLaTeX in Overleaf.
-%DIF 3-6c3-34
+%DIF DEL vieja.tex   Sun Sep 13 05:43:51 2026
+%DIF ADD nueva.tex   Sun Sep 13 05:43:51 2026
+%DIF < %% SEGAN manuscript - CurtailmentIQ
+%DIF < %% Elsevier elsarticle template. Compile with pdfLaTeX in Overleaf.
 %DIF < %% VERSION 5.0 (FINAL) - auditoria de consistencia aplicada, DOI de concepto,
 %DIF < %% repositorio publico enlazado. Requiere las 4 figuras PDF en la carpeta del proyecto.
 %DIF < %% Requiere en la carpeta del proyecto: fig1_plants_map.pdf, fig2_distribution.pdf,
 %DIF < %% fig3_rolling_coverage.pdf, fig4_coverage_width.pdf
 %DIF -------
-%% %DIF > 
-%% VERSION 7.0 - REVISION MAYOR (SEGAN-D-26-03850). %DIF > 
-%% Cambios respecto de la version enviada el 28 de julio de 2026, que es la %DIF > 
-%% VERSION 5.0 (tag submitted-segan-v1, commit 4af5ea7). La VERSION 6.0, del %DIF > 
-%% 10 al 12 de agosto de 2026, NO se envio nunca: es ya parte de este %DIF > 
-%% reencuadre, y por eso el diff de la version marcada se toma contra la 5.0. %DIF > 
-%% %DIF > 
-%% Cambios respecto de esa version enviada: %DIF > 
-%%  - Titulo acortado y sin el pais (nota editorial). El sistema se describe en %DIF > 
-%%    el abstract. %DIF > 
-%%  - La contribucion metodologica se reencuadra como DIAGNOSTICO: la ganancia %DIF > 
-%%    de una capa conformal adaptativa mide la mala calibracion del modelo base %DIF > 
-%%    (comentario R1.1, hallazgo H1 de HALLAZGOS_CRITICOS.md). %DIF > 
-%%  - Secciones nuevas 4.5 (novedad), 4.6 (seleccion de hiperparametros), %DIF > 
-%%    5.3 (agnosticismo al modelo base), 5.4 (ablaciones), 5.5 (benchmarks), %DIF > 
-%%    5.6 (dependencia de panel), 5.7 (sensibilidad de la frontera) y 7 %DIF > 
-%%    (limitaciones). %DIF > 
-%%  - Bibliografia ampliada de 10 a 40 entradas, todas con DOI verificado %DIF > 
-%%    contra Crossref, sin citas agrupadas. %DIF > 
-%%  - `test_ramp` renombrado `test_transition` en el texto, el codigo y los %DIF > 
-%%    archivos de resultados; eliminada la nota al pie de storage deployment. %DIF > 
-%%  - Seis afirmaciones descriptivas de la seccion 3.3 corregidas contra %DIF > 
-%%    resultados/fase6/fase6_verificacion_afirmaciones.csv. %DIF > 
-%% %DIF > 
-%% NINGUN NUMERO DE ESTE ARCHIVO SE ESCRIBE A MANO. Los cuerpos de tabla se %DIF > 
-%% incluyen con \input desde resultados/tablas_tex/, generados por %DIF > 
-%% flagship/revision/fase9_tablas_tex.py. %DIF > 
-%% %DIF > 
-%% Requiere las 8 figuras PDF y los 8 cuerpos de tabla en la carpeta del %DIF > 
-%% proyecto: fig1_plants_map, fig2_distribution, fig3_rolling_coverage, %DIF > 
-%% fig4_coverage_width, fig5_regime_changepoints, fig6_algorithm_flow, %DIF > 
-%% fig7_model_agnostic, fig8_ablations. %DIF > 
+%% SEGAN-D-26-03850, major revision. %DIF > 
+%% An open curtailment dataset and a diagnostic for adaptive conformal %DIF > 
+%% calibration under regime change. %DIF > 
+%% Elsevier elsarticle template; compile with pdfLaTeX, three passes. %DIF > 
+%% Table bodies are read with \input from the tab_*.tex and %DIF > 
+%% hiperparametros.tex files that accompany this source. %DIF > 
 %DIF -------
 \documentclass[preprint,3p,times]{elsarticle}
 
@@ -51,7 +25,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{siunitx}
 \usepackage{multirow}
-%DIF 16a44-46
+%DIF 16a16-18
 \usepackage{longtable} %DIF > 
 \usepackage{algorithm} %DIF > 
 \usepackage{algpseudocode} %DIF > 
@@ -161,7 +135,7 @@ we set out here what a reader should expect before reading it.
 
 \noindent The comparison is against the version submitted on 28 July 2026
 (version 5.0), and about 72\% of the body text is new: excluding
-the bibliography, it grew from 4,753 to 15,805 words. Whole sections are new rather than edited,
+the bibliography, it grew from 4,753 to 15,892 words. Whole sections are new rather than edited,
 and the sections that were retained were in most cases rewritten rather than
 amended. The methodological contribution is now stated as a diagnostic, and the
 attribution of the 2025 regime change to storage deployment has been removed
@@ -496,7 +470,7 @@ U(x) \;=\; \exp\!\Big(\mu(x) + \sigma\,\Phi^{-1}\!\big(\textstyle\frac{\hat q-(1
 \DIFdelbegin \DIFdel{rather than of the calibration layer and is therefore reported once per period. Because all plants share the state of the system on a given day, the standard errors of every coverage figure are }\DIFdelend \DIFaddbegin \DIFadd{What is new is the combination and one specific device. The combination is applying a transport of the \emph{score} distribution, rather than of the response or the covariates, as a sharpness-only step inside an online adaptive scheme that carries the coverage control, so that the data-dependence of the map cannot damage validity. The device is the variance-proportional tail shrinkage~\eqref{eq:shrink}, which uses the bootstrap dispersion of the estimated map to interpolate between transporting and not transporting, level by level.}\DIFaddend
 
 
-\DIFadd{The two fare differently under ablation, and Section~\ref{sec:ablaciones} reports both outcomes. The combination does not survive: once the online update is in place, adding the transport \emph{worsens} the interval score by 74.2~MWh over the whole test, with an interval that excludes zero. The device does survive, but not its price: the variance-proportional shrinkage improves the interval score by 6.5~MWh, with a bootstrap interval that also excludes zero, for six tenths of one per cent of the score and ninety per cent of the runtime. We regard stating both plainly as more useful than the claim of novelty they replace.
+\DIFadd{The two fare differently under ablation, and Section~\ref{sec:ablaciones} reports both outcomes. The combination does not survive: once the online update is in place, adding the transport \emph{worsens} the interval score by 74.2~MWh over the whole test, with an interval that excludes zero. The device does survive, but not its price: the variance-proportional shrinkage improves the interval score by 6.5~MWh, with a bootstrap interval that also excludes zero, for six tenths of one per cent of the score and ninety-two per cent of the runtime. We regard stating both plainly as more useful than the claim of novelty they replace.
 }
 
 \subsection{\DIFadd{Hyperparameter selection}}
@@ -508,7 +482,7 @@ U(x) \;=\; \exp\!\Big(\mu(x) + \sigma\,\Phi^{-1}\!\big(\textstyle\frac{\hat q-(1
 \DIFadd{Base-model predictions exist only from 1 January 2024, since the base models are trained through 2023, so the only material available before the test period is the 244-day calibration window. We split it: January to April 2024 becomes an inner calibration pool and May to August 2024 an inner validation set, evaluated in rolling origin with the same seven-day refresh and seven-day embargo as the real protocol. The selection criterion is the mean interval score of Section~\ref{sec:evaluacion}, which is proper, is in MWh, and takes the value $+\infty$ if the configuration produces any infinite interval, so that a configuration escaping into uninformative intervals is disqualified by the criterion itself rather than by an ad hoc rule. The grids are $\gamma\in\{0.005,0.01,0.02,0.05,0.10,0.20\}$ and window lengths $\{30,45,60,90,120\}$ days.
 }
 
-\DIFadd{The selection returns $\gamma=0.005$ for pure adaptive conformal inference and $\gamma=0.005$ with a 120-day window for the transported variant. Both are an order of magnitude gentler than the values reported in the submitted version, and both produce no infinite intervals at all in validation, whereas at $\gamma=0.05$ between 34 and 42 per cent of validation intervals are infinite. The test set was not used in the selection and is used once, for the final evaluation. Sensitivity over the full $6\times5$ grid is reported on the test set in Section~\ref{sec:results} as a display, never as a criterion, and we say so there.
+\DIFadd{The selection returns $\gamma=0.005$ for pure adaptive conformal inference and $\gamma=0.005$ with a 120-day window for the transported variant. Both are an order of magnitude gentler than the values reported in the submitted version, and both produce no infinite intervals at all in validation, whereas at $\gamma=0.05$ between 34 and 42 per cent of validation intervals are infinite. The test set was not used in the selection and is used once, for the final evaluation. Sensitivity over the full $6\times5$ grid is reported on the test set in Section~\ref{sec:frontera}, Table~\ref{tab:sens_hiper}, as a display, never as a criterion, and we say so there.
 }
 
 \subsection{\DIFadd{Evaluation}}
@@ -627,7 +601,7 @@ U(x) \;=\; \exp\!\Big(\mu(x) + \sigma\,\Phi^{-1}\!\big(\textstyle\frac{\hat q-(1
 
 \input{tab_diagnostico}
 
-\DIFadd{The relationship can be estimated on more than these fifteen cells. Each arm of the capacity ladder of Section~\ref{sec:escalera} was run through the same calibration layer in the same five windows, so eight base models are available rather than three, giving forty cells. We exclude the coarse-grid arm discussed in Section~\ref{sec:limitations}, whose static split returns infinite limits throughout and therefore yields no width. The addition matters for a specific reason: the fifteen cells span over-coverage only over $[-2.06, +5.34]$ percentage points, and the low-capacity arms reach $-8.42$, filling the region below nominal where the original design has no point at all and on which the intercept depends.
+\DIFadd{The relationship can be estimated on more than these fifteen cells. Each arm of the capacity ladder of Section~\ref{sec:escalera} was run through the same calibration layer in the same five windows, so eight base models are available rather than three, giving forty cells. We exclude the coarse-grid arm discussed in Section~\ref{sec:limitations}, whose static split returns infinite limits throughout and therefore yields no width. The addition matters for a specific reason: the fifteen cells span over-coverage only over $[-2.06, +5.34]$ percentage points, and the low-capacity arms reach $-8.42$, filling the region below nominal where the three-model design has no point at all and on which the intercept depends.
 }
 
 \input{tab_diag_ampliado}
@@ -635,7 +609,7 @@ U(x) \;=\; \exp\!\Big(\mu(x) + \sigma\,\Phi^{-1}\!\big(\textstyle\frac{\hat q-(1
 \DIFadd{Table~\ref{tab:diag_ampliado} reports the result and Figure~\ref{fig:escalera} shows it. The relationship strengthens: $r$ goes from $-0.755$ to $-0.873$ and the slope from $-4.36$ to $-4.89$ per percentage point. The bootstrap intervals, computed by resampling whole days once per replicate and recomputing all forty cells on that resample so that the crossed dependence between arms and windows is preserved, exclude zero for all three statistics, and the intercept, which on fifteen cells was $[+0.07, +11.25]$ and barely excluded zero, is now $[+1.60, +9.84]$. Leaving out any single cell moves $r$ within $[-0.889, -0.820]$, and leaving out any entire base model within $[-0.899, -0.792]$, so no arm carries the result.
 }
 
-\DIFdelbegin \DIFdel{, so a substantial part of every width originates in the base model rather than in the calibration layer, which calibrates that dispersion rather than removing it; the sharpness floor is a property of the hurdle, not of the conformal step. Second, the weighted-conformal failure that motivates the adaptive schemes is established on the synthetic panel, where covariate shift }\DIFdelend \DIFaddbegin \DIFadd{One qualification belongs here. Fitting the two sides of the nominal level separately improves the residual sum of squares by more than chance ($F(2,36)=6.778$, $p=0.0032$), so we do not state the relationship symmetrically. The improvement is one of level and not of rate: allowing the intercept alone to differ accounts for it ($F(1,37)=12.982$, $p=0.0009$) and allowing the slope to differ as well adds nothing ($F(1,36)=0.685$, $p=0.413$). The rate at which the adaptive layer converts a departure from nominal coverage into width is the same on both sides, $-6.50$ per percentage point; what differs is the offset. We therefore keep the claim scoped to over-coverage, which is the region the original design covers densely, and record the under-covered arms as evidence that the mechanism does not stop at the nominal level rather than as a symmetric law.}\DIFaddend
+\DIFdelbegin \DIFdel{, so a substantial part of every width originates in the base model rather than in the calibration layer, which calibrates that dispersion rather than removing it; the sharpness floor is a property of the hurdle, not of the conformal step. Second, the weighted-conformal failure that motivates the adaptive schemes is established on the synthetic panel, where covariate shift }\DIFdelend \DIFaddbegin \DIFadd{One qualification belongs here. Fitting the two sides of the nominal level separately improves the residual sum of squares by more than chance ($F(2,36)=6.778$, $p=0.0032$), so we do not state the relationship symmetrically. The improvement is one of level and not of rate: allowing the intercept alone to differ accounts for it ($F(1,37)=12.982$, $p=0.0009$) and allowing the slope to differ as well adds nothing ($F(1,36)=0.685$, $p=0.413$). The rate at which the adaptive layer converts a departure from nominal coverage into width is the same on both sides, $-6.50$ per percentage point; what differs is the offset. We therefore keep the claim scoped to over-coverage, which is the region the three-model design covers densely, and record the under-covered arms as evidence that the mechanism does not stop at the nominal level rather than as a symmetric law.}\DIFaddend
 
 
 \DIFadd{We probed that break rather than accepting it, because the obvious worry is that one arm carries it. Of the 15 cells below nominal, 5 come from the lowest-capacity quantile arm, and 3 of the 4 cells below $-2$ percentage points come from the same arm. Removing it does not remove the break: on the remaining 35 cells the level shift grows from $-11.80$ to $-13.59$ per cent and the statistic rises rather than falls. Dropping any single arm leaves the shift between $-10.63$ and $-13.59$. Absorbing a separate intercept for each base model, so that the break is identified only from variation within arms, leaves it at $-11.48$ per cent. The break is not the artefact of one arm.
@@ -688,7 +662,7 @@ U(x) \;=\; \exp\!\Big(\mu(x) + \sigma\,\Phi^{-1}\!\big(\textstyle\frac{\hat q-(1
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{fig9_escalera_diagnostico.pdf}
-\caption{Left: base-model CRPS over the whole test against the number of fitted trees, at a fixed 54-level quantile grid for the multi-quantile predictive. The hurdle is shown at its own budget and at five times it. Right: the diagnostic relationship over the forty cells, with the fifteen cells of the previous revision marked separately, the fitted line over all forty, and its bootstrap interval. The new arms populate the region below nominal coverage, where the previous design had no point.}
+\caption{Left: base-model CRPS over the whole test against the number of fitted trees, at a fixed 54-level quantile grid for the multi-quantile predictive. The hurdle is shown at its own budget and at five times it. Right: the diagnostic relationship over the forty cells, with the fifteen cells of the three-model design of Table~\ref{tab:diagnostico} marked separately, the fitted line over all forty, and its bootstrap interval. The new arms populate the region below nominal coverage, where the three-model design had no point.}
 \label{fig:escalera}
 \end{figure*}
 
@@ -713,13 +687,13 @@ U(x) \;=\; \exp\!\Big(\mu(x) + \sigma\,\Phi^{-1}\!\big(\textstyle\frac{\hat q-(1
 \DIFadd{Online adaptation earns its cost. Adding it to the static split improves the interval score by 215.8~MWh in the transition window, with a bootstrap interval of $[-274,-161]$, and by 37.8~MWh over the whole test, at a runtime cost of two tenths of a second.
 }
 
-\DIFadd{Score transport does not, once adaptation is present. On top of the adaptive update it \emph{worsens} the interval score by 74.2~MWh over the whole test, with an interval of $[+47,+105]$ that excludes zero, and it worsens it in four of the five windows individually. Transport without adaptation does improve on the static split, by an amount statistically indistinguishable from what adaptation alone achieves, at thirty-five times the runtime. The two components are substitutes rather than complements, and the cheaper one is at least as good.
+\DIFadd{Score transport does not, once adaptation is present. On top of the adaptive update it \emph{worsens} the interval score by 74.2~MWh over the whole test, with an interval of $[+47,+105]$ that excludes zero, and it worsens it in four of the five windows individually. Transport without adaptation does improve on the static split, by an amount statistically indistinguishable from what adaptation alone achieves, at thirty-four times the runtime. The two components are substitutes rather than complements, and the cheaper one is at least as good.
 }
 
-\DIFadd{The tail shrinkage does not pay for itself. Its effect on the whole test is $-6.5$~MWh with a bootstrap interval of $[-10,-3]$, which excludes zero but amounts to six tenths of one per cent of an interval score of about 1}{\DIFadd{,}}\DIFadd{030, and it accounts for 6.1 of the 6.7 seconds the full pipeline costs, that is roughly ninety per cent of the computational budget of the method. The most intricate device in the construction buys an improvement three orders of magnitude smaller than the gap between base models documented in Section~\ref{sec:escalera}.
+\DIFadd{The tail shrinkage does not pay for itself. Its effect on the whole test is $-6.5$~MWh with a bootstrap interval of $[-10,-3]$, which excludes zero but amounts to six tenths of one per cent of an interval score of about 1}{\DIFadd{,}}\DIFadd{030, and it accounts for 6.1 of the 6.6 seconds the full pipeline costs, that is ninety-two per cent of the computational budget of the method. The most intricate device in the construction buys an improvement three orders of magnitude smaller than the gap between base models documented in Section~\ref{sec:escalera}.
 }
 
-\DIFaddend \DIFdelbegin \DIFdel{and it is reported as such. }\DIFdelend \DIFaddbegin \DIFadd{Taken together the full pipeline improves on the static split by 176.3~MWh in the transition window and loses 100.0 and 104.2~MWh in 2025-S1 and 2025-S2, all three significant, netting $+32.4$~MWh over the whole test with an interval of $[-5,+75]$ that contains zero. Over the evaluation period as a whole, the complete method is not better than the static split it replaces.}\DIFaddend
+\DIFaddend \DIFdelbegin \DIFdel{and it is reported as such. }\DIFdelend \DIFaddbegin \DIFadd{Taken together the full pipeline improves on the static split by 177.0~MWh in the transition window and loses 96.0 and 119.0~MWh in 2025-S1 and 2025-S2, all three significant, netting $+32.4$~MWh over the whole test with an interval of $[-5,+75]$ that contains zero. Over the evaluation period as a whole, the complete method is not better than the static split it replaces.}\DIFaddend
 
 
 \DIFdelbegin %DIFDELCMD < \begin{table*}[t]
@@ -763,7 +737,7 @@ U(x) \;=\; \exp\!\Big(\mu(x) + \sigma\,\Phi^{-1}\!\big(\textstyle\frac{\hat q-(1
 \DIFadd{The benchmarks change the picture. Three of the four attain a better interval score than every method built on the hurdle, and the differences are significant under the day-block bootstrap. Two of them buy that score with coverage, and should be read accordingly: the rolling 60-day distribution reaches an interval score of 583 at 86.5\% coverage and the trailing-year quantile 656 at 87.2\%, both several points below nominal, so an operator who needs the stated level cannot use them. The conformalized quantile regression is the exception and is the most informative row of the table. It attains 89.8\% coverage, within half a point of nominal, with a mean width of 276~MWh and an interval score of 601, against 596~MWh and 1030 for the full pipeline of the submitted version. A standard construction from 2019, applied to a better base predictive, dominates the method this paper proposed.
 }
 
-\DIFadd{The treatment of infinite intervals matters and is now explicit. Three configurations of the submitted version produce infinite limits, up to 5.9 per cent of the test period, and under the width-over-finite-intervals convention they appear sharper than they are. The unrestricted interval score reports them as infinite, which is the correct verdict for a method that returns an uninformative interval on one case in sixteen.
+\DIFadd{The treatment of infinite intervals matters and is now explicit. Three configurations of the submitted version produce infinite limits, up to 5.9 per cent of the test period, and under the width-over-finite-intervals convention they appear sharper than they are. The unrestricted interval score reports them as infinite, which is the correct verdict for a method that returns uninformative intervals.
 }
 
 \DIFadd{The cause is structural rather than incidental: the adaptive update is allowed to drive $\alpha_t$ to zero or below, at which point the required order statistic does not exist and the conformal quantile is $+\infty$. Bounding the update from below removes the problem entirely. Table~\ref{tab:cota} shows the effect of $\alpha_{\min}\in\{0.005,0.01,0.02\}$. At $\alpha_{\min}=0.005$ the fraction of infinite intervals falls to zero in all five windows and all four adaptive configurations, at a cost of at most half a point of marginal coverage, and the unrestricted interval score becomes finite and therefore comparable. We recommend the bound as a default. It is worth noting what it does not fix: with infinities removed and the score made comparable, the transported variants remain worse than pure adaptation, which is the finding of Section~\ref{sec:ablaciones} rather than an artefact of the infinities.
@@ -794,16 +768,21 @@ U(x) \;=\; \exp\!\Big(\mu(x) + \sigma\,\Phi^{-1}\!\big(\textstyle\frac{\hat q-(1
 \DIFadd{One conditional result deserves emphasis because it runs against the interest of the method. On high-curtailment days, defined by the calibration-window ninetieth percentile of system-level daily curtailment and covering 254 of the 638 test days, the static split covers at 91.9 per cent while Transport+ACI covers at 86.7 per cent. The economically important days are exactly where the adaptive scheme under-covers most, and a portfolio owner sizing an exposure on the largest days would be worse served by it than by the static split. Adaptive conformal inference sits between the two at 88.3 per cent.
 }
 
-\subsection{\DIFadd{Sensitivity to the window boundary and to the change-point dates}}
+\subsection{\DIFadd{Sensitivity to the window boundary, the change-point dates and the calibration hyperparameters}}
 \label{sec:frontera}
 
-\DIFadd{The transition window is defined by a measurable criterion, but the criterion still has to be applied to some boundary, and one might ask whether the results are an artefact of that choice. Table~\ref{tab:frontera} re-evaluates the three representative methods on six alternative definitions of the window, ranging from two months to seven. The Wasserstein-1 divergence from the calibration distribution varies from 0.99 to 1.34 across them, and the ordering of the methods is unchanged in every case: the static split over-covers by four to five points, adaptive conformal inference sits between, and the transported variant comes closest to nominal while carrying the worst interval score in four of the six. The narrower the window is drawn around October and November 2024, the larger the divergence and the larger the apparent gain, which is the same relationship established in Section~\ref{sec:agnostic}, here traced in the boundary rather than across base models.
+\DIFadd{The transition window is defined by a measurable criterion, but the criterion still has to be applied to some boundary, and one might ask whether the results are an artefact of that choice. Table~\ref{tab:frontera} re-evaluates the three representative methods on five alternative definitions of the window besides the one used, ranging from two months to seven. The Wasserstein-1 divergence from the calibration distribution varies from 0.99 to 1.34 across them, and the ordering of the methods is unchanged in every case: the static split over-covers by four to five points, adaptive conformal inference sits between, and the transported variant comes closest to nominal while carrying the worst interval score in four of the six. The narrower the window is drawn around October and November 2024, the larger the divergence and the larger the apparent gain, which is the same relationship established in Section~\ref{sec:agnostic}, here traced in the boundary rather than across base models.
 }
 
 \input{tab_sensibilidad_frontera}
 
 \DIFadd{The chronology itself is likewise insensitive to the analyst's choices, as reported in Section~\ref{sec:regime}: across 180 detection configurations, none returns a break in 2025 and none returns one in October 2024. The two dates that do appear, May 2023 and January 2024, are returned by both algorithms under the default penalty and are the two most frequent across the whole sensitivity grid.
 }
+
+\paragraph{\DIFadd{Calibration hyperparameters.}} \DIFadd{The selection of Section~\ref{sec:seleccion} used only the inner validation set and was closed before the test set was touched. Table~\ref{tab:sens_hiper} reports the full $6\times5$ grid on the test set, as a display, never as a criterion. For the transported variant coverage is flat in $\gamma$ and in the window, between 89.9 and 90.1 per cent over all thirty configurations, and what varies is the fraction of infinite intervals: none at $\gamma\le 0.01$, and between 21.9 and 23.0 per cent at $\gamma=0.20$.
+}
+
+\input{tab_sensibilidad_hiper}
 
 \DIFaddend %==================================================================
 \section{Discussion}
@@ -862,7 +841,7 @@ U(x) \;=\; \exp\!\Big(\mu(x) + \sigma\,\Phi^{-1}\!\big(\textstyle\frac{\hat q-(1
 \DIFadd{\emph{The diagnostic rests on two model families and one dataset.} The relationship between over-coverage and width recovery is established over forty cells from eight predictives on one panel, but the eight are not eight model classes: three are variants of the hurdle family and five are budget variants of a single quantile family. The design therefore spans two functional forms, not eight. We regard it as a mechanism that generalises, since it follows from what a conformal quantile does, but we have not demonstrated that it holds in other systems or with other model families, and the specific coefficients should not be transported.
 }
 
-\DIFdelbegin \DIFdel{the largest plants; the diagnosis is that }\DIFdelend \DIFaddbegin \DIFadd{\emph{The separation of model form from fitted capacity rests on one panel and two model families.} Section~\ref{sec:escalera} settles, for this problem, a question the previous revision could only declare: the multi-quantile advantage is not available at the hurdle's own tree budget, the hurdle does not recover it when given five times that budget, and at comparable budgets the gap is about thirty per cent. What that licenses is a statement about these two families on this panel. It does not license a statement about quantile regression against two-part models in general, and we do not make one. Two features of the ladder bound it further. It varies budget only through the number of trees, holding depth, learning rate and the rest fixed, so it separates budget from form along one axis and not all of them. The ladder itself uses no early stopping, so the enlarged hurdle is free to overfit rather than to halt. We fitted an early-stopped hurdle separately, reported in Section~\ref{sec:escalera}: it selects 105 trees, an eighth of our base model's budget, and beats that base model by 5.7 per cent of CRPS. Our base model is therefore not the best hurdle available on this problem, and every level we report for it, and every difference computed from it, should be read with that discount: Table~\ref{tab:results}, the ablations of Table~\ref{tab:ablaciones}, the benchmark comparison of Table~\ref{tab:benchmarks}, the $\alpha$ bound of Table~\ref{tab:cota}, the panel-dependence schemes of Table~\ref{tab:panel}, the boundary sensitivity of Table~\ref{tab:frontera}, and Figures~\ref{fig:rolling}, \ref{fig:tradeoff} and \ref{fig:ablaciones}. The discount runs in one direction, since a better hurdle would improve the schemes built on it, and it changes no ordering reported here: the margin to the quantile form stays above twenty per cent over the whole test. A reader comparing model families on our numbers should compare against the stopped hurdle rather than against ours. Table~\ref{tab:mae} is deliberately not in that list. The point-forecasting comparison was re-run with the stopped hurdle and its ordering is unchanged, since the stopped fit is better by CRPS and worse by mean absolute error; Section~\ref{sec:punto} gives the figures.}\DIFaddend
+\DIFdelbegin \DIFdel{the largest plants; the diagnosis is that }\DIFdelend \DIFaddbegin \DIFadd{\emph{The separation of model form from fitted capacity rests on one panel and two model families.} Section~\ref{sec:escalera} settles, for this problem, a question that the comparison of Section~\ref{sec:agnostic} leaves open: the multi-quantile advantage is not available at the hurdle's own tree budget, the hurdle does not recover it when given five times that budget, and at comparable budgets the gap is about thirty per cent. What that licenses is a statement about these two families on this panel. It does not license a statement about quantile regression against two-part models in general, and we do not make one. Two features of the ladder bound it further. It varies budget only through the number of trees, holding depth, learning rate and the rest fixed, so it separates budget from form along one axis and not all of them. The ladder itself uses no early stopping, so the enlarged hurdle is free to overfit rather than to halt. We fitted an early-stopped hurdle separately, reported in Section~\ref{sec:escalera}: it selects 105 trees, an eighth of our base model's budget, and beats that base model by 5.7 per cent of CRPS. Our base model is therefore not the best hurdle available on this problem, and every level we report for it, and every difference computed from it, should be read with that discount: Table~\ref{tab:results}, the ablations of Table~\ref{tab:ablaciones}, the benchmark comparison of Table~\ref{tab:benchmarks}, the $\alpha$ bound of Table~\ref{tab:cota}, the panel-dependence schemes of Table~\ref{tab:panel}, the boundary sensitivity of Table~\ref{tab:frontera}, and Figures~\ref{fig:rolling}, \ref{fig:tradeoff} and \ref{fig:ablaciones}. The discount runs in one direction, since a better hurdle would improve the schemes built on it, and it changes no ordering reported here: the margin to the quantile form stays above twenty per cent over the whole test. A reader comparing model families on our numbers should compare against the stopped hurdle rather than against ours. Table~\ref{tab:mae} is deliberately not in that list. The point-forecasting comparison was re-run with the stopped hurdle and its ordering is unchanged, since the stopped fit is better by CRPS and worse by mean absolute error; Section~\ref{sec:punto} gives the figures.}\DIFaddend
 
 
 \DIFadd{\emph{The multi-quantile predictive has its own boundaries.} It expresses nothing above its highest estimated quantile level, $\tau=0.999$, and requests beyond it return an infinite limit. In this evaluation no interval hit that boundary, but a more extreme test period could, and the failure mode is not hypothetical: an arm fitted on a nine-level grid, whose top level is $\tau=0.9$, returns an infinite limit for every test row under the static split, because the conformal quantile of 0.938 falls above the highest level the predictive expresses. That arm is excluded from Table~\ref{tab:escalera} and from the diagnostic of Section~\ref{sec:agnostic}; it is recorded here as a mechanical demonstration of where a quantile-grid predictive breaks. Its implied occurrence probability is also coarse, read off the quantile grid at 0.02 resolution, which is why its Brier score is worse than the hurdle's and why that comparison is reported as descriptive rather than as a verdict.
