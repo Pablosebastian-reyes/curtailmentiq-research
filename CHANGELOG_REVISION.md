@@ -1430,3 +1430,13 @@ rango de sobre-cobertura de las quince celdas, [-2.06, +5.34], de
   `flagship/NOTA_RESULTADOS_FECHADOS.md` con la lista. El prototipo
   `conformal_prototype.py` lleva la misma nota.
 
+### B11. README del paquete de fuentes
+
+Decia "no numeric value in the manuscript is typed by hand", que B3 desmintio
+y que en todo caso es demasiado amplio: la prosa se escribe y se coteja. Dice
+ahora que cada cuerpo de tabla sale de un archivo de resultados y la Tabla C.14
+del codigo, que los numeros de la prosa los coteja `verificar_manuscrito.py`, y
+atribuye las Figuras 1, 2, 3, 5 y 6 a `flagship/generar_figuras_paper.py` y las
+4, 7, 8 y 9 a `fase9_figuras_revision.py`; antes las atribuia todas a esta
+ultima. El indice de tablas del README ya se habia actualizado en B4.
+
