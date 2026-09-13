@@ -1608,3 +1608,39 @@ $VENV flagship/revision/verificar_manuscrito.py   # 79 de 79
 # manuscrito 37 paginas, carta 21, cero errores y cero referencias sin resolver
 ```
 
+### C3 y C4. Afirmaciones acotadas a lo verificado
+
+- Seccion 7 y carta al editor: "The discount runs in one direction ... and it
+  changes no ordering reported here" afirmaba una direccion para tablas que nunca
+  se re-corrieron con el hurdle detenido. Ahora dice que no se re-corrieron y que
+  no se afirma direccion; la unica comparacion re-corrida, la Tabla 2, va en la
+  direccion contraria (el detenido mejora el CRPS y empeora el MAE hasta quedar
+  ultimo). Se conserva el margen de mas de veinte por ciento contra la forma
+  cuantilica.
+- Seccion 1: "To our knowledge no open curtailment dataset" pasa a "We are not
+  aware of an open curtailment dataset".
+- Abstract: "53 continuous months (hydropower from June 2024)". La fecha es la de
+  la Seccion 3.1 y el verificador exige que sean la misma. 247 palabras contando la
+  expresion matematica como una, 248 como tokens.
+- 4.2: dos oraciones. La traslacion unica delta = log c / sigma que motiva el
+  transporte existe porque el hurdle usa una sola dispersion; con dispersion
+  condicional varia con x y con la predictiva multi-cuantil el desplazamiento
+  depende de cada distribucion, asi que para esos dos modelos base el transporte es
+  el mismo algoritmo sin esa motivacion.
+- 4.4, panel sintetico: el encargo suponia que no existia como artefacto. Existe:
+  `flagship/conformal_v2.py` corre el weighted conformal por punto sobre el panel
+  sintetico de 40 centrales, y su salida congelada,
+  `resultados/v_enviada/conformal_v2_tabla.csv`, da 76.0 % de limites infinitos en
+  la ventana de transicion, 49.3 % en 2025-S1 y 19.9 % en 2025-S2. La frase se
+  conserva y apunta al script; el verificador abre la tabla.
+- 4.4, benchmark de recencia: se cumple la promesa identificandolo. La ventana
+  deslizante es el esquema de pesos fijos de Barber et al. con pesos 0/1 (uno a
+  los 60 dias previos al embargo): `ventana_deslizante` usa `q_conformal`, con
+  k = ceil((n+1)(1-alpha)) sobre la ventana, que es el cuantil ponderado de Barber
+  con esos pesos.
+
+```
+$VENV flagship/revision/verificar_manuscrito.py   # 81 de 81
+# manuscrito 37 paginas, carta 21, cero errores y cero referencias sin resolver
+```
+

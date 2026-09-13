@@ -138,6 +138,20 @@ def main():
     chk('abstract', 'verbo del diagnostico', 'grows with', 'sin "is linear in"',
         en_tex('the width reduction grows with how much the static split over-covers') and 'is linear in' not in TEX,
         'Seccion 5.3')
+    # C3: el abstract acota los 53 meses por la entrada de hidro, que la
+    # Seccion 3.1 fecha; las dos fechas tienen que ser la misma
+    chk('abstract, 3.1', 'hidro desde junio de 2024 en el alcance de los 53 meses', 'June 2024', 'June 2024',
+        en_tex('covering 53 continuous months (hydropower from June 2024)',
+               'Hydropower curtailment records are present from June 2024 onward'), 'Seccion 3.1')
+    # C4: el panel sintetico de 4.4 es un artefacto versionado, conformal_v2.py y
+    # su salida congelada; se abre la tabla y se exige que la fraccion sea grande
+    cv2 = pd.read_csv(RES / 'v_enviada' / 'conformal_v2_tabla.csv')
+    pp = cv2[cv2.metodo == 'c_weighted_por_punto'].set_index('periodo').pct_infinito
+    chk('4.4', 'weighted conformal por punto en el panel sintetico: fraccion de infinitos',
+        'a large fraction of test points', ', '.join(f'{k} {v:.1f}%' for k, v in pp.items()),
+        pp.max() >= 50 and en_tex('the per-point implementation returns infinite intervals for a large fraction of '
+                                  'test points (\\texttt{flagship/conformal\\_v2.py} in the companion repository)'),
+        'v_enviada/conformal_v2_tabla.csv')
     chk('5.4', 'ventaja del GBM a presupuesto equiparado', '2.4 % y 1.8 %',
         'segun obj1_capacidad.csv',
         en_tex('2.4 per cent', '1.8 per cent'), 'obj1_capacidad.csv')

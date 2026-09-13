@@ -8,6 +8,8 @@ Tabla 5,ajuste sobre las quince celdas,"-0.755, -4.36, +5.45","-0.755, -4.36, +5
 Tabla 6,ajuste sobre las celdas que sobre-cubren,"25 celdas, r -0.870","r -0.870, pendiente -6.97, intercepto +11.97",si,fase0b_diagnostico.json + fase0b_celdas.csv
 5.3,"celdas que sobre-cubren: pendiente mas empinada, mismo signo y fuerza",-6.97 contra -4.89; r -0.870 contra -0.873,"IC de r [-0.928, -0.528]",si,fase0b_diagnostico.json
 abstract,verbo del diagnostico,grows with,"sin ""is linear in""",si,Seccion 5.3
+"abstract, 3.1",hidro desde junio de 2024 en el alcance de los 53 meses,June 2024,June 2024,si,Seccion 3.1
+4.4,weighted conformal por punto en el panel sintetico: fraccion de infinitos,a large fraction of test points,"test_pre 0.0%, test_ramp 76.0%, 2025-S1 49.3%, 2025-S2 19.9%, 2026-S1 71.9%, post_total 46.2%",si,v_enviada/conformal_v2_tabla.csv
 5.4,ventaja del GBM a presupuesto equiparado,2.4 % y 1.8 %,segun obj1_capacidad.csv,si,obj1_capacidad.csv
 5.4,deterioro del hurdle al quintuplicar capacidad,89.5 a 95.5 MWh,segun obj1_capacidad.csv,si,obj1_capacidad.csv
 5.4,desplazamiento del cuantil conformal por mu,"0.9242 a 0.9532, 93 % por mu",segun obj1c_mecanismo.json,si,obj1c_mecanismo.json
