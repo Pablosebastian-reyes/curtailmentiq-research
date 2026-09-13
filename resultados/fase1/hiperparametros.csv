@@ -32,7 +32,7 @@ Hyperparameter selection,Inner validation set,2024-05-01 to 2024-09-01,rolling o
 Hyperparameter selection,Selection criterion,mean one-sided interval score,"+infinity if any interval is infinite, so such a configuration is disqualified by the criterion itself; the generator uses the seed of the PIT atom",fase3_seleccion_hiperparametros.py
 Hyperparameter selection,gamma selected by rolling origin,0.005,lowest interval score on the inner validation set; no infinite intervals there,fase3_hiperparametros_elegidos.json
 Hyperparameter selection,Window selected by rolling origin,120 days,"as above, for Transport+ACI",fase3_hiperparametros_elegidos.json
-Evaluation,Primary metric,"one-sided interval score IS = U + (2/alpha) max(y-U, 0)","proper, in MWh, and infinite if U is infinite",rev_lib.py:interval_score_unilateral
+Evaluation,Primary metric,"one-sided interval score IS = U + (1/alpha) max(y-U, 0)","proper for the (1-alpha) quantile, in MWh, and infinite if U is infinite; the multiplier is 1/alpha because all of alpha lies in the upper tail",rev_lib.py:interval_score_unilateral
 Evaluation,Standard error of coverage,clustered by date,averages the coverage of each day and takes the error across days,conformal_metodos.py:cobertura_clusterizada
 Evaluation,Bootstrap of the differences between methods,2000 resamples of whole days,"the resampled unit is the day, not the row; 95% percentile interval",rev_lib.py:bootstrap_diferencia
 Evaluation,Samples for the CRPS,300 per row,"sampled CRPS, E|X-y| - 0.5 E|X-X'|",rev_lib.py:crps_pred

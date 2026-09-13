@@ -166,7 +166,7 @@ def tabla_ablaciones():
         L.append(f'{etq} & ${tr.d_IS:+.1f}$ & $[{tr.IS_lo:+.0f}, {tr.IS_hi:+.0f}]$ & '
                  f'${to.d_IS:+.1f}$ & $[{to.IS_lo:+.0f}, {to.IS_hi:+.0f}]$ & '
                  f'{"yes" if to.significativo == "si" else "no"} & '
-                 f'${to.d_segundos:+.1f}$ \\\\')
+                 f'${to.d_segundos:+.2f}$ \\\\')
     escribir('tab_ablaciones', L, col='lccccccc',
              encabezado='Component & \\multicolumn{2}{c}{Transition window} & '
                         '\\multicolumn{2}{c}{Whole test} & Significant & '
@@ -316,21 +316,23 @@ def tabla_panel():
         s = s.iloc[0]
         m = mx.loc[k] if k in mx.index else None
         L.append(f'{etq} & {s.cobertura}\\,({s.se_cluster}) & {s.ancho_medio:.0f} & '
-                 f'{s.IS_finitos:.0f} & '
+                 f'{s.pct_infinito} & {s.IS_finitos:.0f} & '
                  f'{m["tecnologia"]:.1f} & {m["tamano de central"]:.1f} & '
                  f'{m["region"]:.1f} & {m["evento"]:.1f} \\\\')
-    escribir('tab_panel', L, col='lcccrrrr',
-             encabezado=' & \\multicolumn{3}{c}{Marginal} & '
+    escribir('tab_panel', L, col='lccccrrrr',
+             encabezado=' & \\multicolumn{4}{c}{Marginal} & '
                         '\\multicolumn{4}{c}{Worst deviation from nominal (pp)} \\\\\n'
-                        '\\cmidrule(lr){2-4}\\cmidrule(lr){5-8}\n'
-                        'Scheme & Coverage (se) & Width & $\\mathrm{IS}$ & '
+                        '\\cmidrule(lr){2-5}\\cmidrule(lr){6-9}\n'
+                        'Scheme & Coverage (se) & Width & \\% inf. & $\\mathrm{IS}$ finite & '
                         'Technology & Size & Region & High-curt. \\\\',
              caption='Calibration schemes designed to address panel '
                      'dependence, whole test period. The last four columns '
                      'give the worst absolute deviation from the 90\\% nominal '
                      'level over the groups of each axis, in percentage '
                      'points, which is the measure of conditional coverage; '
-                     'smaller is better. Generated from '
+                     'smaller is better. Width and interval score are means '
+                     'over finite intervals, with the fraction of infinite '
+                     'intervals beside them. Generated from '
                      '\\texttt{resultados/fase5/}.',
              label='tab:panel')
 
@@ -392,18 +394,20 @@ def tabla_sensibilidad_frontera():
            'sep 2024-mar 2025': 'Sep 2024--Mar 2025'}
     L = []
     for p, g in s.groupby('periodo', sort=False):
-        L.append(f'\\multicolumn{{4}}{{l}}{{\\emph{{{NOM[p]}}}, '
+        L.append(f'\\multicolumn{{5}}{{l}}{{\\emph{{{NOM[p]}}}, '
                  f'$W_1 = {g.w1_vs_calibracion.iloc[0]:.3f}$}} \\\\')
         for _, r in g.iterrows():
             L.append(f'\\quad {ETQ[r.metodo]} & {r.cobertura}\\,({r.se_cluster}) & '
-                     f'{r.ancho_medio:.0f} & {r.IS_finitos:.0f} \\\\')
+                     f'{r.ancho_medio:.0f} & {r.pct_infinito} & {r.IS_finitos:.0f} \\\\')
         L.append('\\addlinespace')
-    escribir('tab_sensibilidad_frontera', L[:-1], col='lccc',
-             encabezado='Method & Coverage (se) & Width & Interval score \\\\',
+    escribir('tab_sensibilidad_frontera', L[:-1], col='lcccc',
+             encabezado='Method & Coverage (se) & Width & \\% inf. & $\\mathrm{IS}$ finite \\\\',
              caption='Sensitivity to alternative definitions of the transition '
                      'window, hurdle base model. $W_1$ is the Wasserstein-1 '
                      'distance between the positive log-magnitudes of the '
-                     'window and those of the calibration set. Generated from '
+                     'window and those of the calibration set. Width and '
+                     'interval score are means over finite intervals, with the '
+                     'fraction of infinite intervals beside them. Generated from '
                      '\\texttt{resultados/fase6/fase6\\_sensibilidad\\_frontera.csv}.',
              label='tab:frontera')
 

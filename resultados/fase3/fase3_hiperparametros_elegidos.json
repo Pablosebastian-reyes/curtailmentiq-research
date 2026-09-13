@@ -29,13 +29,13 @@
     "ACI": {
       "gamma": 0.005,
       "ventana": null,
-      "IS_validacion": 463.5,
+      "IS_validacion": 372.36,
       "cobertura_validacion": 87.86
     },
     "Transporte+ACI": {
       "gamma": 0.005,
       "ventana": 120,
-      "IS_validacion": 495.26,
+      "IS_validacion": 414.54,
       "cobertura_validacion": 88.74
     }
   }

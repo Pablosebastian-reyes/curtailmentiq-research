@@ -193,7 +193,7 @@ def main():
                             IS_lo=round(lo, 1), IS_hi=round(hi, 1),
                             significativo='si' if lo * hi > 0 else 'no',
                             d_cob_pp=round(100 * dc, 2),
-                            d_segundos=round(costo[a] - costo[b], 1)))
+                            d_segundos=round(costo[a] - costo[b], 2)))
     ap = pd.DataFrame(out)
     ap.to_csv(SAL / 'fase2_aporte_por_componente.csv', index=False)
     for etq, _, _ in contrastes:

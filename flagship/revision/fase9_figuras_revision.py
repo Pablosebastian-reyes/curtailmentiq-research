@@ -235,6 +235,9 @@ def fig8_ablations():
             '2025-S1': '2025-S1', '2025-S2': '2025-S2', '2026-S1': '2026-S1',
             'TEST_COMPLETO': 'Whole test'}
 
+    # el eje sale de los datos: con un limite fijo en -300 los intervalos de la
+    # transicion quedaban fuera del grafico al pasar el score a 1/alpha
+    lim = (np.floor(ap.IS_lo.min() / 50) * 50 - 25, np.ceil(ap.IS_hi.max() / 50) * 50 + 25)
     fig, axes = plt.subplots(1, 5, figsize=(COL_DOBLE, 2.55), sharey=True)
     for ax, c in zip(axes, comp):
         s = ap[ap.componente == c].set_index('periodo').reindex(PER)
@@ -251,14 +254,15 @@ def fig8_ablations():
         ax.set_yticks(y)
         ax.set_yticklabels([ETQP[p] for p in PER], fontsize=6.9)
         ax.set_title(ETQ[c], fontsize=7.1, color=TINTA_1, pad=6)
-        ax.set_xlim(-300, 250)
-        ax.set_xticks([-250, 0, 250])
+        ax.set_xlim(*lim)
+        ax.set_xticks([x for x in range(-300, 301, 150) if lim[0] <= x <= lim[1]])
         ax.tick_params(axis='x', labelsize=6.6)
         ax.spines[['top', 'right', 'left']].set_visible(False)
         ax.set_axisbelow(True)
         ax.xaxis.grid(True, color=HAIR, linewidth=0.5)
-    costo = {comp[0]: '+0.2 s', comp[1]: '+7.1 s', comp[2]: '+0.4 s',
-             comp[3]: '+6.1 s', comp[4]: '+6.7 s'}
+    # los tiempos se leen del CSV; estaban tipeados (+7.1 y +6.7 viejos)
+    tt = ap[ap.periodo == 'TEST_COMPLETO'].set_index('componente').d_segundos
+    costo = {c: f'+{tt[c]:.2f} s' for c in comp}
     for ax, c in zip(axes, comp):
         ax.text(0.5, -0.19, f'runtime {costo[c]}', transform=ax.transAxes,
                 ha='center', fontsize=6.6, color=MUTED, style='italic')

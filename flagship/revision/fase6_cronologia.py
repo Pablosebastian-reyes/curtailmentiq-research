@@ -173,6 +173,70 @@ def ventana(df, a, b):
 
 
 # ==========================================================================
+def sensibilidad_frontera(est):
+    """Seccion 8: la evaluacion sobre fronteras alternativas de la ventana de
+    transicion (Tabla 12). Se puede correr sola con --solo-fronteras."""
+    # ---- 8: sensibilidad de la evaluacion a la frontera --------------
+    print('\n' + '-' * 96)
+    print('8. SENSIBILIDAD DE LA EVALUACION A FRONTERAS ALTERNATIVAS')
+    print('-' * 96)
+    hu = pd.read_csv(R.FLAGSHIP / 'predicciones' / 'pred_hurdle.csv',
+                     parse_dates=['fecha']).sort_values(
+                         ['fecha', 'central_codigo']).reset_index(drop=True)
+    pred = R.PredictivaHurdle(hu.p_occ.values, hu.mu_log.values,
+                              float(hu.sigma.iloc[0]))
+    rr = np.random.default_rng(R.SEED_CONFORMAL)
+    hu = hu.assign(s=pred.cdf(hu.y_real.values, rr))
+    s_cal = hu.s.values[((hu.fecha >= R.CAL_INI) & (hu.fecha < R.CAL_FIN)).values]
+    idx = (hu.fecha >= R.CAL_FIN).values
+    test = hu[idx].reset_index(drop=True)
+    p_t = pred.sub(idx)
+    y_t, f_t = test.y_real.values, test.fecha.values
+    fechas_test = np.sort(test.fecha.unique())
+    U_est = R.estatico(p_t, s_cal)
+    U_aci, _, _ = R.aci(p_t, s_cal, y_t, f_t, fechas_test, 0.02)
+    # Mismo arreglo que H7 (cierre del 14 de septiembre): el transporte
+    # continua el generador que aleatorizo el score, rr, y consume antes la
+    # corrida de gamma = 0.02, como la corrida canonica. Con un generador
+    # fresco la fila de la ventana oficial diferia de la Tabla 4 en 1 MWh.
+    R.transporte_aci(p_t, s_cal, hu.s.values, hu.fecha.values, y_t, f_t,
+                     fechas_test, 0.02, rr, ini_test=R.CAL_FIN)
+    U_tr, _, _ = R.transporte_aci(p_t, s_cal, hu.s.values, hu.fecha.values, y_t,
+                                  f_t, fechas_test, 0.05, rr,
+                                  ini_test=R.CAL_FIN)
+    alt = [('oficial: oct-dic 2024', '2024-10-01', '2025-01-01'),
+           ('sep-dic 2024', '2024-09-01', '2025-01-01'),
+           ('nov 2024-ene 2025', '2024-11-01', '2025-02-01'),
+           ('oct 2024-feb 2025', '2024-10-01', '2025-03-01'),
+           ('oct-nov 2024', '2024-10-01', '2024-12-01'),
+           ('sep 2024-mar 2025', '2024-09-01', '2025-03-01')]
+    fs = []
+    for etq, a, b in alt:
+        m = ((f_t >= np.datetime64(pd.Timestamp(a).date()))
+             & (f_t < np.datetime64(pd.Timestamp(b).date())))
+        w1_alt = w1(np.log(ventana(est['solar_norte'], '2024-01-01', '2024-09-01').query('mwh>0').mwh),
+               np.log(ventana(est['solar_norte'], a, b).query('mwh>0').mwh))
+        for nm, U in (('Split estatico', U_est), ('ACI (g=0.02)', U_aci),
+                      ('Transporte+ACI (g=0.05)', U_tr)):
+            r = R.resumen_metrico(nm, etq, f_t[m], y_t[m], U[m])
+            r['w1_vs_calibracion'] = round(w1_alt, 3)
+            fs.append(r)
+    SS = pd.DataFrame(fs)
+    # la ventana oficial ES la transicion de la Tabla 4: los tres metodos tienen
+    # que coincidir con la corrida canonica de la Fase 0
+    f0 = pd.read_csv(R.REPO / 'resultados' / 'fase0' / 'fase0_tabla_por_modelo.csv')
+    f0 = f0[(f0.modelo_base == 'hurdle') & (f0.periodo == 'test_transition')].set_index('metodo')
+    for nm, mf in (('Split estatico', '1_estatico_pit'), ('ACI (g=0.02)', '3_aci_pit_g02'),
+                   ('Transporte+ACI (g=0.05)', '4_transporte_banda_g05')):
+        a_ = SS[(SS.metodo == nm) & (SS.periodo == alt[0][0])].iloc[0]
+        for k in ('cobertura', 'se_cluster', 'ancho_medio', 'pct_infinito', 'IS_finitos'):
+            if a_[k] != f0.loc[mf, k]:
+                raise SystemExit(f'frontera oficial, {nm}, {k}: {a_[k]} contra {f0.loc[mf, k]}')
+    SS.to_csv(SAL / 'fase6_sensibilidad_frontera.csv', index=False)
+    print(SS[['periodo', 'w1_vs_calibracion', 'metodo', 'cobertura',
+              'se_cluster', 'ancho_medio', 'IS_finitos']].to_string(index=False))
+
+
 def main():
     print('=' * 96)
     print('FASE 6 - CRONOLOGIA Y PUNTOS DE CAMBIO (R2.3) + deuda H2')
@@ -184,6 +248,9 @@ def main():
           f'{d.fecha.max().date()}')
     for k, v in est.items():
         print(f'  {k}: {len(v):,} filas, {v.central_codigo.nunique()} centrales')
+    if '--solo-fronteras' in sys.argv:
+        sensibilidad_frontera(est)
+        return
 
     # ---- 1 y 2: series y puntos de cambio ----------------------------
     print('\n' + '-' * 96)
@@ -431,50 +498,8 @@ def main():
     print('\n  intensidad de vertimiento por MW instalado (solar norte):')
     print(IN.to_string(index=False))
 
-    # ---- 8: sensibilidad de la evaluacion a la frontera --------------
-    print('\n' + '-' * 96)
-    print('8. SENSIBILIDAD DE LA EVALUACION A FRONTERAS ALTERNATIVAS')
-    print('-' * 96)
-    hu = pd.read_csv(R.FLAGSHIP / 'predicciones' / 'pred_hurdle.csv',
-                     parse_dates=['fecha']).sort_values(
-                         ['fecha', 'central_codigo']).reset_index(drop=True)
-    pred = R.PredictivaHurdle(hu.p_occ.values, hu.mu_log.values,
-                              float(hu.sigma.iloc[0]))
-    rr = np.random.default_rng(R.SEED_CONFORMAL)
-    hu = hu.assign(s=pred.cdf(hu.y_real.values, rr))
-    s_cal = hu.s.values[((hu.fecha >= R.CAL_INI) & (hu.fecha < R.CAL_FIN)).values]
-    idx = (hu.fecha >= R.CAL_FIN).values
-    test = hu[idx].reset_index(drop=True)
-    p_t = pred.sub(idx)
-    y_t, f_t = test.y_real.values, test.fecha.values
-    fechas_test = np.sort(test.fecha.unique())
-    U_est = R.estatico(p_t, s_cal)
-    U_aci, _, _ = R.aci(p_t, s_cal, y_t, f_t, fechas_test, 0.02)
-    U_tr, _, _ = R.transporte_aci(p_t, s_cal, hu.s.values, hu.fecha.values, y_t,
-                                  f_t, fechas_test, 0.05,
-                                  np.random.default_rng(R.SEED_CONFORMAL),
-                                  ini_test=R.CAL_FIN)
-    alt = [('oficial: oct-dic 2024', '2024-10-01', '2025-01-01'),
-           ('sep-dic 2024', '2024-09-01', '2025-01-01'),
-           ('nov 2024-ene 2025', '2024-11-01', '2025-02-01'),
-           ('oct 2024-feb 2025', '2024-10-01', '2025-03-01'),
-           ('oct-nov 2024', '2024-10-01', '2024-12-01'),
-           ('sep 2024-mar 2025', '2024-09-01', '2025-03-01')]
-    fs = []
-    for etq, a, b in alt:
-        m = ((f_t >= np.datetime64(pd.Timestamp(a).date()))
-             & (f_t < np.datetime64(pd.Timestamp(b).date())))
-        w1_alt = w1(np.log(ventana(est['solar_norte'], '2024-01-01', '2024-09-01').query('mwh>0').mwh),
-               np.log(ventana(est['solar_norte'], a, b).query('mwh>0').mwh))
-        for nm, U in (('Split estatico', U_est), ('ACI (g=0.02)', U_aci),
-                      ('Transporte+ACI (g=0.05)', U_tr)):
-            r = R.resumen_metrico(nm, etq, f_t[m], y_t[m], U[m])
-            r['w1_vs_calibracion'] = round(w1_alt, 3)
-            fs.append(r)
-    SS = pd.DataFrame(fs)
-    SS.to_csv(SAL / 'fase6_sensibilidad_frontera.csv', index=False)
-    print(SS[['periodo', 'w1_vs_calibracion', 'metodo', 'cobertura',
-              'se_cluster', 'ancho_medio', 'IS_finitos']].to_string(index=False))
+    sensibilidad_frontera(est)
+
     # ---- 9: verificacion de cada afirmacion numerica del manuscrito ----
     print('\n' + '-' * 96)
     print('9. VERIFICACION DE LAS AFIRMACIONES NUMERICAS DEL MANUSCRITO')

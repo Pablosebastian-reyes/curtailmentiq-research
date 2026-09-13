@@ -1,0 +1,62 @@
+============================================================================================
+FASE 1 - TABLA DE HIPERPARAMETROS (R1.2, R2.4)
+42 entradas, leidas del codigo y de los resultados, no escritas a mano
+============================================================================================
+
+--- Base model ---
+  Forecast horizon                                     7 days
+  Last training target                                 2023-12-31
+  Trees / learning rate / depth                        400 / 0.05 / 6
+  min_child_weight / subsample / colsample             5 / 0.9 / 0.9
+  Number of features                                   12
+  Dispersion of the hurdle                             out of fold, KFold 5
+  Quantile grid of the multi-quantile GBM              54 levels, from 0.005 to 0.999
+
+--- Conformal layer ---
+  Nominal level                                        1 - alpha = 0.90
+  Nonconformity score                                  s = F_x(y) (PIT)
+  Calibration window                                   2024-01-01 to 2024-09-01
+  Horizon embargo                                      7 days
+  Conformal quantile                                   order statistic k = ceil((n+1)(1-alpha_t))
+
+--- Transport ---
+  Length of the recent window                          60 days
+  Refresh period of the map                            7 days
+  Minimum recent scores for a refresh                  100
+  Rule for the empirical quantiles                     equispaced grid of g levels on [0,1], g = min(100, max(20, m/2))
+  Interpolation scheme                                 piecewise linear, twice
+  Bootstrap repetitions of the map                     B = 150
+  Tail shrinkage function                              lambda(u) = 1 / (1 + (sd_boot(u)/tau)^2)
+  Shrinkage strength                                   tau = 0.05 in PIT units
+  Monotonisation                                       running maximum and clip to [0,1]
+
+--- ACI ---
+  Update                                               alpha_{t+1} = alpha_t + gamma (alpha - err_t)
+  gamma reported in the submitted version              0.02 and 0.05
+  Bound on alpha_t, submitted version                  [-1, 2]
+  Recommended bound on alpha_t                         alpha_min = 0.005
+  Order of execution                                   map refresh, then quantile, then interval, then ACI
+
+--- Hyperparameter selection ---
+  Grid for gamma                                       {0.005, 0.01, 0.02, 0.05, 0.10, 0.20}
+  Grid for the recent window                           {30, 45, 60, 90, 120} days
+  Inner calibration pool                               2024-01-01 to 2024-05-01
+  Inner validation set                                 2024-05-01 to 2024-09-01
+  Selection criterion                                  mean one-sided interval score
+  gamma selected by rolling origin                     0.005
+  Window selected by rolling origin                    120 days
+
+--- Evaluation ---
+  Primary metric                                       one-sided interval score IS = U + (1/alpha) max(y-U, 0)
+  Standard error of coverage                           clustered by date
+  Bootstrap of the differences between methods         2000 resamples of whole days
+  Samples for the CRPS                                 300 per row
+  Change-point detection                               PELT and binary segmentation, L2 cost, pen = sigma^2 log n, min_size = 3
+
+--- Seeds ---
+  Training of the base models                          42
+  PIT atom and map bootstrap                           20260720
+  Sampling of the CRPS                                 11
+  Bootstrap of differences, blocks and permutations    20260901
+
+guardado resultados/fase1/hiperparametros.csv y .tex

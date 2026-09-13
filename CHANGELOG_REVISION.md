@@ -1440,3 +1440,109 @@ atribuye las Figuras 1, 2, 3, 5 y 6 a `flagship/generar_figuras_paper.py` y las
 4, 7, 8 y 9 a `fase9_figuras_revision.py`; antes las atribuia todas a esta
 ultima. El indice de tablas del README ya se habia actualizado en B4.
 
+### C1. Interval score unilateral con multiplicador 1/alpha
+
+`rev_lib.interval_score_unilateral` usaba `2/alpha`, el multiplicador del
+interval score central, que pone alpha/2 en cada cola y queda minimizado por el
+cuantil 1-alpha/2. En un limite unilateral [0,U] toda la masa alpha esta en la
+cola superior: `IS = U + (1/alpha) max(y-U, 0)`, que es `pinball_{1-alpha}/alpha + y`
+y lo minimiza el cuantil 1-alpha que calibran todos los metodos. El docstring
+decia que la version con 2/alpha era "el pinball loss del cuantil 1-alpha
+multiplicado por 2/alpha"; era falso, y queda anotado en el propio docstring.
+`pinball` se deriva ahora del score. La formula cambia tambien en el docstring
+de `fase4_metricas_benchmarks.py`, en la fila "Primary metric" de la Tabla C.14,
+en la ecuacion de la Seccion 4.8 y en R1.5 de la carta; las dos ultimas ganan una
+frase que justifica 1/alpha. No se reportan las dos metricas.
+
+Corridas, sin reajustar ningun modelo base:
+
+```
+$VENV flagship/revision/fase0_model_agnostic.py
+$VENV flagship/revision/fase0_diagnostico.py
+$VENV flagship/revision/fase2_ablaciones.py
+$VENV flagship/revision/fase4_metricas_benchmarks.py
+$VENV flagship/revision/fase5_dependencia_panel.py
+$VENV flagship/revision/fase3_seleccion_hiperparametros.py
+$VENV flagship/revision/fase6_cronologia.py --solo-fronteras
+$VENV flagship/revision/fase0b_diagnostico_ampliado.py
+$VENV flagship/revision/fase1_hiperparametros.py
+$VENV flagship/revision/fase9_tablas_tex.py
+$VENV flagship/revision/fase9_figuras_revision.py
+```
+
+**Guarda de invariancia (C1.2), contra 62982f8 celda a celda.** Identicos: las U
+y las y por fila de las tres series de la Fase 0; cobertura, error estandar,
+anchos, fraccion de infinitos, conteos, CRPS y Brier en todas las tablas; el
+bloque diagnostico de quince celdas y el de cuarenta completo (r = -0.873,
+pendiente -4.89, intercepto, IC bootstrap, leave-one-out, rango y quiebre); la
+seleccion de la Fase 3 (ACI gamma 0.005; Transporte+ACI gamma 0.005 con 120
+dias); qhat = 0.9242 en el log de la Fase 5; las 41 filas de la Tabla C.14 salvo
+la metrica principal. Cambian solo `IS_finitos`, `IS_total`, las diferencias de
+IS con su IC y su significancia, y los segundos de reloj de la Fase 2, que se
+miden de nuevo en cada corrida.
+
+**C1.3a, H7 en las fronteras de la Fase 6.** La seccion de fronteras corria
+Transporte+ACI con gamma 0.05 sin haber corrido antes gamma 0.02 sobre el mismo
+generador, asi que su flujo aleatorio no era el canonico. Ahora corre 0.02 y
+despues 0.05, como fase0, y una asercion exige que la ventana oficial reproduzca
+la fila de fase0 (hurdle, test_transition). Se mueven solo los anchos de
+Transporte+ACI en la Tabla 12, a lo sumo 3.8 MWh (oct 2024-feb 2025, 791.1 a
+787.3; sep 2024-mar 2025, 772.2 a 768.8); cobertura y fraccion de infinitos no
+cambian, y las filas del split estatico y de ACI son identicas.
+
+**C1.3b.** Las Tablas 11 y 12 llevan la columna de fraccion de intervalos
+infinitos junto al IS restringido a finitos.
+
+**C1.5, frases escritas desde el CSV regenerado.**
+- 5.5 y R1.3, parrafo final: el pipeline completo mejora 286.5 MWh en la
+  transicion; en 2025-S1 y 2025-S2 las diferencias (+58.8 y +14.3) tienen IC que
+  contienen el cero, y en 2026-S1 mejora 14.7 con IC que lo excluye; sobre todo
+  el test neto -32.3 [-70, +9]. Donde decia "not better than the static split"
+  dice "not distinguishable from the static split ... and we do not read that as
+  a positive result". El "all three significant" de B2 desaparece porque ya no
+  es cierto.
+- 5.5 y R1.3: el transporte empeora sobre ACI en cuatro de las cinco ventanas,
+  significativamente en tres (el conteo se emite del CSV).
+- 5.3 y R1.1: la diferencia de IS con el GBM es +14.5 [+4.9, +24.0] y ahora
+  tambien excluye el cero; el mejor de los dieciocho es el GBM con el split
+  estatico en cuatro de las cinco ventanas (eran tres).
+- 5.6 y R2.6: los cuatro benchmarks superan a todo esquema sobre el hurdle y cada
+  uno difiere del split estatico con IC que excluye el cero (eran tres); tres de
+  ellos compran el score con cobertura (433 a 86.5 %, 486 a 87.2 %, 639 a
+  82.4 %); CQR 438 contra 596 MWh y 813 del pipeline enviado.
+- 5.7 y R2.5: la calibracion por central y Mondrian por region tienen los dos
+  mejores IS marginales del grupo.
+- 5.8 y R2.3: el orden de los tres metodos se afirma por cobertura, que es lo que
+  se sostiene en las seis ventanas; el split estatico sobre-cubre 4.0 a 5.3
+  puntos y tiene el peor IS finito en las seis; Transporte+ACI da limites
+  infinitos en tres, 5.5 a 8.1 %; la ganancia aparente sigue a la
+  sobre-cobertura (Pearson r = -0.844 sobre las seis).
+- Introduccion, 3, 4.6, 5.5, carta y R2.4: el shrinkage es ocho decimos de uno
+  por ciento de un IS de unos 810 (eran seis de 1 030) y 6.16 de 6.79 segundos,
+  noventa y uno por ciento (eran noventa y dos). Se borra la frase de "three
+  orders of magnitude", que no salia de ningun archivo.
+- C1.7: "thirty-seven times" sale de `d_segundos`, 7.75 / 0.21 = 36.9.
+
+**C1.6.** Tablas 4 y 8 a 13 y Figura 9 regeneradas. La Tabla 8 y la carta dan
+los segundos con dos decimales. La Figura 9 toma los limites del eje de los
+datos y las etiquetas de costo del CSV; antes llevaban +7.1 y +6.7 tipeados.
+
+**Verificador.** 66 a 76 afirmaciones. Los chequeos de IS que llevaban el valor
+tipeado se arman ahora desde el CSV; los nuevos cubren las frases de C1.5 y la
+afirmacion de 4.8 de que, con la cota de alpha, el transporte sigue peor que la
+adaptacion pura en los seis pares cota x gamma.
+
+**Lo que se mueve y no toca texto.** Con los hiperparametros de la Fase 3
+(bloque propio de la Tabla 9), Transporte+ACI queda en 761.2 y ACI en 762.6; con
+2/alpha eran 957.8 y 935.8. Ninguna frase compara esas dos filas; se reporta al
+autor.
+
+```
+$VENV flagship/revision/verificar_manuscrito.py            # 76 de 76
+$VENV flagship/revision/verificar_referencias_cruzadas.py  # exit 0
+# manuscrito 37 paginas (eran 36: las columnas nuevas y las frases de C1.4 y
+# C1.5 empujan la ultima referencia a la pagina 37), carta 21, cero errores y
+# cero referencias sin resolver; el overfull de 1.3 pt de tab_benchmarks ya
+# estaba en 62982f8
+```
+

@@ -203,8 +203,9 @@ def main():
          'as above, for Transport+ACI', 'fase3_hiperparametros_elegidos.json'),
         # --- evaluacion ---
         ('Evaluation', 'Primary metric',
-         'one-sided interval score IS = U + (2/alpha) max(y-U, 0)',
-         'proper, in MWh, and infinite if U is infinite',
+         'one-sided interval score IS = U + (1/alpha) max(y-U, 0)',
+         'proper for the (1-alpha) quantile, in MWh, and infinite if U is infinite; '
+         'the multiplier is 1/alpha because all of alpha lies in the upper tail',
          'rev_lib.py:interval_score_unilateral'),
         ('Evaluation', 'Standard error of coverage', 'clustered by date',
          'averages the coverage of each day and takes the error across days',

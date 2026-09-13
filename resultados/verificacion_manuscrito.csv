@@ -15,19 +15,25 @@ Tabla 5,ajuste sobre las quince celdas,"-0.755, -4.36, +5.45","-0.755, -4.36, +5
 5.3,mejora de CRPS del qgbm,18 a 30 por ciento,18.3 a 30.4,si,fase0_tabla_por_modelo.csv
 5.3,CRPS en la transicion,92.9 contra 133.5,92.9 contra 133.5,si,fase0_tabla_por_modelo.csv
 5.3,diferencia de ancho con qgbm y su IC,"+15.1, [+0.0, +30.3]","+15.1, [+0.0, +30.3]",si,fase0_diferencias_bootstrap.csv
-5.3,diferencia de interval score con qgbm,"+13.9, [-10.7, +37.8]","+13.9, [-10.7, +37.8]",si,fase0_diferencias_bootstrap.csv
-5.4,adaptacion online (A1 - A0) en test_transition,-215.8,-215.8,si,fase2_aporte_por_componente.csv
-5.4,adaptacion online (A1 - A0) en TEST_COMPLETO,-37.8,-37.8,si,fase2_aporte_por_componente.csv
-5.4,transporte sobre ACI (A3 - A1) en TEST_COMPLETO,+74.2,+74.2,si,fase2_aporte_por_componente.csv
-5.4,shrinkage de cola (A4 - A3) en TEST_COMPLETO,-6.5,-6.5,si,fase2_aporte_por_componente.csv
-5.4,pipeline completo (A4 - A0) en TEST_COMPLETO,+32.4,+32.4,si,fase2_aporte_por_componente.csv
-5.5,"pipeline completo por ventana: transicion, 2025-S1, 2025-S2","-177.0 / +96.0 / +119.0, las tres significativas",-177.0 / +96.0 / +119.0,si,fase2_aporte_por_componente.csv
-5.5,costo del shrinkage sobre el total,"6.1 de 6.6 s, 92%","6.1 de 6.6 s, 92%",si,fase2_aporte_por_componente.csv
-5.5,costo del transporte solo contra la adaptacion sola,thirty-four veces,6.7 / 0.2 = 34,si,fase2_aporte_por_componente.csv
-5.5,CQR unilateral sobre el GBM,89.8% / 276 MWh / IS 601,89.8% / 276 MWh / IS 601,si,fase4_metricas_completas.csv
-5.5,pipeline completo en el test completo,596 MWh / IS 1030,596 MWh / IS 1030,si,fase4_metricas_completas.csv
-5.5,B2 distribucion movil 60d,583 a 86.5%,583 a 86.5%,si,fase4_metricas_completas.csv
-5.5,B1 cuantil empirico 365d,656 a 87.2%,656 a 87.2%,si,fase4_metricas_completas.csv
+5.3,"diferencia de interval score con qgbm, excluye el cero","+14.5, [+4.9, +24.0]","+14.5, [+4.9, +24.0]",si,fase0_diferencias_bootstrap.csv
+5.3,"mejor de las dieciocho: siempre el GBM, con split estatico en n ventanas",four,4 de 5,si,fase0_tabla_por_modelo.csv
+5.4,adaptacion online (A1 - A0) en test_transition,-297.9,-297.9,si,fase2_aporte_por_componente.csv
+5.4,adaptacion online (A1 - A0) en TEST_COMPLETO,-95.9,-95.9,si,fase2_aporte_por_componente.csv
+5.4,transporte sobre ACI (A3 - A1) en TEST_COMPLETO,+68.6,+68.6,si,fase2_aporte_por_componente.csv
+5.4,shrinkage de cola (A4 - A3) en TEST_COMPLETO,-6.4,-6.4,si,fase2_aporte_por_componente.csv
+5.4,pipeline completo (A4 - A0) en TEST_COMPLETO,-32.3,-32.3,si,fase2_aporte_por_componente.csv
+5.5,pipeline completo por ventana: transicion y los tres semestres,-286.5 si / +58.8 no / +14.3 no / -14.7 si,-286.5 / +58.8 / +14.3 / -14.7,si,fase2_aporte_por_componente.csv
+5.5,ventanas en que el transporte empeora sobre ACI,"4 de 5, 3 significativas","4, 3",si,fase2_aporte_por_componente.csv
+5.5,costo del shrinkage sobre el total,"6.16 de 6.79 s, 91%","6.16 de 6.79 s, 91%",si,fase2_aporte_por_componente.csv
+5.5,costo del transporte solo contra la adaptacion sola,thirty-seven veces,7.75 / 0.21 = 37,si,fase2_aporte_por_componente.csv
+5.6,CQR unilateral sobre el GBM,89.8% / 276 MWh / IS 438,89.8% / 276 MWh / IS 438,si,fase4_metricas_completas.csv
+5.5,pipeline completo en el test completo,596 MWh / IS 813,596 MWh / IS 813,si,fase4_metricas_completas.csv
+5.6,B2 distribucion movil 60d,433 a 86.5%,433 a 86.5%,si,fase4_metricas_completas.csv
+5.6,B1 cuantil empirico 365d,486 a 87.2%,486 a 87.2%,si,fase4_metricas_completas.csv
+5.6,B4 lognormal inflada en cero,639 a 82.4%,639 a 82.4%,si,fase4_metricas_completas.csv
+5.6,benchmarks mejores que todo esquema sobre el hurdle,4 de 4,4; todos distinguibles del estatico: True,si,fase4_metricas_completas.csv + fase4_diferencias_bootstrap.csv
+5.5,shrinkage relativo al interval score del pipeline,0.8% de 812.9,"eight decimos, about 810",si,fase2_aporte_por_componente.csv + fase4_metricas_completas.csv
+5.6,"con la cota, el transporte sigue peor que la adaptacion pura",6 de 6 pares,menor diferencia +41.4,si,fase4_cota_alpha.csv
 5.5,maximo de intervalos infinitos,hasta 5.9 por ciento,5.9,si,fase4_metricas_completas.csv
 5.5,la cota elimina todos los infinitos,0 en las cinco ventanas,max 0.0%,si,fase4_cota_alpha.csv
 5.5,costo de cobertura de la cota,a lo mas medio punto,0.5 puntos,si,fase4_cota_alpha.csv
@@ -37,6 +43,7 @@ Tabla 5,ajuste sobre las quince celdas,"-0.755, -4.36, +5.45","-0.755, -4.36, +5
 4.3,centrales por dia,108.8,108.82,si,fase5_diagnostico_dependencia.csv
 5.6,cobertura en dias de alto vertimiento,"estatico 91.9, Transporte+ACI 86.7, ACI 88.3","91.9, 86.7, 88.3",si,fase5_cobertura_desagregada.csv
 5.6,"peor desvio regional, agrupado contra Mondrian por region",4.8 sube a 7.2,4.8 sube a 7.2,si,fase5_cobertura_desagregada.csv
+5.7,los dos mejores IS marginales del grupo de panel,region y por central,"['M2 Mondrian por region', 'M3 conformal por central']",si,fase5_remedios.csv
 5.6,mejor cobertura condicional (ACI puro),4.7 puntos,4.7,si,fase5_cobertura_desagregada.csv
 4.6,gamma y ventana seleccionados,"gamma 0.005, ventana 120 d","gamma 0.005, ventana 120 d",si,fase3_hiperparametros_elegidos.json
 4.6,infinitos en validacion con gamma 0.05,34 a 42 por ciento,34.3 a 41.7,si,fase3_seleccion_validacion.csv
@@ -51,6 +58,9 @@ Tabla 5,ajuste sobre las quince celdas,"-0.755, -4.36, +5.45","-0.755, -4.36, +5
 3.3,variacion total entre semestres,0.032 a 0.079,0.032 a 0.079,si,fase6_perfil_intradiario.csv
 3.3,movimiento maximo del centroide,hasta 22 minutos,22 minutos,si,fase6_perfil_intradiario.csv
 5.7,rango de divergencia de las fronteras alternativas,0.99 a 1.34,0.99 a 1.34,si,fase6_sensibilidad_frontera.csv
+5.8,fronteras: orden por cobertura y sobre-cobertura del estatico,4.0 a 5.3,orden por cobertura en todas: True,si,fase6_sensibilidad_frontera.csv
+5.8,fronteras: peor IS finito y ventanas con infinitos del transporte,estatico en todas; infinitos en 3,['Split estatico']; 5.5 a 8.1,si,fase6_sensibilidad_frontera.csv
+5.8,fronteras: la ganancia sigue a la sobre-cobertura,r = -0.844,r = -0.844,si,fase6_sensibilidad_frontera.csv
 5.8,numero de fronteras alternativas,five,5 mas la oficial,si,fase6_sensibilidad_frontera.csv
 5.6,cuantil conformal agrupado y por bloques,"0.9242 a 0.9263, sd 0.0112",segun el log de la Fase 5,si,logs/fase5_*.log
 C.11,"costo de cobertura de la cota de alpha, campo de la tabla",0.5 puntos,removes infinite intervals in all five windows at a cost of at most 0....,si,fase1/hiperparametros.csv + fase4_cota_alpha.csv

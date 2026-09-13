@@ -150,28 +150,41 @@ def main():
     bt = pd.read_csv(RES / 'fase0' / 'fase0_diferencias_bootstrap.csv')
     q = bt[(bt.modelo_base == 'qgbm_multi') & (bt.metodo == '4_transporte_banda_g05')
            & (bt.periodo == 'test_transition')].iloc[0]
-    chk('5.3', 'diferencia de ancho con qgbm y su IC', '+15.1, [+0.0, +30.3]',
-        f'{q.d_ancho:+.1f}, [{q.ancho_lo:+.1f}, {q.ancho_hi:+.1f}]',
-        abs(q.d_ancho - 15.1) < 0.06 and abs(q.ancho_lo) < 0.06
-        and abs(q.ancho_hi - 30.3) < 0.06
-        and en_tex('$+15.1$~MWh', '$[+0.0,+30.3]$'),
+    # C1: las dos frases se arman desde el CSV; antes llevaban el valor tipeado
+    dif_a = f'{q.d_ancho:+.1f}, [{q.ancho_lo:+.1f}, {q.ancho_hi:+.1f}]'
+    chk('5.3', 'diferencia de ancho con qgbm y su IC', dif_a, dif_a,
+        q.ancho_lo >= 0 and en_tex(f'${q.d_ancho:+.1f}$~MWh with a 95\\% interval of '
+                                   f'$[{q.ancho_lo:+.1f},{q.ancho_hi:+.1f}]$'),
         'fase0_diferencias_bootstrap.csv')
-    chk('5.3', 'diferencia de interval score con qgbm', '+13.9, [-10.7, +37.8]',
-        f'{q.d_IS:+.1f}, [{q.IS_lo:+.1f}, {q.IS_hi:+.1f}]',
-        abs(q.d_IS - 13.9) < 0.06 and abs(q.IS_lo + 10.7) < 0.06
-        and abs(q.IS_hi - 37.8) < 0.06
-        and en_tex('$+13.9$', '$[-10.7,+37.8]$'),
+    dif_i = f'{q.d_IS:+.1f}, [{q.IS_lo:+.1f}, {q.IS_hi:+.1f}]'
+    chk('5.3', 'diferencia de interval score con qgbm, excluye el cero', dif_i, dif_i,
+        q.IS_lo > 0 and en_tex(f'difference in interval score, ${q.d_IS:+.1f}$ with an interval '
+                               f'of $[{q.IS_lo:+.1f},{q.IS_hi:+.1f}]$, also excludes it'),
         'fase0_diferencias_bootstrap.csv')
+    mejor = t.loc[t.groupby('periodo').IS_finitos.idxmin()]
+    n_est = int((mejor.metodo == '1_estatico_pit').sum())
+    chk('5.3', 'mejor de las dieciocho: siempre el GBM, con split estatico en n ventanas',
+        palabra(n_est), f'{n_est} de {len(mejor)}',
+        bool((mejor.modelo_base == 'qgbm_multi').all())
+        and en_tex(f'in {palabra(n_est)} of them paired with the plain static split'),
+        'fase0_tabla_por_modelo.csv')
 
     # ---------------- Fase 2: ablaciones ----------------
     a = pd.read_csv(RES / 'fase2' / 'fase2_aporte_por_componente.csv')
+    ci_ = lambda r: f'$[{r.IS_lo:+.0f},{r.IS_hi:+.0f}]$'
     for comp, per, val, txt in (
-            ('adaptacion online (A1 - A0)', 'test_transition', -215.8, '215.8~MWh in the transition'),
-            ('adaptacion online (A1 - A0)', 'TEST_COMPLETO', -37.8, 'by 37.8~MWh over the whole test'),
-            ('transporte sobre ACI (A3 - A1)', 'TEST_COMPLETO', 74.2, 'worsens} the interval score by 74.2'),
+            ('adaptacion online (A1 - A0)', 'test_transition', None,
+             lambda r: f'{abs(r.d_IS):.1f}~MWh in the transition window, with a bootstrap interval of {ci_(r)}'),
+            ('adaptacion online (A1 - A0)', 'TEST_COMPLETO', None,
+             lambda r: f'by {abs(r.d_IS):.1f}~MWh over the whole test'),
+            ('transporte sobre ACI (A3 - A1)', 'TEST_COMPLETO', None,
+             lambda r: f'worsens}} the interval score by {r.d_IS:.1f}~MWh over the whole test, '
+                       f'with an interval of {ci_(r)} that excludes zero'),
             ('shrinkage de cola (A4 - A3)', 'TEST_COMPLETO', None, None),
             ('pipeline completo (A4 - A0)', 'TEST_COMPLETO', None, None)):
         rr = a[(a.componente == comp) & (a.periodo == per)].iloc[0]
+        if callable(txt):
+            txt, val = txt(rr), rr.d_IS
         # Los dos ultimos no llevan el valor cableado: se construye la frase
         # esperada desde el CSV. Alinear el consumo del generador con la corrida
         # canonica movio estos dos numeros, y un valor cableado obliga a editar
@@ -182,8 +195,12 @@ def main():
                 txt = (f'${rr.d_IS:.1f}$~MWh with a bootstrap interval of '
                        f'$[{rr.IS_lo:.0f},{rr.IS_hi:.0f}]$')
             else:
-                txt = (f'netting ${rr.d_IS:+.1f}$~MWh over the whole test with '
-                       f'an interval of $[{rr.IS_lo:+.0f},{rr.IS_hi:+.0f}]$')
+                # C1: con 1/alpha el neto cambia de signo y sigue sin ser
+                # significativo; el texto dice "not distinguishable"
+                txt = (f'nets ${rr.d_IS:+.1f}$~MWh with an interval of {ci_(rr)} that contains '
+                       f'zero: the complete method is not distinguishable from the static split')
+                if rr.significativo != 'no':
+                    txt = '__el neto es significativo: la frase ya no vale__'
             val = rr.d_IS
         chk('5.4', f'{comp} en {per}', f'{val:+.1f}', f'{rr.d_IS:+.1f}',
             abs(rr.d_IS - val) < 0.06 and en_tex(txt),
@@ -194,15 +211,22 @@ def main():
     # 100.0 / 104.2) porque nadie las chequeaba. La frase se arma desde el CSV
     # y se exige lo que el texto afirma: las tres significativas.
     pc = a[a.componente == 'pipeline completo (A4 - A0)'].set_index('periodo')
-    tr_, s1_, s2_ = (pc.loc[p] for p in ('test_transition', '2025-S1', '2025-S2'))
-    txt = (f'improves on the static split by {-tr_.d_IS:.1f}~MWh in the '
-           f'transition window and loses {s1_.d_IS:.1f} and {s2_.d_IS:.1f}~MWh '
-           f'in 2025-S1 and 2025-S2, all three significant')
-    chk('5.5', 'pipeline completo por ventana: transicion, 2025-S1, 2025-S2',
-        f'{tr_.d_IS:+.1f} / {s1_.d_IS:+.1f} / {s2_.d_IS:+.1f}, las tres significativas',
-        f'{tr_.d_IS:+.1f} / {s1_.d_IS:+.1f} / {s2_.d_IS:+.1f}',
-        (pc.loc[['test_transition', '2025-S1', '2025-S2']].significativo == 'si').all()
-        and tr_.d_IS < 0 < s1_.d_IS and s2_.d_IS > 0 and en_tex(txt),
+    tr_, s1_, s2_, s3_ = (pc.loc[p] for p in ('test_transition', '2025-S1', '2025-S2', '2026-S1'))
+    txt = (f'improves on the static split by {abs(tr_.d_IS):.1f}~MWh in the transition window and '
+           f'shows no demonstrable loss in any semester: in 2025-S1 and 2025-S2 the differences, '
+           f'${s1_.d_IS:+.1f}$ and ${s2_.d_IS:+.1f}$~MWh, have intervals that contain zero, and in '
+           f'2026-S1 it improves by {abs(s3_.d_IS):.1f}~MWh with an interval that excludes zero')
+    estructura = (tr_.d_IS < 0 and tr_.significativo == 'si' and s1_.significativo == 'no'
+                  and s2_.significativo == 'no' and s3_.d_IS < 0 and s3_.significativo == 'si')
+    chk('5.5', 'pipeline completo por ventana: transicion y los tres semestres',
+        f'{tr_.d_IS:+.1f} si / {s1_.d_IS:+.1f} no / {s2_.d_IS:+.1f} no / {s3_.d_IS:+.1f} si',
+        f'{tr_.d_IS:+.1f} / {s1_.d_IS:+.1f} / {s2_.d_IS:+.1f} / {s3_.d_IS:+.1f}',
+        estructura and en_tex(txt), 'fase2_aporte_por_componente.csv')
+    v3 = a[(a.componente == 'transporte sobre ACI (A3 - A1)') & (a.periodo != 'TEST_COMPLETO')]
+    n_p, n_ps = int((v3.d_IS > 0).sum()), int(((v3.d_IS > 0) & (v3.significativo == 'si')).sum())
+    chk('5.5', 'ventanas en que el transporte empeora sobre ACI', f'{n_p} de 5, {n_ps} significativas',
+        f'{n_p}, {n_ps}', en_tex(f'worsens it in {palabra(n_p)} of the five windows individually, '
+                                 f'significantly in {palabra(n_ps)}'),
         'fase2_aporte_por_componente.csv')
 
     # Los segundos del texto son los de la Tabla 8, que desde B3 salen de la
@@ -233,11 +257,11 @@ def main():
     m4 = pd.read_csv(RES / 'fase4' / 'fase4_metricas_completas.csv')
     v = m4[m4.periodo == 'TEST_COMPLETO'].set_index('metodo')
     cqr = v.loc['B3 CQR unilateral (GBM)']
-    chk('5.5', 'CQR unilateral sobre el GBM', '89.8% / 276 MWh / IS 601',
-        f'{cqr.cobertura}% / {cqr.ancho_medio:.0f} MWh / IS {cqr.IS_finitos:.0f}',
-        abs(cqr.cobertura - 89.8) < 0.05 and abs(cqr.ancho_medio - 276) < 0.5
-        and abs(cqr.IS_finitos - 601) < 0.6
-        and en_tex('89.8\\% coverage', '276~MWh', 'interval score of 601'),
+    cq = f'{cqr.cobertura}% / {cqr.ancho_medio:.0f} MWh / IS {cqr.IS_finitos:.0f}'
+    chk('5.6', 'CQR unilateral sobre el GBM', cq, cq,
+        abs(cqr.cobertura - 90) <= 0.5
+        and en_tex(f'{cqr.cobertura}\\% coverage, within half a point of nominal, with a mean '
+                   f'width of {cqr.ancho_medio:.0f}~MWh and an interval score of {cqr.IS_finitos:.0f}'),
         'fase4_metricas_completas.csv')
     tra = v.loc['Transporte+ACI (g=0.05)']
     chk('5.5', 'pipeline completo en el test completo',
@@ -245,14 +269,42 @@ def main():
         f'{tra.ancho_medio:.0f} MWh / IS {tra.IS_finitos:.0f}',
         en_tex(f'{tra.ancho_medio:.0f}~MWh and {tra.IS_finitos:.0f}'),
         'fase4_metricas_completas.csv')
-    for nm, cob, is_, txt in (('B2 distribucion movil 60d', 86.5, 583,
-                               'interval score of 583 at 86.5\\% coverage'),
-                              ('B1 cuantil empirico 365d', 87.2, 656,
-                               'trailing-year quantile 656 at 87.2\\%')):
+    for nm, pl in (('B2 distribucion movil 60d', 'interval score of {i} at {c}\\% coverage'),
+                   ('B1 cuantil empirico 365d', 'trailing-year quantile {i} at {c}\\%'),
+                   ('B4 lognormal inflada en cero', 'zero-inflated lognormal {i} at {c}\\%')):
         rr = v.loc[nm]
-        chk('5.5', nm, f'{is_} a {cob}%', f'{rr.IS_finitos:.0f} a {rr.cobertura}%',
-            abs(rr.cobertura - cob) < 0.05 and abs(rr.IS_finitos - is_) < 0.6
-            and en_tex(txt), 'fase4_metricas_completas.csv')
+        chk('5.6', nm, f'{rr.IS_finitos:.0f} a {rr.cobertura}%', f'{rr.IS_finitos:.0f} a {rr.cobertura}%',
+            rr.cobertura < 88 and en_tex(pl.format(i=f'{rr.IS_finitos:.0f}', c=rr.cobertura)),
+            'fase4_metricas_completas.csv')
+    ben = v[v.familia == 'benchmark']; hur = v[v.familia.isin(['paper', 'seleccionado'])]
+    d4 = pd.read_csv(RES / 'fase4' / 'fase4_diferencias_bootstrap.csv').set_index('metodo')
+    n_b = int((ben.IS_finitos < hur.IS_finitos.min()).sum())
+    sig_b = all(d4.loc[b].IS_hi < 0 for b in ben.index)
+    chk('5.6', 'benchmarks mejores que todo esquema sobre el hurdle', f'{n_b} de {len(ben)}',
+        f'{n_b}; todos distinguibles del estatico: {sig_b}',
+        n_b == len(ben) and sig_b and en_tex(
+            f'All {palabra(n_b)} attain a better interval score than every method built on the hurdle, '
+            'and each differs from the static split by a day-block bootstrap interval that excludes zero'),
+        'fase4_metricas_completas.csv + fase4_diferencias_bootstrap.csv')
+    ipi = Decimal(str(v.loc['Transporte+ACI (g=0.05)'].IS_finitos))
+    sh_ = a[(a.componente == 'shrinkage de cola (A4 - A3)') & (a.periodo == 'TEST_COMPLETO')].iloc[0]
+    rel = (100 * abs(Decimal(str(sh_.d_IS))) / ipi).quantize(Decimal('0.1'), ROUND_HALF_UP)
+    cerca = int(ipi.quantize(Decimal('1E1'), ROUND_HALF_UP))
+    chk('5.5', 'shrinkage relativo al interval score del pipeline', f'{rel}% de {ipi}',
+        f'{palabra(int(rel * 10))} decimos, about {cerca}',
+        en_tex(f'{palabra(int(rel * 10))} tenths of one per cent of an interval score of about {cerca}'),
+        'fase2_aporte_por_componente.csv + fase4_metricas_completas.csv')
+    # con la cota los scores son finitos y comparables: el texto afirma que el
+    # transporte sigue peor que la adaptacion pura en todos los pares cota x gamma
+    ca = pd.read_csv(RES / 'fase4' / 'fase4_cota_alpha.csv')
+    ca = ca[(ca.periodo == 'TEST_COMPLETO') & (ca.cota != 'sin cota')]
+    pv = ca.assign(fam=np.where(ca.metodo.str.startswith('Transporte'), 'tr', 'aci')).pivot_table(
+        index=['cota', 'gamma'], columns='fam', values='IS_total')
+    chk('5.6', 'con la cota, el transporte sigue peor que la adaptacion pura',
+        f'{int((pv.tr > pv.aci).sum())} de {len(pv)} pares', f'menor diferencia {(pv.tr - pv.aci).min():+.1f}',
+        bool((pv.tr > pv.aci).all()) and bool(np.isfinite(pv.values).all())
+        and en_tex('the transported variants remain worse than pure adaptation'),
+        'fase4_cota_alpha.csv')
     mx_inf = m4[(m4.familia == 'paper') & (m4.periodo == 'TEST_COMPLETO')].pct_infinito.max()
     chk('5.5', 'maximo de intervalos infinitos', f'hasta {mx_inf} por ciento',
         f'{mx_inf}', en_tex(f'up to {mx_inf} per cent'),
@@ -309,6 +361,13 @@ def main():
         and abs(peor.loc['M2 Mondrian por region', 'region'] - 7.2) < 0.05
         and en_tex('from 4.8 to 7.2 percentage points'),
         'fase5_cobertura_desagregada.csv')
+    r5 = pd.read_csv(RES / 'fase5' / 'fase5_remedios.csv')
+    r5 = r5[(r5.periodo == 'TEST_COMPLETO') & r5.metodo.str.startswith('M')].set_index('metodo').IS_finitos
+    dos = set(r5.nsmallest(2).index)
+    chk('5.7', 'los dos mejores IS marginales del grupo de panel', 'region y por central', str(sorted(dos)),
+        dos == {'M2 Mondrian por region', 'M3 conformal por central'}
+        and en_tex('although it and Mondrian by region have the two best marginal interval scores of the group'),
+        'fase5_remedios.csv')
     chk('5.6', 'mejor cobertura condicional (ACI puro)', '4.7 puntos',
         f'{peor.loc["ACI (g=0.02), referencia"].max():.1f}',
         abs(peor.loc['ACI (g=0.02), referencia'].max() - 4.7) < 0.05
@@ -409,6 +468,26 @@ def main():
         abs(fr.w1_vs_calibracion.min() - 0.99) < 0.006
         and abs(fr.w1_vs_calibracion.max() - 1.34) < 0.006
         and en_tex('from 0.99 to 1.34'), 'fase6_sensibilidad_frontera.csv')
+    fe = fr[fr.metodo == 'Split estatico'].set_index('periodo')
+    fa_ = fr[fr.metodo == 'ACI (g=0.02)'].set_index('periodo')
+    ft_ = fr[fr.metodo.str.startswith('Transporte')].set_index('periodo')
+    oc_ = fe.cobertura - 100 * (1 - R.ALPHA)
+    orden_cob = bool(((fe.cobertura > fa_.cobertura) & (fa_.cobertura > ft_.cobertura)).all())
+    peor_ = fr.loc[fr.groupby('periodo').IS_finitos.idxmax()].metodo
+    inf_ = ft_.pct_infinito[ft_.pct_infinito > 0]
+    r_oc = round(float(np.corrcoef(oc_, 100 * (ft_.ancho_medio / fe.ancho_medio - 1))[0, 1]), 3)
+    chk('5.8', 'fronteras: orden por cobertura y sobre-cobertura del estatico',
+        f'{oc_.min():.1f} a {oc_.max():.1f}', f'orden por cobertura en todas: {orden_cob}',
+        orden_cob and en_tex(f'the static split over-covers by {oc_.min():.1f} to {oc_.max():.1f} points'),
+        'fase6_sensibilidad_frontera.csv')
+    chk('5.8', 'fronteras: peor IS finito y ventanas con infinitos del transporte',
+        f'estatico en todas; infinitos en {len(inf_)}', f'{sorted(set(peor_))}; {inf_.min()} a {inf_.max()}',
+        bool((peor_ == 'Split estatico').all())
+        and en_tex(f'the static split is the worst of the three in all {palabra(len(fe))}',
+                   f'returns infinite limits in {palabra(len(inf_))} of them, {inf_.min()} to {inf_.max()} per cent'),
+        'fase6_sensibilidad_frontera.csv')
+    chk('5.8', 'fronteras: la ganancia sigue a la sobre-cobertura', f'r = {r_oc}', f'r = {r_oc}',
+        en_tex(f'(Pearson $r={r_oc}$ across the {palabra(len(fe))})'), 'fase6_sensibilidad_frontera.csv')
     # la oficial no es alternativa: el texto decia "six alternative" contando
     # los seis bloques de la Tabla 12, que son la oficial mas cinco
     n_alt = fr.periodo.nunique() - 1

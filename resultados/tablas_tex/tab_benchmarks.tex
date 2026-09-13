@@ -10,22 +10,22 @@
 Method & Coverage (se) & Width & \% inf. & $\mathrm{IS}$ finite & $\mathrm{IS}$ all & $\Delta\mathrm{IS}$ vs static [95\% CI] \\
 \midrule
 \multicolumn{7}{l}{\emph{Probabilistic benchmarks (new in this revision)}} \\
-\quad B2 rolling historical distribution, 60 days, per plant & 86.5\,(0.51) & 282 & 0.0 & 583 & 583 & $-392$ $[-425, -358]$ \\
-\quad B3 one-sided conformalized quantile regression (GBM) & 89.8\,(0.38) & 276 & 0.0 & 601 & 601 & $-376$ $[-407, -346]$ \\
-\quad B1 empirical quantile, 365-day window, per plant & 87.2\,(0.51) & 317 & 0.0 & 656 & 656 & $-316$ $[-348, -286]$ \\
-\quad B4 zero-inflated lognormal, per plant & 82.4\,(0.41) & 338 & 0.0 & 940 & 940 & $-38$ $[-66, -10]$ \\
+\quad B2 rolling historical distribution, 60 days, per plant & 86.5\,(0.51) & 282 & 0.0 & 433 & 433 & $-396$ $[-424, -368]$ \\
+\quad B3 one-sided conformalized quantile regression (GBM) & 89.8\,(0.38) & 276 & 0.0 & 438 & 438 & $-391$ $[-419, -363]$ \\
+\quad B1 empirical quantile, 365-day window, per plant & 87.2\,(0.51) & 317 & 0.0 & 486 & 486 & $-342$ $[-369, -314]$ \\
+\quad B4 zero-inflated lognormal, per plant & 82.4\,(0.41) & 338 & 0.0 & 639 & 639 & $-192$ $[-217, -166]$ \\
 \addlinespace
 \multicolumn{7}{l}{\emph{Configuration selected by rolling origin}} \\
-\quad ACI ($\gamma{=}0.005$) & 90.9\,(0.41) & 590 & 0.0 & 936 & 936 & $-37$ $[-45, -30]$ \\
-\quad Transport+ACI ($\gamma{=}0.005$, 120-day window) & 90.0\,(0.45) & 564 & 0.0 & 958 & 958 & $-16$ $[-34, +2]$ \\
+\quad Transport+ACI ($\gamma{=}0.005$, 120-day window) & 90.0\,(0.45) & 564 & 0.0 & 761 & 761 & $-65$ $[-83, -48]$ \\
+\quad ACI ($\gamma{=}0.005$) & 90.9\,(0.41) & 590 & 0.0 & 763 & 763 & $-63$ $[-69, -57]$ \\
 \addlinespace
 \multicolumn{7}{l}{\emph{Methods of the submitted version}} \\
-\quad ACI ($\gamma{=}0.02$) & 90.2\,(0.43) & 551 & 0.0 & 936 & 936 & $-38$ $[-54, -22]$ \\
-\quad Sliding window 60d & 89.9\,(0.44) & 531 & 0.0 & 937 & 937 & $-37$ $[-55, -18]$ \\
-\quad ACI ($\gamma{=}0.05$) & 90.1\,(0.43) & 544 & 4.2 & 962 & $\infty$ & $-38$ $[-60, -10]$ \\
-\quad Static split (PIT) & 92.5\,(0.37) & 678 & 0.0 & 973 & 973 & -- \\
-\quad Transport+ACI ($\gamma{=}0.05$) & 90.1\,(0.43) & 596 & 5.9 & 1030 & $\infty$ & $+32$ $[-5, +75]$ \\
-\quad Transport+ACI ($\gamma{=}0.02$) & 90.1\,(0.44) & 663 & 0.5 & 1078 & $\infty$ & $+101$ $[+40, +175]$ \\
+\quad Sliding window 60d & 89.9\,(0.44) & 531 & 0.0 & 734 & 734 & $-93$ $[-110, -76]$ \\
+\quad ACI ($\gamma{=}0.02$) & 90.2\,(0.43) & 551 & 0.0 & 743 & 743 & $-83$ $[-98, -68]$ \\
+\quad ACI ($\gamma{=}0.05$) & 90.1\,(0.43) & 544 & 4.2 & 753 & $\infty$ & $-96$ $[-118, -70]$ \\
+\quad Transport+ACI ($\gamma{=}0.05$) & 90.1\,(0.43) & 596 & 5.9 & 813 & $\infty$ & $-32$ $[-70, +9]$ \\
+\quad Static split (PIT) & 92.5\,(0.37) & 678 & 0.0 & 826 & 826 & -- \\
+\quad Transport+ACI ($\gamma{=}0.02$) & 90.1\,(0.44) & 663 & 0.5 & 871 & $\infty$ & $+41$ $[-22, +116]$ \\
 \bottomrule
 \end{tabular}
 

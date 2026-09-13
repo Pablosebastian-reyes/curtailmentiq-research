@@ -12,9 +12,11 @@ Comentarios R1.5 y R2.6. Tres encargos distintos:
     no informativos aparece como la mas nitida.
 
     Solucion adoptada: el **interval score del limite unilateral superior**,
-        IS = U + (2/alpha) * max(y - U, 0),
-    que es la especializacion de la regla de Gneiting y Raftery al intervalo
-    [0, U] a nivel 1-alpha, propio, en MWh, y **infinito cuando U es infinito**.
+        IS = U + (1/alpha) * max(y - U, 0),
+    con 1/alpha porque en un limite unilateral toda la masa alpha va en la cola
+    superior (el 2/alpha de Gneiting y Raftery es del intervalo central, alpha/2
+    por cola). Es propio para el cuantil 1-alpha, en MWh, e **infinito cuando U
+    es infinito**.
     Una configuracion no puede mejorarlo escapando al infinito. Se reporta:
       - IS_total, que vale +inf si hay algun intervalo infinito (el veredicto),
       - IS_finitos, restringido a los finitos (comparable pero incompleto),

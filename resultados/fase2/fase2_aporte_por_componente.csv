@@ -1,31 +1,31 @@
 componente,periodo,d_IS,IS_lo,IS_hi,significativo,d_cob_pp,d_segundos
-adaptacion online (A1 - A0),test_pre,-42.9,-66.9,-17.8,si,-1.03,0.2
-adaptacion online (A1 - A0),test_transition,-215.8,-274.4,-161.0,si,-3.21,0.2
-adaptacion online (A1 - A0),2025-S1,32.4,-21.8,109.3,no,-2.75,0.2
-adaptacion online (A1 - A0),2025-S2,-46.4,-90.1,5.5,no,-1.48,0.2
-adaptacion online (A1 - A0),2026-S1,-0.9,-18.9,17.6,no,-2.71,0.2
-adaptacion online (A1 - A0),TEST_COMPLETO,-37.8,-60.3,-10.1,si,-2.36,0.2
-transporte sin ACI (A2 - A0),test_pre,-36.7,-56.5,-18.2,si,-0.47,6.7
-transporte sin ACI (A2 - A0),test_transition,-195.8,-249.6,-144.7,si,-3.29,6.7
-transporte sin ACI (A2 - A0),2025-S1,-12.1,-44.5,25.6,no,-3.96,6.7
-transporte sin ACI (A2 - A0),2025-S2,-0.6,-35.5,36.5,no,-0.99,6.7
-transporte sin ACI (A2 - A0),2026-S1,-18.0,-39.7,4.8,no,-3.01,6.7
-transporte sin ACI (A2 - A0),TEST_COMPLETO,-37.8,-55.9,-19.3,si,-2.62,6.7
-transporte sobre ACI (A3 - A1),test_pre,-20.8,-33.8,-8.8,si,-0.41,0.4
-transporte sobre ACI (A3 - A1),test_transition,39.8,17.8,62.4,si,-1.25,0.4
-transporte sobre ACI (A3 - A1),2025-S1,110.8,32.4,213.5,si,0.76,0.4
-transporte sobre ACI (A3 - A1),2025-S2,127.2,76.2,189.2,si,-0.88,0.4
-transporte sobre ACI (A3 - A1),2026-S1,17.7,8.8,26.7,si,0.76,0.4
-transporte sobre ACI (A3 - A1),TEST_COMPLETO,74.2,46.7,105.0,si,-0.06,0.4
-shrinkage de cola (A4 - A3),test_pre,-1.0,-1.8,-0.2,si,-0.03,6.1
-shrinkage de cola (A4 - A3),test_transition,-1.0,-1.9,-0.3,si,0.0,6.1
-shrinkage de cola (A4 - A3),2025-S1,-10.6,-21.8,-2.0,si,0.02,6.1
-shrinkage de cola (A4 - A3),2025-S2,-12.4,-22.3,-5.3,si,-0.01,6.1
-shrinkage de cola (A4 - A3),2026-S1,-0.0,-0.3,0.2,no,0.01,6.1
-shrinkage de cola (A4 - A3),TEST_COMPLETO,-6.5,-10.3,-3.2,si,0.0,6.1
-pipeline completo (A4 - A0),test_pre,-64.7,-98.9,-29.9,si,-1.47,6.6
-pipeline completo (A4 - A0),test_transition,-177.0,-249.6,-106.8,si,-4.46,6.6
-pipeline completo (A4 - A0),2025-S1,96.0,16.0,195.9,si,-1.97,6.6
-pipeline completo (A4 - A0),2025-S2,119.0,20.3,242.9,si,-2.37,6.6
-pipeline completo (A4 - A0),2026-S1,16.8,1.5,31.8,si,-1.94,6.6
-pipeline completo (A4 - A0),TEST_COMPLETO,32.4,-5.3,75.4,no,-2.42,6.6
+adaptacion online (A1 - A0),test_pre,-62.2,-86.4,-38.8,si,-1.03,0.21
+adaptacion online (A1 - A0),test_transition,-297.9,-348.3,-250.6,si,-3.21,0.21
+adaptacion online (A1 - A0),2025-S1,-10.3,-56.7,63.3,no,-2.75,0.21
+adaptacion online (A1 - A0),2025-S2,-128.0,-173.1,-76.0,si,-1.48,0.21
+adaptacion online (A1 - A0),2026-S1,-45.1,-57.8,-32.6,si,-2.71,0.21
+adaptacion online (A1 - A0),TEST_COMPLETO,-95.9,-117.7,-69.6,si,-2.36,0.21
+transporte sin ACI (A2 - A0),test_pre,-47.2,-67.8,-27.4,si,-0.47,7.75
+transporte sin ACI (A2 - A0),test_transition,-282.9,-323.1,-244.7,si,-3.29,7.75
+transporte sin ACI (A2 - A0),2025-S1,-72.6,-95.9,-47.4,si,-3.96,7.75
+transporte sin ACI (A2 - A0),2025-S2,-50.4,-89.0,-8.8,si,-0.99,7.75
+transporte sin ACI (A2 - A0),2026-S1,-67.7,-84.1,-52.3,si,-3.01,7.75
+transporte sin ACI (A2 - A0),TEST_COMPLETO,-94.2,-110.6,-77.3,si,-2.62,7.75
+transporte sobre ACI (A3 - A1),test_pre,-28.0,-42.2,-14.9,si,-0.41,0.42
+transporte sobre ACI (A3 - A1),test_transition,12.0,-11.0,36.5,no,-1.25,0.42
+transporte sobre ACI (A3 - A1),2025-S1,119.9,40.7,225.8,si,0.76,0.42
+transporte sobre ACI (A3 - A1),2025-S2,102.8,48.9,167.9,si,-0.88,0.42
+transporte sobre ACI (A3 - A1),2026-S1,30.3,22.6,38.5,si,0.76,0.42
+transporte sobre ACI (A3 - A1),TEST_COMPLETO,68.6,40.7,99.9,si,-0.06,0.42
+shrinkage de cola (A4 - A3),test_pre,-1.3,-2.2,-0.5,si,-0.03,6.16
+shrinkage de cola (A4 - A3),test_transition,-0.6,-1.5,0.2,no,0.0,6.16
+shrinkage de cola (A4 - A3),2025-S1,-10.4,-21.7,-1.8,si,0.02,6.16
+shrinkage de cola (A4 - A3),2025-S2,-12.6,-22.6,-5.5,si,-0.01,6.16
+shrinkage de cola (A4 - A3),2026-S1,0.0,-0.2,0.2,no,0.01,6.16
+shrinkage de cola (A4 - A3),TEST_COMPLETO,-6.4,-10.3,-3.2,si,0.0,6.16
+pipeline completo (A4 - A0),test_pre,-91.5,-126.6,-56.6,si,-1.47,6.79
+pipeline completo (A4 - A0),test_transition,-286.5,-351.2,-227.1,si,-4.46,6.79
+pipeline completo (A4 - A0),2025-S1,58.8,-15.1,157.7,no,-1.97,6.79
+pipeline completo (A4 - A0),2025-S2,14.3,-92.5,143.1,no,-2.37,6.79
+pipeline completo (A4 - A0),2026-S1,-14.7,-27.6,-2.5,si,-1.94,6.79
+pipeline completo (A4 - A0),TEST_COMPLETO,-32.3,-69.8,9.3,no,-2.42,6.79

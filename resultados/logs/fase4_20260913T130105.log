@@ -1,0 +1,95 @@
+/Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-model/venv/lib/python3.12/site-packages/numpy/lib/_nanfunctions_impl.py:1593: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pabloreyescerda/Desktop/PROYECTO-CURLTAIMENT/curtailmentiq-model/venv/lib/python3.12/site-packages/numpy/lib/_nanfunctions_impl.py:1593: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+================================================================================================
+FASE 4 - METRICAS APROPIADAS Y BENCHMARKS PROBABILISTICOS (R1.5, R2.6)
+================================================================================================
+test: 77,868 filas, 638 dias, 131 centrales
+CRPS sobre el test completo: hurdle 89.52 MWh, GBM multi-cuantil 67.97 MWh
+
+------------------------------------------------------------------------------------------------
+1. Metodos del manuscrito, con la bateria de metricas completa
+------------------------------------------------------------------------------------------------
+2. Configuracion seleccionada por origen rodante en la Fase 3
+3. Benchmarks probabilisticos
+   B3 CQR: cuantil base tau=0.9, ajuste conformal Q = +26.9 MWh
+
+================================================================================================
+TEST COMPLETO (sep 2024 a may 2026). IS_total = +inf si hay algun
+intervalo infinito: ese es el veredicto, el ancho medio no lo es.
+================================================================================================
+     familia                                  metodo  cobertura  se_cluster  ancho_medio  pct_infinito  IS_finitos   IS_total      crps
+   benchmark               B2 distribucion movil 60d       86.5        0.51        282.5           0.0       432.9 432.880141       NaN
+   benchmark                 B3 CQR unilateral (GBM)       89.8        0.38        276.0           0.0       438.3 438.310329 67.974681
+   benchmark                B1 cuantil empirico 365d       87.2        0.51        316.9           0.0       486.5 486.474730       NaN
+   benchmark            B4 lognormal inflada en cero       82.4        0.41        338.2           0.0       639.3 639.267120       NaN
+       paper                  Ventana deslizante 60d       89.9        0.44        530.6           0.0       733.8 733.835429 89.515462
+       paper                            ACI (g=0.02)       90.2        0.43        550.8           0.0       743.3 743.254106 89.515462
+       paper                            ACI (g=0.05)       90.1        0.43        544.4           4.2       753.1        inf 89.515462
+seleccionado Transporte+ACI (g=0.005, v=120, Fase 3)       90.0        0.45        564.5           0.0       761.2 761.160857 89.515462
+seleccionado                   ACI (g=0.005, Fase 3)       90.9        0.41        589.5           0.0       762.6 762.646837 89.515462
+       paper                 Transporte+ACI (g=0.05)       90.1        0.43        595.9           5.9       812.9        inf 89.515462
+       paper                    Split estatico (PIT)       92.5        0.37        678.4           0.0       825.6 825.603647 89.515462
+       paper                 Transporte+ACI (g=0.02)       90.1        0.44        663.3           0.5       870.9        inf 89.515462
+
+================================================================================================
+EFECTO DE ACOTAR LA ACTUALIZACION DE ALPHA (encargo explicito de R1.5)
+================================================================================================
+                 metodo            cota  cobertura  se_cluster  ancho_medio  pct_infinito  IS_finitos   IS_total
+           ACI (g=0.02)        sin cota       90.2        0.43        550.8           0.0       743.3 743.254106
+Transporte+ACI (g=0.02)        sin cota       90.1        0.44        663.3           0.5       870.9        inf
+           ACI (g=0.05)        sin cota       90.1        0.43        544.4           4.2       753.1        inf
+Transporte+ACI (g=0.05)        sin cota       90.1        0.43        595.9           5.9       812.9        inf
+           ACI (g=0.02) alpha_min=0.005       90.2        0.43        550.8           0.0       743.3 743.254106
+Transporte+ACI (g=0.02) alpha_min=0.005       90.0        0.44        645.0           0.0       852.4 852.357609
+           ACI (g=0.05) alpha_min=0.005       89.8        0.43        550.2           0.0       753.2 753.229394
+Transporte+ACI (g=0.05) alpha_min=0.005       89.6        0.43        640.6           0.0       849.7 849.687375
+           ACI (g=0.02)  alpha_min=0.01       90.2        0.43        550.8           0.0       743.3 743.254106
+Transporte+ACI (g=0.02)  alpha_min=0.01       90.0        0.44        616.3           0.0       824.3 824.349605
+           ACI (g=0.05)  alpha_min=0.01       89.8        0.43        536.1           0.0       739.2 739.175436
+Transporte+ACI (g=0.05)  alpha_min=0.01       89.6        0.43        597.9           0.0       807.4 807.379020
+           ACI (g=0.02)  alpha_min=0.02       90.2        0.43        547.2           0.0       740.0 739.987316
+Transporte+ACI (g=0.02)  alpha_min=0.02       89.9        0.44        582.7           0.0       792.2 792.193318
+           ACI (g=0.05)  alpha_min=0.02       89.7        0.43        525.3           0.0       728.6 728.568474
+Transporte+ACI (g=0.05)  alpha_min=0.02       89.5        0.43        559.4           0.0       770.0 769.973059
+
+Fraccion de intervalos infinitos por ventana y cota:
+periodo                                  test_pre  test_transition  2025-S1  2025-S2  2026-S1
+metodo                  cota                                                                 
+ACI (g=0.02)            alpha_min=0.005       0.0              0.0      0.0      0.0      0.0
+                        alpha_min=0.01        0.0              0.0      0.0      0.0      0.0
+                        alpha_min=0.02        0.0              0.0      0.0      0.0      0.0
+                        sin cota              0.0              0.0      0.0      0.0      0.0
+ACI (g=0.05)            alpha_min=0.005       0.0              0.0      0.0      0.0      0.0
+                        alpha_min=0.01        0.0              0.0      0.0      0.0      0.0
+                        alpha_min=0.02        0.0              0.0      0.0      0.0      0.0
+                        sin cota              0.0              0.0      2.8     11.8      0.0
+Transporte+ACI (g=0.02) alpha_min=0.005       0.0              0.0      0.0      0.0      0.0
+                        alpha_min=0.01        0.0              0.0      0.0      0.0      0.0
+                        alpha_min=0.02        0.0              0.0      0.0      0.0      0.0
+                        sin cota              0.0              0.0      0.6      1.1      0.0
+Transporte+ACI (g=0.05) alpha_min=0.005       0.0              0.0      0.0      0.0      0.0
+                        alpha_min=0.01        0.0              0.0      0.0      0.0      0.0
+                        alpha_min=0.02        0.0              0.0      0.0      0.0      0.0
+                        sin cota              0.0              0.0      9.9     10.7      0.0
+
+================================================================================================
+INCERTIDUMBRE DE LAS DIFERENCIAS entre metodos (R1.5)
+bootstrap de 2000 remuestreos de dias completos, IC de percentil 95%
+sobre el interval score. Referencia: Split estatico (PIT).
+================================================================================================
+                                 metodo   d_IS  IS_lo  IS_hi significativo  d_cob_pp  cob_lo  cob_hi  pct_descartado
+              B2 distribucion movil 60d -396.2 -424.4 -368.4            si     -5.98   -7.04   -4.93            0.00
+                B3 CQR unilateral (GBM) -391.2 -418.9 -363.4            si     -2.64   -3.19   -2.06            0.00
+               B1 cuantil empirico 365d -341.6 -368.8 -314.2            si     -5.30   -6.44   -4.14            0.00
+           B4 lognormal inflada en cero -191.5 -216.9 -165.7            si    -10.10  -11.12   -9.10            0.00
+                           ACI (g=0.05)  -95.9 -117.7  -69.6            si     -2.36   -2.76   -1.94            4.25
+                 Ventana deslizante 60d  -93.4 -109.8  -76.4            si     -2.62   -3.02   -2.24            0.00
+                           ACI (g=0.02)  -83.3  -97.5  -68.3            si     -2.23   -2.57   -1.90            0.00
+Transporte+ACI (g=0.005, v=120, Fase 3)  -65.4  -82.8  -47.9            si     -2.50   -2.91   -2.11            0.00
+                  ACI (g=0.005, Fase 3)  -63.0  -69.0  -57.0            si     -1.61   -1.79   -1.45            0.00
+                Transporte+ACI (g=0.05)  -32.3  -69.8    9.3            no     -2.42   -2.93   -1.91            5.92
+                Transporte+ACI (g=0.02)   40.7  -21.5  115.9            no     -2.43   -2.90   -1.95            0.47
+
+guardado en resultados/fase4/

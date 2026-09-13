@@ -1,0 +1,108 @@
+================================================================================================
+FASE 5 - DEPENDENCIA DE PANEL Y COBERTURA CONDICIONAL (R2.5)
+================================================================================================
+terciles de potencia instalada (MW): <= 62.9, <= 114.6, >
+umbral de alto vertimiento (calibracion, p90): 20,480 MWh/dia
+dias de test por encima del umbral: 254 de 638
+
+------------------------------------------------------------------------------------------------
+DIAGNOSTICO DE DEPENDENCIA en los scores de calibracion
+------------------------------------------------------------------------------------------------
+  filas de calibracion: 26,552 en 244 dias (108.8 centrales/dia)
+  correlacion intraclase por fecha (ICC) = 0.2381
+  efecto de diseno = 1 + (m-1)*ICC = 26.67
+  tamano muestral efectivo = 996 filas, no 26,552
+  varianza entre dias 0.01873 contra varianza total 0.07645
+
+------------------------------------------------------------------------------------------------
+REMEDIOS
+------------------------------------------------------------------------------------------------
+M0 split agrupado: qhat = 0.9242 sobre 26,552 scores
+M1 bloques de dia: qhat = 0.9263 (media de 200 replicas de 1 central por fecha, 244 scores por replica; sd entre replicas 0.0112)
+M2 Mondrian por tecnologia: 2 grupos, qhat de 0.9109 a 0.9382
+M2 Mondrian por region: 12 grupos, qhat de 0.8924 a 0.9537
+M2 Mondrian por tercil de potencia: 3 grupos, qhat de 0.9233 a 0.9268
+M3 por central: 113 centrales calibradas, 18 repliegues al pool; qhat de 0.7658 a 0.9667
+
+================================================================================================
+REMEDIOS - TEST COMPLETO
+================================================================================================
+                             metodo  cobertura  se_cluster  ancho_medio  pct_infinito  IS_finitos
+     M0 split agrupado (manuscrito)       92.5        0.37        678.4           0.0       825.6
+    M1 conformal por bloques de dia       92.7        0.36        696.9           0.0       840.0
+         M2 Mondrian por tecnologia       92.3        0.37        651.4           0.0       809.1
+             M2 Mondrian por region       92.1        0.38        596.4           0.0       764.5
+ M2 Mondrian por tercil de potencia       92.5        0.37        674.5           0.0       822.9
+           M3 conformal por central       92.5        0.39        636.4           0.0       772.9
+           ACI (g=0.02), referencia       90.2        0.43        550.8           0.0       743.3
+Transporte+ACI (g=0.05), referencia       90.1        0.43        595.9           5.9       812.9
+
+================================================================================================
+COBERTURA DESAGREGADA (nominal 90%). Error estandar clusterizado por fecha.
+================================================================================================
+
+--- tecnologia ---
+grupo                                Eólica  Solar
+metodo                                            
+ACI (g=0.02), referencia              90.26  90.25
+M0 split agrupado (manuscrito)        92.43  92.53
+M1 conformal por bloques de dia       92.70  92.76
+M2 Mondrian por region                94.05  90.72
+M2 Mondrian por tecnologia            94.06  91.01
+M2 Mondrian por tercil de potencia    92.49  92.56
+M3 conformal por central              94.07  91.42
+Transporte+ACI (g=0.05), referencia   90.29  89.92
+
+--- tamano de central ---
+grupo                                grande  mediana  pequena
+metodo                                                       
+ACI (g=0.02), referencia              88.54    90.89    91.44
+M0 split agrupado (manuscrito)        91.24    92.72    93.59
+M1 conformal por bloques de dia       91.47    92.96    93.86
+M2 Mondrian por region                89.76    93.12    93.67
+M2 Mondrian por tecnologia            90.79    92.55    93.67
+M2 Mondrian por tercil de potencia    91.17    92.61    93.90
+M3 conformal por central              91.79    92.88    93.02
+Transporte+ACI (g=0.05), referencia   88.36    90.53    91.43
+
+--- region ---
+grupo                                Antofagasta  Arica y Parinacota  Atacama  Biobío  Coquimbo  La Araucanía  Libertador General Bernardo O'Higgins  Los Lagos  Maule  Metropolitana de Santiago  Tarapacá  Valparaíso
+metodo                                                                                                                                                                                                                 
+ACI (g=0.02), referencia                   92.42               94.51    87.91   85.34     90.76         87.81                                  91.50      91.69  91.38                      92.66     89.26       93.52
+M0 split agrupado (manuscrito)             94.26               94.83    90.92   88.48     93.00         90.07                                  93.34      93.57  93.50                      94.38     91.27       94.36
+M1 conformal por bloques de dia            94.43               95.14    91.21   88.95     93.23         90.38                                  93.69      93.89  93.57                      94.42     91.69       94.44
+M2 Mondrian por region                     91.03               97.18    89.69   93.03     94.38         94.67                                  94.59      95.92  93.50                      96.85     89.31       97.15
+M2 Mondrian por tecnologia                 93.48               93.42    89.47   90.72     93.88         92.46                                  95.06      94.98  92.24                      92.96     89.83       93.18
+M2 Mondrian por tercil de potencia         94.26               94.83    90.96   88.57     93.07         90.03                                  93.73      93.77  93.57                      94.21     91.37       94.36
+M3 conformal por central                   91.82               97.18    90.43   93.06     94.28         94.46                                  93.61      96.16  93.50                      96.75     90.16       97.10
+Transporte+ACI (g=0.05), referencia        91.91               94.83    88.09   85.19     90.92         88.01                                  91.34      91.61  91.14                      91.55     89.31       92.61
+
+--- evento ---
+grupo                                alto (decil sup.)  resto
+metodo                                                       
+ACI (g=0.02), referencia                         88.32  91.52
+M0 split agrupado (manuscrito)                   91.90  92.87
+M1 conformal por bloques de dia                  92.13  93.13
+M2 Mondrian por region                           91.51  92.53
+M2 Mondrian por tecnologia                       91.73  92.68
+M2 Mondrian por tercil de potencia               91.91  92.93
+M3 conformal por central                         92.19  92.77
+Transporte+ACI (g=0.05), referencia              86.72  92.28
+
+------------------------------------------------------------------------------------------------
+MAXIMO DESVIO ABSOLUTO respecto del nominal, por metodo y eje
+(es la medida de cobertura condicional: un metodo marginalmente
+valido puede tener desvios grandes en algun grupo)
+------------------------------------------------------------------------------------------------
+eje                                  evento  region  tamano de central  tecnologia  peor_global
+metodo                                                                                         
+ACI (g=0.02), referencia               1.68    4.66               1.46        0.26         4.66
+M0 split agrupado (manuscrito)         2.87    4.83               3.59        2.53         4.83
+Transporte+ACI (g=0.05), referencia    3.28    4.83               1.64        0.29         4.83
+M2 Mondrian por tercil de potencia     2.93    4.83               3.90        2.56         4.83
+M2 Mondrian por tecnologia             2.68    5.06               3.67        4.06         5.06
+M1 conformal por bloques de dia        3.13    5.14               3.86        2.76         5.14
+M2 Mondrian por region                 2.53    7.18               3.67        4.05         7.18
+M3 conformal por central               2.77    7.18               3.02        4.07         7.18
+
+guardado en resultados/fase5/

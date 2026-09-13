@@ -307,27 +307,36 @@ def etiquetar(fecha):
 
 
 def interval_score_unilateral(y, U, alpha=ALPHA):
-    """Interval score para un limite de prediccion UNILATERAL superior
-    (comentario R1.5). Para el intervalo [0, U] a nivel 1-alpha el score de
-    Gneiting y Raftery se reduce a
+    """Interval score del limite de prediccion UNILATERAL superior [0, U] a
+    nivel 1-alpha (comentario R1.5):
 
-        IS = U + (2/alpha) * max(y - U, 0),
+        IS = U + (1/alpha) * max(y - U, 0).
 
-    que es el pinball loss del cuantil 1-alpha multiplicado por 2/alpha. Es
-    propio, penaliza el ancho y la no cobertura en las mismas unidades (MWh) y,
-    a diferencia del ancho medio, **no se puede calcular ignorando los
-    intervalos infinitos**: si U = inf el score es +inf. Esa es exactamente la
-    propiedad que faltaba en la version enviada.
+    En un limite unilateral toda la masa alpha queda en la cola superior, asi
+    que el multiplicador es 1/alpha. Es el score de cuantil del nivel 1-alpha
+    reescalado, IS = pinball_{1-alpha}(y, U) / alpha + y, y como y no depende
+    de U lo minimiza el cuantil 1-alpha, que es el que calibran todos los
+    metodos. El 2/alpha del interval score de Gneiting y Raftery es del
+    intervalo CENTRAL, con alpha/2 en cada cola: aplicado a [0, U] lo minimiza
+    el cuantil 1-alpha/2, el 0.95 y no el 0.90.
+
+    Hasta el cierre del 14 de septiembre esta funcion usaba 2/alpha, y este
+    docstring decia que eso era "el pinball loss del cuantil 1-alpha
+    multiplicado por 2/alpha". Era falso, y es lo que origino el error.
+
+    Es propio, penaliza el ancho y la no cobertura en las mismas unidades (MWh)
+    y, a diferencia del ancho medio, no se puede calcular ignorando los
+    intervalos infinitos: si U = inf el score es +inf.
     """
     y = np.asarray(y, float)
     U = np.asarray(U, float)
-    return U + (2.0 / alpha) * np.maximum(y - U, 0.0)
+    return U + (1.0 / alpha) * np.maximum(y - U, 0.0)
 
 
 def pinball(y, U, alpha=ALPHA):
-    """Pinball loss del cuantil 1-alpha. Igual al interval score dividido por
-    2/alpha; se reporta por ser la escala mas usual."""
-    return interval_score_unilateral(y, U, alpha) * (alpha / 2.0)
+    """Pinball loss del cuantil 1-alpha, alpha * (IS - y)."""
+    y = np.asarray(y, float)
+    return alpha * (interval_score_unilateral(y, U, alpha) - y)
 
 
 def brier_ocurrencia(pred, y):

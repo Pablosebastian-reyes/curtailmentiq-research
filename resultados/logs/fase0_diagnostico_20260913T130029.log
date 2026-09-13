@@ -1,0 +1,61 @@
+================================================================================================
+FASE 0 - DIAGNOSTICO
+================================================================================================
+   modelo_base         periodo  cob_estatico  sobrecobertura_pp  ancho_estatico  ancho_transporte  cob_transporte  IS_estatico  IS_transporte  crps_base  cambio_ancho_pct  cambio_IS_pct
+        hurdle        test_pre          93.5                3.5           799.1             680.7            92.0        913.9          822.3      96.07             -14.8          -10.0
+        hurdle test_transition          95.3                5.3          1203.3             805.6            90.9       1395.4         1107.0     133.47             -33.1          -20.7
+        hurdle         2025-S1          89.4               -0.6           454.8             445.6            87.4        600.0          638.8      70.46              -2.0            6.5
+        hurdle         2025-S2          94.0                4.0           750.1             717.7            91.6        886.9          966.2      94.49              -4.3            8.9
+        hurdle         2026-S1          92.5                2.5           534.9             488.7            90.5        677.6          662.8      78.98              -8.6           -2.2
+hurdle_sigma_x        test_pre          94.5                4.5           662.0             550.1            92.4        801.8          717.8      92.30             -16.9          -10.5
+hurdle_sigma_x test_transition          91.7                1.7           769.5             732.8            89.5        991.5         1000.1     125.03              -4.8            0.9
+hurdle_sigma_x         2025-S1          88.0               -2.0           366.3             399.9            88.1        550.9          584.1      69.53               9.2            6.0
+hurdle_sigma_x         2025-S2          92.9                2.9           584.4             629.0            91.4        744.7          861.3      94.95               7.6           15.7
+hurdle_sigma_x         2026-S1          90.7                0.7           413.6             483.5            91.2        612.6          664.8      77.71              16.9            8.5
+    qgbm_multi        test_pre          91.2                1.2           325.7             329.6            91.7        421.5          420.9      71.85               1.2           -0.1
+    qgbm_multi test_transition          90.6                0.6           410.3             425.0            90.5        587.7          602.1      92.92               3.6            2.5
+    qgbm_multi         2025-S1          88.0               -2.0           221.4             243.5            87.8        375.6          406.4      57.60              10.0            8.2
+    qgbm_multi         2025-S2          91.7                1.7           319.2             333.0            91.3        452.6          495.0      71.51               4.3            9.4
+    qgbm_multi         2026-S1          90.6                0.6           252.8             268.3            91.0        390.0          403.3      60.66               6.1            3.4
+  ajuste sobre valores exactos (series por fila)
+
+------------------------------------------------------------------------------------------------
+Relacion entre sobre-cobertura del split estatico y recorte de ancho
+de Transporte+ACI, sobre las 15 celdas (modelo base x ventana):
+  correlacion de Pearson r = -0.755
+  pendiente: -4.36 % de ancho por punto porcentual de sobre-cobertura
+  intercepto: 5.45 % (recorte esperado con el split ya en nominal)
+
+------------------------------------------------------------------------------------------------
+Ranking por interval score (metrica propia, penaliza ancho y no cobertura):
+  test_pre         mejor = qgbm_multi / 4_transporte_banda_g05 (IS 420.9, cob 91.7%, ancho 330 MWh)
+  test_transition  mejor = qgbm_multi / 1_estatico_pit (IS 587.7, cob 90.6%, ancho 410 MWh)
+  2025-S1          mejor = qgbm_multi / 1_estatico_pit (IS 375.6, cob 88.0%, ancho 221 MWh)
+  2025-S2          mejor = qgbm_multi / 1_estatico_pit (IS 452.6, cob 91.7%, ancho 319 MWh)
+  2026-S1          mejor = qgbm_multi / 1_estatico_pit (IS 390.0, cob 90.6%, ancho 253 MWh)
+
+------------------------------------------------------------------------------------------------
+CRPS del modelo base por ventana (propiedad de la predictiva):
+modelo_base      hurdle  hurdle_sigma_x  qgbm_multi  mejora_qgbm_vs_hurdle_pct
+periodo                                                                       
+test_pre          96.07           92.30       71.85                      -25.2
+test_transition  133.47          125.03       92.92                      -30.4
+2025-S1           70.46           69.53       57.60                      -18.3
+2025-S2           94.49           94.95       71.51                      -24.3
+2026-S1           78.98           77.71       60.66                      -23.2
+
+------------------------------------------------------------------------------------------------
+Brier del evento {Y>0} por ventana. AVISO: para el qgbm la
+probabilidad de ocurrencia es 1 - F(0) leida de la rejilla de
+cuantiles, con resolucion 0.02, y no un clasificador dedicado como
+el del hurdle. La comparacion no es equivalente y se reporta como
+descriptiva, no como veredicto.
+modelo_base      hurdle  hurdle_sigma_x  qgbm_multi
+periodo                                            
+test_pre         0.1036          0.1036      0.1261
+test_transition  0.0721          0.0721      0.1027
+2025-S1          0.1614          0.1614      0.1843
+2025-S2          0.1054          0.1054      0.1472
+2026-S1          0.1213          0.1213      0.1409
+
+guardado resultados/fase0/fase0_diagnostico.csv
