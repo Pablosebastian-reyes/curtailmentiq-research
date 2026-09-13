@@ -1,3 +1,10 @@
+NOTA DE LA REVISION MAYOR (2026-09-13). Salida fechada de la version enviada o de
+su prototipo, que se conserva sin reescribir como registro de lo que se corrio
+entonces. La clave test_ramp de este archivo es la ventana que hoy se llama
+test_transition: la de maxima divergencia respecto de la distribucion de
+calibracion, sin atribucion causal a ninguna tecnologia. Politica y lista en
+flagship/NOTA_RESULTADOS_FECHADOS.md.
+================================================================================
 ==============================================================================
 CIERRE TABLA COMPARATIVA - DATOS SINTETICOS (no son resultados reales)
 Tarea 1 del diseno de Kerven. Panel: misma semilla que v1 y v2.

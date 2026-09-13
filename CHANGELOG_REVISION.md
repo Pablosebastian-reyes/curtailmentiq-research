@@ -1411,3 +1411,22 @@ rango de sobre-cobertura de las quince celdas, [-2.06, +5.34], de
 - Filas nuevas para Q3 y Q5 en el cuadro resumen, que tenian respuesta en el
   cuerpo y no tenian ubicacion.
 
+### B10. Comentarios internos del .tex y restos de test_ramp
+
+- La cabecera del manuscrito, 34 lineas de comentarios en espanol con
+  `test_ramp`, "storage deployment", H1, la version 6.0 y una numeracion de
+  secciones vieja, viajaba en el zip. Pasa a seis lineas en ingles sin
+  referencias internas. En el cuerpo no habia otros comentarios que los
+  separadores.
+- Las cabeceras de los cuerpos de tabla generados, que tambien van en el zip,
+  pasan al ingles (`fase9_tablas_tex.py`); la de la Tabla C.14 ya lo estaba desde
+  B9. Los trece .tex de tabla cambian solo en esas dos lineas.
+- Ninguno de los archivos de resultados con `test_ramp` entra en el zip, que
+  lleva solo el .tex, los cuerpos de tabla, las figuras, la clase y el README; la
+  unica aparicion de `test_ramp` en el paquete era ese comentario. Fuera del
+  paquete, las salidas fechadas de `flagship/` que conservan la clave (siete
+  .txt y dos .csv) se anotan con la politica que la carta declara en R2.2,
+  punto 4: nota en la primera linea de cada .txt y
+  `flagship/NOTA_RESULTADOS_FECHADOS.md` con la lista. El prototipo
+  `conformal_prototype.py` lleva la misma nota.
+

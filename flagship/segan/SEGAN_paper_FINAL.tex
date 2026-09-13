@@ -1,37 +1,9 @@
-%% SEGAN manuscript - CurtailmentIQ
-%% Elsevier elsarticle template. Compile with pdfLaTeX in Overleaf.
-%%
-%% VERSION 7.0 - REVISION MAYOR (SEGAN-D-26-03850).
-%% Cambios respecto de la version enviada el 28 de julio de 2026, que es la
-%% VERSION 5.0 (tag submitted-segan-v1, commit 4af5ea7). La VERSION 6.0, del
-%% 10 al 12 de agosto de 2026, NO se envio nunca: es ya parte de este
-%% reencuadre, y por eso el diff de la version marcada se toma contra la 5.0.
-%%
-%% Cambios respecto de esa version enviada:
-%%  - Titulo acortado y sin el pais (nota editorial). El sistema se describe en
-%%    el abstract.
-%%  - La contribucion metodologica se reencuadra como DIAGNOSTICO: la ganancia
-%%    de una capa conformal adaptativa mide la mala calibracion del modelo base
-%%    (comentario R1.1, hallazgo H1 de HALLAZGOS_CRITICOS.md).
-%%  - Secciones nuevas 4.5 (novedad), 4.6 (seleccion de hiperparametros),
-%%    5.3 (agnosticismo al modelo base), 5.4 (ablaciones), 5.5 (benchmarks),
-%%    5.6 (dependencia de panel), 5.7 (sensibilidad de la frontera) y 7
-%%    (limitaciones).
-%%  - Bibliografia ampliada de 10 a 40 entradas, todas con DOI verificado
-%%    contra Crossref, sin citas agrupadas.
-%%  - `test_ramp` renombrado `test_transition` en el texto, el codigo y los
-%%    archivos de resultados; eliminada la nota al pie de storage deployment.
-%%  - Seis afirmaciones descriptivas de la seccion 3.3 corregidas contra
-%%    resultados/fase6/fase6_verificacion_afirmaciones.csv.
-%%
-%% NINGUN NUMERO DE ESTE ARCHIVO SE ESCRIBE A MANO. Los cuerpos de tabla se
-%% incluyen con \input desde resultados/tablas_tex/, generados por
-%% flagship/revision/fase9_tablas_tex.py.
-%%
-%% Requiere las 8 figuras PDF y los 8 cuerpos de tabla en la carpeta del
-%% proyecto: fig1_plants_map, fig2_distribution, fig3_rolling_coverage,
-%% fig4_coverage_width, fig5_regime_changepoints, fig6_algorithm_flow,
-%% fig7_model_agnostic, fig8_ablations.
+%% SEGAN-D-26-03850, major revision.
+%% An open curtailment dataset and a diagnostic for adaptive conformal
+%% calibration under regime change.
+%% Elsevier elsarticle template; compile with pdfLaTeX, three passes.
+%% Table bodies are read with \input from the tab_*.tex and
+%% hiperparametros.tex files that accompany this source.
 \documentclass[preprint,3p,times]{elsarticle}
 
 \usepackage{amsmath,amssymb,amsfonts}

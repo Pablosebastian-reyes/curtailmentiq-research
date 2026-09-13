@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """
+NOTA DE LA REVISION MAYOR (2026-09-13): prototipo fechado, anotado y no reescrito.
+Sus comentarios y etiquetas ("rampa", "BESS") son vocabulario de entonces; ver
+flagship/NOTA_RESULTADOS_FECHADOS.md.
+
 PROTOTIPO DE LA CAPA DE INCERTIDUMBRE - flagship CurtailmentIQ
 ==============================================================
 ADVERTENCIA IMPORTANTE: este script corre sobre DATOS SINTETICOS calibrados
