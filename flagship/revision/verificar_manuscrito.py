@@ -170,6 +170,22 @@ def main():
             abs(rr.d_IS - val) < 0.06 and en_tex(txt),
             'fase2_aporte_por_componente.csv')
 
+    # 5.5 da el pipeline completo ventana por ventana. Esas tres cifras
+    # quedaron con los valores anteriores a alinear el generador (176.3 /
+    # 100.0 / 104.2) porque nadie las chequeaba. La frase se arma desde el CSV
+    # y se exige lo que el texto afirma: las tres significativas.
+    pc = a[a.componente == 'pipeline completo (A4 - A0)'].set_index('periodo')
+    tr_, s1_, s2_ = (pc.loc[p] for p in ('test_transition', '2025-S1', '2025-S2'))
+    txt = (f'improves on the static split by {-tr_.d_IS:.1f}~MWh in the '
+           f'transition window and loses {s1_.d_IS:.1f} and {s2_.d_IS:.1f}~MWh '
+           f'in 2025-S1 and 2025-S2, all three significant')
+    chk('5.5', 'pipeline completo por ventana: transicion, 2025-S1, 2025-S2',
+        f'{tr_.d_IS:+.1f} / {s1_.d_IS:+.1f} / {s2_.d_IS:+.1f}, las tres significativas',
+        f'{tr_.d_IS:+.1f} / {s1_.d_IS:+.1f} / {s2_.d_IS:+.1f}',
+        (pc.loc[['test_transition', '2025-S1', '2025-S2']].significativo == 'si').all()
+        and tr_.d_IS < 0 < s1_.d_IS and s2_.d_IS > 0 and en_tex(txt),
+        'fase2_aporte_por_componente.csv')
+
     ab = pd.read_csv(RES / 'fase2' / 'fase2_ablaciones.csv')
     seg = ab[ab.periodo == 'TEST_COMPLETO'].drop_duplicates('metodo').set_index('metodo')
     total = seg.loc['A4 Transporte+ACI completo (g=0.05)'].segundos

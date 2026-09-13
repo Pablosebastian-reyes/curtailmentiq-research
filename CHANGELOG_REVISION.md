@@ -1249,3 +1249,14 @@ Lo que se mueve:
 Texto: la carta (R1.5) decia "up to 6.1 per cent"; ahora 5.9, leido de
 `fase4_metricas_completas.csv` al insertar. En la carta y en 5.6 sale "on one
 case in sixteen", que venia del 6.1 y no tiene archivo fuente.
+
+### B2. Cifras por ventana del pipeline completo
+
+5.5 y la carta (R1.3) daban 176.3 / 100.0 / 104.2, los valores de
+`fase2_aporte_por_componente.csv` anteriores a la alineacion del generador
+(commit 5559072). Ahora -177.0 / +96.0 / +119.0, insertados desde el CSV en los
+dos documentos; la Tabla 8 ya imprimia -177.0. Los tres intervalos siguen
+excluyendo el cero ([-249.6, -106.8], [+16.0, +195.9], [+20.3, +242.9]), asi que
+"all three significant" se mantiene. Chequeo nuevo en `verificar_manuscrito.py`:
+la frase se arma desde el CSV y exige que las tres diferencias sean
+significativas.

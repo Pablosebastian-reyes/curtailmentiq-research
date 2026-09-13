@@ -20,6 +20,7 @@ Tabla 5,ajuste sobre las quince celdas,"-0.755, -4.36, +5.45","-0.755, -4.36, +5
 5.4,transporte sobre ACI (A3 - A1) en TEST_COMPLETO,+74.2,+74.2,si,fase2_aporte_por_componente.csv
 5.4,shrinkage de cola (A4 - A3) en TEST_COMPLETO,-6.5,-6.5,si,fase2_aporte_por_componente.csv
 5.4,pipeline completo (A4 - A0) en TEST_COMPLETO,+32.4,+32.4,si,fase2_aporte_por_componente.csv
+5.5,"pipeline completo por ventana: transicion, 2025-S1, 2025-S2","-177.0 / +96.0 / +119.0, las tres significativas",-177.0 / +96.0 / +119.0,si,fase2_aporte_por_componente.csv
 5.4,costo del shrinkage sobre el total,"6.1 de 6.7 s, ~90%","6.0 de 6.6 s, 91%",si,fase2_ablaciones.csv
 5.5,CQR unilateral sobre el GBM,89.8% / 276 MWh / IS 601,89.8% / 276 MWh / IS 601,si,fase4_metricas_completas.csv
 5.5,pipeline completo en el test completo,596 MWh / IS 1030,596 MWh / IS 1030,si,fase4_metricas_completas.csv
