@@ -1,0 +1,44 @@
+clave,doi,fuente,http,titulo_registro,titulo_exacto,titulo_cobertura,titulo_ok,autor1_registro,autor1_ok,anios_registro,anio_ok,revista_registro,revista_ok,coteja
+oshaughnessy2020,10.1016/j.solener.2020.08.075,Crossref,200,Too much of a good thing? Global trends in the curtailment of solar PV,True,1.0,True,O'Shaughnessy,True,2020,True,Solar Energy,True,si
+henriot2015,10.1016/j.eneco.2015.03.002,Crossref,200,Economic curtailment of intermittent renewable energy sources,True,1.0,True,Henriot,True,2015,True,Energy Economics,True,si
+joos2018,10.1016/j.rser.2018.01.009,Crossref,200,Short-term integration costs of variable renewable energy: Wind curtailment and balancing in Britain and Germany,True,1.0,True,Joos,True,2018,True,Renewable and Sustainable Energy Reviews,True,si
+tang2018,10.1016/j.rser.2018.07.021,Crossref,200,"Solar energy curtailment in China: Status quo, reasons and solutions",True,1.0,True,Tang,True,2018,True,Renewable and Sustainable Energy Reviews,True,si
+schermeyer2018,10.1016/j.enpol.2017.10.037,Crossref,200,Renewable energy curtailment: A case study on today's and tomorrow's congestion management,True,1.0,True,Schermeyer,True,2018,True,Energy Policy,True,si
+nycander2020,10.1016/j.renene.2020.01.059,Crossref,200,"Curtailment analysis for the Nordic power system considering transmission capacity, inertia limits and generation flexibility",True,1.0,True,Nycander,True,2020,True,Renewable Energy,True,si
+yildiz2023,10.1016/j.rser.2023.113696,Crossref,200,Real-world data analysis of distributed PV and battery energy storage system curtailment in low voltage networks,True,1.0,True,Yildiz,True,2023,True,Renewable and Sustainable Energy Reviews,True,si
+bunodiere2020,10.3390/en13184703,Crossref,200,"Renewable Energy Curtailment: Prediction Using a Logic-Based Forecasting Method and Mitigation Measures in Kyushu, Japan",True,1.0,True,Bunodiere,True,2020,True,Energies,True,si
+denholm2019,10.1016/j.renene.2018.06.079,Crossref,200,Timescales of energy storage needed for reducing renewable energy curtailment,True,1.0,True,Denholm,True,2019,True,Renewable Energy,True,si
+wang2019,10.1016/j.energy.2019.04.108,Crossref,200,Analysis of operation cost and wind curtailment using multi-objective unit commitment with battery energy storage,True,1.0,True,Wang,True,2019,True,Energy,True,si
+rayit2021,10.1016/j.est.2021.102641,Crossref,200,Techno-economic optimisation of battery storage for grid-level energy services using curtailed energy from wind,True,1.0,True,Rayit,True,2021,True,Journal of Energy Storage,True,si
+mohamad2021,10.1016/j.energy.2021.120105,Crossref,200,Optimum allocation of battery energy storage systems for power grid enhanced with solar energy,True,1.0,True,Mohamad,True,2021,True,Energy,True,si
+vargas2015,10.1109/TPWRS.2014.2362922,Crossref,200,Wind Power Curtailment and Energy Storage in Transmission Congestion Management Considering Power Plants Ramp Rates,True,1.0,True,Vargas,True,2015,True,IEEE Transactions on Power Systems,True,si
+fang2021,10.1016/j.apenergy.2020.116064,Crossref,200,Characteristics of locational uncertainty marginal price for correlated uncertainties of variable renewable generation and demands,True,1.0,True,Fang,True,2021,True,Applied Energy,True,si
+foss1983,10.1109/TPAS.1983.317795,Crossref,200,Dynamic Thermal Line Ratings Part I Dynamic Ampacity Rating Algorithm,True,1.0,True,Foss,True,1983,True,IEEE Transactions on Power Apparatus and Systems,True,si
+teh2016,10.1109/TR.2015.2495173,Crossref,200,Reliability Impact of Dynamic Thermal Rating System in Wind Power Integrated Network,True,1.0,True,Teh,True,2016,True,IEEE Transactions on Reliability,True,si
+lai2022,10.1016/j.egyr.2022.02.085,Crossref,200,Comprehensive review of the dynamic thermal rating system for sustainable electrical power systems,True,1.0,True,Lai,True,2022,True,Energy Reports,True,si
+glaum2023,10.1016/j.apenergy.2023.121199,Crossref,200,Leveraging the existing German transmission grid with dynamic line rating,True,1.0,True,Glaum,True,2023,True,Applied Energy,True,si
+su2025,10.1109/TIA.2025.3529824,Crossref,200,Short-Term Transmission Capacity Prediction of Hybrid Renewable Energy Systems Considering Dynamic Line Rating Based on Data-Driven Model,True,1.0,True,Su,True,2025,True,IEEE Transactions on Industry Applications,True,si
+maximov2016,10.1016/j.epsr.2015.11.005,Crossref,200,Analysis of underground cable ampacity considering non-uniform soil temperature distributions,True,1.0,True,Maximov,True,2016,True,Electric Power Systems Research,True,si
+oclon2021,10.1016/j.energy.2021.120803,Crossref,200,The effect of soil thermal conductivity and cable ampacity on the thermal performance and material costs of underground transmission line,True,1.0,True,Ocłoń,True,2021,True,Energy,True,si
+lei2021,10.1109/TPWRS.2020.3001919,Crossref,200,Data-Driven Optimal Power Flow: A Physics-Informed Machine Learning Approach,True,1.0,True,Lei,True,2021,True,IEEE Transactions on Power Systems,True,si
+kruse2023,10.1103/PRXEnergy.2.043003,Crossref,200,Physics-Informed Machine Learning for Power Grid Frequency Modeling,True,1.0,True,Kruse,True,2023,True,PRX Energy,True,si
+kirchnerbossi2024,10.1016/j.apenergy.2024.123375,Crossref,200,A hybrid physics-based and data-driven model for intra-day and day-ahead wind power forecasting considering a drastically expanded predictor search space,True,1.0,True,Kirchner-Bossi,True,2024,True,Applied Energy,True,si
+maciejowska2016,10.1016/j.ijforecast.2014.12.004,Crossref,200,Probabilistic forecasting of electricity spot prices using Factor Quantile Regression Averaging,True,1.0,True,Maciejowska,True,2016,True,International Journal of Forecasting,True,si
+uniejewski2021,10.1016/j.eneco.2021.105121,Crossref,200,Regularized quantile regression averaging for probabilistic electricity price forecasting,True,1.0,True,Uniejewski,True,2021,True,Energy Economics,True,si
+vandermeer2018,10.1016/j.solener.2018.06.103,Crossref,200,"Probabilistic forecasting of solar power, electricity consumption and net load: Investigating the effect of seasons, aggregation and penetration on prediction intervals",True,1.0,True,van der Meer,True,2018,True,Solar Energy,True,si
+mangalova2016,10.1016/j.ijforecast.2015.11.007,Crossref,200,K-nearest neighbors for GEFCom2014 probabilistic wind power forecasting,True,1.0,True,Mangalova,True,2016,True,International Journal of Forecasting,True,si
+angelopoulos2023,10.1561/2200000101,Crossref,200,Conformal Prediction: A Gentle Introduction,True,1.0,True,Angelopoulos,True,2023,True,Foundations and Trends® in Machine Learning,True,si
+tibshirani2019,,sin DOI,,,,,,,,,,,,
+barber2023,10.1214/23-AOS2276,Crossref,200,Conformal prediction beyond exchangeability,True,1.0,True,Barber,True,2023,True,The Annals of Statistics,True,si
+gibbs2021,,sin DOI,,,,,,,,,,,,
+guan2022,10.1093/biomet/asac040,Crossref,200,Localized conformal prediction: a generalized inference framework for conformal prediction,True,1.0,True,Guan,True,2022 2023,True,Biometrika,True,si
+chernozhukov2021,10.1073/pnas.2107794118,Crossref,200,Distributional conformal prediction,True,1.0,True,Chernozhukov,True,2021,True,Proceedings of the National Academy of Sciences,True,si
+romano2019,,sin DOI,,,,,,,,,,,,
+hu2022,10.1016/j.energy.2022.123497,Crossref,200,Conformalized temporal convolutional quantile regression networks for wind power interval forecasting,True,1.0,True,Hu,True,2022,True,Energy,True,si
+jensen2024,10.1109/TNNLS.2022.3217694,Crossref,200,Ensemble Conformalized Quantile Regression for Probabilistic Time Series Forecasting,True,1.0,True,Jensen,True,2024,True,IEEE Transactions on Neural Networks and Learning Systems,True,si
+peyre2019,10.1561/2200000073,Crossref,200,Computational Optimal Transport with Applications to Data Sciences,True,1.0,True,Peyré,True,2019,True,Foundations and Trends® in Machine Learning,True,si
+chernozhukov2010,10.3982/ECTA7880,Crossref (autores de OpenAlex),200,Quantile and Probability Curves Without Crossing,True,1.0,True,Chernozhukov,True,2010,True,Econometrica,True,si
+killick2012,10.1080/01621459.2012.737745,Crossref,200,Optimal Detection of Changepoints With a Linear Computational Cost,True,1.0,True,Killick,True,2012,True,Journal of the American Statistical Association,True,si
+gneiting2007,10.1198/016214506000001437,Crossref,200,"Strictly Proper Scoring Rules, Prediction, and Estimation",True,1.0,True,Gneiting,True,2007,True,Journal of the American Statistical Association,True,si
+smith1985,10.1002/for.3980040305,Crossref,200,Diagnostic checks of non‐standard time series models,True,1.0,True,Smith,True,1985 2006,True,Journal of Forecasting,True,si
+dataset2026,10.5281/zenodo.21198816,DataCite,200,"An errata-corrected, plant-level dataset of solar, wind and hydropower curtailment in Chile's National Electricity System (2022–2026)",True,1.0,True,Reyes Cerda,True,2026,True,Zenodo,True,si

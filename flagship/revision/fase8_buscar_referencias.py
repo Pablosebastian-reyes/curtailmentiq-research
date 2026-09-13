@@ -152,8 +152,109 @@ def verificar(dois):
     print(f'\nguardado {(SAL / "referencias_verificadas.csv")}')
 
 
+def _norm(s):
+    """Minusculas, sin acentos ni comandos LaTeX, solo letras y digitos."""
+    import re
+    import unicodedata
+    s = re.sub(r"\\[`'^\"~=.uvHcdbtr]\s*\{?\\?([a-zA-Z])\}?", r'\1', s)
+    s = unicodedata.normalize('NFKD', s)
+    s = ''.join(c for c in s if not unicodedata.combining(c))
+    s = re.sub(r'\\[a-zA-Z]+', ' ', s).replace('--', ' ').lower()
+    return ' '.join(re.sub(r'[^a-z0-9]+', ' ', s).split())
+
+
+def _json(url):
+    out = subprocess.run(['curl', '-s', '--max-time', '45', '-w', '\n%{http_code}', url],
+                         capture_output=True, text=True)
+    cuerpo, _, st = out.stdout.rpartition('\n')
+    return (json.loads(cuerpo) if st == '200' else None), st
+
+
+def cotejar():
+    """Resuelve cada DOI de la bibliografia del manuscrito y coteja el registro
+    contra la entrada: titulo, primer autor, anio y revista.
+
+    Crossref para los DOI de editorial; DataCite para el del dataset, porque
+    Zenodo registra sus DOI ahi y Crossref devuelve 404. Si Crossref no trae
+    autores (le pasa a Econometrica 78(3)), el primer autor se coteja contra
+    OpenAlex. Las entradas sin DOI quedan listadas y sin cotejo. El titulo
+    coteja si al menos el 90 % de sus palabras de mas de dos letras estan en la
+    entrada; la columna titulo_exacto dice ademas si aparece completo.
+
+    Salida: resultados/fase8/bibliografia_cotejada.csv. Sale con codigo 1 si
+    algun DOI no resuelve o no coteja.
+    """
+    import re
+    import pandas as pd
+    tex = (Path(__file__).resolve().parents[1] / 'segan' / 'SEGAN_paper_FINAL.tex').read_text()
+    bib = tex[tex.find('\\begin{thebibliography}'):tex.find('\\end{thebibliography}')]
+    filas = []
+    for it in re.split(r'\\bibitem', bib)[1:]:
+        clave = re.match(r'\s*(?:\[[^\]]*\])?\{([^}]*)\}', it).group(1)
+        d = re.findall(r'doi:\s*(10\.\d{4,9}/[^\s},]+)', it, flags=re.I)
+        if not d:
+            filas.append(dict(clave=clave, doi='', fuente='sin DOI', http='', coteja=''))
+            continue
+        doi = d[0].rstrip('.')
+        titulo = autor1 = revista = ''
+        anios, cortas = [], []
+        if doi.lower().startswith('10.5281/'):
+            fuente = 'DataCite'
+            j, st = _json(f'https://api.datacite.org/dois/{doi}')
+            if j:
+                a = j['data']['attributes']
+                titulo = a['titles'][0]['title']
+                c0 = a['creators'][0]
+                autor1 = c0.get('familyName', c0.get('name', ''))
+                anios = [a.get('publicationYear')]
+                revista = a.get('publisher', '')
+                revista = revista.get('name', '') if isinstance(revista, dict) else revista
+        else:
+            fuente = 'Crossref'
+            j, st = _json(f'https://api.crossref.org/works/{urllib.parse.quote(doi)}?mailto={MAIL}')
+            if j:
+                m = j['message']
+                titulo = (m.get('title') or [''])[0]
+                au = m.get('author') or []
+                autor1 = au[0].get('family', au[0].get('name', '')) if au else ''
+                anios = sorted({(m.get(k) or {}).get('date-parts', [[None]])[0][0]
+                                for k in ('issued', 'published-print', 'published-online')} - {None})
+                revista = (m.get('container-title') or [''])[0]
+                cortas = m.get('short-container-title') or []
+                if not autor1:
+                    o, _ = _json(f'https://api.openalex.org/works/doi:{doi}')
+                    if o and o.get('authorships'):
+                        autor1 = o['authorships'][0]['author']['display_name'].split()[-1]
+                        fuente = 'Crossref (autores de OpenAlex)'
+        ni = _norm(it)
+        tok = [w for w in _norm(titulo).split() if len(w) > 2]
+        cob = sum(w in set(ni.split()) for w in tok) / max(len(tok), 1)
+        f = dict(clave=clave, doi=doi, fuente=fuente, http=st, titulo_registro=titulo,
+                 titulo_exacto=bool(titulo) and _norm(titulo) in ni, titulo_cobertura=round(cob, 2),
+                 titulo_ok=bool(titulo) and cob >= 0.9,
+                 autor1_registro=autor1, autor1_ok=bool(autor1) and _norm(autor1) in ni,
+                 anios_registro=' '.join(map(str, anios)),
+                 anio_ok=bool({str(a) for a in anios} & set(re.findall(r'\b(19\d\d|20\d\d)\b', it))),
+                 revista_registro=revista,
+                 revista_ok=any(c and _norm(c) in ni for c in [revista] + cortas))
+        f['coteja'] = 'si' if st == '200' and all(f[k] for k in ('titulo_ok', 'autor1_ok', 'anio_ok', 'revista_ok')) else 'NO'
+        filas.append(f)
+        print(f"{'OK ' if f['coteja'] == 'si' else 'FALLA'} {clave:18s} {doi}  [{fuente}]")
+        time.sleep(0.3)
+    df = pd.DataFrame(filas)
+    df.to_csv(SAL / 'bibliografia_cotejada.csv', index=False)
+    con = df[df.doi != '']
+    print(f'\n{len(df)} entradas: {len(con)} con DOI ({(con.fuente.str.startswith("Crossref")).sum()} Crossref, '
+          f'{(con.fuente == "DataCite").sum()} DataCite), {len(df) - len(con)} sin DOI '
+          f'({", ".join(df[df.doi == ""].clave)}). Cotejan: {(con.coteja == "si").sum()} de {len(con)}.')
+    print(f'guardado {(SAL / "bibliografia_cotejada.csv")}')
+    sys.exit(0 if (con.coteja == 'si').all() else 1)
+
+
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == 'verificar':
         verificar(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == 'cotejar':
+        cotejar()
     else:
         buscar()

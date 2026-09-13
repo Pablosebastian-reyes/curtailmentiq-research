@@ -47,7 +47,7 @@ Ningun script de la revision escribe sobre `resultados/v_enviada/`.
 | `flagship/revision/fase4_metricas_benchmarks.py` | Interval score, cota de alpha en cuatro niveles, cuatro benchmarks probabilisticos, IC de todas las diferencias | R1.5, R2.6 |
 | `flagship/revision/fase5_dependencia_panel.py` | ICC y efecto de diseno; conformal por bloques, por grupos y por central; cobertura desagregada en cuatro ejes | R2.5 |
 | `flagship/revision/fase6_cronologia.py` | Cronologia unica, 180 configuraciones de deteccion, W1 con IC y nulo, descomposicion estacional, seis fronteras alternativas y verificacion de 24 afirmaciones | R2.3 |
-| `flagship/revision/fase8_buscar_referencias.py` | Busca y VERIFICA referencias contra Crossref; nada entra sin DOI resuelto | R2.1 |
+| `flagship/revision/fase8_buscar_referencias.py` | Busca referencias en Crossref; con `cotejar`, resuelve los DOI de la bibliografia (Crossref y DataCite) y coteja cada registro contra su entrada | R2.1 |
 | `flagship/revision/fase9_figuras_revision.py` | Figuras 4, 7 y 9 del manuscrito (el diagrama de flujo, la comparacion entre modelos base y el aporte por componente) | Q4, R1.2, R1.3 |
 | `flagship/revision/fase9_tablas_tex.py` | Emite los diez floats de tabla desde los CSV de resultados | Regla Dura 1 |
 | `flagship/revision/verificar_manuscrito.py` | Comprueba las 43 afirmaciones numericas en prosa del manuscrito contra su archivo de resultados | Regla Dura 1 |
@@ -159,7 +159,7 @@ y declarado en el manuscrito.
 | **Seccion nueva de limitaciones, diez items** | Q7 | \S7 |
 | Conclusion reescrita | R1.1, R2.7, Q5 | \S8 |
 | Apendice C nuevo: hiperparametros; apendice D nuevo: reproducibilidad | R1.2, R2.4 | apendices |
-| Bibliografia de 10 a 43 entradas, todas con DOI verificado | R2.1 | bibliografia |
+| Bibliografia de 10 a 43 entradas; los 40 DOI verificados, tres de NeurIPS sin DOI | R2.1 | bibliografia |
 | Algoritmo 1 y figuras 4, 7 y 8 nuevas | R1.2, R1.3, Q4 | varias |
 | Diez de las doce tablas se generan desde CSV por `\input` | Regla Dura 1 | varias |
 
@@ -1545,4 +1545,34 @@ $VENV flagship/revision/verificar_referencias_cruzadas.py  # exit 0
 # cero referencias sin resolver; el overfull de 1.3 pt de tab_benchmarks ya
 # estaba en 62982f8
 ```
+
+### C7. Verificacion de la bibliografia
+
+R2.1 de la carta decia que cada DOI se habia resuelto contra Crossref y que el
+script y la tabla estaban en el repositorio. La tabla,
+`resultados/fase8/referencias_verificadas.csv`, tenia 19 de los 40 DOI, y el del
+dataset no esta en Crossref: Zenodo registra en DataCite y Crossref devuelve 404.
+`fase8_buscar_referencias.py` gana el modo `cotejar`, que lee la bibliografia del
+manuscrito, resuelve los 40 DOI (39 en Crossref, el del dataset en DataCite) y
+coteja titulo, primer autor, anio y revista contra la entrada. Cotejan los 40, y
+los 40 titulos aparecen completos en su entrada. Econometrica 78(3)
+(chernozhukov2010) no trae autores en Crossref; el primer autor se coteja contra
+OpenAlex. Las tres entradas sin DOI son de NeurIPS (tibshirani2019, gibbs2021, romano2019) y
+quedan listadas sin cotejo.
+
+```
+$VENV flagship/revision/fase8_buscar_referencias.py cotejar   # 40 de 40, exit 0
+```
+
+La frase de la carta se reescribe con los conteos de
+`resultados/fase8/bibliografia_cotejada.csv` y pierde "Three candidate references
+were dropped because their DOIs did not resolve cleanly", que no tiene respaldo en
+ningun archivo. `referencias_verificadas.csv` queda como estaba. Las dos filas de
+este CHANGELOG que decian "nada entra sin DOI resuelto" y "todas con DOI
+verificado" se corrigen por las tres de NeurIPS.
+
+Para el autor, sin cambio en el texto: OpenAlex da a dos de las entradas de NeurIPS
+una paginacion corrida en cuatro o cinco paginas (tibshirani2019, 2526-2536
+contra 2530-2540 en la entrada; romano2019, 3538-3548 contra 3543-3553).
+NeurIPS circula con dos paginaciones.
 
