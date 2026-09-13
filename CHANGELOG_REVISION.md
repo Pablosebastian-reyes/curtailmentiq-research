@@ -1702,3 +1702,13 @@ Sobre la prueba de mutacion de la auditoria (60 chequeos, solo caian 2):
 $VENV flagship/revision/verificar_manuscrito.py   # 81 de 81
 ```
 
+### C8. Documentos internos
+
+- `HALLAZGOS_CRITICOS.md`: "Los cuatro hallazgos" pasa a H1 a H11 y el conteo del
+  verificador a 81 de 81. H3 gana la nota posterior a H7 y a C1, con las cifras en
+  1/alpha. H11 queda resuelto (longtable, 41 filas, hoy Tabla C.14, citada asi en
+  R1.2 y R2.4) y ya no dice pendiente.
+- `DECISIONS.md`: entradas del 1 de septiembre (reencuadre diagnostico) y del 14
+  (1/alpha), y la ronda tres con las cuatro notas P2 y la comparacion de las
+  configuraciones de la Fase 3.
+

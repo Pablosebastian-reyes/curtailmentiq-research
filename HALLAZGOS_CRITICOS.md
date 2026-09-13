@@ -199,6 +199,16 @@ configuraciones adaptativas, a un costo de cobertura de a lo mas cuatro decimas
 de punto. Es una correccion barata, y responde al encargo explicito del
 comentario R1.5.
 
+*Nota posterior (H7 y C1).* Las cifras de esta seccion son anteriores a dos
+cambios. H7 alineo el generador de numeros aleatorios y el shrinkage paso a
+tener un efecto chico con IC que excluye el cero. C1, el 14 de septiembre, paso
+el interval score a 1/alpha, y todos los IS de la tabla de arriba cambiaron (B1
+656 a 486, CQR 601 a 438, pipeline enviado 1030 a 813; ver
+`fase4_metricas_completas.csv`). Con 1/alpha el shrinkage mejora el IS en 6.4 MWh
+[-10, -3], ocho decimas de uno por ciento, por el 91 % del tiempo de computo, y
+el transporte sobre ACI lo empeora en 68.6 MWh [+41, +100]. La lectura de H3 no
+cambia: ninguno de los dos se paga a si mismo.
+
 ---
 
 ## H4. Seis afirmaciones descriptivas de la seccion 3.3 y 4.4 no reproducen
@@ -264,7 +274,7 @@ reproducen estan en H4.
 
 ## Estado final de la revision
 
-Los cuatro hallazgos estan documentados y todos los experimentos que los
+Los hallazgos H1 a H11 estan documentados y todos los experimentos que los
 sostienen se reproducen con un comando. La decision de alcance de los autores,
 tomada el 2026-09-01 ante H1, fue reencuadrar la contribucion metodologica como
 **resultado diagnostico**: la ganancia de una capa conformal adaptativa mide la
@@ -275,7 +285,7 @@ primer parrafo, antes de responder a ningun comentario.
 Comprobacion de que ningun numero del manuscrito quedo sin respaldo:
 
 ```
-$VENV flagship/revision/verificar_manuscrito.py    # 43 de 43
+$VENV flagship/revision/verificar_manuscrito.py    # 81 de 81 al cierre del 14 de septiembre (43 cuando se escribio esta seccion)
 ```
 
 ---
@@ -540,7 +550,7 @@ la forma cuantilica se tocan.
 
 ## H11. La Tabla C.13 esta truncada y se lleva las cuatro filas de semillas
 
-**Estado:** confirmado. **Fase:** auditoria de la version marcada, pagina por
+**Estado:** confirmado y resuelto (ver la nota final). **Fase:** auditoria de la version marcada, pagina por
 pagina. **No es un defecto del marcado: esta en el manuscrito limpio.**
 
 **Afirmacion afectada:** el Apendice C dice que "Table C.13 lists every constant
@@ -605,8 +615,15 @@ el `.tex`, verificar, y no llegar a imprimirse.
 cero si el log trae `Float too large for page`, e imprime el aviso. Con eso el
 paquete de fuentes queda **bloqueado** hasta que se decida el arreglo.
 
-**Arreglo, pendiente de decision del autor.** No se toco: cambiarlo modifica el
+**Arreglo, que quedo pendiente de decision del autor en su momento.** No se toco: cambiarlo modifica el
 manuscrito, que estaba excluido del encargo, y mueve el numero de paginas. La
 salida natural es que `fase9_tablas_tex.py` emita esa tabla como `longtable`, que
 si se parte entre paginas, o que la parta en dos `table*`. Cualquiera de las dos
 cambia el conteo de 35 paginas.
+
+*Resuelto.* La tabla se emite como `longtable` (seccion 19 del changelog) y las
+41 filas, con las cuatro de semillas, llegan al PDF; el verificador lo comprueba
+en las filas de la Tabla C.14. En B4, al entrar al manuscrito la sensibilidad
+gamma x ventana como Tabla 13, esta tabla paso a ser la C.14, y la carta la cita
+asi en R1.2 y en R2.4 (comprobado a mano el 14 de septiembre). El PDF tenia 36
+paginas al cierre de P0 y tiene 37 desde C1.

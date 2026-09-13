@@ -110,6 +110,23 @@ Formato: fecha · decisión · alternativas consideradas · justificación · re
 **Justificación:** dejar publicada la descripción incorrecta del censo mensual (42 exactos) mientras el repositorio y el manuscrito dicen 35 sería una inconsistencia visible para un revisor; una versión nueva de documentación corrige el registro sin tocar los datos revisados.
 **Responsable:** Pablo.
 
+## 2026-09-01 · Revisión mayor SEGAN-D-26-03850: la contribución metodológica pasa a resultado diagnóstico
+**Decisión:** ante H1 (`HALLAZGOS_CRITICOS.md`), la ventaja de Transport+ACI no sobrevive al cambio de modelo base, el manuscrito revisado deja de proponer el método como contribución y lo reencuadra como resultado diagnóstico: la ganancia de ancho que entrega una capa conformal adaptativa mide la sobre-dispersión del modelo base, y esa relación es cuantificable sobre cuarenta celdas (ocho modelos base por cinco ventanas). La carta lo declara en su primer párrafo, antes de responder a ningún comentario.
+**Justificación:** sostener la contribución original habría exigido esconder un resultado negativo que el propio revisor pidió medir (R1.1). El diagnóstico es más general que el método y se puede verificar con los archivos del repositorio.
+**Responsable:** Pablo.
+
+## 2026-09-14 · Cierre de la revisión mayor: interval score unilateral con multiplicador 1/α
+**Decisión:** el interval score del límite unilateral [0,U] pasa de U + (2/α)(y−U)⁺ a U + (1/α)(y−U)⁺ en todo el paquete. Con 2/α la regla la minimizaba el cuantil 1−α/2, que es el del intervalo central y no el que calibran los métodos. Se re-corrieron las fases afectadas sin reajustar modelos, y una guarda celda a celda confirmó que coberturas, anchos, fracciones de infinitos, el diagnóstico y la selección de hiperparámetros quedaron idénticos. El detalle, las frases reescritas y los bloques C2 a C8 están en la sección 25 de `CHANGELOG_REVISION.md`.
+**Justificación:** la métrica principal debía ser propia para el cuantil que el paper dice calibrar. No se reportan las dos versiones.
+**Responsable:** Pablo.
+
+## Ronda tres (anotado el 2026-09-14; no se ejecuta en esta revisión)
+- Reestimar las cuarenta celdas del diagnóstico en la configuración seleccionada por origen rodante (γ = 0.005, ventana de 120 días).
+- El hurdle con detención temprana como noveno brazo del diagnóstico: es una predicción contrastable del propio diagnóstico y el modelo ya está ajustado.
+- Histograma PIT o diagrama de fiabilidad por modelo base.
+- Días de alto vertimiento: son 254 de 638 porque el umbral es el P90 de la ventana de calibración sobre una serie creciente, así que el conjunto es en parte "días posteriores".
+- Con 1/α y los hiperparámetros de la Fase 3, Transporte+ACI (761.2) queda por debajo de ACI (762.6) en el interval score del test completo; con 2/α era al revés. Ninguna frase compara esas dos filas. Si se quiere afirmar algo, hace falta el bootstrap de esa diferencia, que hoy solo se calcula contra el split estático.
+
 ## PENDIENTES (completar en sesión Pablo-Kerven)
 - [ ] Target exacto de predicción (MWh/central/día · prob. de evento · ambos).
 - [ ] Definición de splits temporales train/calibración/test (fechas exactas) considerando tren alcista y quiebre BESS.
