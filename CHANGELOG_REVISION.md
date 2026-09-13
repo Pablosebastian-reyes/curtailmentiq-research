@@ -1209,3 +1209,43 @@ escalera cuyo CRPS del test completo queda a menos de 0.5 MWh del mas grande
 (5.400 arboles, la formulacion de 6.1); el ochocientos, del hurdle de
 referencia. Lo que ocurre a presupuesto igual se dice con la frase del propio
 manuscrito, "nearly disappears".
+
+## 25. Cierre del 14 de septiembre (rama revision/cierre-14sep)
+
+Arreglos de la auditoria de cierre del 12 de septiembre, un commit por bloque.
+Cada bloque cierra con build limpio, `verificar_manuscrito.py` y
+`verificar_referencias_cruzadas.py`.
+
+### B1. Corridas no canonicas en fase4 (cota de alpha) y fase5
+
+H7 alineo el generador en `fase2` y en la seccion de metricas de `fase4`, pero
+quedaban dos llamadas con generador fresco: la cota de alpha de
+`fase4_metricas_benchmarks.py` y la referencia Transporte+ACI de
+`fase5_dependencia_panel.py`. Las dos continuan ahora el generador que
+aleatorizo el score y consumen gamma = 0.02 antes que 0.05, como la corrida
+canonica. Cada script aborta si su fila sin cota, o su referencia, no reproduce
+la corrida canonica de `fase4_metricas_completas.csv`.
+
+```
+$VENV flagship/revision/fase4_metricas_benchmarks.py   # log fase4_20260913T050035
+$VENV flagship/revision/fase5_dependencia_panel.py     # log fase5_20260913T050229
+$VENV flagship/revision/fase1_hiperparametros.py
+$VENV flagship/revision/fase9_tablas_tex.py
+```
+
+Lo que se mueve:
+
+- Tabla 10, Transport+ACI (g=0.05): sin cota, 593 / 6.1% / 1028 pasa a
+  596 / 5.9% / 1030, que es la fila de la Tabla 9. Con alpha_min = 0.005 el
+  ancho pasa de 640 a 641, con 0.01 de 597 a 598. El costo de cobertura de la
+  cota sigue en 0.5 puntos.
+- Tabla 11, referencia Transport+ACI: 593 / 1028 pasa a 596 / 1030. Su peor
+  desvio por tecnologia pasa de 0.28 a 0.29; se imprime 0.3 en los dos casos.
+- Sin cambio: `fase4_metricas_completas.csv`, `fase4_diferencias_bootstrap.csv`,
+  `fase5_diagnostico_dependencia.csv`, y en `fase5_cobertura_desagregada.csv`
+  la cobertura en dias de alto vertimiento (86.72%) y el peor desvio regional
+  (7.18). El ACI conserva la mejor cobertura condicional, 4.66 contra 4.83.
+
+Texto: la carta (R1.5) decia "up to 6.1 per cent"; ahora 5.9, leido de
+`fase4_metricas_completas.csv` al insertar. En la carta y en 5.6 sale "on one
+case in sixteen", que venia del 6.1 y no tiene archivo fuente.

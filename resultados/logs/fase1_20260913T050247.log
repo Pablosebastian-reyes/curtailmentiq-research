@@ -1,0 +1,55 @@
+============================================================================================
+FASE 1 - TABLA DE HIPERPARAMETROS (R1.2, R2.4)
+37 entradas, leidas del codigo, no escritas a mano
+============================================================================================
+
+--- Modelo base ---
+  Horizonte de pronostico                              7 dias
+  Ultimo target de entrenamiento                       2023-12-31
+  Arboles / tasa de aprendizaje / profundidad          400 / 0.05 / 6
+  min_child_weight / subsample / colsample             5 / 0.9 / 0.9
+  Numero de features                                   12
+  Estimacion de sigma del hurdle                       out-of-fold, KFold 5
+  Rejilla de cuantiles del GBM multi-cuantil           54 niveles, de 0.005 a 0.999
+
+--- Capa conformal ---
+  Nivel nominal                                        1 - alpha = 0.90
+  Score de no conformidad                              s = F_x(y) (PIT)
+  Ventana de calibracion                               2024-01-01 a 2024-09-01
+  Embargo de horizonte                                 7 dias
+  Cuantil conformal                                    orden estadistico k = ceil((n+1)(1-alpha_t))
+
+--- Transporte ---
+  Largo de la ventana reciente                         60 dias
+  Periodo de refresco del mapa                         7 dias
+  Minimo de scores recientes para refrescar            100
+  Regla de seleccion de cuantiles empiricos            rejilla equiespaciada de g niveles en [0,1], g = min(100, max(20, m/2))
+  Esquema de interpolacion                             lineal por tramos, dos veces
+  Repeticiones bootstrap del mapa                      B = 150
+  Funcion de shrinkage de cola                         lambda(u) = 1 / (1 + (sd_boot(u)/tau)^2)
+  Intensidad del shrinkage                             tau = 0.05 en unidades PIT
+  Monotonizacion posterior                             maximo acumulado y recorte a [0,1]
+
+--- ACI ---
+  Actualizacion                                        alpha_{t+1} = alpha_t + gamma (alpha - err_t)
+  gamma reportado en el manuscrito                     0.02 y 0.05
+  gamma seleccionado por origen rodante                0.005
+  Ventana seleccionada por origen rodante              120 dias
+  Recorte de alpha_t, version enviada                  [-1, 2]
+  Recorte de alpha_t recomendado                       alpha_min = 0.005
+  ORDEN DE EJECUCION                                   refresco del mapa, luego cuantil, luego intervalo, luego ACI
+
+--- Evaluacion ---
+  Metrica principal                                    interval score unilateral IS = U + (2/alpha) max(y-U, 0)
+  Error estandar de la cobertura                       clusterizado por fecha
+  Bootstrap de las diferencias entre metodos           2000 remuestreos de dias completos
+  Muestras para el CRPS                                300 por fila
+  Deteccion de puntos de cambio                        PELT y segmentacion binaria, coste L2, pen = sigma^2 log n, min_size = 3
+
+--- Semillas ---
+  Entrenamiento de los modelos base                    42
+  Aleatorizacion del atomo PIT y bootstrap del mapa    20260720
+  Muestreo del CRPS                                    11
+  Bootstrap de diferencias, bloques y permutaciones    20260901
+
+guardado resultados/fase1/hiperparametros.csv y .tex

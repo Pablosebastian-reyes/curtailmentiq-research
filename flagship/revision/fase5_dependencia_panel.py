@@ -197,10 +197,26 @@ def main():
     fechas_test = np.sort(test.fecha.unique())
     U, _, _ = R.aci(p_t, s_cal, y_t, f_t, fechas_test, 0.02)
     series['ACI (g=0.02), referencia'] = U
+    # Mismo arreglo que H7: la referencia tiene que ser EL objeto del
+    # manuscrito, asi que el transporte continua el generador que aleatorizo el
+    # score y consume antes la corrida de gamma = 0.02, que es el orden
+    # canonico. Con un generador fresco daba 593.4 / 6.1% / 1028.2 en vez de
+    # los 595.9 / 5.9% / 1029.9 de la Tabla 9.
+    rng_canon = np.random.default_rng(R.SEED_CONFORMAL)
+    pred.cdf(hu.y_real.values, rng_canon)          # sorteos del score
+    R.transporte_aci(p_t, s_cal, hu.s.values, hu.fecha.values, y_t, f_t,
+                     fechas_test, 0.02, rng_canon, ini_test=R.CAL_FIN)
     U, _, _ = R.transporte_aci(p_t, s_cal, hu.s.values, hu.fecha.values, y_t,
-                               f_t, fechas_test, 0.05,
-                               np.random.default_rng(R.SEED_CONFORMAL),
+                               f_t, fechas_test, 0.05, rng_canon,
                                ini_test=R.CAL_FIN)
+    canon = pd.read_csv(R.REPO / 'resultados' / 'fase4' / 'fase4_metricas_completas.csv')
+    canon = canon[(canon.metodo == 'Transporte+ACI (g=0.05)')
+                  & (canon.periodo == 'TEST_COMPLETO')].iloc[0]
+    aqui = R.resumen_metrico('ref', 'TEST_COMPLETO', f_t, y_t, U)
+    for k in ('cobertura', 'ancho_medio', 'pct_infinito', 'IS_finitos'):
+        if aqui[k] != canon[k]:
+            raise SystemExit(f'la referencia Transporte+ACI no reproduce la '
+                             f'corrida canonica en {k}: {aqui[k]} contra {canon[k]}')
     series['Transporte+ACI (g=0.05), referencia'] = U
 
     filas = []

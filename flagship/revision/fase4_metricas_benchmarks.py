@@ -284,6 +284,15 @@ def main():
     filas = []
     for amin in (None, 0.005, 0.01, 0.02):
         et = 'sin cota' if amin is None else f'alpha_min={amin}'
+        # Mismo arreglo que H7: el transporte CONTINUA el generador que
+        # aleatorizo el score y consume gamma = 0.02 antes que 0.05, que es el
+        # orden de la corrida canonica. Con un generador fresco por corrida la
+        # fila sin cota de Transporte+ACI (g=0.05) daba 593.4 / 6.1% / 1028.2
+        # en vez de los 595.9 / 5.9% / 1029.9 de la Tabla 9. El mapa no depende
+        # de alpha, asi que cada cota ve los mismos sorteos que la corrida sin
+        # cota y difiere de ella solo por la cota.
+        rng_t = np.random.default_rng(R.SEED_CONFORMAL)
+        p_hu.cdf(hu.y_real.values, rng_t)   # consume los sorteos del score
         for g in (0.02, 0.05):
             U, _, _ = R.aci(p_test, s_cal, y_t, f_t, fechas_test, g,
                             alpha_min=amin)
@@ -293,7 +302,7 @@ def main():
                 filas.append(fila)
             U, _, _ = R.transporte_aci(
                 p_test, s_cal, hu.s.values, hu.fecha.values, y_t, f_t,
-                fechas_test, g, np.random.default_rng(R.SEED_CONFORMAL),
+                fechas_test, g, rng_t,
                 alpha_min=amin, ini_test=R.CAL_FIN)
             for fila in metricas(f'Transporte+ACI (g={g})', f_t, y_t, U,
                                  'cota_alpha'):
@@ -301,6 +310,17 @@ def main():
                 fila['gamma'] = g
                 filas.append(fila)
     ca = pd.DataFrame(filas)
+    # la fila sin cota ES la corrida del manuscrito: tiene que coincidir celda a
+    # celda con la de metricas completas, o la Tabla 10 no describe el mismo
+    # objeto que la Tabla 9
+    col = ['cobertura', 'ancho_medio', 'pct_infinito', 'IS_finitos']
+    for met in ('ACI (g=0.02)', 'ACI (g=0.05)',
+                'Transporte+ACI (g=0.02)', 'Transporte+ACI (g=0.05)'):
+        a = ca[(ca.cota == 'sin cota') & (ca.metodo == met)].set_index('periodo')[col]
+        b = tab[(tab.familia == 'paper') & (tab.metodo == met)].set_index('periodo')[col]
+        if not a.equals(b.loc[a.index]):
+            raise SystemExit(f'la fila sin cota de {met} no reproduce la corrida '
+                             f'canonica de metricas completas:\n{a}\n{b}')
     ca.to_csv(SAL / 'fase4_cota_alpha.csv', index=False)
     v = ca[ca.periodo == 'TEST_COMPLETO']
     print(v[['metodo', 'cota', 'cobertura', 'se_cluster', 'ancho_medio',
