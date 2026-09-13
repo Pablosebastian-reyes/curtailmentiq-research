@@ -1260,3 +1260,24 @@ excluyendo el cero ([-249.6, -106.8], [+16.0, +195.9], [+20.3, +242.9]), asi que
 "all three significant" se mantiene. Chequeo nuevo en `verificar_manuscrito.py`:
 la frase se arma desde el CSV y exige que las tres diferencias sean
 significativas.
+
+### B3. Tiempos de la Tabla 8, leidos del CSV
+
+`fase9_tablas_tex.py` escribia la columna de costo de la Tabla 8 desde un
+diccionario tipeado (+0.2, +7.1, +0.4, +6.1, +6.7). Ahora la lee de `d_segundos`
+en `fase2_aporte_por_componente.csv`: el transporte solo pasa de +7.1 a +6.7 y el
+pipeline completo de +6.7 a +6.6.
+
+Texto, en 4.6, 5.5 y en la carta (parrafo inicial, tabla de R1.3, R1.3 y R2.4):
+"6.1 of the 6.7 seconds" pasa a "6.1 of the 6.6 seconds"; "roughly ninety per
+cent" y "ninety per cent of the runtime" pasan a "ninety-two per cent"
+(6.1 / 6.6 = 92.4); "thirty-five times the runtime" pasa a "thirty-four times"
+(6.7 / 0.2 = 33.5, redondeo hacia arriba en decimal exacto). Los dos se calculan
+sobre los valores redondeados que imprime la tabla, para que el lector pueda
+comprobarlos; con los segundos a dos decimales de `fase2_ablaciones.csv` el
+multiplo seria del orden de 37, porque el 0.2 de la adaptacion es 0.18.
+
+El chequeo de estos segundos en `verificar_manuscrito.py` leia
+`fase2_ablaciones.csv` y toleraba 0.6 s, que es por donde paso el 6.7. Ahora arma
+la frase desde `d_segundos` y la exige tal cual; se agrega el chequeo del
+multiplo, que no existia.

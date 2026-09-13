@@ -155,18 +155,17 @@ def tabla_ablaciones():
             'transporte sobre ACI (A3 - A1)': 'Transport added on top of ACI',
             'shrinkage de cola (A4 - A3)': 'Tail shrinkage added on top of transport',
             'pipeline completo (A4 - A0)': 'Full pipeline (over static split)'}
-    COSTO = {'adaptacion online (A1 - A0)': '$+0.2$',
-             'transporte sin ACI (A2 - A0)': '$+7.1$',
-             'transporte sobre ACI (A3 - A1)': '$+0.4$',
-             'shrinkage de cola (A4 - A3)': '$+6.1$',
-             'pipeline completo (A4 - A0)': '$+6.7$'}
+    # El costo se lee del CSV. Estaba escrito a mano en un diccionario y quedo
+    # con los tiempos de una corrida anterior (+7.1 y +6.7 donde el CSV dice
+    # 6.7 y 6.6), que es justo lo que la regla de no tipear numeros prohibe.
     L = []
     for c, etq in ETQC.items():
         tr = a[(a.componente == c) & (a.periodo == 'test_transition')].iloc[0]
         to = a[(a.componente == c) & (a.periodo == 'TEST_COMPLETO')].iloc[0]
         L.append(f'{etq} & ${tr.d_IS:+.1f}$ & $[{tr.IS_lo:+.0f}, {tr.IS_hi:+.0f}]$ & '
                  f'${to.d_IS:+.1f}$ & $[{to.IS_lo:+.0f}, {to.IS_hi:+.0f}]$ & '
-                 f'{"yes" if to.significativo == "si" else "no"} & {COSTO[c]} \\\\')
+                 f'{"yes" if to.significativo == "si" else "no"} & '
+                 f'${to.d_segundos:+.1f}$ \\\\')
     escribir('tab_ablaciones', L, col='lccccccc',
              encabezado='Component & \\multicolumn{2}{c}{Transition window} & '
                         '\\multicolumn{2}{c}{Whole test} & Significant & '

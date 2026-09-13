@@ -16,6 +16,7 @@ Salida: resultados/verificacion_manuscrito.csv
 Comando:
   <venv>/bin/python flagship/revision/verificar_manuscrito.py
 """
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 import re
 import sys
@@ -58,6 +59,17 @@ def chk(seccion, afirmacion, en_texto, valor, ok, fuente):
 
 def en_tex(*frases):
     return all(f in TEX for f in frases)
+
+
+_UNI = ('zero one two three four five six seven eight nine ten eleven twelve '
+        'thirteen fourteen fifteen sixteen seventeen eighteen nineteen').split()
+_DEC = {2: 'twenty', 3: 'thirty', 4: 'forty', 5: 'fifty', 6: 'sixty',
+        7: 'seventy', 8: 'eighty', 9: 'ninety'}
+
+
+def palabra(n):
+    """Entero de 0 a 99 en palabras, como los escribe el manuscrito."""
+    return _UNI[n] if n < 20 else _DEC[n // 10] + ('' if n % 10 == 0 else '-' + _UNI[n % 10])
 
 
 def main():
@@ -186,18 +198,29 @@ def main():
         and tr_.d_IS < 0 < s1_.d_IS and s2_.d_IS > 0 and en_tex(txt),
         'fase2_aporte_por_componente.csv')
 
-    ab = pd.read_csv(RES / 'fase2' / 'fase2_ablaciones.csv')
-    seg = ab[ab.periodo == 'TEST_COMPLETO'].drop_duplicates('metodo').set_index('metodo')
-    total = seg.loc['A4 Transporte+ACI completo (g=0.05)'].segundos
-    shr = total - seg.loc['A3 Transporte+ACI sin shrinkage (g=0.05)'].segundos
-    # La columna `segundos` es tiempo de reloj y varia entre corridas; lo que se
-    # afirma en el texto es la PROPORCION, que es estable. Se comprueba esa, y
-    # los segundos solo con una tolerancia acorde al ruido de medicion.
-    chk('5.4', 'costo del shrinkage sobre el total', '6.1 de 6.7 s, ~90%',
-        f'{shr:.1f} de {total:.1f} s, {100*shr/total:.0f}%',
-        abs(shr - 6.1) < 0.6 and abs(total - 6.7) < 0.6
-        and 85 <= 100 * shr / total <= 95
-        and en_tex('6.1 of the 6.7 seconds'), 'fase2_ablaciones.csv')
+    # Los segundos del texto son los de la Tabla 8, que desde B3 salen de la
+    # columna d_segundos de este mismo CSV. Antes el chequeo leia otro archivo
+    # y toleraba 0.6 s, y asi paso un "6.7" que el CSV ya no decia. Ahora la
+    # frase se arma del CSV y se exige tal cual. El porcentaje y el multiplo se
+    # calculan en decimal exacto sobre esos mismos valores redondeados, que son
+    # los que el lector puede comprobar contra la tabla.
+    sg = pd.read_csv(RES / 'fase2' / 'fase2_aporte_por_componente.csv',
+                     dtype={'d_segundos': str})
+    sg = sg[sg.periodo == 'TEST_COMPLETO'].set_index('componente').d_segundos.map(Decimal)
+    shr, total = sg['shrinkage de cola (A4 - A3)'], sg['pipeline completo (A4 - A0)']
+    a2, a1 = sg['transporte sin ACI (A2 - A0)'], sg['adaptacion online (A1 - A0)']
+    pct = int((100 * shr / total).quantize(Decimal('1'), ROUND_HALF_UP))
+    mult = int((a2 / a1).quantize(Decimal('1'), ROUND_HALF_UP))
+    chk('5.5', 'costo del shrinkage sobre el total', f'{shr} de {total} s, {pct}%',
+        f'{shr} de {total} s, {pct}%',
+        en_tex(f'{shr} of the {total} seconds the full pipeline costs, that is '
+               f'{palabra(pct)} per cent')
+        and en_tex(f'{palabra(pct)} per cent of the runtime'),
+        'fase2_aporte_por_componente.csv')
+    chk('5.5', 'costo del transporte solo contra la adaptacion sola',
+        f'{palabra(mult)} veces', f'{a2} / {a1} = {mult}',
+        en_tex(f'at {palabra(mult)} times the runtime'),
+        'fase2_aporte_por_componente.csv')
 
     # ---------------- Fase 4: benchmarks y cota de alpha ----------------
     m4 = pd.read_csv(RES / 'fase4' / 'fase4_metricas_completas.csv')
