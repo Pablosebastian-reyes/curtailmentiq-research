@@ -1356,3 +1356,18 @@ verificador.
   de las constantes de `fase3_seleccion_hiperparametros.py`, y mueve ahi las dos
   filas de lo elegido.
 
+### B5. Almacenamiento en la carta
+
+El punto 3 de R2.2 decia "Storage now appears in three places" (2.2, 6.3 y la
+declaracion de disponibilidad) y que en 6.3 el almacenamiento se referia al
+quiebre de tendencia "not the distributional shift". Las dos cosas eran falsas:
+aparece tambien en 1, 2.1, 5.1, 6.4 y tres veces en 7, y 1 y el primer parrafo de
+6.3 lo nombran entre los mecanismos candidatos del cambio distribucional. El
+manuscrito no se toca: enumerar mecanismos candidatos es lo honesto. La carta
+dice ahora lo verificable: ninguna parte atribuye el cambio causalmente al
+almacenamiento; aparece como uno de varios mecanismos candidatos (1 y 6.3), como
+hipotesis acotada para el quiebre de tendencia (6.3 y 7), como literatura (2.1 y
+2.2), y en el resto solo como informacion que el dataset no tiene (5.1 y 7), en
+la observacion de que ningun sistema entro en operacion en junio de 2025 (6.4) y
+en la declaracion de disponibilidad. Sale "not the distributional shift".
+
