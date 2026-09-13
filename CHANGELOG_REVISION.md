@@ -1733,8 +1733,38 @@ Q7, con el conteo hecho sobre el .tex. Las correcciones siguen en el texto (3.3 
 
 ```
 $VENV flagship/revision/verificar_manuscrito.py   # 81 de 81
-# manuscrito 37 paginas, carta , cero errores y cero referencias sin resolver
+# manuscrito 37 paginas, carta 21, cero errores y cero referencias sin resolver
 # compuerta carta contra manuscrito: quedan 0.59 (log de la Fase 0) y 9.5
 # (obj1c_mecanismo.json), los dos con fuente propia
+```
+
+### L1. Lectura pagina por pagina de los dos PDF
+
+Comprobacion manual 2 del encargo, sobre el build de C5b. Lo que ningun
+verificador ve:
+
+- Manuscrito, Seccion 7: el item "Six descriptive statements of the submitted
+  version did not reproduce", con la misma atribucion falsa de la carta. Se quito
+  en C5b.
+- Manuscrito, 5.8: "Calibration hyperparameters.." con doble punto; elsarticle
+  agrega el punto al `\paragraph`. Se quita el del argumento.
+- Manuscrito, Tabla C.14: `esc` de `fase1_hiperparametros.py` escapaba las llaves
+  despues de insertar `\^{}`, y el PDF imprimia un acento sobre llaves literales
+  en "(sd_boot(u)/tau)^2", "F_new^{-1}" y "sigma^2". Ademas no escapaba `~`, que
+  LaTeX lee como espacio duro: "lambda ~ 1" salia "lambda   1" y "U ~ Uniform"
+  salia "U   Uniform". Ahora las llaves van primero, `^` pasa a
+  `\textasciicircum{}` y `~` a `$\sim$`. Cambian cuatro filas de
+  `hiperparametros.tex`; el CSV no cambia.
+- Carta: la pagina 3 estaba en blanco desde P0, por el `\clearpage` antes del
+  cuadro resumen. Con `\newpage` el cuadro empieza en la pagina 3 y la carta queda
+  en 20 paginas; probado contra la variante sin salto, que da lo mismo.
+- Comprobacion manual 1: la carta cita la Tabla C.14 dos veces, en R1.2 y en R2.4,
+  y el `.aux` la numera C.14.
+- `empaquetar_fuentes.sh` espera 37 paginas.
+
+```
+$VENV flagship/revision/fase1_hiperparametros.py
+$VENV flagship/revision/verificar_manuscrito.py   # 81 de 81
+# manuscrito 37 paginas, carta 20, sin paginas en blanco, cero errores
 ```
 

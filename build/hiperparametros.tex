@@ -31,7 +31,7 @@ Quantile grid of the multi-quantile GBM & 54 levels, from 0.005 to 0.999 & 0.02 
 \midrule
 \multicolumn{3}{l}{\emph{Conformal layer}} \\
 Nominal level & 1 - alpha = 0.90 & one-sided upper prediction limit [0, U] \\
-Nonconformity score & s = F\_x(y) (PIT) & atom at y = 0 randomised, s = (1-p)U with U ~ Uniform(0,1) \\
+Nonconformity score & s = F\_x(y) (PIT) & atom at y = 0 randomised, s = (1-p)U with U $\sim$ Uniform(0,1) \\
 Calibration window & 2024-01-01 to 2024-09-01 & 244 days, 26,552 rows \\
 Horizon embargo & 7 days & every online window ends at t-7 and the feedback of alpha is delayed by 7 steps \\
 Conformal quantile & order statistic k = ceil((n+1)(1-alpha\_t)) & q = +infinity if k > n, which is the origin of the infinite intervals \\
@@ -41,9 +41,9 @@ Length of the recent window & 60 days & the window ends at t minus the embargo, 
 Refresh period of the map & 7 days & the map is recomputed every 7 days; between refreshes the pool is frozen \\
 Minimum recent scores for a refresh & 100 & with fewer scores in the recent window the previous pool is kept \\
 Rule for the empirical quantiles & equispaced grid of g levels on [0,1], g = min(100, max(20, m/2)) & m is the number of scores in the recent window; the second term prevents a grid finer than the data \\
-Interpolation scheme & piecewise linear, twice & first s -> level on (q\_old, levels), then level -> q\_reg on (levels, q\_reg); this is the increasing rearrangement T = F\_new\^\{\}\{-1\} o F\_old \\
+Interpolation scheme & piecewise linear, twice & first s -> level on (q\_old, levels), then level -> q\_reg on (levels, q\_reg); this is the increasing rearrangement T = F\_new\textasciicircum{}\{-1\} o F\_old \\
 Bootstrap repetitions of the map & B = 150 & resampling of the recent window with replacement; the mean of the B replicates is the map (bagging) and their standard deviation per level is the band \\
-Tail shrinkage function & lambda(u) = 1 / (1 + (sd\_boot(u)/tau)\^\{\}2) & q\_reg(u) = (1-lambda(u)) q\_old(u) + lambda(u) q\_new\_bag(u); lambda ~ 1 where the map is stable and ~ 0 where it is noisy, and lambda = 0 is the identity, that is the old quantile \\
+Tail shrinkage function & lambda(u) = 1 / (1 + (sd\_boot(u)/tau)\textasciicircum{}2) & q\_reg(u) = (1-lambda(u)) q\_old(u) + lambda(u) q\_new\_bag(u); lambda $\sim$ 1 where the map is stable and $\sim$ 0 where it is noisy, and lambda = 0 is the identity, that is the old quantile \\
 Shrinkage strength & tau = 0.05 in PIT units & fixed regularisation scale, not tuned against the test set \\
 Monotonisation & running maximum and clip to [0,1] & keeps the transported map a quantile function \\
 \midrule
@@ -68,7 +68,7 @@ Primary metric & one-sided interval score IS = U + (1/alpha) max(y-U, 0) & prope
 Standard error of coverage & clustered by date & averages the coverage of each day and takes the error across days \\
 Bootstrap of the differences between methods & 2000 resamples of whole days & the resampled unit is the day, not the row; 95\% percentile interval \\
 Samples for the CRPS & 300 per row & sampled CRPS, E|X-y| - 0.5 E|X-X'| \\
-Change-point detection & PELT and binary segmentation, L2 cost, pen = sigma\^\{\}2 log n, min\_size = 3 & BIC penalty with k = 1; the sensitivity grid spans k in \{0.5, 1, 2, 3, 5\} and min\_size in \{2, 3, 4\} \\
+Change-point detection & PELT and binary segmentation, L2 cost, pen = sigma\textasciicircum{}2 log n, min\_size = 3 & BIC penalty with k = 1; the sensitivity grid spans k in \{0.5, 1, 2, 3, 5\} and min\_size in \{2, 3, 4\} \\
 \midrule
 \multicolumn{3}{l}{\emph{Seeds}} \\
 Training of the base models & 42 & deterministic XGBoost hist, n\_jobs = 4, KFold \\

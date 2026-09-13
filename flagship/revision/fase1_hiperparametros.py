@@ -239,8 +239,14 @@ def main():
     df.to_csv(SAL / 'hiperparametros.csv', index=False)
 
     def esc(t):
-        for a, b in (('\\', r'\textbackslash '), ('_', r'\_'), ('%', r'\%'),
-                     ('&', r'\&'), ('^', r'\^{}'), ('{', r'\{'), ('}', r'\}')):
+        # Las llaves se escapan ANTES de insertar comandos que las llevan: con el
+        # orden anterior '^' pasaba a \^{} y despues a \^\{\}, y el PDF imprimia
+        # un acento sobre llaves literales. '~' no se escapaba y LaTeX lo leia
+        # como espacio duro: "lambda ~ 1" salia "lambda   1" (lectura pagina por
+        # pagina del 14 de septiembre).
+        for a, b in (('\\', r'\textbackslash '), ('{', r'\{'), ('}', r'\}'),
+                     ('_', r'\_'), ('%', r'\%'), ('&', r'\&'),
+                     ('^', r'\textasciicircum{}'), ('~', r'$\sim$')):
             t = t.replace(a, b)
         return t
 

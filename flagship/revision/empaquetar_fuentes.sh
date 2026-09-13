@@ -11,7 +11,7 @@
 set -euo pipefail
 
 C="${1:-HEAD}"
-PAGINAS_ESPERADAS=36
+PAGINAS_ESPERADAS=37
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 SALIDA="$REPO/entrega_revision"
 TRABAJO="$(mktemp -d)"
