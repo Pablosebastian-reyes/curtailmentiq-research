@@ -215,7 +215,7 @@ Overfull \hbox (6.79999pt too wide) in paragraph at lines 430--431
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.492 
+l.487 
        <./fig6_algorithm_flow.pdf>] [18]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
@@ -265,7 +265,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\DIFOincludegraphics' on input line 512.
 
-(./tab_mae.tex)
+[19] (./tab_mae.tex)
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\<let>-command' on input line 544.
@@ -314,97 +314,97 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\DIFOincludegraphics' on input line 544.
 
-[19]
+
 Overfull \hbox (6.79999pt too wide) in paragraph at lines 560--561
  [][][] 
-(./tab_results.tex) [20
+[20
 pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.586 
-      ] (./tab_model_agnostic.tex) (./tab_diagnostico.tex) [21
+l.567 
+      ] (./tab_results.tex) (./tab_model_agnostic.tex) [21
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.606 
-       <./fig3_rolling_coverage.pdf>] (./tab_diag_ampliado.tex) [22
+l.601 
+       <./fig3_rolling_coverage.pdf>] (./tab_diagnostico.tex) (./tab_diag_ampliado.tex) [22
 pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.623 
-      ] (./tab_escalera.tex) [23
+l.617 
+      ] [23
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.642 }
-        <./fig4_coverage_width.pdf>] [24
+l.627 \subsection
+                 {\DIFadd{Model form against fitted capacity}} <./fig4_coverage_width.pdf>] (./tab_escalera.tex) [24
 pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.655 
-      ] (./tab_ablaciones.tex) [25
+l.652 
+      ] [25
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.689 
-       <./fig7_model_agnostic.pdf>] [26
+l.672 ...ult about the tool, not about the data, }
+                                                  \DIFdelend \DIFaddbegin \D... <./fig7_model_agnostic.pdf>] (./tab_ablaciones.tex) [26
 pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.721 \DIFdelend \DIFaddbegin \subsection
-                                         {\DIFadd{Metrics, infinite interval...
+l.692 
+      
 pdfTeX warning (ext4): destination with the same identifier (name{table.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.721 \DIFdelend \DIFaddbegin \subsection
-                                         {\DIFadd{Metrics, infinite interval...] (./tab_benchmarks.tex
-Overfull \hbox (1.2961pt too wide) in paragraph at lines 8--31
- [][] 
-) [27
+l.692 
+      ] [27
 pdfTeX warning (ext4): destination with the same identifier (name{table.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.741 }
-       
+l.733 }
+       \DIFaddend
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.741 }
-        <./fig9_escalera_diagnostico.pdf>] (./tab_cota_alpha.tex) [28
+l.733 }
+       \DIFaddend <./fig9_escalera_diagnostico.pdf>] (./tab_benchmarks.tex
+Overfull \hbox (1.2961pt too wide) in paragraph at lines 8--31
+ [][] 
+) [28
 pdfTeX warning (ext4): destination with the same identifier (name{table.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.756 
+l.745 
       
 pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.756 
-       <./fig8_ablations.pdf>] (./tab_panel.tex) [29
+l.745 
+       <./fig8_ablations.pdf>] (./tab_cota_alpha.tex) (./tab_panel.tex) [29
 pdfTeX warning (ext4): destination with the same identifier (name{table.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.775 }
-       ] (./tab_sensibilidad_frontera.tex) (./tab_sensibilidad_hiper.tex) [30
+l.764 
+      ] [30
 pdfTeX warning (ext4): destination with the same identifier (name{table.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.791 ...age. }\DIFdelend \DIFaddbegin \subsection
-                                                  {\DIFadd{What the diagnost...
+l.776 
+      
 pdfTeX warning (ext4): destination with the same identifier (name{table.11}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.791 ...age. }\DIFdelend \DIFaddbegin \subsection
-                                                  {\DIFadd{What the diagnost...] [31
+l.776 
+      ] (./tab_sensibilidad_frontera.tex) (./tab_sensibilidad_hiper.tex) [31
 pdfTeX warning (ext4): destination with the same identifier (name{table.12}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.805 ...s a portfolio of assets actually needs. }
-                                                  \DIFdelend \DIFaddbegin \D...] [32
+l.798 
+      ] [32
 pdfTeX warning (ext4): destination with the same identifier (name{table.13}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.814 
+l.806 
       ] [33] [34] [35] [36] (./hiperparametros.tex
 Underfull \hbox (badness 4686) in paragraph at lines 28--29
 []|\T1/txr/m/n/8 mwh_t, mwh_lag1, mwh_lag7, mwh_lag14, ma7_t,
@@ -418,42 +418,42 @@ Underfull \hbox (badness 10000) in paragraph at lines 46--46
 Underfull \hbox (badness 10000) in paragraph at lines 46--47
 []|\T1/txr/m/n/8 q_reg(u) = (1-lambda(u)) q_old(u) + lambda(u)
 
-Underfull \hbox (badness 1226) in paragraph at lines 46--47
-\T1/txr/m/n/8 q_new_bag(u); lambda   1 where the map is sta-ble
+Underfull \hbox (badness 1178) in paragraph at lines 46--47
+\T1/txr/m/n/8 q_new_bag(u); lambda $\OMS/txsy/m/n/8 ^^X$ \T1/txr/m/n/8 1 where the map is sta-ble
 
 Underfull \hbox (badness 10000) in paragraph at lines 51--51
 []|\T1/txr/m/n/8 alpha_{t+1} = al-pha_t +
-[37] [38])
-Underfull \hbox (badness 1014) in paragraph at lines 951--955
+[37] [38]) [39]
+Underfull \hbox (badness 1014) in paragraph at lines 948--952
 []\T1/txr/m/n/10 M. Joos, I. Staffell, Short-term in-te-gra-tion costs of vari-able re-new-able en-ergy: wind cur-tail-ment and
 
-Underfull \hbox (badness 3000) in paragraph at lines 951--955
+Underfull \hbox (badness 3000) in paragraph at lines 948--952
 \T1/txr/m/n/10 bal-anc-ing in Britain and Ger-many, Re-new-able and Sus-tain-able En-ergy Re-views 86 (2018) 45--65.
-[39]
-Underfull \hbox (badness 2735) in paragraph at lines 993--997
+
+Underfull \hbox (badness 2735) in paragraph at lines 990--994
 []\T1/txr/m/n/10 B. Wang, M. Zhou, B. Xin, X. Zhao, J. Watada, Anal-y-sis of op-er-a-tion cost and wind cur-tail-
 
-Underfull \hbox (badness 1371) in paragraph at lines 1023--1027
+Underfull \hbox (badness 1371) in paragraph at lines 1020--1024
 \T1/txr/m/n/10 ing al-go-rithm, IEEE Trans-ac-tions on Power Ap-pa-ra-tus and Sys-tems PAS-102 (6) (1983) 1858--1864.
-
-Underfull \hbox (badness 2326) in paragraph at lines 1065--1069
+[40]
+Underfull \hbox (badness 2326) in paragraph at lines 1062--1066
 []\T1/txr/m/n/10 X. Lei, Z. Yang, J. Yu, J. Zhao, Q. Gao, H. Yu, Data-driven op-ti-mal power flow: a physics-
 
-Underfull \hbox (badness 1668) in paragraph at lines 1065--1069
+Underfull \hbox (badness 1668) in paragraph at lines 1062--1066
 \T1/txr/m/n/10 informed ma-chine learn-ing ap-proach, IEEE Trans-ac-tions on Power Sys-tems 36 (1) (2021) 346--354.
-[40]
-Underfull \hbox (badness 3354) in paragraph at lines 1083--1087
+
+Underfull \hbox (badness 3354) in paragraph at lines 1080--1084
 []\T1/txr/m/n/10 K. Ma-ciejowska, J. Nowotarski, R. Weron, Prob-a-bilis-tic fore-cast-ing of elec-tric-ity spot prices us-
 
-Underfull \hbox (badness 1406) in paragraph at lines 1083--1087
+Underfull \hbox (badness 1406) in paragraph at lines 1080--1084
 \T1/txr/m/n/10 ing fac-tor quan-tile re-gres-sion av-er-ag-ing, In-ter-na-tional Jour-nal of Fore-cast-ing 32 (3) (2016) 957--965.
 [41]
-Underfull \hbox (badness 2689) in paragraph at lines 1188--1191
+Underfull \hbox (badness 2689) in paragraph at lines 1185--1188
 []\T1/txr/m/n/10 P. Reyes Cerda, K. Cea Morales, An errata-corrected, plant-level dataset of so-lar, wind and hy-
 
-Underfull \hbox (badness 1655) in paragraph at lines 1188--1191
+Underfull \hbox (badness 1655) in paragraph at lines 1185--1188
 \T1/txr/m/n/10 dropower cur-tail-ment in Chile's Na-tional Elec-tric-ity Sys-tem (2022--2026) [Data set], Zen-odo (2026).
 [42] (./marcado.aux) )
 (see the transcript file for additional information) </Users/pabloreyescerda/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk> </Users/pabloreyescerda/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/txfonts/txex.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/pabloreyescerda/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on marcado.pdf (42 pages, 790592 bytes).
+Output written on marcado.pdf (42 pages, 793674 bytes).
 Transcript written on marcado.log.
