@@ -49,7 +49,7 @@ A third point of disclosure concerns how much of the advantage of the multi-quan
 
 Two further points of disclosure. First, the hyperparameters $\gamma$ and the window length were not selected on real data in the submitted version; we have redone the selection by rolling origin inside the calibration window, as Reviewer~1 asked in comment~4, and it returns values an order of magnitude gentler than those we reported. Second, when we regenerated every descriptive claim of Section~3 from versioned scripts, six statements did not reproduce. None affects a result; all were descriptions of the dataset. They are corrected in the revised text and listed in Section~\ref{sec:correcciones} of this letter.
 
-We respond to each of the fifteen comments below. Reviewer comments are quoted verbatim in grey, followed by the action taken and its exact location in the revised manuscript.
+We respond below to each of the twelve numbered comments of the two reviewers, to the Editor's note and to the structured questions. Reviewer comments are quoted verbatim in grey, followed by the action taken and its exact location in the revised manuscript.
 
 \bigskip
 Yours sincerely,\\
@@ -74,7 +74,9 @@ R2.4 & Explicit statement of what is new and what is taken from the literature &
 R2.5 & ICC and design effect quantified; block, group and plant-level conformal tested; coverage disaggregated on four axes & \S4.3, \S5.7, Table~11 \\
 R2.6 & Empirical quantiles, CQR, rolling historical distributions and zero-inflated parametric benchmarks; six metrics reported & \S5.6, Table~9 \\
 R2.7 & Point-forecasting claim scoped; three guarantee regimes separated in abstract, \S4.3 and conclusion & abstract, \S4.3, \S5.1, \S8 \\
-Q4 & Four new figures & Figs.~4, 7, 8 and 9 \\
+Q3 & Rolling-origin selection; one-sided interval score with an explicit convention for infinite bounds; day-block bootstrap intervals for the differences between methods & \S4.7, \S4.8, Tables~8--9 \\
+Q5 & Paper reframed around the diagnostic; conclusions restricted to what the data support & abstract, \S1, \S5.3, \S6.1, \S8 \\
+Q4 & Five new figures and twelve new tables & Figs.~3, 4, 7, 8 and 9; Tables~1, 4--13 and C.14 \\
 Q7 & Dedicated limitations section with ten items & \S7 \\
 Q8, Q9 & Restructuring and language editing throughout & whole manuscript \\
 Editorial & Title shortened from 26 to 14 words, country removed, system moved to abstract & title, abstract \\
@@ -419,11 +421,11 @@ The abstract states that distinction in its third sentence from the end, Section
 
 \subsection*{Q4 --- Additional tables or figures (both reviewers: Yes)}
 
-\action{Four figures added: Figure~4, the algorithm flowchart (requested in R1.2); Figure~7, the model-agnosticism result and the diagnostic relationship; Figure~8, the capacity ladder and the diagnostic over the forty cells; Figure~9, the marginal contribution of each component with bootstrap intervals. Ten new tables: the three base models compared, the fifteen-cell diagnostic, the capacity ladder, the forty-cell diagnostic, the ablations, the benchmarks, the $\alpha$ bound, the panel-dependence schemes with their disaggregated coverage, the boundary sensitivity, and the complete hyperparameter specification. No existing figure was removed.}
+\action{Five figures added: Figure~3, the change points of the distributional shift under the stated penalty (R2.3); Figure~4, the algorithm flowchart (requested in R1.2); Figure~7, the model-agnosticism result and the diagnostic relationship; Figure~8, the capacity ladder and the diagnostic over the forty cells; Figure~9, the marginal contribution of each component with bootstrap intervals. Twelve new tables: the seasonal decomposition of the shift, the three base models compared, the fifteen-cell diagnostic, the forty-cell diagnostic, the capacity ladder, the ablations, the benchmarks, the $\alpha$ bound, the panel-dependence schemes with their disaggregated coverage, the boundary sensitivity, the $\gamma\times$window sensitivity, and the complete hyperparameter specification. No existing figure was removed.}
 
 \subsection*{Q7 --- Limitations (both reviewers: No)}
 
-\action{Section~7 is new and dedicated, with ten items: the scope of the point-forecasting conclusion; the failure of exchangeability and the effective sample size; the fact that the diagnostic rests on forty cells from eight predictives that span only two model families, three hurdle variants and five budget variants of one quantile family, on a single dataset; the boundaries of the multi-quantile predictive, including its quantile ceiling and its coarse occurrence probability; that differences of one to three coverage points lie within the clustered standard error; the shortness of the inner validation set; that the causes of the distributional change are not identified and cannot be with this dataset; the six descriptive statements corrected in this revision; and that the dataset records curtailment only, with no network state, dispatch, price or storage operation.}
+\action{Section~7 is new and dedicated, with ten items: the scope of the point-forecasting conclusion; the failure of exchangeability and the effective sample size; the fact that the diagnostic rests on forty cells from eight predictives that span only two model families, three hurdle variants and five budget variants of one quantile family, on a single dataset; that the separation of model form from fitted capacity rests on one panel and two model families, and that our base model is not the best hurdle available, so its levels carry a discount; the boundaries of the multi-quantile predictive, including its quantile ceiling and its coarse occurrence probability; that differences of one to three coverage points lie within the clustered standard error; the shortness of the inner validation set; that the causes of the distributional change are not identified and cannot be with this dataset; the six descriptive statements corrected in this revision; and that the dataset records curtailment only, with no network state, dispatch, price or storage operation.}
 
 \subsection*{Q8 and Q9 --- Structure, flow and language (both reviewers: Yes)}
 

@@ -1396,3 +1396,18 @@ rango de sobre-cobertura de las quince celdas, [-2.06, +5.34], de
 `fase0_diagnostico.csv`; las 2,000 replicas y la semilla, de
 `fase0b_diagnostico.json`. Chequeo nuevo del rango en la prosa de 5.3.
 
+### B8. Cuadro resumen de la carta
+
+- "We respond to each of the fifteen comments" pasa a los twelve comentarios
+  numerados, mas la nota editorial y las preguntas estructuradas. El 12 se
+  cuenta sobre `revision/informe_revisores_SEGAN-D-26-03850.md`.
+- Q4 decia cuatro figuras y diez tablas nuevas; contra la version enviada (tag
+  submitted-segan-v1: cuatro figuras, dos tablas) son five figuras, porque la
+  Figura 3 tambien es nueva, y twelve tablas: la Tabla 1, las 4 a 13 y la C.14.
+  El cuerpo y la fila del cuadro resumen dicen ahora eso; los dos conteos se
+  calculan sobre los dos .tex al insertar.
+- Q7: la Seccion 7 tiene ten items y la carta enumeraba nueve; se agrega el
+  que faltaba, la separacion de forma y capacidad con el descuento del hurdle.
+- Filas nuevas para Q3 y Q5 en el cuadro resumen, que tenian respuesta en el
+  cuerpo y no tenian ubicacion.
+
