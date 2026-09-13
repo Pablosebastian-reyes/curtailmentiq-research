@@ -41,7 +41,8 @@ tab_benchmarks.tex           Table 9
 tab_cota_alpha.tex           Table 10
 tab_panel.tex                Table 11
 tab_sensibilidad_frontera.tex Table 12
-hiperparametros.tex          Table C.13, appendix (a longtable, so it
+tab_sensibilidad_hiper.tex   Table 13
+hiperparametros.tex          Table C.14, appendix (a longtable, so it
                              breaks across pages instead of losing rows)
 
 fig1_plants_map.pdf          Figure 1

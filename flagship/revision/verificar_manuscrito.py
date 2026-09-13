@@ -324,6 +324,26 @@ def main():
         34 <= g5.min() < 35 and 41 <= g5.max() < 42
         and en_tex('between 34 and 42 per cent'), 'fase3_seleccion_validacion.csv')
 
+    # 5.8: la rejilla gamma x ventana sobre el test (R1.4), exhibicion posterior
+    # a la seleccion. Lo que la prosa afirma de ella se arma desde el CSV.
+    st = pd.read_csv(RES / 'fase3' / 'fase3_sensibilidad_test.csv')
+    tg = st[st.metodo == 'Transporte+ACI']
+    cmin, cmax = tg.cobertura.min(), tg.cobertura.max()
+    i20 = tg[np.isclose(tg.gamma, 0.2)].pct_infinito
+    cero = bool((st[st.gamma <= 0.01].pct_infinito == 0).all())
+    chk('5.8', 'rejilla gamma x ventana: cobertura del transporte en toda la rejilla',
+        f'{cmin:.1f} a {cmax:.1f}', f'{cmin:.2f} a {cmax:.2f} en {len(tg)} celdas',
+        en_tex(f'between {cmin:.1f} and {cmax:.1f} per cent over all '
+               f'{palabra(len(tg))} configurations'),
+        'fase3_sensibilidad_test.csv')
+    chk('5.8', 'rejilla gamma x ventana: intervalos infinitos',
+        f'ninguno a gamma <= 0.01; {i20.min():.1f} a {i20.max():.1f} a gamma = 0.20',
+        f'ninguno: {cero}; {i20.min():.2f} a {i20.max():.2f}',
+        cero and en_tex('none at $\\gamma\\le 0.01$',
+                        f'between {i20.min():.1f} and {i20.max():.1f} per cent '
+                        f'at $\\gamma=0.20$'),
+        'fase3_sensibilidad_test.csv')
+
     # ---------------- Fase 6: cronologia ----------------
     v6 = pd.read_csv(RES / 'fase6' / 'fase6_verificacion_afirmaciones.csv')
     sn = pd.read_csv(RES / 'fase6' / 'fase6_sensibilidad_puntos_de_cambio.csv')

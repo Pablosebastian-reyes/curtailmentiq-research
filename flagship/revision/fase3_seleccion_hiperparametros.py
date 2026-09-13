@@ -97,7 +97,8 @@ def evaluar(h, pred, s_cal, ini, fin, gamma, ventana, rng_seed,
     p_sub = pred.sub(idx)
     y, f = sub.y_real.values, sub.fecha.values
     fechas = np.sort(sub.fecha.unique())
-    rng = np.random.default_rng(rng_seed)
+    rng = (rng_seed if isinstance(rng_seed, np.random.Generator)
+           else np.random.default_rng(rng_seed))
     if metodo == 'aci':
         U, _, _ = R.aci(p_sub, s_cal, y, f, fechas, gamma)
     else:
@@ -193,12 +194,36 @@ def main():
         r = evaluar(h, pred, s_cal, R.CAL_FIN, pd.Timestamp('2026-06-01'), g, 60,
                     R.SEED_CONFORMAL, metodo='aci')
         filas.append(dict(metodo='ACI', gamma=g, ventana=np.nan, **r))
+    # Las dos celdas que son configuraciones de la version enviada (gamma 0.02
+    # y 0.05 con ventana de 60 dias) se evaluan en el orden canonico: el mismo
+    # generador que aleatorizo el score, primero 0.02 y despues 0.05, como en
+    # H7. Con un generador fresco por celda la de 0.05 daba 593.4 / 6.1% /
+    # 1028.2 y contradecia a la Tabla 9. El resto de la rejilla, que no tiene
+    # contraparte en otra tabla, conserva el generador fresco por celda de la
+    # seleccion; la celda elegida (0.005, 120 dias) coincide asi con la fila de
+    # la configuracion seleccionada de la Tabla 9, que usa el mismo protocolo.
+    rng_canon = np.random.default_rng(R.SEED_CONFORMAL)
+    pred.cdf(h.y_real.values, rng_canon)            # sorteos del score
+    CANON = {(0.02, 60), (0.05, 60)}
     for g in GAMMAS:
         for v in VENTANAS:
             r = evaluar(h, pred, s_cal, R.CAL_FIN, pd.Timestamp('2026-06-01'), g, v,
-                        R.SEED_CONFORMAL, metodo='transporte')
+                        rng_canon if (g, v) in CANON else R.SEED_CONFORMAL,
+                        metodo='transporte')
             filas.append(dict(metodo='Transporte+ACI', gamma=g, ventana=v, **r))
     sen = pd.DataFrame(filas)
+    ref = pd.read_csv(R.REPO / 'resultados' / 'fase4' / 'fase4_metricas_completas.csv')
+    ref = ref[ref.periodo == 'TEST_COMPLETO'].set_index('metodo')
+    for g, v, met in ((0.02, 60, 'Transporte+ACI (g=0.02)'),
+                      (0.05, 60, 'Transporte+ACI (g=0.05)'),
+                      (0.005, 120, 'Transporte+ACI (g=0.005, v=120, Fase 3)')):
+        a = sen[(sen.metodo == 'Transporte+ACI') & (sen.gamma == g) & (sen.ventana == v)].iloc[0]
+        b = ref.loc[met]
+        dif = max(abs(a.ancho - b.ancho_medio), abs(a.cobertura - b.cobertura),
+                  abs(a.pct_infinito - b.pct_infinito), abs(a.IS_finitos - b.IS_finitos))
+        if dif > 0.06:
+            raise SystemExit(f'la celda ({g}, {v}) no reproduce la Tabla 9 ({met}): '
+                             f'desvio {dif:.2f}')
     sen.to_csv(SAL / 'fase3_sensibilidad_test.csv', index=False)
 
     print('\nACI, por gamma (test completo):')

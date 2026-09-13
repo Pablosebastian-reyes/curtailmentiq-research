@@ -39,6 +39,8 @@ Tabla 5,ajuste sobre las quince celdas,"-0.755, -4.36, +5.45","-0.755, -4.36, +5
 5.6,mejor cobertura condicional (ACI puro),4.7 puntos,4.7,si,fase5_cobertura_desagregada.csv
 4.6,gamma y ventana seleccionados,"gamma 0.005, ventana 120 d","gamma 0.005, ventana 120 d",si,fase3_hiperparametros_elegidos.json
 4.6,infinitos en validacion con gamma 0.05,34 a 42 por ciento,34.3 a 41.7,si,fase3_seleccion_validacion.csv
+5.8,rejilla gamma x ventana: cobertura del transporte en toda la rejilla,89.9 a 90.1,89.90 a 90.07 en 30 celdas,si,fase3_sensibilidad_test.csv
+5.8,rejilla gamma x ventana: intervalos infinitos,ninguno a gamma <= 0.01; 21.9 a 23.0 a gamma = 0.20,ninguno: True; 21.88 a 23.01,si,fase3_sensibilidad_test.csv
 3.4,configuraciones de deteccion sin quiebre en 2025 ni oct-2024,"180, ninguna","180, 0 y 0",si,fase6_sensibilidad_puntos_de_cambio.csv
 4.7,rango de W1 de las demas ventanas,0.28 a 0.95,0.28 a 0.95,si,fase6_wasserstein.csv
 3.4,contraste oct-dic 2024 contra 2025 y su umbral,0.085 y 0.115,0.085 y 0.115,si,fase6_wasserstein.csv

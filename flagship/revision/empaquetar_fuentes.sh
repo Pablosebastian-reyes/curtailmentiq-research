@@ -22,7 +22,7 @@ cd "$REPO"
 
 TABLAS=(tab_ablaciones tab_benchmarks tab_cota_alpha tab_diag_ampliado
         tab_diagnostico tab_escalera tab_estacional tab_mae tab_model_agnostic
-        tab_panel tab_results tab_sensibilidad_frontera)
+        tab_panel tab_results tab_sensibilidad_frontera tab_sensibilidad_hiper)
 FIGURAS=(fig1_plants_map fig2_distribution fig3_rolling_coverage
          fig4_coverage_width fig5_regime_changepoints fig6_algorithm_flow
          fig7_model_agnostic fig8_ablations fig9_escalera_diagnostico)
@@ -83,14 +83,14 @@ nof=$(grep -ci "not found" pass3.log || true)
 flo=$(grep -c "Float too large for page" pass3.log || true)
 
 # Y la consecuencia, comprobada sobre el PDF y no sobre el .tex: las semillas
-# de la Tabla C.13 tienen que estar impresas. Es el contenido que se perdia.
+# de la Tabla C.14 tienen que estar impresas. Es el contenido que se perdia.
 # El texto se extrae UNA vez a un archivo y se busca ahi: con pipefail,
 # grep -q corta la tuberia, pdftotext recibe SIGPIPE y el pipeline devuelve
 # error aunque el valor este, lo que daba cuatro falsos negativos.
 pdftotext -layout SEGAN_paper_FINAL.pdf pdf.txt 2>/dev/null || true
 # Se buscan las ETIQUETAS y no los valores: "42" y "11" aparecen en otras
 # partes del texto, asi que buscar el valor desnudo no discrimina. Cada una de
-# estas cuatro solo existe en la Tabla C.13.
+# estas cuatro solo existe en la Tabla C.14.
 sem=0
 while IFS= read -r etq; do
   grep -qF "$etq" pdf.txt || sem=$((sem+1))
@@ -105,7 +105,7 @@ ETIQUETAS
 [ "$err" -eq 0 ] || { echo "FALLA: $err errores de LaTeX" >&2; fallas=1; }
 [ "$und" -eq 0 ] || { echo "FALLA: $und referencias o citas sin resolver" >&2; fallas=1; }
 [ "$nof" -eq 0 ] || { echo "FALLA: $nof archivos no encontrados (falta algo en el zip)" >&2; fallas=1; }
-[ "$sem" -eq 0 ] || { echo "FALLA: $sem semillas de la Tabla C.13 no se imprimen" >&2; fallas=1; }
+[ "$sem" -eq 0 ] || { echo "FALLA: $sem semillas de la Tabla C.14 no se imprimen" >&2; fallas=1; }
 if [ "$flo" -ne 0 ]; then
   echo "FALLA: $flo flotante(s) mas altos que la pagina; se pierden filas" >&2
   grep "Float too large for page" pass3.log | sed 's/^/       /' >&2
@@ -122,6 +122,6 @@ echo "  errores de LaTeX:      $err"
 echo "  refs/citas sin resolver: $und"
 echo "  archivos no hallados:  $nof"
 echo "  flotantes sobredimensionados: $flo"
-echo "  semillas C.13 sin imprimir:   $sem"
+echo "  semillas C.14 sin imprimir:   $sem"
 [ "$fallas" -eq 0 ] && echo "RESULTADO: el zip compila limpio en aislamiento" \
                     || { echo "RESULTADO: el zip NO esta completo o no compila" >&2; exit 1; }

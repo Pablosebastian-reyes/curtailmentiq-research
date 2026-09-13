@@ -1,0 +1,39 @@
+%% generado por flagship/revision/fase9_tablas_tex.py
+%% NO EDITAR A MANO: se regenera desde resultados/
+\begin{table*}[t]
+\centering
+\footnotesize
+\caption{Sensitivity of the adaptive schemes to the step $\gamma$ and to the length of the recent window, whole test period, September 2024 to May 2026. This table is a display produced after the selection of Section~\ref{sec:seleccion} was closed, never a criterion: the selection used only the inner validation set. Pure ACI has no window. Bold marks the configuration selected by rolling origin; the 60-day cells at $\gamma=0.02$ and $0.05$ are the configurations of the submitted version and coincide with Table~\ref{tab:benchmarks}. $^\dagger$The configuration produces infinite limits, so its unrestricted interval score is infinite. Generated from \texttt{resultados/fase3/fase3\_sensibilidad\_test.csv}.}
+\label{tab:sens_hiper}
+\begin{tabular}{lcccccc}
+\toprule
+ & ACI & \multicolumn{5}{c}{Transport+ACI, recent window (days)} \\
+\cmidrule(lr){3-7}
+$\gamma$ & & 30 & 45 & 60 & 90 & 120 \\
+\midrule
+\multicolumn{7}{l}{\emph{Coverage (\%)}} \\
+\quad 0.005 & \textbf{90.9} & 89.9 & 90.0 & 90.0 & 90.0 & \textbf{90.0} \\
+\quad 0.01 & 90.5 & 90.0 & 90.0 & 90.0 & 90.0 & 90.0 \\
+\quad 0.02 & 90.2 & 90.0 & 90.1 & 90.1 & 90.0 & 90.0 \\
+\quad 0.05 & 90.1 & 90.1 & 90.1 & 90.1 & 90.0 & 90.0 \\
+\quad 0.10 & 90.1 & 90.0 & 90.0 & 90.0 & 90.0 & 90.0 \\
+\quad 0.20 & 90.0 & 89.9 & 90.0 & 90.0 & 90.0 & 90.0 \\
+\addlinespace
+\multicolumn{7}{l}{\emph{Infinite intervals (\%)}} \\
+\quad 0.005 & \textbf{0.0} & 0.0 & 0.0 & 0.0 & 0.0 & \textbf{0.0} \\
+\quad 0.01 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+\quad 0.02 & 0.0 & 0.0 & 0.3 & 0.5 & 0.6 & 1.1 \\
+\quad 0.05 & 4.2 & 5.3 & 6.4 & 5.9 & 5.2 & 4.4 \\
+\quad 0.10 & 1.6 & 6.2 & 4.2 & 4.4 & 3.6 & 4.3 \\
+\quad 0.20 & 15.1 & 22.5 & 23.0 & 21.9 & 22.4 & 22.9 \\
+\addlinespace
+\multicolumn{7}{l}{\emph{Interval score over finite intervals (MWh)}} \\
+\quad 0.005 & \textbf{936} & 978 & 964 & 957 & 955 & \textbf{958} \\
+\quad 0.01 & 930 & 1005 & 994 & 982 & 971 & 970 \\
+\quad 0.02 & 936 & 1100 & 1113$^\dagger$ & 1078$^\dagger$ & 1054$^\dagger$ & 1029$^\dagger$ \\
+\quad 0.05 & 962$^\dagger$ & 1036$^\dagger$ & 1023$^\dagger$ & 1030$^\dagger$ & 1047$^\dagger$ & 1110$^\dagger$ \\
+\quad 0.10 & 983$^\dagger$ & 1097$^\dagger$ & 1006$^\dagger$ & 1022$^\dagger$ & 1020$^\dagger$ & 992$^\dagger$ \\
+\quad 0.20 & 1159$^\dagger$ & 1104$^\dagger$ & 1111$^\dagger$ & 1001$^\dagger$ & 1012$^\dagger$ & 1010$^\dagger$ \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -65,7 +65,7 @@ Comment & Change & Location \\
 R1.1 & Multi-quantile GBM base model implemented; all experiments repeated on eight base models spanning a capacity ladder; gain does not replicate; model form separated from fitted budget; paper reframed & \S4.1, \S5.3, \S5.4, Tables 4--7, Figs.~7--8, abstract, \S8 \\
 R1.2 & Algorithm in full, flowchart, complete hyperparameter table with seeds, execution order stated & \S4.5, Alg.~1, Fig.~4, App.~C \\
 R1.3 & Five ablation groups with marginal contribution, bootstrap intervals and runtime & \S5.5, Table~8, Fig.~9 \\
-R1.4 & Rolling-origin selection inside the calibration window; test reserved for one evaluation; sensitivity reported as display & \S4.7, \S5.8 \\
+R1.4 & Rolling-origin selection inside the calibration window; test reserved for one evaluation; sensitivity reported as display & \S4.7, \S5.8, Table~13 \\
 R1.5 & One-sided interval score adopted; infinite limits handled explicitly; $\alpha$ bound evaluated; four benchmarks added; all differences with day-block bootstrap & \S4.8, \S5.6, Tables 9--10 \\
 R2.1 & Bibliography expanded from 10 to 43 entries, every DOI verified, no grouped citations & \S2 \\
 R2.2 & \texttt{test\_ramp} renamed, footnote removed, storage mentions audited; rename verified to change labels only & \S4.8, \S5.2, Table~3, Figs.~5--6, code \\
@@ -172,7 +172,7 @@ Taking the seven items in the reviewer's order:
 \item \textbf{Execution order.} Stated explicitly and marked in the figure. On date $t$: (i) if a refresh is due, recompute the map from the window ending at $t-7$ and transport the whole calibration pool; (ii) take the conformal quantile from the transported pool at the \emph{current} $\alpha_t$, which does not yet include the error of day $t$; (iii) emit the interval; (iv) push the error of day $t$ onto the embargo queue, which updates $\alpha$ seven steps later. The map never uses the adaptive level and the adaptive update never uses the map; the only coupling is the pool.
 \end{itemize}
 
-\where{Section~4.5 gives the three items above that belong in the body. Algorithm~1 gives the full procedure in pseudocode. Figure~4 is the flowchart the reviewer asked for, with the execution order marked along the top and the two branches drawn separately so the coupling point is visible. Appendix~C, Table~C.13, is the complete hyperparameter specification including all four seeds. Appendix~D gives the environment and the command sequence.}
+\where{Section~4.5 gives the three items above that belong in the body. Algorithm~1 gives the full procedure in pseudocode. Figure~4 is the flowchart the reviewer asked for, with the execution order marked along the top and the two branches drawn separately so the coupling point is visible. Appendix~C, Table~C.14, is the complete hyperparameter specification including all four seeds. Appendix~D gives the environment and the command sequence.}
 
 \subsection*{R1.3 --- Ablations}
 
@@ -220,9 +220,9 @@ The rationale for selecting key hyperparameters and the model tuning procedure a
 
 The selection returns $\gamma=0.005$ for pure ACI and $\gamma=0.005$ with a 120-day window for the transported variant. Both are an order of magnitude gentler than what we reported. The difference is not cosmetic: at $\gamma=0.05$ between 34 and 42 per cent of validation intervals are infinite, whereas at the selected values none is.
 
-\textbf{Test set.} It is used once. The $6\times5$ sensitivity analysis the reviewer asks for is reported on the test set, but only as a display after the selection is closed, and the manuscript says so in those words at both places where it appears. It shows that coverage is flat in $\gamma$ (between 89.9 and 90.1 per cent across the whole grid for the transported variant) and that the fraction of infinite intervals is what varies, from zero at $\gamma\le0.01$ to 22 per cent at $\gamma=0.20$.
+\textbf{Test set.} It is used once. The $6\times5$ sensitivity analysis the reviewer asks for is reported on the test set, in Table~13 of Section~5.8, but only as a display after the selection is closed, and the manuscript says so in those words at both places where it appears, Sections~4.7 and 5.8. It shows that coverage is flat in $\gamma$ and in the window (between 89.9 and 90.1 per cent across the whole grid for the transported variant) and that the fraction of infinite intervals is what varies, from zero at $\gamma\le0.01$ to between 21.9 and 23.0 per cent at $\gamma=0.20$.
 
-\where{Section~4.7 is a new subsection giving the protocol and the outcome. Section~5.8 reports the boundary and chronology sensitivity. The selected configuration appears as its own block in Table~9 so that it can be compared with the values of the submitted version on equal terms. The grids, the criterion and the seed are in Appendix~C.}
+\where{Section~4.7 is a new subsection giving the protocol and the outcome. Section~5.8 reports the boundary and chronology sensitivity and, in Table~13, the $\gamma\times$window display. The selected configuration appears as its own block in Table~9 so that it can be compared with the values of the submitted version on equal terms. The grids, the criterion and the seed are in Appendix~C.}
 
 \subsection*{R1.5 --- Metrics for one-sided limits and the treatment of infinite bounds}
 
@@ -344,7 +344,7 @@ Second, the experiment was reproduced independently from a clean clone, in an en
 
 We then report, in the same subsection, how each fares under ablation, and the two answers differ. The combination does not survive: with the online update in place, adding the transport worsens the interval score by 74.2~MWh over the whole test, with an interval excluding zero. The device does survive its ablation but not its price: the shrinkage improves the score by 6.5~MWh, with a bootstrap interval that also excludes zero, which is six tenths of one per cent of the score for ninety-two per cent of the runtime. We regard stating that plainly as more useful than the novelty claim it replaces, and it is what the reframing of the paper is built on.
 
-\where{Section~4.6, attribution and novelty. Algorithm~1 and Figure~4, the complete procedure. Appendix~C, Table~C.13, every parameter and all four seeds (42 for base-model training, 20260720 for the PIT atom randomisation and the transport bootstrap, 11 for the CRPS sampling, 20260901 for the day-block bootstrap and permutation nulls). Appendix~D, environment and commands. Section~5.5, the ablations.}
+\where{Section~4.6, attribution and novelty. Algorithm~1 and Figure~4, the complete procedure. Appendix~C, Table~C.14, every parameter and all four seeds (42 for base-model training, 20260720 for the PIT atom randomisation and the transport bootstrap, 11 for the CRPS sampling, 20260901 for the day-block bootstrap and permutation nulls). Appendix~D, environment and commands. Section~5.5, the ablations.}
 
 \subsection*{R2.5 --- Conformal validity under panel dependence}
 

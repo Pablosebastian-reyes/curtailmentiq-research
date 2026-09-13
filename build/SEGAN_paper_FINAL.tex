@@ -324,7 +324,7 @@ The submitted version reported the adaptive methods at $\gamma\in\{0.02,0.05\}$ 
 
 Base-model predictions exist only from 1 January 2024, since the base models are trained through 2023, so the only material available before the test period is the 244-day calibration window. We split it: January to April 2024 becomes an inner calibration pool and May to August 2024 an inner validation set, evaluated in rolling origin with the same seven-day refresh and seven-day embargo as the real protocol. The selection criterion is the mean interval score of Section~\ref{sec:evaluacion}, which is proper, is in MWh, and takes the value $+\infty$ if the configuration produces any infinite interval, so that a configuration escaping into uninformative intervals is disqualified by the criterion itself rather than by an ad hoc rule. The grids are $\gamma\in\{0.005,0.01,0.02,0.05,0.10,0.20\}$ and window lengths $\{30,45,60,90,120\}$ days.
 
-The selection returns $\gamma=0.005$ for pure adaptive conformal inference and $\gamma=0.005$ with a 120-day window for the transported variant. Both are an order of magnitude gentler than the values reported in the submitted version, and both produce no infinite intervals at all in validation, whereas at $\gamma=0.05$ between 34 and 42 per cent of validation intervals are infinite. The test set was not used in the selection and is used once, for the final evaluation. Sensitivity over the full $6\times5$ grid is reported on the test set in Section~\ref{sec:results} as a display, never as a criterion, and we say so there.
+The selection returns $\gamma=0.005$ for pure adaptive conformal inference and $\gamma=0.005$ with a 120-day window for the transported variant. Both are an order of magnitude gentler than the values reported in the submitted version, and both produce no infinite intervals at all in validation, whereas at $\gamma=0.05$ between 34 and 42 per cent of validation intervals are infinite. The test set was not used in the selection and is used once, for the final evaluation. Sensitivity over the full $6\times5$ grid is reported on the test set in Section~\ref{sec:frontera}, Table~\ref{tab:sens_hiper}, as a display, never as a criterion, and we say so there.
 
 \subsection{Evaluation}
 \label{sec:evaluacion}
@@ -506,7 +506,7 @@ We tested three families of remedy, and report what each one actually buys. Tabl
 
 One conditional result deserves emphasis because it runs against the interest of the method. On high-curtailment days, defined by the calibration-window ninetieth percentile of system-level daily curtailment and covering 254 of the 638 test days, the static split covers at 91.9 per cent while Transport+ACI covers at 86.7 per cent. The economically important days are exactly where the adaptive scheme under-covers most, and a portfolio owner sizing an exposure on the largest days would be worse served by it than by the static split. Adaptive conformal inference sits between the two at 88.3 per cent.
 
-\subsection{Sensitivity to the window boundary and to the change-point dates}
+\subsection{Sensitivity to the window boundary, the change-point dates and the calibration hyperparameters}
 \label{sec:frontera}
 
 The transition window is defined by a measurable criterion, but the criterion still has to be applied to some boundary, and one might ask whether the results are an artefact of that choice. Table~\ref{tab:frontera} re-evaluates the three representative methods on six alternative definitions of the window, ranging from two months to seven. The Wasserstein-1 divergence from the calibration distribution varies from 0.99 to 1.34 across them, and the ordering of the methods is unchanged in every case: the static split over-covers by four to five points, adaptive conformal inference sits between, and the transported variant comes closest to nominal while carrying the worst interval score in four of the six. The narrower the window is drawn around October and November 2024, the larger the divergence and the larger the apparent gain, which is the same relationship established in Section~\ref{sec:agnostic}, here traced in the boundary rather than across base models.
@@ -514,6 +514,10 @@ The transition window is defined by a measurable criterion, but the criterion st
 \input{tab_sensibilidad_frontera}
 
 The chronology itself is likewise insensitive to the analyst's choices, as reported in Section~\ref{sec:regime}: across 180 detection configurations, none returns a break in 2025 and none returns one in October 2024. The two dates that do appear, May 2023 and January 2024, are returned by both algorithms under the default penalty and are the two most frequent across the whole sensitivity grid.
+
+\paragraph{Calibration hyperparameters.} The selection of Section~\ref{sec:seleccion} used only the inner validation set and was closed before the test set was touched. Table~\ref{tab:sens_hiper} reports the full $6\times5$ grid on the test set, as a display, never as a criterion. For the transported variant coverage is flat in $\gamma$ and in the window, between 89.9 and 90.1 per cent over all thirty configurations, and what varies is the fraction of infinite intervals: none at $\gamma\le 0.01$, and between 21.9 and 23.0 per cent at $\gamma=0.20$.
+
+\input{tab_sensibilidad_hiper}
 
 %==================================================================
 \section{Discussion}

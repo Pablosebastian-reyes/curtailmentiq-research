@@ -92,7 +92,7 @@ Leyenda de estado: `hecho` / `en curso` / `pendiente` / `refutado`.
 | Tabla 12, sensibilidad de la frontera | `resultados/fase6/fase6_sensibilidad_frontera.csv` | `fase6_cronologia.py` |
 | Tabla 7, escalera de capacidad | `resultados/verificacion/obj1_capacidad.csv`, `obj1b_escalera.csv` | `verificacion/obj1_capacidad_contra_forma.py`, `obj1b_escalera_capacidad.py` |
 | Tabla 6, diagnostico sobre cuarenta celdas | `resultados/fase0b/fase0b_diagnostico.json` | `fase0b_diagnostico_ampliado.py` |
-| Tabla C.13, hiperparametros (apendice C) | `resultados/fase1/hiperparametros.csv` | `fase1_hiperparametros.py` |
+| Tabla C.14, hiperparametros (apendice C) | `resultados/fase1/hiperparametros.csv` | `fase1_hiperparametros.py` |
 | Fig. 1 mapa, Fig. 2 distribucion | `release/v1.0/` | `generar_figuras_paper.py` |
 | Fig. 3 puntos de cambio | `resultados/fase6/fase6_serie_mensual_*.csv` | `generar_figuras_paper.py` |
 | Fig. 4 diagrama de flujo | (esquematica) | `fase9_figuras_revision.py` |

@@ -588,6 +588,62 @@ def tabla_diagnostico_ampliado():
                 '\\texttt{resultados/fase0b/fase0b\\_diagnostico.json}.',
         label='tab:diag_ampliado')
 
+
+# ---------------------------------------------------------------- tabla 13
+def tabla_sensibilidad_hiper():
+    """Rejilla gamma x ventana sobre el test (R1.4). Exhibicion posterior a la
+    seleccion de la Fase 3, nunca criterio: la seleccion uso solo la validacion
+    interna. Sale de fase3_sensibilidad_test.csv, que ningun .tex usaba."""
+    import json
+    s = pd.read_csv(RES / 'fase3' / 'fase3_sensibilidad_test.csv')
+    el = json.load(open(RES / 'fase3' / 'fase3_hiperparametros_elegidos.json'))['elegidos']
+    ga = el['ACI']['gamma']
+    gt, vt = el['Transporte+ACI']['gamma'], el['Transporte+ACI']['ventana']
+    aci = s[s.metodo == 'ACI'].set_index('gamma')
+    tra = s[s.metodo == 'Transporte+ACI']
+    gammas = sorted(s.gamma.unique())
+    ventanas = sorted(int(v) for v in tra.ventana.dropna().unique())
+    etg = lambda g: f'{g:.3f}' if g < 0.01 else f'{g:.2f}'
+
+    def cel(r, campo, fmt, sel):
+        v = format(r[campo], fmt)
+        if campo == 'IS_finitos' and r.pct_infinito > 0:
+            v += '$^\\dagger$'
+        return f'\\textbf{{{v}}}' if sel else v
+
+    L = []
+    for campo, fmt, titulo in (('cobertura', '.1f', 'Coverage (\\%)'),
+                               ('pct_infinito', '.1f', 'Infinite intervals (\\%)'),
+                               ('IS_finitos', '.0f',
+                                'Interval score over finite intervals (MWh)')):
+        L.append(f'\\multicolumn{{{2 + len(ventanas)}}}{{l}}{{\\emph{{{titulo}}}}} \\\\')
+        for g in gammas:
+            fila = [f'\\quad {etg(g)}', cel(aci.loc[g], campo, fmt, g == ga)]
+            for v in ventanas:
+                r = tra[(tra.gamma == g) & (tra.ventana == v)].iloc[0]
+                fila.append(cel(r, campo, fmt, g == gt and v == vt))
+            L.append(' & '.join(fila) + ' \\\\')
+        L.append('\\addlinespace')
+    escribir(
+        'tab_sensibilidad_hiper', L[:-1], col='l' + 'c' * (1 + len(ventanas)),
+        encabezado=(f' & ACI & \\multicolumn{{{len(ventanas)}}}{{c}}'
+                    f'{{Transport+ACI, recent window (days)}} \\\\\n'
+                    f'\\cmidrule(lr){{3-{2 + len(ventanas)}}}\n'
+                    '$\\gamma$ & & ' + ' & '.join(str(v) for v in ventanas) + ' \\\\'),
+        caption=('Sensitivity of the adaptive schemes to the step $\\gamma$ and to the '
+                 'length of the recent window, whole test period, September 2024 to '
+                 'May 2026. This table is a display produced after the selection of '
+                 'Section~\\ref{sec:seleccion} was closed, never a criterion: the '
+                 'selection used only the inner validation set. Pure ACI has no window. '
+                 'Bold marks the configuration selected by rolling origin; the 60-day '
+                 'cells at $\\gamma=0.02$ and $0.05$ are the configurations of the '
+                 'submitted version and coincide with Table~\\ref{tab:benchmarks}. '
+                 '$^\\dagger$The configuration produces infinite limits, so its '
+                 'unrestricted interval score is infinite. Generated from '
+                 '\\texttt{resultados/fase3/fase3\\_sensibilidad\\_test.csv}.'),
+        label='tab:sens_hiper')
+
+
 if __name__ == '__main__':
     print('Cuerpos de tabla generados desde resultados/:')
     tabla_model_agnostic()
@@ -602,4 +658,5 @@ if __name__ == '__main__':
     tabla_mae()
     tabla_escalera()
     tabla_diagnostico_ampliado()
+    tabla_sensibilidad_hiper()
     print(f'en {OUT}')

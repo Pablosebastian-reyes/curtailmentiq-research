@@ -1,0 +1,99 @@
+============================================================================================
+FASE 3 - SELECCION DE HIPERPARAMETROS POR ORIGEN RODANTE (R1.4)
+calibracion interna [2024-01-01, 2024-05-01)
+validacion  interna [2024-05-01, 2024-09-01)
+El conjunto de test (>= 2024-09-01) NO se usa en la seleccion.
+============================================================================================
+pool de calibracion interna: 12,956 scores
+  ACI            gamma=0.005  IS=    463.5  cob=87.86%  ancho=281.2  inf=0.0%
+  ACI            gamma=0.01   IS=    478.0  cob=88.52%  ancho=311.6  inf=0.0%
+  ACI            gamma=0.02   IS=    533.7  cob=89.61%  ancho=386.4  inf=0.0%
+  ACI            gamma=0.05   IS=      inf  cob=90.79%  ancho=686.7  inf=30.17%
+  ACI            gamma=0.1    IS=      inf  cob=90.94%  ancho=282.7  inf=36.67%
+  ACI            gamma=0.2    IS=      inf  cob=90.62%  ancho=249.1  inf=34.99%
+  Transporte+ACI gamma=0.005  ventana=30   IS=    542.3  cob=89.07%  ancho=387.9  inf=0.0%
+  Transporte+ACI gamma=0.005  ventana=45   IS=    530.0  cob=89.78%  ancho=392.2  inf=0.0%
+  Transporte+ACI gamma=0.005  ventana=60   IS=    553.6  cob=89.65%  ancho=411.9  inf=0.0%
+  Transporte+ACI gamma=0.005  ventana=90   IS=    514.6  cob=89.05%  ancho=360.8  inf=0.0%
+  Transporte+ACI gamma=0.005  ventana=120  IS=    495.3  cob=88.74%  ancho=333.8  inf=0.0%
+  Transporte+ACI gamma=0.01   ventana=30   IS=    601.7  cob=89.44%  ancho=455.7  inf=0.0%
+  Transporte+ACI gamma=0.01   ventana=45   IS=    576.3  cob=90.06%  ancho=444.2  inf=0.0%
+  Transporte+ACI gamma=0.01   ventana=60   IS=    590.4  cob=90.12%  ancho=456.9  inf=0.0%
+  Transporte+ACI gamma=0.01   ventana=90   IS=    536.4  cob=89.63%  ancho=392.9  inf=0.0%
+  Transporte+ACI gamma=0.01   ventana=120  IS=    518.8  cob=89.27%  ancho=369.5  inf=0.0%
+  Transporte+ACI gamma=0.02   ventana=30   IS=      inf  cob=89.93%  ancho=674.0  inf=11.29%
+  Transporte+ACI gamma=0.02   ventana=45   IS=      inf  cob=90.51%  ancho=696.0  inf=8.02%
+  Transporte+ACI gamma=0.02   ventana=60   IS=      inf  cob=90.62%  ancho=653.4  inf=5.61%
+  Transporte+ACI gamma=0.02   ventana=90   IS=      inf  cob=90.49%  ancho=595.7  inf=0.8%
+  Transporte+ACI gamma=0.02   ventana=120  IS=      inf  cob=90.15%  ancho=563.1  inf=1.6%
+  Transporte+ACI gamma=0.05   ventana=30   IS=      inf  cob=90.57%  ancho=484.0  inf=41.66%
+  Transporte+ACI gamma=0.05   ventana=45   IS=      inf  cob=90.69%  ancho=571.1  inf=39.2%
+  Transporte+ACI gamma=0.05   ventana=60   IS=      inf  cob=90.84%  ancho=685.9  inf=36.74%
+  Transporte+ACI gamma=0.05   ventana=90   IS=      inf  cob=91.09%  ancho=588.6  inf=34.27%
+  Transporte+ACI gamma=0.05   ventana=120  IS=      inf  cob=90.98%  ancho=408.4  inf=35.09%
+  Transporte+ACI gamma=0.1    ventana=30   IS=      inf  cob=91.20%  ancho=358.4  inf=34.16%
+  Transporte+ACI gamma=0.1    ventana=45   IS=      inf  cob=91.44%  ancho=505.9  inf=35.83%
+  Transporte+ACI gamma=0.1    ventana=60   IS=      inf  cob=91.34%  ancho=433.0  inf=39.97%
+  Transporte+ACI gamma=0.1    ventana=90   IS=      inf  cob=91.45%  ancho=319.8  inf=37.5%
+  Transporte+ACI gamma=0.1    ventana=120  IS=      inf  cob=91.28%  ancho=282.1  inf=37.5%
+  Transporte+ACI gamma=0.2    ventana=30   IS=      inf  cob=90.74%  ancho=336.7  inf=34.97%
+  Transporte+ACI gamma=0.2    ventana=45   IS=      inf  cob=90.90%  ancho=320.8  inf=26.68%
+  Transporte+ACI gamma=0.2    ventana=60   IS=      inf  cob=90.87%  ancho=299.8  inf=27.5%
+  Transporte+ACI gamma=0.2    ventana=90   IS=      inf  cob=91.00%  ancho=364.9  inf=26.7%
+  Transporte+ACI gamma=0.2    ventana=120  IS=      inf  cob=90.72%  ancho=304.4  inf=33.31%
+
+--------------------------------------------------------------------------------------------
+SELECCION (menor interval score en validacion interna)
+--------------------------------------------------------------------------------------------
+  ACI: gamma = 0.005  (IS validacion = 463.5, cobertura = 87.86%)
+    cinco mejores: g=0.005 (464), g=0.01 (478), g=0.02 (534)
+  Transporte+ACI: gamma = 0.005, ventana = 120 d  (IS validacion = 495.3, cobertura = 88.74%)
+    cinco mejores: g=0.005/v=120 (495), g=0.005/v=90 (515), g=0.01/v=120 (519), g=0.005/v=45 (530), g=0.01/v=90 (536)
+
+============================================================================================
+SENSIBILIDAD SOBRE EL TEST (exhibicion, NO criterio de seleccion)
+============================================================================================
+
+ACI, por gamma (test completo):
+ gamma  cobertura  se_cluster      ancho  pct_infinito  IS_finitos
+ 0.005      90.87        0.41 589.503969          0.00  935.789706
+ 0.010      90.49        0.42 566.167303          0.00  930.348903
+ 0.020      90.25        0.43 550.778571          0.00  935.729640
+ 0.050      90.12        0.43 544.377170          4.25  961.762432
+ 0.100      90.07        0.40 586.415538          1.55  982.555764
+ 0.200      90.00        0.46 712.297393         15.10 1159.243388
+
+Transporte+ACI: ancho medio por (gamma, ventana):
+ventana  30.0   45.0   60.0   90.0   120.0
+gamma                                     
+0.005    572.0  554.6  549.9  556.8  564.5
+0.010    600.4  583.7  571.5  566.8  570.4
+0.020    695.7  698.2  663.3  638.2  614.1
+0.050    615.5  589.9  595.9  614.2  680.0
+0.100    689.5  602.2  619.5  613.3  576.0
+0.200    639.4  643.0  537.5  536.3  528.9
+
+Transporte+ACI: cobertura por (gamma, ventana):
+ventana  30.0   45.0   60.0   90.0   120.0
+gamma                                     
+0.005    89.90  89.98  89.99  89.99  89.98
+0.010    90.00  90.02  90.02  90.02  90.00
+0.020    90.05  90.06  90.06  90.04  90.03
+0.050    90.06  90.06  90.07  90.04  90.05
+0.100    90.02  90.03  90.05  90.02  90.03
+0.200    89.94  90.00  90.04  89.99  90.00
+
+Transporte+ACI: % de intervalos infinitos por (gamma, ventana):
+ventana  30.0   45.0   60.0   90.0   120.0
+gamma                                     
+0.005     0.00   0.00   0.00   0.00   0.00
+0.010     0.00   0.00   0.00   0.00   0.00
+0.020     0.00   0.31   0.47   0.63   1.10
+0.050     5.31   6.38   5.92   5.17   4.40
+0.100     6.19   4.20   4.36   3.63   4.26
+0.200    22.50  23.01  21.88  22.39  22.88
+
+guardado en resultados/fase3/
+real 262.80
+user 253.35
+sys 3.20

@@ -278,7 +278,7 @@ modo que esta tabla puede documentar la numeracion vieja sin dispararlo.
 | Diagrama de flujo | `Figura 6` (x3) | Figura 4 |
 | Cobertura rodante y trade-off | `Figuras 3--4` (x2) | Figuras 5--6 |
 | Puntos de cambio | `Figura 5` | Figura 3 |
-| Tabla de hiperparametros | `Tabla 12` (x2) | Tabla C.13 |
+| Tabla de hiperparametros | `Tabla 12` (x2) | `Tabla C.13` |
 | Sensibilidad de la frontera | `Tabla 11` (x2) | Tabla 12 |
 | Cobertura condicional | `Tabla 10`, `Tablas 9--10` | Tabla 11 |
 | Las figuras nuevas | `Figs. 6--8` | Figs. 4, 7, 8 y 9 |
@@ -309,7 +309,7 @@ $VENV flagship/revision/verificar_referencias_cruzadas.py
 # 54 etiquetas coinciden con LaTeX; 139 referencias literales; 0 problemas
 ```
 
-### 8.2 Numero viejo en la Tabla C.13
+### 8.2 Numero viejo en la `Tabla C.13`
 
 El campo de descripcion de la cota de alpha decia "a lo mas 0.4 puntos de
 cobertura" cuando el manuscrito, la carta y la Tabla 10 ya decian medio punto. El
@@ -967,7 +967,7 @@ Por seccion, lo que un lector no puede leer:
 `bloques_marcado.BLOQUES` es una lista: agregar un ancla por pasaje los convierte
 con la misma verificacion contra las dos fuentes.
 
-## 19. Tabla C.13: de table* a longtable
+## 19. `Tabla C.13`: de table* a longtable
 
 Arreglo de H11. `fase1_hiperparametros.py` emitia la tabla como `table*`, un
 flotante, y un flotante no se parte entre paginas: con 38 filas era mas alto que
@@ -1281,3 +1281,33 @@ El chequeo de estos segundos en `verificar_manuscrito.py` leia
 `fase2_ablaciones.csv` y toleraba 0.6 s, que es por donde paso el 6.7. Ahora arma
 la frase desde `d_segundos` y la exige tal cual; se agrega el chequeo del
 multiplo, que no existia.
+
+### B4. R1.4: la sensibilidad gamma x ventana, ahora en el manuscrito
+
+4.7 prometia la exhibicion de la rejilla 6x5 "in Section 5 ... and we say so
+there" y la Seccion 5 no la tenia; la carta remitia a 5.8, que trataba solo la
+frontera. `fase9_tablas_tex.py` emite ahora `tab_sensibilidad_hiper.tex`
+(Tabla 13) desde `fase3_sensibilidad_test.csv`, en un bloque propio al final de
+5.8, rotulada en la leyenda y en el texto como exhibicion posterior al cierre de
+la seleccion, nunca como criterio. El titulo de 5.8 suma "the calibration
+hyperparameters". Las remisiones de 4.7 y de la carta (R1.4 y su fila del cuadro
+resumen) apuntan a la Tabla 13.
+
+La rejilla tenia el bug de H7 en la unica celda que es configuracion de la
+version enviada: (0.05, 60 dias) daba 593.4 / 6.08% / 1028.2 y contradecia a la
+Tabla 9. `fase3_seleccion_hiperparametros.py` evalua ahora (0.02, 60) y
+(0.05, 60) en el orden canonico y aborta si esas dos, o la seleccionada
+(0.005, 120), no reproducen la Tabla 9. La seleccion no cambia:
+`fase3_seleccion_validacion.csv` y `fase3_hiperparametros_elegidos.json` son
+identicos.
+
+Numeros de 5.8 y de la carta, desde el CSV: cobertura del transporte entre 89.9 y
+90.1% en las treinta celdas; ningun infinito con gamma <= 0.01; entre 21.9 y
+23.0% con gamma = 0.20, donde la carta decia "22 per cent". Dos chequeos nuevos
+en `verificar_manuscrito.py` y tres anclas en `verificar_referencias_cruzadas.py`.
+
+Con la Tabla 13, la tabla del Apendice C pasa a ser la C.14: se corrigen las dos
+remisiones de la carta, el README del paquete, los mensajes del empaquetador y
+`REVISION_PLAN.md`. Las menciones historicas de `Tabla C.13` en este changelog
+quedan entre comillas de codigo, que es el convenio del verificador para citas
+de numeracion vieja. Manuscrito 36 paginas; carta 20.
