@@ -1,6 +1,6 @@
 # CurtailmentIQ Research
 
-Companion repository for a research article on probabilistic forecasting of renewable energy curtailment in Chile's National Electricity System (Sistema Eléctrico Nacional, SEN): *An open curtailment dataset and a diagnostic for adaptive conformal calibration under regime change* (under review; the state submitted in revision is the tag `submission-2026-09-14`, and `CHANGELOG_REVISION.md` gives the command behind every change). It also hosts the pipeline behind the associated data descriptor.
+Companion repository for a research article on probabilistic forecasting of renewable energy curtailment in Chile's National Electricity System (Sistema Eléctrico Nacional, SEN): *An open curtailment dataset and an evaluation of adaptive conformal calibration under regime change* (under review). The state submitted in the first revision is the tag `submission-2026-09-14`, with `CHANGELOG_REVISION.md` giving the command behind every change; the second revision, with its scripts, results, sources and compiled PDFs, is in [revision2/](revision2/). It also hosts the pipeline behind the associated data descriptor.
 
 The repository contains the full data pipeline (from the raw CEN monthly reports to the curated dataset), the baseline forecasting models, the conformal uncertainty layer, and the scripts that regenerate every table and figure in the manuscripts.
 
@@ -36,6 +36,7 @@ It covers plant-level curtailment of solar, wind and hydropower in the SEN from 
 | [figures/](figures/) | Figures of the data descriptor (script output only, nothing hand-made). |
 | [paper-data/](paper-data/) | Data descriptor manuscript (Data in Brief format). |
 | [paper-flagship/](paper-flagship/) | Periodic backups of the Overleaf project. |
+| [revision2/](revision2/) | Second revision of the methods article (November 2026): analysis scripts, results, LaTeX sources of the manuscript and of the response to the reviewers, and compiled PDFs. See its [README](revision2/README.md). |
 | notebooks/, experiments/, legal/ | Scaffolding kept for project structure, currently empty. |
 
 Root documents: [DECISIONS.md](DECISIONS.md) (dated log of every methodological decision), [ERRATA_LOG.md](ERRATA_LOG.md) (errata registry, the source of `errata_log.csv`), [MANUAL_OPERATIVO.md](MANUAL_OPERATIVO.md) (working plan) and [VALIDACION_POST_BACKFILL.md](VALIDACION_POST_BACKFILL.md) (post-backfill validation). Internal working documents and code comments are written in Spanish; the manuscripts, the dataset documentation and all figure text are in English.
@@ -86,6 +87,14 @@ The same checksum file also lists the 53 original CEN files of `data-raw/`; thos
 | 22 | `python flagship/revision/verificar_referencias_cruzadas.py` | Checks every literal reference to a section, table, figure, algorithm or appendix in the response letter, `REVISION_PLAN.md` and `CHANGELOG_REVISION.md` against the numbering of the manuscript, after checking its own parser against `build/SEGAN_paper_FINAL.aux`. Writes nothing; exits 1 on any broken or misdirected reference. | deterministic |
 
 The complete execution order, and the command behind every change made in the revision, are in [REVISION_PLAN.md](REVISION_PLAN.md) and [CHANGELOG_REVISION.md](CHANGELOG_REVISION.md).
+
+**Second revision.** The analyses added in the second revision (nine base models including an early-stopped hurdle, the decomposition of the adaptive gain with a constant-threshold oracle, dependence-aware inference, a controlled simulation, operational metrics and a sensitivity appendix) are regenerated from [revision2/](revision2/) with a single command, after step 1:
+
+```bash
+cd revision2 && PY=python bash scripts/r2_00_correr_todo.sh
+```
+
+The step-by-step table, with what each script regenerates and its seeds, is in [revision2/README.md](revision2/README.md).
 
 Reference outputs of every run (tables, logs, figures) are versioned next to each script, so results can be checked without re-running. The synthetic testbed (`flagship/conformal_prototype.py`, `flagship/conformal_v2*.py`, seed 20260720) reproduces the methodology prototyping stage; its numbers are not citable and are not used in the article.
 

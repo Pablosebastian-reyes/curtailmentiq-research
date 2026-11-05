@@ -1,0 +1,28 @@
+[19:41:41] [OK] transporte_aci_ext == rev_lib.transporte_aci en la configuracion de referencia
+[19:48:24] hurdle_es: E1 listo
+[19:50:56] hurdle_es: E2 listo
+[19:51:57] hurdle_es: E3 listo
+[19:52:41] hurdle_es: E4 listo
+[19:55:08] hurdle_es: E5 listo
+[20:02:09] qgbm_54x400: E1 listo
+[20:04:39] qgbm_54x400: E2 listo
+[20:05:43] qgbm_54x400: E3 listo
+[20:06:24] qgbm_54x400: E4 listo
+[20:08:46] qgbm_54x400: E5 listo
+[20:09:29] E6 listo
+[20:10:06] E8 max_depth=4: 126 arboles, CRPS 83.60
+[20:10:39] E8 max_depth=8: 92 arboles, CRPS 86.13
+[20:11:46] E8 learning_rate=0.03: 190 arboles, CRPS 84.16
+[20:12:10] E8 learning_rate=0.1: 56 arboles, CRPS 84.53
+[20:12:54] E8 random_state=1: 112 arboles, CRPS 84.23
+[20:13:21] E8 random_state=2: 115 arboles, CRPS 84.16
+[20:13:49] E8 random_state=3: 99 arboles, CRPS 84.17
+[20:14:15] E8 random_state=4: 111 arboles, CRPS 83.97
+[20:14:43] E8 random_state=5: 119 arboles, CRPS 84.21
+[20:15:10] E8 random_state=6: 97 arboles, CRPS 83.95
+[20:15:34] E8 random_state=7: 108 arboles, CRPS 84.55
+[20:15:59] E8 random_state=8: 129 arboles, CRPS 84.47
+[20:16:24] E8 random_state=9: 92 arboles, CRPS 84.71
+[20:16:49] E8 random_state=10: 96 arboles, CRPS 84.50
+[20:16:49] E7 listo
+[20:16:49] sensibilidad lista (2137 s)

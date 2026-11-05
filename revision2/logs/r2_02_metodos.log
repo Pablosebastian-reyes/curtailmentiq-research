@@ -1,0 +1,25 @@
+[19:27:47] hurdle_800: seleccion {'ACI': {'gamma': 0.005, 'ventana': None, 'IS_validacion': 372.36, 'cobertura_validacion': 87.86}, 'Transport+ACI': {'gamma': 0.005, 'ventana': 120, 'IS_validacion': 414.54, 'cobertura_validacion': 88.74}}
+[19:27:47]   [OK] reproduce la seleccion de la R1 (ACI 0.005; T+ACI 0.005/120)
+[19:30:56] hurdle_800: 31 metodos, 257 s
+[19:32:10] hurdle_es: seleccion {'ACI': {'gamma': 0.005, 'ventana': None, 'IS_validacion': 266.78, 'cobertura_validacion': 87.7}, 'Transport+ACI': {'gamma': 0.005, 'ventana': 120, 'IS_validacion': 275.36, 'cobertura_validacion': 88.48}}
+[19:35:30] hurdle_es: 31 metodos, 274 s
+[19:36:47] hurdle_sigma_x: seleccion {'ACI': {'gamma': 0.005, 'ventana': None, 'IS_validacion': 363.96, 'cobertura_validacion': 89.19}, 'Transport+ACI': {'gamma': 0.005, 'ventana': 120, 'IS_validacion': 383.88, 'cobertura_validacion': 89.42}}
+[19:38:10] hurdle_sigma_x: 11 metodos, 160 s
+[19:39:24] hurdle_2000: seleccion {'ACI': {'gamma': 0.005, 'ventana': None, 'IS_validacion': 547.11, 'cobertura_validacion': 88.64}, 'Transport+ACI': {'gamma': 0.005, 'ventana': 120, 'IS_validacion': 611.66, 'cobertura_validacion': 89.02}}
+[19:40:49] hurdle_2000: 11 metodos, 159 s
+[19:42:11] qgbm_54x15: seleccion {'ACI': {'gamma': 0.005, 'ventana': None, 'IS_validacion': 277.94, 'cobertura_validacion': 93.55}, 'Transport+ACI': {'gamma': 0.005, 'ventana': 45, 'IS_validacion': 279.64, 'cobertura_validacion': 88.56}}
+[19:43:48] qgbm_54x15: 11 metodos, 179 s
+[19:45:13] qgbm_54x50: seleccion {'ACI': {'gamma': 0.005, 'ventana': None, 'IS_validacion': 246.48, 'cobertura_validacion': 91.68}, 'Transport+ACI': {'gamma': 0.005, 'ventana': 45, 'IS_validacion': 249.04, 'cobertura_validacion': 88.8}}
+[19:46:54] qgbm_54x50: 11 metodos, 186 s
+[19:48:24] qgbm_54x100: seleccion {'ACI': {'gamma': 0.005, 'ventana': None, 'IS_validacion': 244.78, 'cobertura_validacion': 90.59}, 'Transport+ACI': {'gamma': 0.005, 'ventana': 45, 'IS_validacion': 245.39, 'cobertura_validacion': 88.8}}
+[19:50:17] qgbm_54x100: 11 metodos, 202 s
+[19:51:43] qgbm_54x200: seleccion {'ACI': {'gamma': 0.005, 'ventana': None, 'IS_validacion': 245.57, 'cobertura_validacion': 90.43}, 'Transport+ACI': {'gamma': 0.005, 'ventana': 45, 'IS_validacion': 245.44, 'cobertura_validacion': 88.95}}
+[19:53:20] qgbm_54x200: 11 metodos, 183 s
+[19:54:45] qgbm_54x400: seleccion {'ACI': {'gamma': 0.005, 'ventana': None, 'IS_validacion': 247.54, 'cobertura_validacion': 90.86}, 'Transport+ACI': {'gamma': 0.005, 'ventana': 45, 'IS_validacion': 246.72, 'cobertura_validacion': 89.04}}
+[19:57:58] qgbm_54x400: 31 metodos, 278 s
+[19:57:58] control Tabla 3 de la R1 (hurdle_800): max |dif| = 0.0
+[19:57:58] control Tabla 9 R1 Split estatico (PIT): max |dif| = 0.000
+[19:57:58] control Tabla 9 R1 ACI (g=0.005, Fase 3): max |dif| = 0.000
+[19:57:58] control Tabla 9 R1 Transporte+ACI (g=0.005, v=120, Fase 3): max |dif| = 0.000
+[19:57:58] control Tabla 9 R1 B3 CQR unilateral (GBM): max |dif| = 0.000
+[19:57:58] CRPS hurdle_800: {'test_pre': 96.07, 'test_transition': 133.47, '2025-S1': 70.46, '2025-S2': 94.49, '2026-S1': 78.98, 'TEST_COMPLETO': nan} | test {'test_pre': 96.07, 'test_transition': 133.52, '2025-S1': 70.7, '2025-S2': 93.82, '2026-S1': 78.31, 'TEST_COMPLETO': 89.52}

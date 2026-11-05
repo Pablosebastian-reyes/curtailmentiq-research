@@ -1,0 +1,21 @@
+\begin{table*}[tp]
+\centering
+\footnotesize
+\caption{Marginal contribution of each component of the transport-based scheme to the mean one-sided interval score (MWh; negative is an improvement), with 95\% day-block bootstrap intervals, for the three main base models. All adaptive steps use $\gamma=0.05$ and no bound on $\alpha_t$, as in Algorithm~\ref{alg:transporte}. Differences are computed on the plant-days where both limits are finite. Runtime is the additional wall-clock time of the component over the 638 test dates.}
+\label{tab:ablaciones}
+\begin{tabular}{l rr rr rr r}
+\toprule
+ & \multicolumn{2}{c}{Reference hurdle} & \multicolumn{2}{c}{Early-stopped hurdle} & \multicolumn{2}{c}{Reference quantile GBM} & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Component & Transition & Whole test & Transition & Whole test & Transition & Whole test & Runtime (s) \\
+\midrule
+Online adaptation (ACI over static) & -297.9$^\dagger$ & -95.9$^\dagger$ & -85.1$^\dagger$ & -19.8$^\dagger$ & +0.5 & +8.5$^\dagger$ & +0.22 \\
+Transport alone (over static) & -282.9$^\dagger$ & -94.2$^\dagger$ & -64.2$^\dagger$ & -16.9$^\dagger$ & +10.3$^\dagger$ & +5.7$^\dagger$ & +7.45 \\
+Transport added to ACI & +12.0 & +68.6$^\dagger$ & +12.3$^\dagger$ & +30.3$^\dagger$ & +14.1$^\dagger$ & +11.5$^\dagger$ & +0.46 \\
+Tail shrinkage added to transport & -0.6 & -6.4$^\dagger$ & -0.6$^\dagger$ & -2.7$^\dagger$ & -0.1 & -0.3$^\dagger$ & +6.36 \\
+Full scheme (over static) & -286.5$^\dagger$ & -32.3 & -73.4$^\dagger$ & +9.4 & +14.5$^\dagger$ & +19.1$^\dagger$ & +7.04 \\
+\bottomrule
+\end{tabular}
+
+\smallskip\parbox{0.95\linewidth}{\scriptsize $^\dagger$ the 95\% interval excludes zero. Intervals for every cell are in the result files of the companion repository; runtime measured on the reference hurdle.}
+\end{table*}

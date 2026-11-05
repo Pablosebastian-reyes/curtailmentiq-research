@@ -1,0 +1,56 @@
+%% SEGAN-D-26-03850, revision 2.
+%% Elsevier elsarticle template; compile with pdfLaTeX, three passes.
+\documentclass[preprint,3p,times]{elsarticle}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{siunitx}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% Numbers quoted in the text are generated from the result files
+% (cifras.tex, written by scripts/r2_07_cifras.py). A missing key prints ??key??.
+\makeatletter
+\newcommand{\cf}[1]{\ifcsname cf@#1\endcsname\csname cf@#1\endcsname\else\textbf{??\detokenize{#1}??}\GenericWarning{}{CIFRA FALTANTE: #1}\fi}
+\makeatother
+\input{cifras}
+
+\journal{Sustainable Energy, Grids and Networks}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{An open curtailment dataset and an evaluation of adaptive conformal calibration under regime change}
+
+\author[usach]{Pablo Reyes Cerda\corref{cor1}}
+\ead{pablo.reyes.ce@usach.cl}
+\author[ubb]{Kerven Cea Morales}
+\ead{kceam@ubiobio.cl}
+
+\cortext[cor1]{Corresponding author.}
+
+\address[usach]{Mag\'ister en Gesti\'on de la Innovaci\'on y el Emprendimiento Tecnol\'ogico, Universidad de Santiago de Chile, Santiago, Chile}
+\address[ubb]{Programa de Doctorado en Matem\'atica Aplicada, Universidad del B\'io-B\'io, Concepci\'on, Chile}
+
+\input{abstract}
+
+\begin{keyword}
+renewable curtailment \sep probabilistic forecasting \sep conformal prediction \sep distribution shift \sep forecast evaluation \sep power system operations
+\end{keyword}
+
+\end{frontmatter}
+
+\input{parte1_intro_metodos}
+\input{parte2_resultados}
+\input{parte3_discusion}
+\input{parte4_apendices}
+
+\input{bibliografia}
+
+\end{document}

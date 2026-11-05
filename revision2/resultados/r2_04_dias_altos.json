@@ -1,0 +1,9 @@
+{
+ "umbral_MWh_dia": 20479.710692700002,
+ "H1_dias": 254,
+ "H2_dias": 64,
+ "H3_dias": 260,
+ "dias_test": 638,
+ "H1_y_H3_comunes": 184,
+ "nota": "sistema = suma de las centrales solares y eolicas del panel"
+}

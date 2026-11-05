@@ -1,0 +1,18 @@
+[19:14:40] panel de filas: 104,420
+[19:14:42] panel: train 67,032 filas, prediccion 104,420
+[19:14:45] hurdle_es: 105 arboles {'ocurrencia': 59, 'magnitud': 46}, sigma 1.8274
+[19:15:40] hurdle_2000: 4000 arboles, sigma 1.6641
+[19:16:04] qgbm_54x15: 810 arboles (24 s)
+[19:17:01] qgbm_54x50: 2700 arboles (57 s)
+[19:18:58] qgbm_54x100: 5400 arboles (118 s)
+[19:22:59] qgbm_54x200: 10800 arboles (241 s)
+[19:23:15] predictivas guardadas
+[19:23:33] control hurdle_800: {'brazo': 'hurdle_800', 'U_est_max_dif_rel': 0.0, 'U_est_mismos_infinitos': True, 'U_tr_max_dif_rel': 0.0, 'U_tr_mismos_infinitos': True}
+[19:23:49] control hurdle_es: {'brazo': 'hurdle_es', 'obj1d_max_desvio': 0.0}
+[19:24:06] control hurdle_sigma_x: {'brazo': 'hurdle_sigma_x', 'U_est_max_dif_rel': 0.0, 'U_est_mismos_infinitos': True, 'U_tr_max_dif_rel': 0.0, 'U_tr_mismos_infinitos': True}
+[19:24:21] control hurdle_2000: {'brazo': 'hurdle_2000', 'U_est_max_dif_rel': 0.0, 'U_est_mismos_infinitos': True, 'U_tr_max_dif_rel': 1.030796095535802e-06, 'U_tr_mismos_infinitos': True}
+[19:24:37] control qgbm_54x15: {'brazo': 'qgbm_54x15', 'U_est_max_dif_rel': 0.0, 'U_est_mismos_infinitos': True, 'U_tr_max_dif_rel': 3.335602237850728e-08, 'U_tr_mismos_infinitos': True}
+[19:24:53] control qgbm_54x50: {'brazo': 'qgbm_54x50', 'U_est_max_dif_rel': 4.692524349699712e-09, 'U_est_mismos_infinitos': True, 'U_tr_max_dif_rel': 4.0919629378500455e-07, 'U_tr_mismos_infinitos': True}
+[19:25:08] control qgbm_54x100: {'brazo': 'qgbm_54x100', 'U_est_max_dif_rel': 4.7935799633161296e-09, 'U_est_mismos_infinitos': True, 'U_tr_max_dif_rel': 6.437866593807088e-07, 'U_tr_mismos_infinitos': True}
+[19:25:23] control qgbm_54x200: {'brazo': 'qgbm_54x200', 'U_est_max_dif_rel': 1.1600833970971493e-07, 'U_est_mismos_infinitos': True, 'U_tr_max_dif_rel': 4.735646424780526e-06, 'U_tr_mismos_infinitos': True}
+[19:25:40] control qgbm_54x400: {'brazo': 'qgbm_54x400', 'U_est_max_dif_rel': 0.0, 'U_est_mismos_infinitos': True, 'U_tr_max_dif_rel': 4.5174928018018587e-07, 'U_tr_mismos_infinitos': True}

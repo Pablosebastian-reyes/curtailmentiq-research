@@ -1,0 +1,127 @@
+%==================================================================
+\section{Results}
+\label{sec:results}
+
+\subsection{Point forecasting, within the scope tested}
+\label{sec:punto}
+
+Table~\ref{tab:mae} reports the mean absolute error of the point forecasts on the out-of-sample period. The seasonal-naive predictor, which averages the same weekday over the previous four weeks, is the most accurate, and the medians of the gradient-boosting models do not beat it; the median of the hurdle mixture, which is fitted for the whole predictive law, is the least accurate, and the early-stopped hurdle, whose predictive is better by CRPS (Section~\ref{sec:escalera}), is worse still by this criterion. The ordering follows from the strong weekly persistence of curtailment (Section~\ref{sec:eda}). The conclusion holds for these model classes, this feature set, this seven-day horizon and this criterion; a model with access to the network model, weather forecasts, unit-commitment schedules or storage state of charge would be solving a better-posed problem, and a criterion that weights large days might order the same models differently. Within the information available to a plant owner from public data, effort is better spent on quantifying uncertainty than on refining the predicted number.
+
+\input{tab_mae}
+
+\subsection{With the reference hurdle, adaptation appears to recover a third of the width}
+\label{sec:hurdle}
+
+With the reference hurdle as base model, the shift does not break the coverage of the static split; it inflates it. Over the test period the static split covers between 89\% and 95\% in every window (Table~\ref{tab:results} in \ref{app:extra}), and the cost of the shift is paid in width, concentrated in the transition window, where the static split reaches \cf{ref_st_tr_cov}\% coverage with a mean width of \cf{ref_st_tr_w}~MWh. Figure~\ref{fig:rolling} traces the drift. Transport+ACI with $\gamma=0.05$ brings the transition-window limits down to \cf{ref_tr_tr_w}~MWh at \cf{ref_tr_tr_cov}\% coverage, a reduction of \cf{ref_tr_tr_dw}\% at a coverage within one point of nominal. Read alone, this is the result that motivated the scheme. Over the whole test, however, the same configuration returns infinite limits on \cf{ref_tr_tot_inf}\% of plant-days, and its interval score over finite limits, \cf{ref_tr_tot_IS}~MWh, is not distinguishable from the \cf{ref_st_tot_IS}~MWh of the static split. The next subsections ask what the one-third reduction measures.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig3_rolling_coverage.pdf}
+\caption{Rolling empirical coverage (90-day window) of the calibration layers with the reference hurdle as base model, with the 7-day horizon embargo. The dashed line marks the 90\% nominal level and the shaded band the transition window, October to December 2024.}
+\label{fig:rolling}
+\end{figure*}
+
+\subsection{The same layer over different base models}
+\label{sec:agnostic}
+
+Table~\ref{tab:modelos} runs every calibration layer over the three main base models, and Figure~\ref{fig:modelos}(a) adds the conditional-dispersion hurdle. The calibration layer is identical across base models: same score, windows, embargo, seeds and constants.
+
+The one-third reduction does not transfer. In the transition window the width change of Transport+ACI is \cf{dw_tr_hurdle_800}\% with the reference hurdle, \cf{dw_tr_hurdle_es}\% with the early-stopped hurdle, \cf{dw_tr_hurdle_sigma_x}\% with the conditional-dispersion hurdle and \cf{dw_tr_qgbm_54x400}\% with the quantile model, whose static split is already at \cf{qg_st_tr_cov}\% coverage. The static split's over-coverage in that window follows the same order: \cf{oc_tr_hurdle_800}, \cf{oc_tr_hurdle_es}, \cf{oc_tr_hurdle_sigma_x} and \cf{oc_tr_qgbm_54x400} percentage points.
+
+The base model matters more than the layer. Over the whole test, the early-stopped hurdle with a plain static split has an interval score of \cf{es_st_tot_IS}~MWh, \cf{es_vs_ref_static_IS_pct}\% below the static split on the reference hurdle and below every calibration layer on it, the best of which, \cf{ref_best_layer_name}, reaches \cf{ref_best_layer_IS}~MWh. Its static limits are \cf{es_vs_ref_static_W_pct}\% narrower than those of the reference hurdle at the same coverage (\cf{es_st_tot_cov}\% against \cf{ref_st_tot_cov}\%). On the early-stopped hurdle, adaptation adds little: the best online layer improves the interval score by \cf{es_best_online_gain_pct}\%, Transport+ACI with $\gamma=0.05$ worsens it by \cf{es_tr_g05_vs_st_pct}\%, and the selected Transport+ACI configuration is within \cf{es_tr_sel_vs_st_pct}\% of the static split. The quantile model is better again: its static split has an interval score of \cf{qg_st_tot_IS}~MWh at \cf{qg_st_tot_cov}\% coverage.
+
+The ranking of the layers also depends on the base model. One-sided CQR is the best layer on the reference hurdle (\cf{ref_cqr_tot_IS}~MWh) and close to the best on the quantile model (\cf{qg_cqr_tot_IS}~MWh at \cf{qg_cqr_tot_cov}\% coverage), but on the early-stopped hurdle it over-covers (\cf{es_cqr_tot_cov}\%) and is worse than the static split (\cf{es_cqr_tot_IS}~MWh). The reason is the scale of the nonconformity score. CQR corrects the base model's 0.9 quantile by a single number of MWh, the 90th percentile of $y-q_{0.9}(x)$ pooled over plants whose sizes differ by two orders of magnitude; on these data that percentile is dominated by small plants and zero days and lies close to zero, \cf{es_cqr_Q}~MWh for the early-stopped hurdle. The early-stopped hurdle's own 0.9 quantile already covers \cf{es_q90_cal_cov}\% of the calibration window, and CQR leaves that over-dispersion in place, whereas the PIT score, which is free of scale, removes it by lowering the conformal level to \cf{es_qhat}.
+
+\input{tab_modelos}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig_modelos.pdf}
+\caption{(a) Mean width in the transition window of the static split and of Transport+ACI ($\gamma=0.05$) over four base models, with coverage above each bar and the width change in bold. (b) Width change of Transport+ACI against the over-coverage of the static split in the same cell, for the eight base models of the cross-model analysis (blue) and the held-out early-stopped hurdle (orange); line and band: least-squares fit on the 40 cells with its 95\% day-block bootstrap band.}
+\label{fig:modelos}
+\end{figure*}
+
+\subsection{How much of the gain is mechanical}
+\label{sec:mecanico}
+
+Across the 40 cells of eight base models by five windows, the width change of Transport+ACI is linearly related to the static over-coverage, with $r=\cf{r_40}$ and a slope of \cf{slope_40}\% of width per percentage point (Figure~\ref{fig:modelos}b). The relationship predicts the five cells of the held-out early-stopped hurdle with a correlation of \cf{oos_r} between observed and predicted changes and a root mean squared error of \cf{oos_rmse} points. A relationship of this kind is expected from any layer that targets nominal coverage, so the question is how much of it requires adaptation at all.
+
+The constant-threshold oracle answers it (Table~\ref{tab:mecanico} and Figure~\ref{fig:mecanico}). Over the 45 cells, the oracle's width change has a slope of \cf{mec_slope_45} against \cf{obs_slope_45} for the observed change of Transport+ACI with $\gamma=0.05$, and it explains \cf{mec_r2_pct}\% of the variance of the observed change. The residual, what adaptation in time adds beyond re-levelling, averages \cf{resid_45}\% with a 95\% interval of [\cf{resid_45_lo}, \cf{resid_45_hi}] and is unrelated to the over-coverage ($r=\cf{resid_r_45}$). The other configurations tell the same story. With the update bounded at $\alpha_{\min}=0.005$ the mechanical slope is unchanged (\cf{amin_mec_slope}), but the residual is larger and more variable (\cf{amin_resid}\%), because when $\alpha_t$ reaches its bound the limits become very wide, a cost the oracle does not pay; this is why the oracle explains less of the variance in that configuration ($R^2=\cf{amin_r2}$). Pure ACI with the same step has a residual of \cf{resid_aci_45}\%. With the small steps selected by rolling origin the layers move little and almost entirely mechanically ($R^2$ of \cf{sel_r2_min} and \cf{sel_r2_max}), and the residual is within a fraction of a per cent of zero (\cf{resid_trsel}\% for Transport+ACI and \cf{resid_acisel}\% for ACI). The slope of the cross-cell relationship is therefore mechanical. On average over the cells, adaptation in time contributes at most a fraction of a per cent of width beyond the best constant level chosen after the fact, and with the step of Algorithm~\ref{alg:transporte} it costs several per cent.
+
+\input{tab_mecanico}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig_mecanico.pdf}
+\caption{Decomposition of the width change of Transport+ACI ($\gamma=0.05$) over the 45 base-model-by-window cells. (a) Observed width change against the width change of the constant-threshold oracle with the same coverage. (b) Residual against the static over-coverage; line and band: mean residual and its 95\% day-block bootstrap interval.}
+\label{fig:mecanico}
+\end{figure*}
+
+What is not mechanical is where the over-coverage comes from. Within a window all base models face the same shift, and there the width change still follows the over-coverage (Table~\ref{tab:inferencia}): in four of the five windows the correlation across the nine base models lies between \cf{within_r_4_min} and \cf{within_r_4_max}; in the first semester of 2025, when the static splits of all base models are close to nominal and their over-coverage spans only \cf{oc_rango_2025s1}~points, it is \cf{within_r_2025s1}. In the transition window the static over-coverage ranges from \cf{oc_min_transicion} to \cf{oc_max_transicion} percentage points across base models, and in a two-way analysis of variance of the over-coverage over all cells the base model accounts for \cf{anova_modelo_pct}\% and the window for \cf{anova_ventana_pct}\%. Figure~\ref{fig:pit} shows the mechanism for the three main base models: the PIT histogram of the reference hurdle loses mass in the upper tail between the calibration and the transition windows, so that the calibrated quantile $\hat q$ over-covers, whereas that of the quantile model barely moves.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig_pit.pdf}
+\caption{Histograms of the PIT score in the calibration window (January to August 2024) and in the transition window (October to December 2024) for the three main base models. The dotted line is the uniform density; the vertical line marks the static conformal quantile $\hat q$ at the 90\% level.}
+\label{fig:pit}
+\end{figure*}
+
+The cells share days, base models and windows, and Table~\ref{tab:inferencia} reports the slope under estimators that treat that dependence differently. Fixed effects for windows, for base models or for both, and crossed random effects, give slopes between \cf{slope_fe_min} and \cf{slope_fe_max}. Over the 45 cells, the day-block bootstrap interval, which recomputes every cell on each resample of days, is [\cf{slope_45_lo}, \cf{slope_45_hi}]. The wild cluster bootstrap rejects a zero slope clearly when clustering by base model ($p=\cf{wcb_modelo_p}$) and only narrowly when clustering by window ($p=\cf{wcb_ventana_p}$), with five clusters. These intervals describe uncertainty over the days of this record; with two model families they cannot describe uncertainty over model families, and we do not extend the attribution beyond the families tested.
+
+\input{tab_inferencia}
+
+\subsection{Controlled simulation}
+\label{sec:simulacion}
+
+Table~\ref{tab:simulacion} and Figure~\ref{fig:simulacion} report the simulation of Section~\ref{sec:simdesign}. Three results matter. First, a correctly specified base model keeps the static split close to nominal coverage under every scenario, including a tripling of magnitudes: its mean over-coverage after the shift is \cf{sim_m1_s1}~points in the level scenario and \cf{sim_m1_s2}~points when level and dispersion change together, so an adaptive layer has nothing to recover. Second, a constant over-dispersion of 30 per cent, present in calibration and test alike, is absorbed by the conformal quantile: the over-coverage of that model is \cf{sim_m2_s0}~points without a shift. Third, coverage drifts when the base model fails to follow the change: the constant-dispersion model over-covers by \cf{sim_m4_s2}~points when the dispersion falls, and the lagged-level model under-covers during the ramp. In the three scenarios with a shift the cross-cell relationship appears in every replicate, and the constant-threshold oracle reproduces it: the median share of the variance of the observed width change explained by the mechanical one is \cf{sim_r2_s2} in the level-and-dispersion scenario, and the median residual is \cf{sim_resid_s2}\%, positive as in the real panel. The simulation also shows how much a single dataset can vary: with common daily shocks, the over-coverage of the correctly specified model in a single post-shift window ranges from \cf{sim_m1_lo} to \cf{sim_m1_hi}~points across replicates (2.5th to 97.5th percentiles).
+
+\input{tab_simulacion}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig_simulacion.pdf}
+\caption{Controlled simulation. (a) Static over-coverage averaged over the post-shift windows and replicates, by base model and scenario, with the mean width change of Transport+ACI in parentheses. (b) Level-and-dispersion scenario, all cells of all replicates: observed width change of Transport+ACI (blue) and width change of the constant-threshold oracle (orange) against the static over-coverage, with least-squares lines.}
+\label{fig:simulacion}
+\end{figure*}
+
+\subsection{Model form, fitted capacity and early stopping}
+\label{sec:escalera}
+
+The comparison of base models holds features, rows, training cut-off, per-model hyperparameters and seed fixed, but not the number of fitted trees: the reference hurdle has 800, the reference quantile model 21{,}600. Table~\ref{tab:escalera} separates the two. At a matched budget of about 800 trees the quantile model improves the CRPS over the whole test by only \cf{qg15_vs_ref_crps_pct}\%; the advantage grows with capacity and saturates near 5{,}400 trees, where it reaches \cf{qg100_vs_ref_crps_pct}\%. The hurdle does not convert capacity into accuracy: with 4{,}000 trees its CRPS worsens by \cf{h2000_vs_ref_crps_pct}\%, and early stopping, which selects 105 trees, improves it by \cf{es_vs_ref_crps_pct}\%. The early-stopped hurdle remains \cf{es_vs_qg_crps_pct}\% behind the quantile model. On this panel, and between these two families, the quantile form converts capacity into predictive accuracy and the two-part lognormal form saturates at about a hundred trees; we make no claim about the two model classes in general.
+
+\input{tab_escalera}
+
+\subsection{Which components of the transport-based scheme earn their cost}
+\label{sec:ablaciones}
+
+Table~\ref{tab:ablaciones} attributes the interval score of Transport+ACI to its components, for the three main base models. Online adaptation helps where the static split over-covers: it improves the whole-test interval score by \cf{abl_aci_ref}~MWh on the reference hurdle and by \cf{abl_aci_es}~MWh on the early-stopped hurdle, at a runtime of a fraction of a second, but it costs \cf{abl_aci_qg}~MWh on the quantile model, whose static split is already at nominal coverage. Score transport without adaptation improves on the static split on the two hurdles by an amount similar to that of adaptation alone, so the two are substitutes. Once adaptation is present, adding the transport worsens the interval score on every base model, by \cf{abl_tr_ref}, \cf{abl_tr_es} and \cf{abl_tr_qg}~MWh, each with an interval that excludes zero. The tail shrinkage changes the score by less than one per cent while accounting for \cf{abl_shrink_runtime_pct}\% of the runtime of the scheme. The full scheme is not distinguishable from the static split on the two hurdles and is worse than it on the quantile model, by \cf{abl_full_qg}~MWh [\cf{abl_full_qg_lo}, \cf{abl_full_qg_hi}].
+
+\input{tab_ablaciones}
+
+\subsection{Operational evaluation}
+\label{sec:operacional}
+
+Table~\ref{tab:operacional} reports coverage weighted by capacity and by curtailed energy, the share of curtailed energy left above the limit, and the expected cost at three cost ratios; Table~\ref{tab:altos} and Figure~\ref{fig:operacional} report the behaviour on high-curtailment days.
+
+Plant-day coverage overstates protection. Weighted by curtailed energy, the coverage of the methods built on the three main base models falls to between \cf{cob_energia_min} and \cf{cob_energia_max}\%, because limits are exceeded mostly on large days; weighting by installed capacity lowers it by one to three points. The transport-based variants on the reference hurdle leave between \cf{nc_tr_ref_min} and \cf{nc_tr_ref_max}\% of the curtailed energy above the limit, the highest shares among these methods, against \cf{nc_st_ref}\% for the static split on the same base model and \cf{nc_st_qg}\% for the static split on the quantile model. With every base model, Transport+ACI leaves more energy uncovered than the static split on the same model.
+
+On high-curtailment days defined by the outcome, every method loses coverage relative to its average, and only methods that over-cover on average stay at or above the nominal level. On the \cf{h1_dias} days of definition H1 the static split on the reference hurdle covers \cf{st_alto_h1}\% and Transport+ACI \cf{tr_alto_h1}\%; the static split and CQR on the quantile model cover \cf{qg_st_h1}\% and \cf{qg_cqr_h1}\%, with limits less than half as wide as those of the reference hurdle's static split. Conditioning only on information available at the forecast origin (H3), the methods on the quantile model are close to nominal, at \cf{qg_st_h3}\% for the static split and \cf{qg_cqr_h3}\% for CQR, and Transport+ACI on the reference hurdle covers \cf{tr_ref_h3}\%. The shortfall on outcome-defined days is the forecaster's dilemma~\cite{lerch2017}: a forecaster that is calibrated on average under-covers on the days that turned out extreme, unless its limits are wide everywhere.
+
+At every cost ratio, the methods built on the quantile model are the cheapest among those that are close to nominal on average, and among them the calibration layer changes the cost by at most \cf{qg_cost_spread_pct}\%. Transport+ACI on the reference hurdle costs \cf{ref_tr_tot_IS} at $k=10$ against \cf{qg_st_tot_IS} for the static split on the quantile model, and the selected Transport+ACI on the reference hurdle costs \cf{ref_tr_k20} and \cf{ref_tr_k100} at $k=20$ and $k=100$, against \cf{qg_st_k20} and \cf{qg_st_k100}. In the tail the layers on the quantile model differ slightly: at $k=100$ the selected Transport+ACI, whose step is small, is the cheapest of them (\cf{qg_tr_k100}, \cf{qg_tr_vs_st_k100_pct}\% below the static split) and the only one to reach 99\% coverage. Two per-plant empirical quantiles that use no base model, over the last 60 days and over the last year, cost about as much as the methods on the quantile model, and the yearly one is the cheapest of all methods at $k=100$ (\cf{b1_k100}). Both under-cover at every level, at \cf{b2_cov_90}, \cf{b2_cov_95} and \cf{b2_cov_99}\% for the 60-day quantile and \cf{b1_cov_90}, \cf{b1_cov_95} and \cf{b1_cov_99}\% for the yearly one at the 90, 95 and 99\% levels, which an owner who needs the stated level cannot accept.
+
+\input{tab_operacional}
+\input{tab_altos}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig_operacional.pdf}
+\caption{(a) Energy-weighted coverage against the 90\% interval score, whole test; marker shape identifies the base model and colour the calibration layer, crosses are the benchmarks without a base model. (b) Coverage on all days and on high-curtailment days under the three definitions, with 95\% day-block bootstrap intervals; dashed line: nominal 90\%.}
+\label{fig:operacional}
+\end{figure*}
+
+\subsection{Panel dependence and sensitivity}
+\label{sec:panel}
+
+The intraclass correlation of the calibration scores by date is 0.238 (Section~\ref{sec:guarantees}). Calibrating on one plant per date, which makes the scores approximately independent, moves the conformal quantile of the reference hurdle from 0.9242 to 0.9263 with a replicate standard deviation of 0.0112: the pooled construction misstates the precision of the guarantee, not its level. Mondrian calibration by technology or by capacity tercile changes little, and by region or by plant it worsens the worst regional deviation from 4.8 to 7.2 points, because some groups have too few calibration days for a stable quantile (Table~\ref{tab:panel} in \ref{app:extra}). Among the main methods, the worst deviation across technologies, capacity terciles and regions ranges from \cf{cond_peor_min} to \cf{cond_peor_max} points (Table~\ref{tab:altos}); the regional axis is the hardest for every method.
+
+\ref{app:sens} varies every parameter of the calibration layer and of the evaluation. The step $\gamma$ matters most: with $\alpha_{\min}=0.005$, coverage stays within half a point of nominal for $\gamma\le0.05$ and falls to between 88 and 89\% at $\gamma=0.20$, and without a bound steps of 0.05 and above produce infinite limits on several per cent of plant-days. The length of the recent window comes next: a 30-day window raises the interval score of Transport+ACI on the early-stopped hurdle by \cf{sens_win30_pct}\%. The shrinkage scale, the bootstrap size, the grid of the map, the refresh period and the minimum number of recent scores move it by at most \cf{sens_max_capa_pct}\%. On the quantile model the bound does not remove every infinite limit of Transport+ACI, because the transported pool can exceed the highest estimated quantile level, 0.999. The conclusions are unchanged with calibration windows of four and six months, with quantile grids of 27 and 14 levels, with other thresholds for high-curtailment days, and across ten seeds of the conformal layer, whose standard deviation of coverage is at most \cf{sens_seed_sd_max}~points. Across depths, learning rates and training seeds of the early-stopped hurdle, its static split has an interval score between \cf{sens_es_st_min} and \cf{sens_es_st_max}~MWh, always below Transport+ACI on the same model and far below the reference hurdle. The results for the transition window do not depend on where its boundaries are drawn (Table~\ref{tab:frontera}).

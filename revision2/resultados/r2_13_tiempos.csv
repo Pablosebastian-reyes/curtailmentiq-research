@@ -1,0 +1,16 @@
+brazo,componente,segundos
+hurdle_800,static,0.006
+hurdle_800,aci_g05,0.228
+hurdle_800,ab_tr_fijo,7.46
+hurdle_800,ab_tr_sinshrink_g05,0.685
+hurdle_800,tr_g05,7.042
+hurdle_es,static,0.004
+hurdle_es,aci_g05,0.215
+hurdle_es,ab_tr_fijo,7.363
+hurdle_es,ab_tr_sinshrink_g05,0.634
+hurdle_es,tr_g05,7.197
+qgbm_54x400,static,0.005
+qgbm_54x400,aci_g05,0.538
+qgbm_54x400,ab_tr_fijo,7.573
+qgbm_54x400,ab_tr_sinshrink_g05,0.757
+qgbm_54x400,tr_g05,8.485

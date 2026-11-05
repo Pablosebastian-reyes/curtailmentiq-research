@@ -1,0 +1,22 @@
+\begin{table*}[tp]
+\centering
+\footnotesize
+\caption{Controlled simulation, 50 replicates per scenario. Left: static over-coverage (pp) averaged over the four post-shift windows and the replicates, for four of the eight base models (\ref{app:sim}). Right: cross-cell regression of the Transport+ACI width change on the static over-coverage within each replicate (40 cells), median and 2.5--97.5 percentiles over replicates; mechanical slope from the constant-threshold oracle; share of the variance of the observed change explained by the mechanical one; mean residual.}
+\label{tab:simulacion}
+\setlength{\tabcolsep}{3pt}
+\scriptsize
+\begin{tabular}{l rrrr llll}
+\toprule
+ & \multicolumn{4}{c}{Static over-coverage (pp)} & \multicolumn{4}{c}{Cross-cell regression, Transport+ACI} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+Scenario & M1 & M2 & M4 & M7 & Slope & Mech. slope & $R^2$ obs.$\sim$mech. & Residual (\%) \\
+\midrule
+S0, no shift & +0.1 & +0.1 & +0.1 & +0.1 & -7.18 [-17.09, -1.15] & -5.03 [-12.32, 0.20] & 0.72 [0.03, 0.96] & 10.7 [6.1, 35.9] \\
+S1, level $\times 3$ & +0.6 & +0.6 & +0.6 & -0.7 & -7.88 [-16.39, -2.73] & -5.21 [-9.68, -0.18] & 0.78 [0.10, 0.98] & 12.3 [7.2, 32.7] \\
+S2, level $\times 3$ and dispersion $\times 0.6$ & +0.1 & +0.1 & +4.7 & -1.6 & -6.21 [-8.73, -4.14] & -5.22 [-7.15, -3.85] & 0.90 [0.66, 0.99] & 10.7 [4.9, 18.6] \\
+S3, dispersion $\times 0.6$ & +0.0 & +0.0 & +4.7 & +0.0 & -5.59 [-8.46, -3.48] & -5.13 [-7.53, -3.18] & 0.89 [0.66, 0.99] & 10.8 [5.3, 17.3] \\
+\bottomrule
+\end{tabular}
+
+\smallskip\parbox{0.95\linewidth}{\scriptsize M1: correctly specified oracle. M2: oracle with dispersion inflated by 30\% in every period. M4: dispersion fixed at its calibration value. M7: level lagged by 30 days. In S0 there is no shift and the regression has no systematic variation to explain.}
+\end{table*}

@@ -1,0 +1,22 @@
+\begin{table}[tp]
+\centering
+\footnotesize
+\caption{Model form and fitted capacity. Every model shares features{,} rows{,} training cut-off{,} per-model hyperparameters and seed; only the number of trees and the model form change. CRPS of the base predictive (MWh); change over the whole test relative to the reference hurdle; static-split coverage and mean width over the whole test.}
+\label{tab:escalera}
+\begin{tabular}{l r rr r rr}
+\toprule
+ & & \multicolumn{2}{c}{CRPS} & & \multicolumn{2}{c}{Static split} \\
+\cmidrule(lr){3-4}\cmidrule(lr){6-7}
+Base model & Trees & Transition & Whole test & vs. ref. & Coverage & Width \\
+\midrule
+Hurdle{,} 2$\times$400 & 800 & 133.5 & 89.5 & +0.0\% & 92.5 & 678 \\
+Hurdle{,} early stopping (59+46) & 105 & 124.0 & 84.4 & -5.7\% & 92.0 & 409 \\
+Hurdle{,} 2$\times$2000 & 4{,}000 & 141.1 & 95.5 & +6.6\% & 92.1 & 970 \\
+Quantile GBM{,} 54$\times$15 & 810 & 131.2 & 87.4 & -2.4\% & 87.0 & 247 \\
+Quantile GBM{,} 54$\times$50 & 2{,}700 & 100.6 & 71.4 & -20.3\% & 89.4 & 263 \\
+Quantile GBM{,} 54$\times$100 & 5{,}400 & 94.0 & 68.3 & -23.7\% & 90.1 & 277 \\
+Quantile GBM{,} 54$\times$200 & 10{,}800 & 92.8 & 67.8 & -24.2\% & 90.2 & 285 \\
+Quantile GBM{,} 54$\times$400 & 21{,}600 & 93.0 & 68.0 & -24.1\% & 90.2 & 288 \\
+\bottomrule
+\end{tabular}
+\end{table}

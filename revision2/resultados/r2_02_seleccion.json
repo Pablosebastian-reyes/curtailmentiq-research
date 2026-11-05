@@ -1,0 +1,128 @@
+{
+ "hurdle_800": {
+  "ACI": {
+   "gamma": 0.005,
+   "ventana": null,
+   "IS_validacion": 372.36,
+   "cobertura_validacion": 87.86
+  },
+  "Transport+ACI": {
+   "gamma": 0.005,
+   "ventana": 120,
+   "IS_validacion": 414.54,
+   "cobertura_validacion": 88.74
+  }
+ },
+ "hurdle_es": {
+  "ACI": {
+   "gamma": 0.005,
+   "ventana": null,
+   "IS_validacion": 266.78,
+   "cobertura_validacion": 87.7
+  },
+  "Transport+ACI": {
+   "gamma": 0.005,
+   "ventana": 120,
+   "IS_validacion": 275.36,
+   "cobertura_validacion": 88.48
+  }
+ },
+ "hurdle_sigma_x": {
+  "ACI": {
+   "gamma": 0.005,
+   "ventana": null,
+   "IS_validacion": 363.96,
+   "cobertura_validacion": 89.19
+  },
+  "Transport+ACI": {
+   "gamma": 0.005,
+   "ventana": 120,
+   "IS_validacion": 383.88,
+   "cobertura_validacion": 89.42
+  }
+ },
+ "hurdle_2000": {
+  "ACI": {
+   "gamma": 0.005,
+   "ventana": null,
+   "IS_validacion": 547.11,
+   "cobertura_validacion": 88.64
+  },
+  "Transport+ACI": {
+   "gamma": 0.005,
+   "ventana": 120,
+   "IS_validacion": 611.66,
+   "cobertura_validacion": 89.02
+  }
+ },
+ "qgbm_54x15": {
+  "ACI": {
+   "gamma": 0.005,
+   "ventana": null,
+   "IS_validacion": 277.94,
+   "cobertura_validacion": 93.55
+  },
+  "Transport+ACI": {
+   "gamma": 0.005,
+   "ventana": 45,
+   "IS_validacion": 279.64,
+   "cobertura_validacion": 88.56
+  }
+ },
+ "qgbm_54x50": {
+  "ACI": {
+   "gamma": 0.005,
+   "ventana": null,
+   "IS_validacion": 246.48,
+   "cobertura_validacion": 91.68
+  },
+  "Transport+ACI": {
+   "gamma": 0.005,
+   "ventana": 45,
+   "IS_validacion": 249.04,
+   "cobertura_validacion": 88.8
+  }
+ },
+ "qgbm_54x100": {
+  "ACI": {
+   "gamma": 0.005,
+   "ventana": null,
+   "IS_validacion": 244.78,
+   "cobertura_validacion": 90.59
+  },
+  "Transport+ACI": {
+   "gamma": 0.005,
+   "ventana": 45,
+   "IS_validacion": 245.39,
+   "cobertura_validacion": 88.8
+  }
+ },
+ "qgbm_54x200": {
+  "ACI": {
+   "gamma": 0.005,
+   "ventana": null,
+   "IS_validacion": 245.57,
+   "cobertura_validacion": 90.43
+  },
+  "Transport+ACI": {
+   "gamma": 0.005,
+   "ventana": 45,
+   "IS_validacion": 245.44,
+   "cobertura_validacion": 88.95
+  }
+ },
+ "qgbm_54x400": {
+  "ACI": {
+   "gamma": 0.005,
+   "ventana": null,
+   "IS_validacion": 247.54,
+   "cobertura_validacion": 90.86
+  },
+  "Transport+ACI": {
+   "gamma": 0.005,
+   "ventana": 45,
+   "IS_validacion": 246.72,
+   "cobertura_validacion": 89.04
+  }
+ }
+}

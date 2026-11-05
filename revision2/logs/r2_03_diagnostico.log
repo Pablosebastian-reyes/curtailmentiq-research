@@ -1,0 +1,30 @@
+[20:02:08] agregados diarios hurdle_800
+[20:02:26] agregados diarios hurdle_es
+[20:02:38] agregados diarios hurdle_sigma_x
+[20:02:50] agregados diarios hurdle_2000
+[20:02:54] agregados diarios qgbm_54x15
+[20:02:58] agregados diarios qgbm_54x50
+[20:03:02] agregados diarios qgbm_54x100
+[20:03:05] agregados diarios qgbm_54x200
+[20:03:09] agregados diarios qgbm_54x400
+[20:03:11] celdas hurdle_800: listo
+[20:03:13] celdas hurdle_es: listo
+[20:03:15] celdas hurdle_sigma_x: listo
+[20:03:17] celdas hurdle_2000: listo
+[20:03:19] celdas qgbm_54x15: listo
+[20:03:21] celdas qgbm_54x50: listo
+[20:03:23] celdas qgbm_54x100: listo
+[20:03:25] celdas qgbm_54x200: listo
+[20:03:27] celdas qgbm_54x400: listo
+[20:03:27] control 40 celdas R1: 40 celdas, max|dif| OC 0.0000 pp, dW 0.0000 %
+[20:03:35] tr_g05|r1_40: r -0.873 pend -4.89 | mec r -0.845 pend -4.95 | R2 0.87 | resid 6.99 IC [5.287442568663099, 8.87881455707069]
+[20:03:42] tr_g05|r2_45: r -0.882 pend -4.98 | mec r -0.833 pend -4.80 | R2 0.84 | resid 6.91 IC [5.308705766602799, 8.62827382797551]
+[20:03:50] tr_g05_amin005|r1_40: r -0.741 pend -6.28 | mec r -0.847 pend -5.15 | R2 0.28 | resid 11.67 IC [8.552253651284689, 15.081313166192748]
+[20:03:58] tr_g05_amin005|r2_45: r -0.761 pend -6.35 | mec r -0.835 pend -4.98 | R2 0.30 | resid 11.17 IC [8.120199062164717, 14.49958471170946]
+[20:04:05] aci_g05_amin005|r1_40: r -0.894 pend -4.98 | mec r -0.810 pend -4.13 | R2 0.78 | resid 4.28 IC [2.6417229823032042, 6.2363792011540475]
+[20:04:13] aci_g05_amin005|r2_45: r -0.889 pend -4.89 | mec r -0.796 pend -3.98 | R2 0.79 | resid 3.97 IC [2.373147721299285, 5.893398697453573]
+[20:04:20] tr_sel|r1_40: r -0.454 pend -2.52 | mec r -0.415 pend -2.17 | R2 0.99 | resid 1.11 IC [0.435242042051393, 1.7722091405333482]
+[20:04:28] tr_sel|r2_45: r -0.400 pend -2.27 | mec r -0.351 pend -1.88 | R2 0.98 | resid 0.82 IC [0.17068107162745894, 1.4654080004737347]
+[20:04:36] aci_sel|r1_40: r -0.456 pend -1.38 | mec r -0.427 pend -1.26 | R2 0.99 | resid -0.08 IC [-0.25598009060011095, 0.0631328078561427]
+[20:04:44] aci_sel|r2_45: r -0.430 pend -1.30 | mec r -0.398 pend -1.17 | R2 0.99 | resid -0.14 IC [-0.3115138710226695, -0.00941202462860384]
+[20:04:44] fuera de muestra (hurdle ES): r 0.956 RMSE 4.86

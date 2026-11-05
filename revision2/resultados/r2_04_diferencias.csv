@@ -1,0 +1,449 @@
+alpha,subconjunto,metrica,a,b,dif,lo,hi,significativo
+0.1,all,cobertura,hurdle_800:tr_g05,hurdle_800:static,-2.4155745381644067,-2.9265848944238386,-1.906243144852935,True
+0.1,all,cob_energia,hurdle_800:tr_g05,hurdle_800:static,-7.266592875507996,-8.282224164895064,-6.212550936432947,True
+0.1,all,energia_no_cubierta,hurdle_800:tr_g05,hurdle_800:static,3.8583519151223165,3.2329935097420117,4.494759006471205,True
+0.1,all,IS_finitos,hurdle_800:tr_g05,hurdle_800:static,-12.691416554190482,-50.90437954971023,31.707663008272984,False
+0.1,H1 ex post (cal. P90),cobertura,hurdle_800:tr_g05,hurdle_800:static,-5.1730692212478715,-5.889790859899296,-4.457219616208098,True
+0.1,H1 ex post (cal. P90),cob_energia,hurdle_800:tr_g05,hurdle_800:static,-10.41315980063959,-11.657150559812115,-9.138081981564648,True
+0.1,H1 ex post (cal. P90),energia_no_cubierta,hurdle_800:tr_g05,hurdle_800:static,5.565024986767002,4.759371236434376,6.3685668171940195,True
+0.1,H1 ex post (cal. P90),IS_finitos,hurdle_800:tr_g05,hurdle_800:static,-142.54215866710388,-193.96661679874225,-78.11804098846947,True
+0.1,H2 ex post (test top decile),cobertura,hurdle_800:tr_g05,hurdle_800:static,-6.671682939751491,-8.598786161335713,-4.862488114170691,True
+0.1,H2 ex post (test top decile),cob_energia,hurdle_800:tr_g05,hurdle_800:static,-11.29063437457009,-14.245011056335562,-8.382618113022739,True
+0.1,H2 ex post (test top decile),energia_no_cubierta,hurdle_800:tr_g05,hurdle_800:static,7.078230799014376,5.3388929038944495,8.94242907278089,True
+0.1,H2 ex post (test top decile),IS_finitos,hurdle_800:tr_g05,hurdle_800:static,-71.54747633930424,-196.97372214379388,123.54966656748331,False
+0.1,H3 ex ante (regime known at origin),cobertura,hurdle_800:tr_g05,hurdle_800:static,-4.605805981060044,-5.322355401014057,-3.9255616168277023,True
+0.1,H3 ex ante (regime known at origin),cob_energia,hurdle_800:tr_g05,hurdle_800:static,-9.869964444505428,-11.177460791648363,-8.566001881850616,True
+0.1,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_800:tr_g05,hurdle_800:static,5.321698442579377,4.590285807221205,6.080029484793477,True
+0.1,H3 ex ante (regime known at origin),IS_finitos,hurdle_800:tr_g05,hurdle_800:static,-167.15073635266333,-205.56487753387358,-117.47035811330386,True
+0.1,all,cobertura,hurdle_800:tr_sel,hurdle_800:static,-2.5034856253151645,-2.913348527903186,-2.1143925231715572,True
+0.1,all,cob_energia,hurdle_800:tr_sel,hurdle_800:static,-6.261406280511778,-7.114432784375825,-5.35639350355266,True
+0.1,all,energia_no_cubierta,hurdle_800:tr_sel,hurdle_800:static,3.3533734217940907,2.888047669383629,3.8254455047918627,True
+0.1,all,IS_finitos,hurdle_800:tr_sel,hurdle_800:static,-64.44278999185622,-81.48287205173963,-47.3292457214946,True
+0.1,H1 ex post (cal. P90),cobertura,hurdle_800:tr_sel,hurdle_800:static,-3.8899485707901533,-4.547283531394042,-3.2140673562721833,True
+0.1,H1 ex post (cal. P90),cob_energia,hurdle_800:tr_sel,hurdle_800:static,-7.519345821315241,-8.696459179100065,-6.293398584459695,True
+0.1,H1 ex post (cal. P90),energia_no_cubierta,hurdle_800:tr_sel,hurdle_800:static,4.123556150562145,3.4829240689152536,4.789495537330154,True
+0.1,H1 ex post (cal. P90),IS_finitos,hurdle_800:tr_sel,hurdle_800:static,-135.06667059583492,-167.75035008295814,-102.79309460142927,True
+0.1,H2 ex post (test top decile),cobertura,hurdle_800:tr_sel,hurdle_800:static,-5.08437767095937,-6.794483464687935,-3.5825453017098856,True
+0.1,H2 ex post (test top decile),cob_energia,hurdle_800:tr_sel,hurdle_800:static,-8.490979722189394,-10.99398104661211,-6.1799514688996835,True
+0.1,H2 ex post (test top decile),energia_no_cubierta,hurdle_800:tr_sel,hurdle_800:static,4.852943488111597,3.559189643859443,6.366447944217591,True
+0.1,H2 ex post (test top decile),IS_finitos,hurdle_800:tr_sel,hurdle_800:static,-152.03966464706423,-231.51551403249562,-77.78550593696562,True
+0.1,H3 ex ante (regime known at origin),cobertura,hurdle_800:tr_sel,hurdle_800:static,-4.14122260418101,-4.6844005939781335,-3.6289453199375057,True
+0.1,H3 ex ante (regime known at origin),cob_energia,hurdle_800:tr_sel,hurdle_800:static,-8.71173023397533,-9.671568095832088,-7.719125790698183,True
+0.1,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_800:tr_sel,hurdle_800:static,4.50302563145001,4.001014030387898,5.000820299694279,True
+0.1,H3 ex ante (regime known at origin),IS_finitos,hurdle_800:tr_sel,hurdle_800:static,-190.27529487437766,-219.42063764444154,-162.81738017019111,True
+0.1,all,cobertura,hurdle_es:tr_sel,hurdle_es:static,-2.1623754171777136,-2.545425105688199,-1.7777168943804638,True
+0.1,all,cob_energia,hurdle_es:tr_sel,hurdle_es:static,-5.6741616944653686,-6.630572983934687,-4.763915170593982,True
+0.1,all,energia_no_cubierta,hurdle_es:tr_sel,hurdle_es:static,2.4236767120646103,2.007984865077218,2.8250260809544545,True
+0.1,all,IS_finitos,hurdle_es:tr_sel,hurdle_es:static,-6.322957783317406,-12.64456404900292,0.0959830619502065,False
+0.1,H1 ex post (cal. P90),cobertura,hurdle_es:tr_sel,hurdle_es:static,-3.346012488185792,-4.0132799119917815,-2.7204821214681547,True
+0.1,H1 ex post (cal. P90),cob_energia,hurdle_es:tr_sel,hurdle_es:static,-6.807678110250151,-8.142546922776075,-5.583069746363469,True
+0.1,H1 ex post (cal. P90),energia_no_cubierta,hurdle_es:tr_sel,hurdle_es:static,2.861919959571953,2.3231313347200864,3.44184269002063,True
+0.1,H1 ex post (cal. P90),IS_finitos,hurdle_es:tr_sel,hurdle_es:static,-12.078979535499002,-24.25026285191366,0.5388755995342889,False
+0.1,H2 ex post (test top decile),cobertura,hurdle_es:tr_sel,hurdle_es:static,-3.695210403979516,-5.2226946808981385,-2.319623588969575,True
+0.1,H2 ex post (test top decile),cob_energia,hurdle_es:tr_sel,hurdle_es:static,-6.457790528866468,-8.946163300814126,-4.2262716937108555,True
+0.1,H2 ex post (test top decile),energia_no_cubierta,hurdle_es:tr_sel,hurdle_es:static,3.1675399199692773,2.01046236901353,4.479204771267916,True
+0.1,H2 ex post (test top decile),IS_finitos,hurdle_es:tr_sel,hurdle_es:static,6.242742580404524,-23.75229888565795,39.07018265382361,False
+0.1,H3 ex ante (regime known at origin),cobertura,hurdle_es:tr_sel,hurdle_es:static,-3.4506467974468222,-3.972394870433921,-2.9444846828288873,True
+0.1,H3 ex ante (regime known at origin),cob_energia,hurdle_es:tr_sel,hurdle_es:static,-7.619204987055809,-8.837312214438992,-6.447604376590706,True
+0.1,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_es:tr_sel,hurdle_es:static,3.1471328465834976,2.7332570038824016,3.5672993888849143,True
+0.1,H3 ex ante (regime known at origin),IS_finitos,hurdle_es:tr_sel,hurdle_es:static,-37.868148990862665,-47.54875403031296,-27.39637225078597,True
+0.1,all,cobertura,hurdle_es:static,hurdle_800:static,-0.43461915983289146,-0.8201655627803159,-0.017989764317063398,True
+0.1,all,cob_energia,hurdle_es:static,hurdle_800:static,-1.4365633038048458,-2.4308064141654127,-0.3782070212049056,True
+0.1,all,energia_no_cubierta,hurdle_es:static,hurdle_800:static,-1.551978163970519,-2.155992037202365,-0.9921563121473617,True
+0.1,all,IS_finitos,hurdle_es:static,hurdle_800:static,-291.90882171579517,-312.99549054358346,-270.8717265615072,True
+0.1,H1 ex post (cal. P90),cobertura,hurdle_es:static,hurdle_800:static,-0.510511169398157,-1.1585958072454574,0.17250946978223233,False
+0.1,H1 ex post (cal. P90),cob_energia,hurdle_es:static,hurdle_800:static,-0.7232097214404405,-2.152790724375605,0.7990636646193059,False
+0.1,H1 ex post (cal. P90),energia_no_cubierta,hurdle_es:static,hurdle_800:static,-2.5166090646017363,-3.358617447746638,-1.7325712967689961,True
+0.1,H1 ex post (cal. P90),IS_finitos,hurdle_es:static,hurdle_800:static,-449.78997323721444,-489.39122625666477,-413.1269576581225,True
+0.1,H2 ex post (test top decile),cobertura,hurdle_es:static,hurdle_800:static,-0.7845509725099618,-2.4634134768646665,1.0734006036936719,False
+0.1,H2 ex post (test top decile),cob_energia,hurdle_es:static,hurdle_800:static,-1.0014320635956153,-3.9575435696103036,2.190961566237966,False
+0.1,H2 ex post (test top decile),energia_no_cubierta,hurdle_es:static,hurdle_800:static,-2.6381959831749207,-4.504912615087581,-0.9112019230106959,True
+0.1,H2 ex post (test top decile),IS_finitos,hurdle_es:static,hurdle_800:static,-562.7472831543397,-674.2128445485839,-465.9209403893218,True
+0.1,H3 ex ante (regime known at origin),cobertura,hurdle_es:static,hurdle_800:static,0.23462717535913669,-0.3012487293375738,0.8278395994014319,False
+0.1,H3 ex ante (regime known at origin),cob_energia,hurdle_es:static,hurdle_800:static,1.172787659309904,-0.14657972033911654,2.6414320590465556,False
+0.1,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_es:static,hurdle_800:static,-3.2940254237197824,-4.06058204474493,-2.6158228691015193,True
+0.1,H3 ex ante (regime known at origin),IS_finitos,hurdle_es:static,hurdle_800:static,-450.127648085444,-487.9146087013309,-414.87200628790725,True
+0.1,all,cobertura,hurdle_es:static,hurdle_800:tr_sel,2.068866465482273,1.4550172499120861,2.6873608419744457,True
+0.1,all,cob_energia,hurdle_es:static,hurdle_800:tr_sel,4.8248429767069325,3.3759546325517626,6.2441759178350935,True
+0.1,all,energia_no_cubierta,hurdle_es:static,hurdle_800:tr_sel,-4.90535158576461,-5.785881067090239,-4.017760298545508,True
+0.1,all,IS_finitos,hurdle_es:static,hurdle_800:tr_sel,-227.46603172393895,-245.7642714157538,-209.58168011491887,True
+0.1,H1 ex post (cal. P90),cobertura,hurdle_es:static,hurdle_800:tr_sel,3.3794374013919963,2.3158483951433757,4.479818324390544,True
+0.1,H1 ex post (cal. P90),cob_energia,hurdle_es:static,hurdle_800:tr_sel,6.796136099874801,4.839705184976477,8.795202061200344,True
+0.1,H1 ex post (cal. P90),energia_no_cubierta,hurdle_es:static,hurdle_800:tr_sel,-6.640165215163881,-7.924819743745616,-5.405764116048673,True
+0.1,H1 ex post (cal. P90),IS_finitos,hurdle_es:static,hurdle_800:tr_sel,-314.7233026413795,-343.8301107871751,-287.1628739086513,True
+0.1,H2 ex post (test top decile),cobertura,hurdle_es:static,hurdle_800:tr_sel,4.299826698449408,1.8744444831226583,7.1445354139615835,True
+0.1,H2 ex post (test top decile),cob_energia,hurdle_es:static,hurdle_800:tr_sel,7.489547658593779,3.983378666114865,11.413608900151946,True
+0.1,H2 ex post (test top decile),energia_no_cubierta,hurdle_es:static,hurdle_800:tr_sel,-7.491139471286518,-10.364588933092412,-5.112276182433282,True
+0.1,H2 ex post (test top decile),IS_finitos,hurdle_es:static,hurdle_800:tr_sel,-410.70761850727547,-477.75505092708664,-349.97943745571325,True
+0.1,H3 ex ante (regime known at origin),cobertura,hurdle_es:static,hurdle_800:tr_sel,4.375849779540147,3.5225043163371597,5.364179097923521,True
+0.1,H3 ex ante (regime known at origin),cob_energia,hurdle_es:static,hurdle_800:tr_sel,9.884517893285235,8.183683467933777,11.702466153507677,True
+0.1,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_es:static,hurdle_800:tr_sel,-7.797051055169792,-8.884594013021855,-6.798396292385154,True
+0.1,H3 ex ante (regime known at origin),IS_finitos,hurdle_es:static,hurdle_800:tr_sel,-259.8523532110663,-286.9043181538769,-234.51736342881145,True
+0.1,all,cobertura,qgbm_54x400:cqr,qgbm_54x400:static,-0.3766832957541908,-0.5000534044858472,-0.25202416593897226,True
+0.1,all,cob_energia,qgbm_54x400:cqr,qgbm_54x400:static,-3.062540016831548,-3.391712507095373,-2.74359370427597,True
+0.1,all,energia_no_cubierta,qgbm_54x400:cqr,qgbm_54x400:static,1.2052181409922635,1.111204047965997,1.297440093666539,True
+0.1,all,IS_finitos,qgbm_54x400:cqr,qgbm_54x400:static,5.594501878808728,4.129830098910749,7.098598811882233,True
+0.1,H1 ex post (cal. P90),cobertura,qgbm_54x400:cqr,qgbm_54x400:static,-0.7856891104300985,-0.9978577344323998,-0.5840330704306024,True
+0.1,H1 ex post (cal. P90),cob_energia,qgbm_54x400:cqr,qgbm_54x400:static,-3.3169537792016754,-3.7955188383185416,-2.8662485581673054,True
+0.1,H1 ex post (cal. P90),energia_no_cubierta,qgbm_54x400:cqr,qgbm_54x400:static,1.4017138716636826,1.2759703053283584,1.5334448182208207,True
+0.1,H1 ex post (cal. P90),IS_finitos,qgbm_54x400:cqr,qgbm_54x400:static,15.369406921877044,12.590656747026888,18.236172025086404,True
+0.1,H2 ex post (test top decile),cobertura,qgbm_54x400:cqr,qgbm_54x400:static,-1.2791130689693375,-1.7800336936582277,-0.7928022630644593,True
+0.1,H2 ex post (test top decile),cob_energia,qgbm_54x400:cqr,qgbm_54x400:static,-3.8893767035697806,-4.851410052068205,-3.0103564361021657,True
+0.1,H2 ex post (test top decile),energia_no_cubierta,qgbm_54x400:cqr,qgbm_54x400:static,1.7140388255227634,1.4809366392958483,1.9608798362738136,True
+0.1,H2 ex post (test top decile),IS_finitos,qgbm_54x400:cqr,qgbm_54x400:static,29.915473139470123,23.830818604656013,36.826694327456465,True
+0.1,H3 ex ante (regime known at origin),cobertura,qgbm_54x400:cqr,qgbm_54x400:static,-0.6273493149006981,-0.8312321209835698,-0.4401361447176296,True
+0.1,H3 ex ante (regime known at origin),cob_energia,qgbm_54x400:cqr,qgbm_54x400:static,-3.2802738469037536,-3.75261244261938,-2.814530758435767,True
+0.1,H3 ex ante (regime known at origin),energia_no_cubierta,qgbm_54x400:cqr,qgbm_54x400:static,1.1886217542416668,1.0689767409593114,1.3100859711634065,True
+0.1,H3 ex ante (regime known at origin),IS_finitos,qgbm_54x400:cqr,qgbm_54x400:static,8.359385799541656,5.882688998936024,10.78016958986565,True
+0.1,all,cobertura,qgbm_54x400:tr_sel,qgbm_54x400:static,-0.13496937187649394,-0.4096789358111753,0.1533436991758634,False
+0.1,all,cob_energia,qgbm_54x400:tr_sel,qgbm_54x400:static,-0.5337609767761364,-1.1318539066006736,0.07363108306730679,False
+0.1,all,energia_no_cubierta,qgbm_54x400:tr_sel,qgbm_54x400:static,0.3197211644282998,0.08725062975244557,0.5395949826832339,True
+0.1,all,IS_finitos,qgbm_54x400:tr_sel,qgbm_54x400:static,10.944344752423603,8.34334290272481,13.526453004905813,True
+0.1,H1 ex post (cal. P90),cobertura,qgbm_54x400:tr_sel,qgbm_54x400:static,-1.1581576665087425,-1.6170455296203854,-0.7123187409423769,True
+0.1,H1 ex post (cal. P90),cob_energia,qgbm_54x400:tr_sel,qgbm_54x400:static,-1.9821808649272086,-2.742150837419312,-1.2064920626603397,True
+0.1,H1 ex post (cal. P90),energia_no_cubierta,qgbm_54x400:tr_sel,qgbm_54x400:static,0.9204443518908931,0.6398265728919033,1.1933722983389923,True
+0.1,H1 ex post (cal. P90),IS_finitos,qgbm_54x400:tr_sel,qgbm_54x400:static,11.107680134275483,6.806093878286958,15.47831996457505,True
+0.1,H2 ex post (test top decile),cobertura,qgbm_54x400:tr_sel,qgbm_54x400:static,-1.8785210192947375,-3.1032371687892937,-0.7800308595371482,True
+0.1,H2 ex post (test top decile),cob_energia,qgbm_54x400:tr_sel,qgbm_54x400:static,-2.22953578242619,-3.905674333937732,-0.6146507544682164,True
+0.1,H2 ex post (test top decile),energia_no_cubierta,qgbm_54x400:tr_sel,qgbm_54x400:static,1.1843630886367063,0.5729253032724368,1.8272326654880526,True
+0.1,H2 ex post (test top decile),IS_finitos,qgbm_54x400:tr_sel,qgbm_54x400:static,24.521508103419592,12.836142128983962,38.06223290794097,True
+0.1,H3 ex ante (regime known at origin),cobertura,qgbm_54x400:tr_sel,qgbm_54x400:static,-1.14841336717474,-1.5309032965315326,-0.7824442782130998,True
+0.1,H3 ex ante (regime known at origin),cob_energia,qgbm_54x400:tr_sel,qgbm_54x400:static,-2.183817252764385,-2.946821242459472,-1.440164028922144,True
+0.1,H3 ex ante (regime known at origin),energia_no_cubierta,qgbm_54x400:tr_sel,qgbm_54x400:static,0.8143738075135429,0.5886857880777652,1.040442588482576,True
+0.1,H3 ex ante (regime known at origin),IS_finitos,qgbm_54x400:tr_sel,qgbm_54x400:static,6.879704145646883,4.139065064677903,9.631418323247626,True
+0.1,all,cobertura,qgbm_54x400:static,hurdle_es:static,-1.8309829542245524,-2.2716352385055507,-1.411894099764277,True
+0.1,all,cob_energia,qgbm_54x400:static,hurdle_es:static,-12.6782761780579,-13.807559264477502,-11.537589463892667,True
+0.1,all,energia_no_cubierta,qgbm_54x400:static,hurdle_es:static,1.3713491459122231,0.9771778031120548,1.7604355677323587,True
+0.1,all,IS_finitos,qgbm_54x400:static,hurdle_es:static,-100.97899777522065,-110.0250501430073,-92.21454668798347,True
+0.1,H1 ex post (cal. P90),cobertura,qgbm_54x400:static,hurdle_es:static,-4.734440506978899,-5.432456187777723,-4.083440945495722,True
+0.1,H1 ex post (cal. P90),cob_energia,qgbm_54x400:static,hurdle_es:static,-16.372978632743653,-17.93410114830666,-14.797278626352377,True
+0.1,H1 ex post (cal. P90),energia_no_cubierta,qgbm_54x400:static,hurdle_es:static,2.4184974379751143,1.9354243353861535,2.9363945599174697,True
+0.1,H1 ex post (cal. P90),IS_finitos,qgbm_54x400:static,hurdle_es:static,-146.75205576396786,-163.17721592298216,-129.4961019579224,True
+0.1,H2 ex post (test top decile),cobertura,qgbm_54x400:static,hurdle_es:static,-7.707483859388901,-9.267030397895457,-6.232998488967663,True
+0.1,H2 ex post (test top decile),cob_energia,qgbm_54x400:static,hurdle_es:static,-21.510662361357028,-24.553380634086448,-18.590400855671646,True
+0.1,H2 ex post (test top decile),energia_no_cubierta,qgbm_54x400:static,hurdle_es:static,3.8964119727535333,2.9745890674284414,4.862487278274475,True
+0.1,H2 ex post (test top decile),IS_finitos,qgbm_54x400:static,hurdle_es:static,-152.42974338995748,-191.50873168957924,-112.49761823353306,True
+0.1,H3 ex ante (regime known at origin),cobertura,qgbm_54x400:static,hurdle_es:static,-3.3420860209116654,-3.8735534979886825,-2.822424583242489,True
+0.1,H3 ex ante (regime known at origin),cob_energia,qgbm_54x400:static,hurdle_es:static,-13.536604799650348,-14.95526481046904,-12.147459508476894,True
+0.1,H3 ex ante (regime known at origin),energia_no_cubierta,qgbm_54x400:static,hurdle_es:static,1.7005948316078507,1.3490930521041167,2.0585891738412005,True
+0.1,H3 ex ante (regime known at origin),IS_finitos,qgbm_54x400:static,hurdle_es:static,-168.96325415785077,-181.35159470786334,-156.77616800399747,True
+0.1,all,cobertura,qgbm_54x400:cqr,hurdle_800:tr_sel,-0.13879978449647012,-0.7642112737745116,0.5192040993663073,False
+0.1,all,cob_energia,qgbm_54x400:cqr,hurdle_800:tr_sel,-10.915973218182515,-12.5415866289599,-9.254762516554838,True
+0.1,all,energia_no_cubierta,qgbm_54x400:cqr,hurdle_800:tr_sel,-2.328784298860123,-3.2043594254018504,-1.5039725267657318,True
+0.1,all,IS_finitos,qgbm_54x400:cqr,hurdle_800:tr_sel,-322.8505276203509,-345.06605259058995,-301.73515732145523,True
+0.1,H1 ex post (cal. P90),cobertura,qgbm_54x400:cqr,hurdle_800:tr_sel,-2.140692216017001,-3.2342026628628404,-1.0378314076565993,True
+0.1,H1 ex post (cal. P90),cob_energia,qgbm_54x400:cqr,hurdle_800:tr_sel,-12.893796312070528,-15.33214855639443,-10.491887001206823,True
+0.1,H1 ex post (cal. P90),energia_no_cubierta,qgbm_54x400:cqr,hurdle_800:tr_sel,-2.819953905525084,-4.102816445992295,-1.5854151350306247,True
+0.1,H1 ex post (cal. P90),IS_finitos,qgbm_54x400:cqr,hurdle_800:tr_sel,-446.10595148347034,-480.029215201313,-413.1490165801391,True
+0.1,H2 ex post (test top decile),cobertura,qgbm_54x400:cqr,hurdle_800:tr_sel,-4.686770229908831,-7.02434829156994,-2.090924851085622,True
+0.1,H2 ex post (test top decile),cob_energia,qgbm_54x400:cqr,hurdle_800:tr_sel,-17.91049140633303,-21.69604015739265,-13.736790935772076,True
+0.1,H2 ex post (test top decile),energia_no_cubierta,qgbm_54x400:cqr,hurdle_800:tr_sel,-1.880688673010221,-4.406513614344706,0.35765589624984157,False
+0.1,H2 ex post (test top decile),IS_finitos,qgbm_54x400:cqr,hurdle_800:tr_sel,-533.2218887577628,-612.0415511936426,-455.1136200512701,True
+0.1,H3 ex ante (regime known at origin),cobertura,qgbm_54x400:cqr,hurdle_800:tr_sel,0.40641444372778324,-0.5439755621048501,1.381838272746536,False
+0.1,H3 ex ante (regime known at origin),cob_energia,qgbm_54x400:cqr,hurdle_800:tr_sel,-6.932360753268867,-9.064830384122736,-4.677171058291119,True
+0.1,H3 ex ante (regime known at origin),energia_no_cubierta,qgbm_54x400:cqr,hurdle_800:tr_sel,-4.9078344693202745,-5.990468979317438,-3.8882186756564066,True
+0.1,H3 ex ante (regime known at origin),IS_finitos,qgbm_54x400:cqr,hurdle_800:tr_sel,-420.45622156937543,-452.1702517641875,-391.11842386636596,True
+0.1,all,cobertura,hurdle_es:cqr,hurdle_es:static,2.154461595384859,1.9943216326719504,2.319967131497359,True
+0.1,all,cob_energia,hurdle_es:cqr,hurdle_es:static,5.517225816407006,5.095753759368873,5.9465696623140865,True
+0.1,all,energia_no_cubierta,hurdle_es:cqr,hurdle_es:static,-2.332087484207211,-2.4846549693866327,-2.1755556248749306,True
+0.1,all,IS_finitos,hurdle_es:cqr,hurdle_es:static,56.76952953664966,52.50225186127547,61.1650022776044,True
+0.1,H1 ex post (cal. P90),cobertura,hurdle_es:cqr,hurdle_es:static,2.471226688211587,2.212989281471865,2.7411913338457343,True
+0.1,H1 ex post (cal. P90),cob_energia,hurdle_es:cqr,hurdle_es:static,5.5820164745643694,5.013057596657974,6.187126918723949,True
+0.1,H1 ex post (cal. P90),energia_no_cubierta,hurdle_es:cqr,hurdle_es:static,-2.3549879289870326,-2.5570611322464187,-2.145749581373459,True
+0.1,H1 ex post (cal. P90),IS_finitos,hurdle_es:cqr,hurdle_es:static,70.85974434499258,63.09565144056439,78.89504640852383,True
+0.1,H2 ex post (test top decile),cobertura,hurdle_es:cqr,hurdle_es:static,2.8170472278415133,2.354681578082247,3.3289203644057417,True
+0.1,H2 ex post (test top decile),cob_energia,hurdle_es:cqr,hurdle_es:static,5.786999029132247,4.771762291626587,6.900693982403686,True
+0.1,H2 ex post (test top decile),energia_no_cubierta,hurdle_es:cqr,hurdle_es:static,-2.638447146469023,-3.0568702868959776,-2.2474322968956875,True
+0.1,H2 ex post (test top decile),IS_finitos,hurdle_es:cqr,hurdle_es:static,69.96361885001079,50.34724644044021,89.3092198796624,True
+0.1,H3 ex ante (regime known at origin),cobertura,hurdle_es:cqr,hurdle_es:static,1.7292383573617798,1.5405713285065037,1.9216533190564646,True
+0.1,H3 ex ante (regime known at origin),cob_energia,hurdle_es:cqr,hurdle_es:static,4.81061006804282,4.265854010129456,5.379576754972934,True
+0.1,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_es:cqr,hurdle_es:static,-1.9124545473979144,-2.0840541766643765,-1.7441329920311701,True
+0.1,H3 ex ante (regime known at origin),IS_finitos,hurdle_es:cqr,hurdle_es:static,86.91106027122783,80.78857651256561,93.1360973797205,True
+0.05,all,cobertura,hurdle_800:tr_sel,hurdle_800:static,-1.3212581723383465,-1.6025056622235527,-1.0423650990249438,True
+0.05,all,cob_energia,hurdle_800:tr_sel,hurdle_800:static,-3.499558623219542,-4.166720529982294,-2.860149307280986,True
+0.05,all,energia_no_cubierta,hurdle_800:tr_sel,hurdle_800:static,1.9135692586392512,1.5887418214023052,2.240928451047682,True
+0.05,all,IS_finitos,hurdle_800:tr_sel,hurdle_800:static,-17.58113501880075,-61.70262329717447,27.94130056667141,False
+0.05,H1 ex post (cal. P90),cobertura,hurdle_800:tr_sel,hurdle_800:static,-2.0415634173048005,-2.5107476324323597,-1.6014207237555753,True
+0.05,H1 ex post (cal. P90),cob_energia,hurdle_800:tr_sel,hurdle_800:static,-4.371710570251935,-5.291335251786824,-3.492199128217075,True
+0.05,H1 ex post (cal. P90),energia_no_cubierta,hurdle_800:tr_sel,hurdle_800:static,2.4027243045850435,1.920565853829529,2.918828519059149,True
+0.05,H1 ex post (cal. P90),IS_finitos,hurdle_800:tr_sel,hurdle_800:static,-182.36585857590126,-259.202397452962,-107.5578771526819,True
+0.05,H2 ex post (test top decile),cobertura,hurdle_800:tr_sel,hurdle_800:static,-2.880466498892517,-4.200966737417803,-1.7898400418059768,True
+0.05,H2 ex post (test top decile),cob_energia,hurdle_800:tr_sel,hurdle_800:static,-5.758148961285727,-7.956071762747293,-3.8643282033463557,True
+0.05,H2 ex post (test top decile),energia_no_cubierta,hurdle_800:tr_sel,hurdle_800:static,3.0015523074580193,1.96374727259195,4.262166804508219,True
+0.05,H2 ex post (test top decile),IS_finitos,hurdle_800:tr_sel,hurdle_800:static,-250.2531899515916,-410.7712049620849,-93.55625805212931,True
+0.05,H3 ex ante (regime known at origin),cobertura,hurdle_800:tr_sel,hurdle_800:static,-2.029018615466782,-2.392672565865886,-1.6835315630835908,True
+0.05,H3 ex ante (regime known at origin),cob_energia,hurdle_800:tr_sel,hurdle_800:static,-4.742347575647813,-5.525410264287864,-4.0002437088364475,True
+0.05,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_800:tr_sel,hurdle_800:static,2.603749255366262,2.267669824564454,2.937037603076497,True
+0.05,H3 ex ante (regime known at origin),IS_finitos,hurdle_800:tr_sel,hurdle_800:static,-317.5835905350348,-375.1504603245128,-258.17187129040667,True
+0.05,all,cobertura,hurdle_es:tr_sel,hurdle_es:static,-1.1905972577942379,-1.4601880117157364,-0.9161407630020643,True
+0.05,all,cob_energia,hurdle_es:tr_sel,hurdle_es:static,-3.3359623792482296,-4.1259273638786,-2.5574104376513485,True
+0.05,all,energia_no_cubierta,hurdle_es:tr_sel,hurdle_es:static,1.294259844582415,1.0197647683189002,1.5769460845815775,True
+0.05,all,IS_finitos,hurdle_es:tr_sel,hurdle_es:static,-1.9245386978873285,-15.731264112224528,11.708837015050618,False
+0.05,H1 ex post (cal. P90),cobertura,hurdle_es:tr_sel,hurdle_es:static,-1.7630916230798732,-2.2521040841558007,-1.3003930442030969,True
+0.05,H1 ex post (cal. P90),cob_energia,hurdle_es:tr_sel,hurdle_es:static,-3.8573088051474542,-4.9540285102424875,-2.8456179603105847,True
+0.05,H1 ex post (cal. P90),energia_no_cubierta,hurdle_es:tr_sel,hurdle_es:static,1.553698828196295,1.1735756258995833,1.9752496202349548,True
+0.05,H1 ex post (cal. P90),IS_finitos,hurdle_es:tr_sel,hurdle_es:static,-26.7473581192678,-49.91400893980155,-2.656279491180738,True
+0.05,H2 ex post (test top decile),cobertura,hurdle_es:tr_sel,hurdle_es:static,-2.3041241928534646,-3.6555485481973946,-1.1304768254033493,True
+0.05,H2 ex post (test top decile),cob_energia,hurdle_es:tr_sel,hurdle_es:static,-4.825749517274062,-7.234893932210929,-2.6080087439012876,True
+0.05,H2 ex post (test top decile),energia_no_cubierta,hurdle_es:tr_sel,hurdle_es:static,1.8856869168830008,0.9761139220652681,2.970157517642366,True
+0.05,H2 ex post (test top decile),IS_finitos,hurdle_es:tr_sel,hurdle_es:static,-2.3907266892904318,-58.82209567764181,59.25224638642839,False
+0.05,H3 ex ante (regime known at origin),cobertura,hurdle_es:tr_sel,hurdle_es:static,-1.5879859801302842,-1.8659342667857728,-1.3262780539116714,True
+0.05,H3 ex ante (regime known at origin),cob_energia,hurdle_es:tr_sel,hurdle_es:static,-4.168984187008775,-4.943560390202841,-3.4262115505979556,True
+0.05,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_es:tr_sel,hurdle_es:static,1.6158341821546216,1.3698588487120638,1.8762528692772686,True
+0.05,H3 ex ante (regime known at origin),IS_finitos,hurdle_es:tr_sel,hurdle_es:static,-78.04265566319032,-95.55885194475478,-59.41612541135698,True
+0.05,all,cobertura,hurdle_es:static,hurdle_800:static,-0.20462605081729635,-0.4626154509398809,0.05246561939353977,False
+0.05,all,cob_energia,hurdle_es:static,hurdle_800:static,0.581490926069236,-0.20245094652270337,1.3554439134025782,False
+0.05,all,energia_no_cubierta,hurdle_es:static,hurdle_800:static,-1.3185731876251099,-1.7682364648389441,-0.9056332437179448,True
+0.05,all,IS_finitos,hurdle_es:static,hurdle_800:static,-576.1502449096779,-614.1312724200109,-538.9984307866852,True
+0.05,H1 ex post (cal. P90),cobertura,hurdle_es:static,hurdle_800:static,0.00922003879777833,-0.43848764196591894,0.4883156113040849,False
+0.05,H1 ex post (cal. P90),cob_energia,hurdle_es:static,hurdle_800:static,1.8221384120818556,0.769023918153966,2.9312799498330735,True
+0.05,H1 ex post (cal. P90),energia_no_cubierta,hurdle_es:static,hurdle_800:static,-2.283246671936071,-2.9082706072608824,-1.718986080760708,True
+0.05,H1 ex post (cal. P90),IS_finitos,hurdle_es:static,hurdle_800:static,-877.1885184619737,-946.5412101246294,-810.6025775038505,True
+0.05,H2 ex post (test top decile),cobertura,hurdle_es:static,hurdle_800:static,-0.0031651048886232047,-1.2339421522024066,1.4235693462777026,False
+0.05,H2 ex post (test top decile),cob_energia,hurdle_es:static,hurdle_800:static,1.6292986681507244,-0.7879310190928503,4.169049655539614,False
+0.05,H2 ex post (test top decile),energia_no_cubierta,hurdle_es:static,hurdle_800:static,-2.4447302154559334,-3.744243493399911,-1.241181667136751,True
+0.05,H2 ex post (test top decile),IS_finitos,hurdle_es:static,hurdle_800:static,-1094.5035513276096,-1285.009115167273,-930.7685671228,True
+0.05,H3 ex ante (regime known at origin),cobertura,hurdle_es:static,hurdle_800:static,0.32674332169729325,0.023127320144828194,0.6674177037523104,True
+0.05,H3 ex ante (regime known at origin),cob_energia,hurdle_es:static,hurdle_800:static,3.198755729141695,2.26114195444888,4.181308417927078,True
+0.05,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_es:static,hurdle_800:static,-2.7230946835825716,-3.246997164883188,-2.2261975062026536,True
+0.05,H3 ex ante (regime known at origin),IS_finitos,hurdle_es:static,hurdle_800:static,-869.0210695102919,-937.9990003063764,-805.3046855131462,True
+0.05,all,cobertura,hurdle_es:static,hurdle_800:tr_sel,1.1166321215210502,0.6842587093690404,1.535342266223089,True
+0.05,all,cob_energia,hurdle_es:static,hurdle_800:tr_sel,4.081049549288778,2.921164192344116,5.243821551230171,True
+0.05,all,energia_no_cubierta,hurdle_es:static,hurdle_800:tr_sel,-3.232142446264361,-3.8863987192234046,-2.6199359932036397,True
+0.05,all,IS_finitos,hurdle_es:static,hurdle_800:tr_sel,-558.5691098908771,-605.7026716473454,-509.4886969206444,True
+0.05,H1 ex post (cal. P90),cobertura,hurdle_es:static,hurdle_800:tr_sel,2.050783456102579,1.3091085993912603,2.857236208081401,True
+0.05,H1 ex post (cal. P90),cob_energia,hurdle_es:static,hurdle_800:tr_sel,6.19384898233379,4.640496734082401,7.83897119345635,True
+0.05,H1 ex post (cal. P90),energia_no_cubierta,hurdle_es:static,hurdle_800:tr_sel,-4.685970976521114,-5.64470225939295,-3.829087834847966,True
+0.05,H1 ex post (cal. P90),IS_finitos,hurdle_es:static,hurdle_800:tr_sel,-694.8226598860724,-766.5804684149947,-622.7148472465257,True
+0.05,H2 ex post (test top decile),cobertura,hurdle_es:static,hurdle_800:tr_sel,2.8773013940038936,1.0315436153021231,5.273653654291919,True
+0.05,H2 ex post (test top decile),cob_energia,hurdle_es:static,hurdle_800:tr_sel,7.387447629436451,4.148661698005426,11.265521650321725,True
+0.05,H2 ex post (test top decile),energia_no_cubierta,hurdle_es:static,hurdle_800:tr_sel,-5.446282522913952,-7.674177005432746,-3.654696925476619,True
+0.05,H2 ex post (test top decile),IS_finitos,hurdle_es:static,hurdle_800:tr_sel,-844.250361376018,-983.3451828499275,-711.7532220901435,True
+0.05,H3 ex ante (regime known at origin),cobertura,hurdle_es:static,hurdle_800:tr_sel,2.3557619371640754,1.8235648125429904,2.975536289441619,True
+0.05,H3 ex ante (regime known at origin),cob_energia,hurdle_es:static,hurdle_800:tr_sel,7.941103304789507,6.607265154023034,9.434655382599985,True
+0.05,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_es:static,hurdle_800:tr_sel,-5.326843938948834,-6.090702049353413,-4.619051739225425,True
+0.05,H3 ex ante (regime known at origin),IS_finitos,hurdle_es:static,hurdle_800:tr_sel,-551.4374789752571,-614.4077812083574,-494.04069540473364,True
+0.05,all,cobertura,qgbm_54x400:cqr,qgbm_54x400:static,-0.058763406631271664,-0.16298822914652114,0.04427324298142378,False
+0.05,all,cob_energia,qgbm_54x400:cqr,qgbm_54x400:static,-1.3608693731299297,-1.6524104031081766,-1.0730413956433829,True
+0.05,all,energia_no_cubierta,qgbm_54x400:cqr,qgbm_54x400:static,0.5615124629140302,0.4827066692375897,0.6447508511912619,True
+0.05,all,IS_finitos,qgbm_54x400:cqr,qgbm_54x400:static,7.133217371598903,4.865961706088584,9.565307413610348,True
+0.05,H1 ex post (cal. P90),cobertura,qgbm_54x400:cqr,qgbm_54x400:static,-0.20903826028413164,-0.39591088619905646,-0.02537104020977275,True
+0.05,H1 ex post (cal. P90),cob_energia,qgbm_54x400:cqr,qgbm_54x400:static,-1.2752773484277213,-1.669886394971165,-0.8766124783312396,True
+0.05,H1 ex post (cal. P90),energia_no_cubierta,qgbm_54x400:cqr,qgbm_54x400:static,0.5818355977318586,0.47453674168209564,0.6998840188028063,True
+0.05,H1 ex post (cal. P90),IS_finitos,qgbm_54x400:cqr,qgbm_54x400:static,16.673414814373473,12.062137539716582,21.713575879834835,True
+0.05,H2 ex post (test top decile),cobertura,qgbm_54x400:cqr,qgbm_54x400:static,-0.344720847099083,-0.8106069127763824,0.08322475809623665,False
+0.05,H2 ex post (test top decile),cob_energia,qgbm_54x400:cqr,qgbm_54x400:static,-1.8801100187510897,-2.68708163635901,-1.113225317866103,True
+0.05,H2 ex post (test top decile),energia_no_cubierta,qgbm_54x400:cqr,qgbm_54x400:static,0.6167073291044822,0.4218034854869177,0.8563787940997796,True
+0.05,H2 ex post (test top decile),IS_finitos,qgbm_54x400:cqr,qgbm_54x400:static,25.780993884968552,15.303016085326425,38.97594744305346,True
+0.05,H3 ex ante (regime known at origin),cobertura,qgbm_54x400:cqr,qgbm_54x400:static,-0.12339090540703523,-0.24895535839391592,0.007879895164865742,False
+0.05,H3 ex ante (regime known at origin),cob_energia,qgbm_54x400:cqr,qgbm_54x400:static,-0.9779638865651634,-1.31932006296271,-0.6358762364996633,True
+0.05,H3 ex ante (regime known at origin),energia_no_cubierta,qgbm_54x400:cqr,qgbm_54x400:static,0.35376455631943227,0.28906504427792534,0.4158691056277659,True
+0.05,H3 ex ante (regime known at origin),IS_finitos,qgbm_54x400:cqr,qgbm_54x400:static,4.761944555237278,2.446031233638908,7.209507767056103,True
+0.05,all,cobertura,qgbm_54x400:tr_sel,qgbm_54x400:static,0.6497291332700854,0.4731332226866414,0.8198456882914709,True
+0.05,all,cob_energia,qgbm_54x400:tr_sel,qgbm_54x400:static,2.012698105485285,1.55543263178946,2.4738143991418986,True
+0.05,all,energia_no_cubierta,qgbm_54x400:tr_sel,qgbm_54x400:static,-0.5677862781109697,-0.7012547609013744,-0.4323413329674149,True
+0.05,all,IS_finitos,qgbm_54x400:tr_sel,qgbm_54x400:static,16.304338199675158,12.587828543730831,20.309265174406164,True
+0.05,H1 ex post (cal. P90),cobertura,qgbm_54x400:tr_sel,qgbm_54x400:static,0.5372946658969937,0.22035090206772665,0.8331350074227252,True
+0.05,H1 ex post (cal. P90),cob_energia,qgbm_54x400:tr_sel,qgbm_54x400:static,1.3827940605438016,0.8040918787280003,1.9340578961747998,True
+0.05,H1 ex post (cal. P90),energia_no_cubierta,qgbm_54x400:tr_sel,qgbm_54x400:static,-0.40540253479146404,-0.5633639410019394,-0.2276578744048581,True
+0.05,H1 ex post (cal. P90),IS_finitos,qgbm_54x400:tr_sel,qgbm_54x400:static,6.204700227250669,0.4474699213048866,12.796226536849177,True
+0.05,H2 ex post (test top decile),cobertura,qgbm_54x400:tr_sel,qgbm_54x400:static,0.32506141085829654,-0.6059042144609862,1.0549515033057404,False
+0.05,H2 ex post (test top decile),cob_energia,qgbm_54x400:tr_sel,qgbm_54x400:static,1.3889546973471738,0.15391292897292425,2.673859709733848,True
+0.05,H2 ex post (test top decile),energia_no_cubierta,qgbm_54x400:tr_sel,qgbm_54x400:static,-0.3394146768504367,-0.7346245445759139,0.11956237668718392,False
+0.05,H2 ex post (test top decile),IS_finitos,qgbm_54x400:tr_sel,qgbm_54x400:static,5.017030887598935,-12.91991846376455,26.527966223688495,False
+0.05,H3 ex ante (regime known at origin),cobertura,qgbm_54x400:tr_sel,qgbm_54x400:static,0.34998341560927315,0.14448926424288722,0.5591723329536137,True
+0.05,H3 ex ante (regime known at origin),cob_energia,qgbm_54x400:tr_sel,qgbm_54x400:static,1.2858396172477171,0.8014826961846648,1.7972960285885122,True
+0.05,H3 ex ante (regime known at origin),energia_no_cubierta,qgbm_54x400:tr_sel,qgbm_54x400:static,-0.3787520461343785,-0.5026755131875367,-0.2534347061326387,True
+0.05,H3 ex ante (regime known at origin),IS_finitos,qgbm_54x400:tr_sel,qgbm_54x400:static,12.920893950508685,8.606149767378966,17.30492904827688,True
+0.05,all,cobertura,qgbm_54x400:static,hurdle_es:static,-1.7431452229327107,-2.062931977688361,-1.4341572405966614,True
+0.05,all,cob_energia,qgbm_54x400:static,hurdle_es:static,-13.910146663142754,-14.940196348165953,-12.911256302603613,True
+0.05,all,energia_no_cubierta,qgbm_54x400:static,hurdle_es:static,2.17781158442289,1.8223770601500449,2.5241463982647168,True
+0.05,all,IS_finitos,qgbm_54x400:static,hurdle_es:static,-204.00098033177017,-220.7409886571281,-187.53291609837865,True
+0.05,H1 ex post (cal. P90),cobertura,qgbm_54x400:static,hurdle_es:static,-4.092838320701901,-4.627188050261795,-3.5800793209066515,True
+0.05,H1 ex post (cal. P90),cob_energia,qgbm_54x400:static,hurdle_es:static,-17.879422303171893,-19.352533216870313,-16.466281733560912,True
+0.05,H1 ex post (cal. P90),energia_no_cubierta,qgbm_54x400:static,hurdle_es:static,3.3539370577649747,2.8862119407031663,3.8163700089797863,True
+0.05,H1 ex post (cal. P90),IS_finitos,qgbm_54x400:static,hurdle_es:static,-269.9128817137141,-301.7308253830712,-237.67093420787123,True
+0.05,H2 ex post (test top decile),cobertura,qgbm_54x400:static,hurdle_es:static,-6.627550008865882,-7.848122677290324,-5.507135831267998,True
+0.05,H2 ex post (test top decile),cob_energia,qgbm_54x400:static,hurdle_es:static,-22.868966875427333,-25.607522350643194,-20.36048377123472,True
+0.05,H2 ex post (test top decile),energia_no_cubierta,qgbm_54x400:static,hurdle_es:static,5.091116991573097,4.2413118476828435,6.037292937487781,True
+0.05,H2 ex post (test top decile),IS_finitos,qgbm_54x400:static,hurdle_es:static,-240.50955412188716,-323.224957166477,-158.83314806241,True
+0.05,H3 ex ante (regime known at origin),cobertura,qgbm_54x400:static,hurdle_es:static,-2.7899553774473844,-3.190532171150229,-2.430217083291103,True
+0.05,H3 ex ante (regime known at origin),cob_energia,qgbm_54x400:static,hurdle_es:static,-14.740326559259799,-15.988505051343802,-13.592065979221578,True
+0.05,H3 ex ante (regime known at origin),energia_no_cubierta,qgbm_54x400:static,hurdle_es:static,2.7351826957641068,2.3943026250988284,3.106424007122283,True
+0.05,H3 ex ante (regime known at origin),IS_finitos,qgbm_54x400:static,hurdle_es:static,-316.58007866333264,-342.6123509209659,-291.13577209048475,True
+0.05,all,cobertura,qgbm_54x400:cqr,hurdle_800:tr_sel,-0.6852765080429322,-1.1498872927097712,-0.21517291596901966,True
+0.05,all,cob_energia,qgbm_54x400:cqr,hurdle_800:tr_sel,-11.189966486983906,-12.49370082941513,-9.78336522938342,True
+0.05,all,energia_no_cubierta,qgbm_54x400:cqr,hurdle_800:tr_sel,-0.49281839892744106,-1.1554025137435837,0.12342168769139265,False
+0.05,all,IS_finitos,qgbm_54x400:cqr,hurdle_800:tr_sel,-755.4368728510484,-808.1424310448245,-701.6575027078705,True
+0.05,H1 ex post (cal. P90),cobertura,qgbm_54x400:cqr,hurdle_800:tr_sel,-2.251093124883454,-3.044631231982085,-1.4426477673037028,True
+0.05,H1 ex post (cal. P90),cob_energia,qgbm_54x400:cqr,hurdle_800:tr_sel,-12.960850669265824,-14.862177783859348,-11.021306375601187,True
+0.05,H1 ex post (cal. P90),energia_no_cubierta,qgbm_54x400:cqr,hurdle_800:tr_sel,-0.7501983210242811,-1.696074936639199,0.15452869382457968,False
+0.05,H1 ex post (cal. P90),IS_finitos,qgbm_54x400:cqr,hurdle_800:tr_sel,-948.062126785413,-1029.179954093468,-866.48923263574,True
+0.05,H2 ex post (test top decile),cobertura,qgbm_54x400:cqr,hurdle_800:tr_sel,-4.094969461961071,-5.901221994530225,-2.2051602769511627,True
+0.05,H2 ex post (test top decile),cob_energia,qgbm_54x400:cqr,hurdle_800:tr_sel,-17.36162926474197,-20.876144461587053,-13.743668119039441,True
+0.05,H2 ex post (test top decile),energia_no_cubierta,qgbm_54x400:cqr,hurdle_800:tr_sel,0.26154179776362696,-1.534972522186869,1.938391923568411,False
+0.05,H2 ex post (test top decile),IS_finitos,qgbm_54x400:cqr,hurdle_800:tr_sel,-1058.9789216129366,-1226.3124243176107,-887.3248273460954,True
+0.05,H3 ex ante (regime known at origin),cobertura,qgbm_54x400:cqr,hurdle_800:tr_sel,-0.5575843456903442,-1.2047363796005606,0.09559556924342168,False
+0.05,H3 ex ante (regime known at origin),cob_energia,qgbm_54x400:cqr,hurdle_800:tr_sel,-7.777187141035455,-9.484494404180252,-6.020803948218474,True
+0.05,H3 ex ante (regime known at origin),energia_no_cubierta,qgbm_54x400:cqr,hurdle_800:tr_sel,-2.2378966868652945,-3.0179191533103027,-1.5316283145895073,True
+0.05,H3 ex ante (regime known at origin),IS_finitos,qgbm_54x400:cqr,hurdle_800:tr_sel,-863.2556130833525,-931.4893139120345,-796.5814019746672,True
+0.05,all,cobertura,hurdle_es:cqr,hurdle_es:static,1.9619791817151793,1.7752871354484452,2.1636828496436165,True
+0.05,all,cob_energia,hurdle_es:cqr,hurdle_es:static,6.146593297873608,5.548359404966203,6.773176274951814,True
+0.05,all,energia_no_cubierta,hurdle_es:cqr,hurdle_es:static,-2.1387325433615194,-2.3912174903070986,-1.9032376953155599,True
+0.05,all,IS_finitos,hurdle_es:cqr,hurdle_es:static,311.27293738340177,294.52138299380215,328.5530033430041,True
+0.05,H1 ex post (cal. P90),cobertura,hurdle_es:cqr,hurdle_es:static,2.225306750476534,1.9322972963622445,2.5164636626067804,True
+0.05,H1 ex post (cal. P90),cob_energia,hurdle_es:cqr,hurdle_es:static,6.427238889507677,5.5896690683623635,7.238066061534839,True
+0.05,H1 ex post (cal. P90),energia_no_cubierta,hurdle_es:cqr,hurdle_es:static,-2.0589277209398316,-2.37673754777464,-1.7569877431659393,True
+0.05,H1 ex post (cal. P90),IS_finitos,hurdle_es:cqr,hurdle_es:static,414.9788340612895,386.3830007790483,444.5607170008644,True
+0.05,H2 ex post (test top decile),cobertura,hurdle_es:cqr,hurdle_es:static,2.782753830594757,2.139095359223103,3.4614027488428953,True
+0.05,H2 ex post (test top decile),cob_energia,hurdle_es:cqr,hurdle_es:static,7.403406721745483,5.574528125108893,9.271507139931796,True
+0.05,H2 ex post (test top decile),energia_no_cubierta,hurdle_es:cqr,hurdle_es:static,-2.1565413153662805,-2.772224848738613,-1.6138991696233476,True
+0.05,H2 ex post (test top decile),IS_finitos,hurdle_es:cqr,hurdle_es:static,474.9050819862555,409.37186153414376,538.1227542381179,True
+0.05,H3 ex ante (regime known at origin),cobertura,hurdle_es:cqr,hurdle_es:static,1.4272000433941798,1.2208800868456513,1.6336867062235167,True
+0.05,H3 ex ante (regime known at origin),cob_energia,hurdle_es:cqr,hurdle_es:static,5.1568800565949005,4.345544107923335,5.953478526160008,True
+0.05,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_es:cqr,hurdle_es:static,-1.5204304285399295,-1.7475747196191929,-1.310764865992992,True
+0.05,H3 ex ante (regime known at origin),IS_finitos,hurdle_es:cqr,hurdle_es:static,453.5873399500929,433.12926269780735,475.84148564846356,True
+0.01,all,cobertura,hurdle_800:tr_sel,hurdle_800:static,-0.3110549160665812,-0.41090861542020357,-0.2267079172188837,True
+0.01,all,cob_energia,hurdle_800:tr_sel,hurdle_800:static,-0.9637152659319668,-1.2707344327580525,-0.6759430643866648,True
+0.01,all,energia_no_cubierta,hurdle_800:tr_sel,hurdle_800:static,0.40277499811802087,0.2533124327682813,0.5370325897948465,True
+0.01,all,IS_finitos,hurdle_800:tr_sel,hurdle_800:static,992.5239358818608,699.4659829421522,1298.3708332198066,True
+0.01,H1 ex post (cal. P90),cobertura,hurdle_800:tr_sel,hurdle_800:static,-0.4097157706800516,-0.5509007189403299,-0.29244283900700907,True
+0.01,H1 ex post (cal. P90),cob_energia,hurdle_800:tr_sel,hurdle_800:static,-1.2364668560205132,-1.6560671133248182,-0.84981026962601,True
+0.01,H1 ex post (cal. P90),energia_no_cubierta,hurdle_800:tr_sel,hurdle_800:static,0.5646391399260973,0.3922454208021874,0.7395391749912951,True
+0.01,H1 ex post (cal. P90),IS_finitos,hurdle_800:tr_sel,hurdle_800:static,350.11496497815824,-76.53319425654009,798.0248500225478,False
+0.01,H2 ex post (test top decile),cobertura,hurdle_800:tr_sel,hurdle_800:static,-0.5846879960985234,-1.0288997355703855,-0.2659507171022249,True
+0.01,H2 ex post (test top decile),cob_energia,hurdle_800:tr_sel,hurdle_800:static,-1.5812855284492429,-2.489315302302564,-0.7433817085654336,True
+0.01,H2 ex post (test top decile),energia_no_cubierta,hurdle_800:tr_sel,hurdle_800:static,0.6865094748409115,0.26103531035017324,1.1027394159532091,True
+0.01,H2 ex post (test top decile),IS_finitos,hurdle_800:tr_sel,hurdle_800:static,-62.472436473523885,-827.7949961158067,793.577924977271,False
+0.01,H3 ex ante (regime known at origin),cobertura,hurdle_800:tr_sel,hurdle_800:static,-0.30577435133822917,-0.3947870465023435,-0.22072882114050363,True
+0.01,H3 ex ante (regime known at origin),cob_energia,hurdle_800:tr_sel,hurdle_800:static,-1.3504060870277783,-1.7836024515833846,-0.9424294684817276,True
+0.01,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_800:tr_sel,hurdle_800:static,0.6003928189880589,0.4658154967463626,0.7504785150873114,True
+0.01,H3 ex ante (regime known at origin),IS_finitos,hurdle_800:tr_sel,hurdle_800:static,-285.09497573325825,-605.074861542358,46.699650078297985,False
+0.01,all,cobertura,hurdle_es:tr_sel,hurdle_es:static,-0.2195113201293566,-0.2988103188229811,-0.1481344045292769,True
+0.01,all,cob_energia,hurdle_es:tr_sel,hurdle_es:static,-0.6019522297745965,-0.8548231294287174,-0.3572026048367502,True
+0.01,all,energia_no_cubierta,hurdle_es:tr_sel,hurdle_es:static,0.1916114841452179,0.08864459300868179,0.3129307799478368,True
+0.01,all,IS_finitos,hurdle_es:tr_sel,hurdle_es:static,75.60003363705005,18.976218645906915,132.08172409574297,True
+0.01,H1 ex post (cal. P90),cobertura,hurdle_es:tr_sel,hurdle_es:static,-0.30171537327514386,-0.43587372658943657,-0.18123905423796433,True
+0.01,H1 ex post (cal. P90),cob_energia,hurdle_es:tr_sel,hurdle_es:static,-0.6934310115141926,-1.074736435792833,-0.3665299715240595,True
+0.01,H1 ex post (cal. P90),energia_no_cubierta,hurdle_es:tr_sel,hurdle_es:static,0.23984355912215904,0.09572785469094988,0.4238965348238266,True
+0.01,H1 ex post (cal. P90),IS_finitos,hurdle_es:tr_sel,hurdle_es:static,-68.41156021926281,-158.65589196917796,22.636780021948013,False
+0.01,H2 ex post (test top decile),cobertura,hurdle_es:tr_sel,hurdle_es:static,-0.3509904594360478,-0.6955956447900263,-0.0882908935116814,True
+0.01,H2 ex post (test top decile),cob_energia,hurdle_es:tr_sel,hurdle_es:static,-0.6448175663414588,-1.4354300995023326,-0.005340683942573377,True
+0.01,H2 ex post (test top decile),energia_no_cubierta,hurdle_es:tr_sel,hurdle_es:static,0.2741167396840254,-0.08331312931466354,0.7908622084126843,False
+0.01,H2 ex post (test top decile),IS_finitos,hurdle_es:tr_sel,hurdle_es:static,-74.21956106364678,-245.33747323563983,121.81795691657825,False
+0.01,H3 ex ante (regime known at origin),cobertura,hurdle_es:tr_sel,hurdle_es:static,-0.2822040482297439,-0.3807618034015604,-0.19541433122962923,True
+0.01,H3 ex ante (regime known at origin),cob_energia,hurdle_es:tr_sel,hurdle_es:static,-0.8171549788381043,-1.1269338362980048,-0.5439678219025245,True
+0.01,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_es:tr_sel,hurdle_es:static,0.28005501130249116,0.19616957388349146,0.3648839059311608,True
+0.01,H3 ex ante (regime known at origin),IS_finitos,hurdle_es:tr_sel,hurdle_es:static,-217.39314462221728,-287.64021353695,-143.28245763893918,True
+0.01,all,cobertura,hurdle_es:static,hurdle_800:static,0.024185161411196532,-0.11747221599855884,0.1851490708072599,False
+0.01,all,cob_energia,hurdle_es:static,hurdle_800:static,0.6211481905279612,0.2107409168808168,1.0542927903841564,True
+0.01,all,energia_no_cubierta,hurdle_es:static,hurdle_800:static,-0.1903922338320323,-0.4298052913549682,0.02012449718073256,False
+0.01,all,IS_finitos,hurdle_es:static,hurdle_800:static,-1935.2425304052338,-2054.168915863728,-1815.974712084513,True
+0.01,H1 ex post (cal. P90),cobertura,hurdle_es:static,hurdle_800:static,0.13846836273914676,-0.0873163880108077,0.4002738650647935,False
+0.01,H1 ex post (cal. P90),cob_energia,hurdle_es:static,hurdle_800:static,1.3246362296506504,0.7277080336040658,1.9275644407000743,True
+0.01,H1 ex post (cal. P90),energia_no_cubierta,hurdle_es:static,hurdle_800:static,-0.4631672389750714,-0.7781930932937987,-0.17928444222148177,True
+0.01,H1 ex post (cal. P90),IS_finitos,hurdle_es:static,hurdle_800:static,-2813.208722905836,-3026.0955189152046,-2601.068424741612,True
+0.01,H2 ex post (test top decile),cobertura,hurdle_es:static,hurdle_800:static,-0.09155057502454156,-0.5059298085257169,0.2285729801326141,False
+0.01,H2 ex post (test top decile),cob_energia,hurdle_es:static,hurdle_800:static,1.4467722441640802,0.20129446452557362,2.6674774363501377,True
+0.01,H2 ex post (test top decile),energia_no_cubierta,hurdle_es:static,hurdle_800:static,-0.19433043388025117,-0.6548430581873489,0.27153566779135024,False
+0.01,H2 ex post (test top decile),IS_finitos,hurdle_es:static,hurdle_800:static,-3374.002368699996,-3989.6437268565674,-2841.819250801633,True
+0.01,H3 ex ante (regime known at origin),cobertura,hurdle_es:static,hurdle_800:static,0.0819961539572347,-0.015933284871130483,0.1830600630948203,False
+0.01,H3 ex ante (regime known at origin),cob_energia,hurdle_es:static,hurdle_800:static,1.6009803473654642,1.0939573915364402,2.145981966305196,True
+0.01,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_es:static,hurdle_800:static,-0.4523069406132271,-0.6651606727839398,-0.2544737383690894,True
+0.01,H3 ex ante (regime known at origin),IS_finitos,hurdle_es:static,hurdle_800:static,-2756.873184371334,-2973.7238240300635,-2557.951679667283,True
+0.01,all,cobertura,hurdle_es:static,hurdle_800:tr_sel,0.33524007747777773,0.14832056164937021,0.5477805255876758,True
+0.01,all,cob_energia,hurdle_es:static,hurdle_800:tr_sel,1.584863456459928,1.0538213729845705,2.1432497897058576,True
+0.01,all,energia_no_cubierta,hurdle_es:static,hurdle_800:tr_sel,-0.5931672319500532,-0.9105202131478447,-0.2810568439016296,True
+0.01,all,IS_finitos,hurdle_es:static,hurdle_800:tr_sel,-2927.7664662870948,-3236.797854506955,-2624.0854725853937,True
+0.01,H1 ex post (cal. P90),cobertura,hurdle_es:static,hurdle_800:tr_sel,0.5481841334191984,0.2520101556014517,0.8861401402601258,True
+0.01,H1 ex post (cal. P90),cob_energia,hurdle_es:static,hurdle_800:tr_sel,2.5611030856711636,1.8329169101847942,3.3303207195824833,True
+0.01,H1 ex post (cal. P90),energia_no_cubierta,hurdle_es:static,hurdle_800:tr_sel,-1.0278063789011687,-1.453327802215795,-0.6176660012123403,True
+0.01,H1 ex post (cal. P90),IS_finitos,hurdle_es:static,hurdle_800:tr_sel,-3163.3236878839944,-3642.217579654338,-2702.915987996408,True
+0.01,H2 ex post (test top decile),cobertura,hurdle_es:static,hurdle_800:tr_sel,0.49313742107398184,-0.004021704313646878,1.1025207443737646,False
+0.01,H2 ex post (test top decile),cob_energia,hurdle_es:static,hurdle_800:tr_sel,3.028057772613323,1.5366492572442314,4.586058599730093,True
+0.01,H2 ex post (test top decile),energia_no_cubierta,hurdle_es:static,hurdle_800:tr_sel,-0.8808399087211627,-1.6282887923138618,-0.08832738324066788,True
+0.01,H2 ex post (test top decile),IS_finitos,hurdle_es:static,hurdle_800:tr_sel,-3311.5299322264723,-4149.989431662997,-2556.191187041757,True
+0.01,H3 ex ante (regime known at origin),cobertura,hurdle_es:static,hurdle_800:tr_sel,0.38777050529546386,0.25412248937422105,0.530325359204216,True
+0.01,H3 ex ante (regime known at origin),cob_energia,hurdle_es:static,hurdle_800:tr_sel,2.9513864343932426,2.3059310797018835,3.6513108623791632,True
+0.01,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_es:static,hurdle_800:tr_sel,-1.052699759601286,-1.356628104299658,-0.7692353647630193,True
+0.01,H3 ex ante (regime known at origin),IS_finitos,hurdle_es:static,hurdle_800:tr_sel,-2471.7782086380757,-2828.5432421980668,-2136.756169913828,True
+0.01,all,cobertura,qgbm_54x400:cqr,qgbm_54x400:static,0.01314620188554727,-0.043683866703608486,0.0704525842683072,False
+0.01,all,cob_energia,qgbm_54x400:cqr,qgbm_54x400:static,-0.45876623441068887,-0.7408686244132283,-0.18606744435393968,True
+0.01,all,energia_no_cubierta,qgbm_54x400:cqr,qgbm_54x400:static,0.08113511375794191,0.03667448291634266,0.12457356158198953,True
+0.01,all,IS_finitos,qgbm_54x400:cqr,qgbm_54x400:static,-1.6461920130714134,-8.411939522982317,4.9187624681690885,False
+0.01,H1 ex post (cal. P90),cobertura,qgbm_54x400:cqr,qgbm_54x400:static,-0.0957707922033535,-0.19592270929801964,0.005797945518433681,False
+0.01,H1 ex post (cal. P90),cob_energia,qgbm_54x400:cqr,qgbm_54x400:static,-0.6565137358627027,-1.0555264591035907,-0.2595708762046016,True
+0.01,H1 ex post (cal. P90),energia_no_cubierta,qgbm_54x400:cqr,qgbm_54x400:static,0.08363976211335311,0.01970062240217315,0.14610223072078862,True
+0.01,H1 ex post (cal. P90),IS_finitos,qgbm_54x400:cqr,qgbm_54x400:static,-0.2048193784630712,-14.109347652898304,13.882924675983617,False
+0.01,H2 ex post (test top decile),cobertura,qgbm_54x400:cqr,qgbm_54x400:static,0.04768420097295234,-0.171669236757619,0.292918958791073,False
+0.01,H2 ex post (test top decile),cob_energia,qgbm_54x400:cqr,qgbm_54x400:static,-0.18525750519286532,-0.8232211445866042,0.4791224581076501,False
+0.01,H2 ex post (test top decile),energia_no_cubierta,qgbm_54x400:cqr,qgbm_54x400:static,0.08775701054917295,-0.04477367320546386,0.22502400065568495,False
+0.01,H2 ex post (test top decile),IS_finitos,qgbm_54x400:cqr,qgbm_54x400:static,13.93328927787934,-23.77830982947349,54.03103387607192,False
+0.01,H3 ex ante (regime known at origin),cobertura,qgbm_54x400:cqr,qgbm_54x400:static,-0.06541372543969715,-0.14922596270046712,0.016220855782576645,False
+0.01,H3 ex ante (regime known at origin),cob_energia,qgbm_54x400:cqr,qgbm_54x400:static,-0.31982320811619047,-0.6857303439496188,0.03783389903138381,False
+0.01,H3 ex ante (regime known at origin),energia_no_cubierta,qgbm_54x400:cqr,qgbm_54x400:static,0.03219403813002053,-0.02462550612297073,0.08915190768267368,False
+0.01,H3 ex ante (regime known at origin),IS_finitos,qgbm_54x400:cqr,qgbm_54x400:static,-13.530817263436347,-24.589068088481678,-1.4803273434144286,True
+0.01,all,cobertura,qgbm_54x400:tr_sel,qgbm_54x400:static,0.7094041633201158,0.6109925678421778,0.8155838988255796,True
+0.01,all,cob_energia,qgbm_54x400:tr_sel,qgbm_54x400:static,5.519349834583551,4.791350676655008,6.300555685028924,True
+0.01,all,energia_no_cubierta,qgbm_54x400:tr_sel,qgbm_54x400:static,-1.1398623579483764,-1.3321612288624072,-0.9642325898994091,True
+0.01,all,IS_finitos,qgbm_54x400:tr_sel,qgbm_54x400:static,-32.82806818805159,-66.41980264570189,-2.180714063972795,True
+0.01,H1 ex post (cal. P90),cobertura,qgbm_54x400:tr_sel,qgbm_54x400:static,1.3678246693460778,1.1566579542172377,1.579474257486293,True
+0.01,H1 ex post (cal. P90),cob_energia,qgbm_54x400:tr_sel,qgbm_54x400:static,7.637096368588601,6.5703972032887465,8.769861654113992,True
+0.01,H1 ex post (cal. P90),energia_no_cubierta,qgbm_54x400:tr_sel,qgbm_54x400:static,-1.6301636503966639,-1.9288035256497367,-1.3637511871540033,True
+0.01,H1 ex post (cal. P90),IS_finitos,qgbm_54x400:tr_sel,qgbm_54x400:static,91.6834891949461,1.4599940742447663,180.93087380634142,True
+0.01,H2 ex post (test top decile),cobertura,qgbm_54x400:tr_sel,qgbm_54x400:static,2.3840624391290675,1.8369248834618037,3.006932652466097,True
+0.01,H2 ex post (test top decile),cob_energia,qgbm_54x400:tr_sel,qgbm_54x400:static,10.693326281152594,8.10205777971672,13.395495136043408,True
+0.01,H2 ex post (test top decile),energia_no_cubierta,qgbm_54x400:tr_sel,qgbm_54x400:static,-2.518215261920244,-3.276159508301654,-1.870105539784077,True
+0.01,H2 ex post (test top decile),IS_finitos,qgbm_54x400:tr_sel,qgbm_54x400:static,223.48384849664717,-29.74972987506887,530.605318873998,False
+0.01,H3 ex ante (regime known at origin),cobertura,qgbm_54x400:tr_sel,qgbm_54x400:static,1.2452526881346841,1.0627611083560613,1.441847928158549,True
+0.01,H3 ex ante (regime known at origin),cob_energia,qgbm_54x400:tr_sel,qgbm_54x400:static,8.160146307465808,7.040261613538096,9.348544702030342,True
+0.01,H3 ex ante (regime known at origin),energia_no_cubierta,qgbm_54x400:tr_sel,qgbm_54x400:static,-1.7122685115406702,-2.011396786608195,-1.4394157359245474,True
+0.01,H3 ex ante (regime known at origin),IS_finitos,qgbm_54x400:tr_sel,qgbm_54x400:static,50.29322585115165,-32.50756685876995,136.01390205759722,False
+0.01,all,cobertura,qgbm_54x400:static,hurdle_es:static,-0.7636471667805864,-0.9303942582994591,-0.6107298859144742,True
+0.01,all,cob_energia,qgbm_54x400:static,hurdle_es:static,-9.56154759113349,-10.447552397010986,-8.70499609853571,True
+0.01,all,energia_no_cubierta,qgbm_54x400:static,hurdle_es:static,1.6169711770261497,1.3514692107888855,1.888108697576942,True
+0.01,all,IS_finitos,qgbm_54x400:static,hurdle_es:static,-764.1635012184604,-818.91647238866,-706.9459122839575,True
+0.01,H1 ex post (cal. P90),cobertura,qgbm_54x400:static,hurdle_es:static,-1.767141719068647,-2.087786557636559,-1.448423470885717,True
+0.01,H1 ex post (cal. P90),cob_energia,qgbm_54x400:static,hurdle_es:static,-12.921168742192464,-14.161627819135738,-11.731383773921754,True
+0.01,H1 ex post (cal. P90),energia_no_cubierta,qgbm_54x400:static,hurdle_es:static,2.475136286567831,2.1107112614385906,2.8655909748101522,True
+0.01,H1 ex post (cal. P90),IS_finitos,qgbm_54x400:static,hurdle_es:static,-912.3358510478927,-1028.7032106303225,-792.5093534244024,True
+0.01,H2 ex post (test top decile),cobertura,qgbm_54x400:static,hurdle_es:static,-3.4708205820603695,-4.348738042519333,-2.7559870766009356,True
+0.01,H2 ex post (test top decile),cob_energia,qgbm_54x400:static,hurdle_es:static,-18.4555179831588,-21.029683041629735,-16.055021921814404,True
+0.01,H2 ex post (test top decile),energia_no_cubierta,qgbm_54x400:static,hurdle_es:static,3.8066093116398134,3.0125652633574553,4.640956656427778,True
+0.01,H2 ex post (test top decile),IS_finitos,qgbm_54x400:static,hurdle_es:static,-715.3705463193883,-1034.4268319509347,-374.67778771966937,True
+0.01,H3 ex ante (regime known at origin),cobertura,qgbm_54x400:static,hurdle_es:static,-1.3090873390142832,-1.53458986616811,-1.0895300252439137,True
+0.01,H3 ex ante (regime known at origin),cob_energia,qgbm_54x400:static,hurdle_es:static,-11.286966293148197,-12.448928466839488,-10.152061916330386,True
+0.01,H3 ex ante (regime known at origin),energia_no_cubierta,qgbm_54x400:static,hurdle_es:static,2.195587258186959,1.8716038200202076,2.5390336043587673,True
+0.01,H3 ex ante (regime known at origin),IS_finitos,qgbm_54x400:static,hurdle_es:static,-1047.6447394573743,-1141.4095172643065,-953.3303912915125,True
+0.01,all,cobertura,qgbm_54x400:cqr,hurdle_800:tr_sel,-0.4152608874172614,-0.6961253376469099,-0.13137372839248446,True
+0.01,all,cob_energia,qgbm_54x400:cqr,hurdle_800:tr_sel,-8.43545036908425,-9.379244310238986,-7.5277644315712715,True
+0.01,all,energia_no_cubierta,qgbm_54x400:cqr,hurdle_800:tr_sel,1.1049390588340384,0.6967163101059197,1.4995185183412014,True
+0.01,all,IS_finitos,qgbm_54x400:cqr,hurdle_800:tr_sel,-3693.5761595186264,-4018.0930895551837,-3377.7183561799634,True
+0.01,H1 ex post (cal. P90),cobertura,qgbm_54x400:cqr,hurdle_800:tr_sel,-1.314728377852802,-1.777276689327196,-0.8230841581444313,True
+0.01,H1 ex post (cal. P90),cob_energia,qgbm_54x400:cqr,hurdle_800:tr_sel,-11.016579392384003,-12.326439818011881,-9.714003037285261,True
+0.01,H1 ex post (cal. P90),energia_no_cubierta,qgbm_54x400:cqr,hurdle_800:tr_sel,1.5309696697800153,0.9817334687035725,2.064880792135913,True
+0.01,H1 ex post (cal. P90),IS_finitos,qgbm_54x400:cqr,hurdle_800:tr_sel,-4075.8643583103503,-4571.551468882028,-3591.550896195838,True
+0.01,H2 ex post (test top decile),cobertura,qgbm_54x400:cqr,hurdle_800:tr_sel,-2.9299989600134353,-3.8814911911802996,-2.1299911009133026,True
+0.01,H2 ex post (test top decile),cob_energia,qgbm_54x400:cqr,hurdle_800:tr_sel,-15.612717715738341,-18.395727505849212,-12.9783165208602,True
+0.01,H2 ex post (test top decile),energia_no_cubierta,qgbm_54x400:cqr,hurdle_800:tr_sel,3.0135264134678232,1.9947184462789251,4.019080345927752,True
+0.01,H2 ex post (test top decile),IS_finitos,qgbm_54x400:cqr,hurdle_800:tr_sel,-4012.967189267981,-4958.293349387404,-3123.894531610859,True
+0.01,H3 ex ante (regime known at origin),cobertura,qgbm_54x400:cqr,hurdle_800:tr_sel,-0.9867305591585165,-1.233051613272395,-0.7523334341763682,True
+0.01,H3 ex ante (regime known at origin),cob_energia,qgbm_54x400:cqr,hurdle_800:tr_sel,-8.655403066871145,-9.770904827939656,-7.596348164642089,True
+0.01,H3 ex ante (regime known at origin),energia_no_cubierta,qgbm_54x400:cqr,hurdle_800:tr_sel,1.1750815367156937,0.7931465876239447,1.528934670315046,True
+0.01,H3 ex ante (regime known at origin),IS_finitos,qgbm_54x400:cqr,hurdle_800:tr_sel,-3532.9537653588864,-3917.767593293231,-3163.6086163418568,True
+0.01,all,cobertura,hurdle_es:cqr,hurdle_es:static,0.632301285291959,0.4951902420503586,0.7967588432119959,True
+0.01,all,cob_energia,hurdle_es:cqr,hurdle_es:static,1.7138507981292577,1.3057182331705928,2.1569561359884104,True
+0.01,all,energia_no_cubierta,hurdle_es:cqr,hurdle_es:static,-0.7223020046859389,-0.882509757487456,-0.5793285171836041,True
+0.01,all,IS_finitos,hurdle_es:cqr,hurdle_es:static,1940.7675760583309,1860.4941370771382,2022.365771032248,True
+0.01,H1 ex post (cal. P90),cobertura,hurdle_es:cqr,hurdle_es:static,0.7107576138786129,0.4554724008144511,1.0119160619702765,True
+0.01,H1 ex post (cal. P90),cob_energia,hurdle_es:cqr,hurdle_es:static,1.5939726972780903,1.0458091182939993,2.182515549919817,True
+0.01,H1 ex post (cal. P90),energia_no_cubierta,hurdle_es:cqr,hurdle_es:static,-0.6270269332777674,-0.8272878048534872,-0.4376947395185221,True
+0.01,H1 ex post (cal. P90),IS_finitos,hurdle_es:cqr,hurdle_es:static,2606.6178677230682,2486.921867703107,2727.4339867260787,True
+0.01,H2 ex post (test top decile),cobertura,hurdle_es:cqr,hurdle_es:static,0.6807832162839702,0.39296605633071097,1.1161945065090684,True
+0.01,H2 ex post (test top decile),cob_energia,hurdle_es:cqr,hurdle_es:static,1.3538043213113582,0.6610697004196762,2.308443671307115,True
+0.01,H2 ex post (test top decile),energia_no_cubierta,hurdle_es:cqr,hurdle_es:static,-0.7077179632363024,-1.082696357381813,-0.4100836471180503,True
+0.01,H2 ex post (test top decile),IS_finitos,hurdle_es:cqr,hurdle_es:static,3030.3317436207976,2763.409485969334,3287.298651912808,True
+0.01,H3 ex ante (regime known at origin),cobertura,hurdle_es:cqr,hurdle_es:static,0.3396442033235303,0.259399374814879,0.4201832847918073,True
+0.01,H3 ex ante (regime known at origin),cob_energia,hurdle_es:cqr,hurdle_es:static,0.8435981435740985,0.6045155538018268,1.0850427325215215,True
+0.01,H3 ex ante (regime known at origin),energia_no_cubierta,hurdle_es:cqr,hurdle_es:static,-0.3635509288436282,-0.4618604133034366,-0.27278056083711366,True
+0.01,H3 ex ante (regime known at origin),IS_finitos,hurdle_es:cqr,hurdle_es:static,2715.753248486877,2628.450703175933,2812.6771673766266,True

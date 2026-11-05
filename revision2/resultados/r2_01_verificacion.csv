@@ -1,0 +1,10 @@
+brazo,U_est_max_dif_rel,U_est_mismos_infinitos,U_tr_max_dif_rel,U_tr_mismos_infinitos,obj1d_max_desvio
+hurdle_800,0.0,True,0.0,True,
+hurdle_es,,,,,0.0
+hurdle_sigma_x,0.0,True,0.0,True,
+hurdle_2000,0.0,True,1.030796095535802e-06,True,
+qgbm_54x15,0.0,True,3.335602237850728e-08,True,
+qgbm_54x50,4.692524349699712e-09,True,4.0919629378500455e-07,True,
+qgbm_54x100,4.7935799633161296e-09,True,6.437866593807088e-07,True,
+qgbm_54x200,1.1600833970971493e-07,True,4.735646424780526e-06,True,
+qgbm_54x400,0.0,True,4.5174928018018587e-07,True,

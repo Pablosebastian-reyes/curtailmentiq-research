@@ -1,0 +1,39 @@
+\begin{table*}[tp]
+\centering
+\footnotesize
+\caption{Calibration layers over the three main base models, nominal level 90\%. Coverage in per cent with the date-clustered standard error, mean width over finite limits (MWh), one-sided interval score over finite limits (MWh) and fraction of infinite limits (\%). In the whole-test interval score, an asterisk marks a method with infinite limits, whose unrestricted score is infinite. CRPS and twCRPS are those of the base predictive (MWh); the twCRPS weights the region above each plant's calibration-window 90th percentile. $\Delta$IS: difference in whole-test interval score from the static split on the same base model, with a 95\% day-block bootstrap interval, on plant-days where both limits are finite. No limit is infinite in the transition window. The selected configurations come from rolling-origin validation inside the calibration window (\ref{app:hiper}).}
+\label{tab:modelos}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l rrr rrrrl}
+\toprule
+ & \multicolumn{3}{c}{Transition window (Oct--Dec 2024)} & \multicolumn{5}{c}{Whole test (Sep 2024--May 2026)} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-9}
+Method & Coverage & Width & IS & Coverage & Width & IS & \% inf. & $\Delta$IS vs. static [95\% CI] \\
+\midrule
+\multicolumn{9}{l}{\textit{Reference hurdle (2$\times$400 trees)}: CRPS 133.5 / 89.5, twCRPS 78.9 / 40.7} \\
+\quad Static split (PIT) & 95.3\,(0.45) & 1203 & 1395 & 92.5\,(0.37) & 678 & 826 & 0.0 & -- \\
+\quad Sliding window, 60 d & 92.0\,(0.73) & 834 & 1112 & 89.9\,(0.44) & 531 & 734 & 0.0 & $-$93.4 [$-$109.8, $-$76.4] \\
+\quad ACI ($\gamma=0.05$) & 92.1\,(0.67) & 822 & 1096 & 90.1\,(0.43) & 544 & 753$^\ast$ & 4.2 & $-$95.9 [$-$117.7, $-$69.6] \\
+\quad Transport+ACI ($\gamma=0.05$) & 90.9\,(0.81) & 806 & 1107 & 90.1\,(0.43) & 596 & 813$^\ast$ & 5.9 & $-$32.3 [$-$69.8, +9.3] \\
+\quad ACI (selected $\gamma$) & 94.8\,(0.49) & 1086 & 1294 & 90.9\,(0.41) & 590 & 763 & 0.0 & $-$63.0 [$-$69.0, $-$57.0] \\
+\quad Transport+ACI (selected) & 93.3\,(0.54) & 924 & 1162 & 90.0\,(0.45) & 564 & 761 & 0.0 & $-$65.4 [$-$82.8, $-$47.9] \\
+\quad One-sided CQR & 94.0\,(0.55) & 937 & 1175 & 91.2\,(0.38) & 532 & 714 & 0.0 & $-$112.4 [$-$120.8, $-$103.7] \\
+\multicolumn{9}{l}{\textit{Early-stopped hurdle (105 trees)}: CRPS 124.0 / 84.4, twCRPS 70.3 / 37.2} \\
+\quad Static split (PIT) & 94.6\,(0.51) & 689 & 823 & 92.0\,(0.35) & 409 & 534 & 0.0 & -- \\
+\quad Sliding window, 60 d & 92.6\,(0.69) & 575 & 758 & 89.8\,(0.39) & 350 & 517 & 0.0 & $-$16.6 [$-$22.4, $-$10.7] \\
+\quad ACI ($\gamma=0.05$) & 92.3\,(0.61) & 553 & 736 & 90.1\,(0.37) & 354 & 524$^\ast$ & 3.3 & $-$19.8 [$-$27.9, $-$11.0] \\
+\quad Transport+ACI ($\gamma=0.05$) & 91.1\,(0.82) & 534 & 748 & 90.0\,(0.38) & 377 & 552$^\ast$ & 3.3 & +9.4 [$-$7.8, +27.7] \\
+\quad ACI (selected $\gamma$) & 94.3\,(0.53) & 655 & 797 & 90.8\,(0.37) & 377 & 520 & 0.0 & $-$13.8 [$-$16.0, $-$11.6] \\
+\quad Transport+ACI (selected) & 93.8\,(0.52) & 613 & 761 & 89.9\,(0.40) & 367 & 527 & 0.0 & $-$6.6 [$-$12.9, $-$0.2] \\
+\quad One-sided CQR & 96.2\,(0.39) & 840 & 932 & 94.2\,(0.30) & 501 & 590 & 0.0 & +57.2 [+52.9, +61.6] \\
+\multicolumn{9}{l}{\textit{Reference quantile GBM (54$\times$400)}: CRPS 93.0 / 68.0, twCRPS 51.6 / 28.4} \\
+\quad Static split (PIT) & 90.6\,(0.85) & 410 & 588 & 90.2\,(0.38) & 288 & 433 & 0.0 & -- \\
+\quad Sliding window, 60 d & 90.1\,(0.94) & 409 & 598 & 89.9\,(0.41) & 288 & 438 & 0.0 & +5.7 [+4.0, +7.5] \\
+\quad ACI ($\gamma=0.05$) & 90.6\,(0.87) & 412 & 588 & 90.2\,(0.41) & 294 & 447$^\ast$ & 2.8 & +8.5 [+5.5, +11.4] \\
+\quad Transport+ACI ($\gamma=0.05$) & 90.5\,(0.99) & 425 & 602 & 90.2\,(0.44) & 305 & 459$^\ast$ & 4.4 & +19.1 [+14.1, +24.2] \\
+\quad ACI (selected $\gamma$) & 90.6\,(0.86) & 411 & 588 & 90.3\,(0.39) & 289 & 434 & 0.0 & +0.8 [+0.4, +1.1] \\
+\quad Transport+ACI (selected) & 89.9\,(0.95) & 411 & 598 & 90.1\,(0.41) & 294 & 444 & 0.0 & +11.0 [+8.3, +13.6] \\
+\quad One-sided CQR & 89.3\,(0.90) & 389 & 602 & 89.8\,(0.38) & 276 & 438 & 0.0 & +5.7 [+4.2, +7.2] \\
+\bottomrule
+\end{tabular}
+\end{table*}

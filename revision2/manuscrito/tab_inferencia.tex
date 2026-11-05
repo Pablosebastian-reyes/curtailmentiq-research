@@ -1,0 +1,28 @@
+\begin{table}[tp]
+\centering
+\footnotesize
+\caption{Inference on the cross-cell relationship under dependence, Transport+ACI with $\gamma=0.05$. Slope of the width change (\%) on the static over-coverage (pp). Rows differ in what they hold fixed and in how they treat the dependence between cells that share days, base models and windows.}
+\label{tab:inferencia}
+\begin{tabular}{l rr}
+\toprule
+Estimator & 40 cells & 45 cells \\
+\midrule
+Pooled OLS & -4.89 (0.44) & -4.98 (0.41) \\
+Window fixed effects & -5.62 (0.33) & -5.64 (0.34) \\
+Base-model fixed effects & -4.23 (0.68) & -4.50 (0.62) \\
+Two-way fixed effects & -6.00 (0.55) & -6.14 (0.59) \\
+Crossed random effects (REML) & -5.58 (0.35) & -5.56 (0.35) \\
+Day-block bootstrap, 95\% interval & [-5.60, -3.20] & [-5.66, -3.36] \\
+Wild cluster bootstrap by base model, $p$ & 0.0027 (8 cl.) & 0.0006 (9 cl.) \\
+Wild cluster bootstrap by window, $p$ & 0.0560 (5 cl.) & 0.0484 (5 cl.) \\
+Within-window correlation, range over 5 windows & [-0.99, -0.58] & [-0.99, -0.18] \\
+Family $\times$ window means (10 cells), $r$ & -0.84 & -0.89 \\
+\midrule
+\multicolumn{3}{l}{\textit{Variance of the static over-coverage explained (two-way ANOVA)}} \\
+\quad base model & 55\% & 54\% \\
+\quad window & 17\% & 18\% \\
+\bottomrule
+\end{tabular}
+
+\smallskip\parbox{0.95\linewidth}{\scriptsize Standard errors in parentheses are the usual OLS or REML ones and treat cells as independent; they are shown for comparison with the bootstrap and wild cluster results. Wild cluster bootstrap: restricted, six-point Webb weights, 9{,}999 replicates.}
+\end{table}

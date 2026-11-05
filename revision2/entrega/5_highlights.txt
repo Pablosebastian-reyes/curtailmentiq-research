@@ -1,0 +1,5 @@
+Open, errata-corrected plant-level curtailment dataset for Chile, 2022-2026
+Adaptive conformal gains are mostly a mechanical re-levelling of coverage
+The apparent gain tracks the base model's calibration drift, not the shift
+Fixing the base model helps more than any calibration layer
+A static conformal wrapper on a quantile model is the operational choice

@@ -1,0 +1,18 @@
+# Intermedios pesados, regenerados por r2_01 y r2_02 (~230 MB)
+resultados/predictivas/
+resultados/series/
+# Auxiliares de compilacion y copias de trabajo
+*.aux
+*.log
+!logs/*.log
+*.out
+*_stdout.txt
+manuscrito/*.pdf
+manuscrito/elsarticle.cls
+carta/*.pdf
+entrega/fuentes/
+entrega/marcado_build/
+entrega/*.zip
+entrega/00_*
+__pycache__/
+*.spl

@@ -1,0 +1,192 @@
+%% Response to reviewers, SEGAN-D-26-03850R1 (second revision)
+%% Compile with pdfLaTeX from this folder (reads ../manuscrito/cifras.tex).
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{xr-hyper}
+\usepackage[hidelinks]{hyperref}
+\externaldocument[M-]{../manuscrito/SEGAN_R2}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
+
+\makeatletter
+\newcommand{\cf}[1]{\ifcsname cf@#1\endcsname\csname cf@#1\endcsname\else\textbf{??\detokenize{#1}??}\GenericWarning{}{CIFRA FALTANTE: #1}\fi}
+\makeatother
+\input{../manuscrito/cifras}
+
+\definecolor{quotebg}{gray}{0.95}
+\definecolor{quoterule}{gray}{0.75}
+\newenvironment{revcomment}
+  {\begin{mdframed}[backgroundcolor=quotebg,linecolor=quoterule,linewidth=0.4pt,
+    innertopmargin=6pt,innerbottommargin=6pt,skipabove=8pt,skipbelow=8pt]\itshape}
+  {\end{mdframed}}
+\newcommand{\resp}{\textbf{Response.} }
+\newcommand{\where}[1]{\textbf{Changes in the manuscript.} #1}
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\bfseries}{\thesubsection}{0.6em}{}
+
+\title{\vspace{-1.4cm}\textbf{Response to the reviewers}\\[4pt]
+\large Manuscript SEGAN-D-26-03850R1, \emph{Sustainable Energy, Grids and Networks}}
+\author{Pablo Reyes Cerda \and Kerven Cea Morales}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.0cm}
+
+\section*{Letter to the Editor}
+
+Dear Professor Chicco,
+
+Thank you for the second round of reviews and for the opportunity to revise the manuscript again. Reviewer~1 recommends acceptance, and we thank them for the comments of the first round, which reshaped the paper. Reviewer~2 finds the manuscript substantially improved and raises three substantive points, together with general comments on clarity, limitations and language. We have addressed each with new analyses, not only with changes of wording.
+
+\begin{enumerate}[leftmargin=*]
+\item \emph{The cross-model relationship.} Reviewer~2 was right that the association between the over-coverage of the static split and the width saved by the adaptive layer arises in part from the calibration procedure itself. We have measured that part. A constant-threshold oracle, which re-levels the static split to the adaptive layer's coverage without adapting in time, explains \cf{mec_r2_pct}\% of the variation in width change across the 45 base-model-by-window cells; what adaptation adds beyond it is a positive residual unrelated to over-coverage. A controlled simulation with known ground truth reproduces this, and the relationship is now reported with inference that respects the dependence between cells (day-block bootstrap, fixed and crossed random effects, wild cluster bootstrap) and tested on a held-out base model. The claim is restated accordingly: the slope of the relationship is mechanical, and the attribution of the static split's coverage drift to the base model is an empirical finding for this dataset and these two model families.
+\item \emph{The early-stopped hurdle.} Every comparison is repeated with it, and it is now one of the three main base models in every table. The result strengthens the conclusion the reviewer refers to: early stopping alone lowers the whole-test interval score of the static split by \cf{es_vs_ref_static_IS_pct}\%, more than any calibration layer achieves on the reference hurdle (\cf{ref_best_layer_IS_pct}\%).
+\item \emph{Operational relevance.} We report capacity- and energy-weighted coverage, the share of curtailed energy left uncovered, coverage on high-curtailment days under three definitions, tail-focused scores at the 95\% and 99\% levels, and a simple cost model in which the one-sided interval score is the expected cost of a plant owner. The Abstract and the Conclusion now state that the transport-based pipeline is not the preferred operational method.
+\end{enumerate}
+
+The two authors have read and edited the whole manuscript line by line, as Reviewer~2 asked. The text no longer refers to earlier versions or to the review process, the limitations are a numbered list, secondary tables have moved to an appendix, and a sensitivity appendix covers every parameter. The title now reads ``an evaluation of'' instead of ``a diagnostic for'', to match the restated claim. Six references were added, each discussed individually for its specific contribution and verified against Crossref or the publisher; no lumped citations are used. The marked-up manuscript shows every change.
+
+Below, the reviewers' comments are quoted verbatim in grey and numbered, each followed by our response and the location of the changes.
+
+\bigskip
+Yours sincerely,\\
+Pablo Reyes Cerda and Kerven Cea Morales
+
+\newpage
+\section*{Summary of changes}
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{0.36\textwidth}}
+\toprule
+Comment & Change & Location \\
+\midrule
+R2.1 & Mechanical decomposition with a constant-threshold oracle; dependence-aware inference; held-out base model; controlled simulation; claim restated & \S\ref{M-sec:decomp}--\ref{M-sec:simdesign}, \S\ref{M-sec:mecanico}--\ref{M-sec:simulacion}, Tables~\ref{M-tab:mecanico}--\ref{M-tab:simulacion}, Figs.~\ref{M-fig:modelos}--\ref{M-fig:simulacion}, \ref{M-app:sim} \\
+R2.2 & All calibration layers, ablations, operational metrics and sensitivity repeated with the early-stopped hurdle, now a main base model & \S\ref{M-sec:base}, \S\ref{M-sec:agnostic}, \S\ref{M-sec:escalera}--\ref{M-sec:operacional}, Tables~\ref{M-tab:modelos}, \ref{M-tab:escalera}--\ref{M-tab:altos} \\
+R2.3 & Capacity- and energy-weighted coverage, uncovered energy, three definitions of high-curtailment days, 95\%/99\% scores, cost model; explicit statement in Abstract and Conclusion & \S\ref{M-sec:evaluacion}, \S\ref{M-sec:operacional}, \S\ref{M-sec:practica}, \S\ref{M-sec:conclusion}, Tables~\ref{M-tab:operacional}--\ref{M-tab:altos}, Fig.~\ref{M-fig:operacional} \\
+Q2 & Sensitivity appendix covering every parameter & \ref{M-app:sens}, Tables~\ref{M-tab:sens_capa}--\ref{M-tab:sens_base} \\
+Q4 & Clearer main tables; secondary tables to an appendix; claims matched to evidence & whole manuscript, \ref{M-app:extra} \\
+Q5 & Hypothesis restated and supported by decomposition, simulation and inference & \S\ref{M-sec:intro}, \S\ref{M-sec:mecanico}--\ref{M-sec:simulacion}, \S\ref{M-sec:practica} \\
+Q7 & Numbered list of ten limitations, each stating what it affects & \S\ref{M-sec:limitations} \\
+Q8, Q9 & Full re-read and edit by the authors; references to the review process removed; text shortened & whole manuscript \\
+Editorial & Six new references, each discussed individually; title adjusted & \S\ref{M-sec:evalrel}, title \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Reviewer 1}
+
+\begin{revcomment}
+The paper has been modified, I recommend acceptance of this paper.
+\end{revcomment}
+
+\resp We thank Reviewer~1 for the recommendation and for the comments of the first round, in particular the request to test a second base model, which led to the main finding of the paper.
+
+\section{Reviewer 2}
+
+We thank Reviewer~2 for a careful second report. The three main comments are numbered R2.1 to R2.3 in the order of the report, and the structured questions Q1 to Q9.
+
+\subsection*{R2.1 --- The cross-model relationship}
+
+\begin{revcomment}
+The reported relationship is based on 40 model-window combinations generated from one dataset and only two underlying model families. These observations are not independent, and the association between static over-coverage and adaptive width reduction may arise partly from the calibration procedure itself. The authors should either support the diagnostic through controlled simulation and dependence-aware inference or moderate the claim to an empirical association specific to the present dataset and model classes.
+\end{revcomment}
+
+\resp We agree with all three observations, and we have done both things the reviewer proposes: we support the result with a controlled simulation and dependence-aware inference, and we moderate the claim.
+
+\emph{The part that arises from the procedure.} Any calibration layer that targets nominal coverage must narrow its limits when the static split over-covers, whatever the reason, so a negative relationship between over-coverage and width change is expected by construction. To measure how much of the observed relationship is of this kind, we compute for each cell an oracle: the constant PIT threshold, chosen after the fact, at which the static limit attains exactly the coverage of the adaptive layer in that window. The oracle does not adapt in time. Its width change is the mechanical component; the residual is what adaptation adds. For Transport+ACI with $\gamma=0.05$, the configuration of the relationship the reviewer refers to, over the 45 cells:
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item the oracle's slope is \cf{mec_slope_45}\% of width per point of over-coverage, against \cf{obs_slope_45} observed, and the oracle explains \cf{mec_r2_pct}\% of the variance of the observed width change;
+\item the residual averages \cf{resid_45}\% [\cf{resid_45_lo}, \cf{resid_45_hi}] and is unrelated to over-coverage ($r=\cf{resid_r_45}$);
+\item with the update bounded below the mechanical slope is the same (\cf{amin_mec_slope}) and the residual larger (\cf{amin_resid}\%), because limits become very wide when $\alpha_t$ reaches its bound; with the small steps selected by rolling origin the change is almost entirely mechanical ($R^2$ of \cf{sel_r2_min} and \cf{sel_r2_max}) and the residual is within a fraction of a per cent of zero.
+\end{itemize}
+The slope of the relationship is therefore mechanical, and its positive intercept is the price of letting the level fluctuate. The relationship by itself cannot say whether a layer absorbed a shift or corrected a base model. What can say it is a comparison that holds the shift fixed. Within each window all base models face the same data, and there the static over-coverage ranges from \cf{oc_min_transicion} to \cf{oc_max_transicion} points in the transition window; the base model accounts for \cf{anova_modelo_pct}\% of the variance of the over-coverage and the window for \cf{anova_ventana_pct}\%.
+
+\emph{Controlled simulation.} A zero-inflated panel with common daily shocks, which reproduce the dependence of the real data, passes through the same calibration code. Four scenarios (no shift; tripling of magnitudes; tripling with a fall in dispersion; fall in dispersion alone) cross eight base models with known misspecification, fifty replicates each. With known ground truth: a correctly specified model keeps the static split near nominal under a tripling of magnitudes (mean over-coverage \cf{sim_m1_s1} points); a constant over-dispersion of 30\% is absorbed by the conformal quantile (\cf{sim_m2_s0} points without a shift); coverage drifts only when the model fails to follow the change (\cf{sim_m4_s2} points for a model whose dispersion is fixed at its calibration value). In every replicate the cross-cell relationship appears and the oracle reproduces it (median share of variance explained \cf{sim_r2_s2}; median residual \cf{sim_resid_s2}\%).
+
+\emph{Dependence-aware inference.} The cells share days, base models and windows. We now report: a day-block bootstrap that resamples whole days once per replicate and recomputes every cell, including the oracle, so that the dependence between cells is preserved; fixed effects for windows, for base models and both, and crossed random effects, which give slopes between \cf{slope_fe_min} and \cf{slope_fe_max}; and a restricted wild cluster bootstrap with Webb weights, clustering by base model ($p=\cf{wcb_modelo_p}$) and by window ($p=\cf{wcb_ventana_p}$). We also test the relationship out of sample: fitted on the 40 cells of the first revision, it predicts the five cells of the early-stopped hurdle, which was not part of that fit, with $r=\cf{oos_r}$ between observed and predicted changes and a root mean squared error of \cf{oos_rmse} points.
+
+\emph{Moderation of the claim.} The manuscript now states the claim in two parts: the slope is mechanical and follows from how a coverage-targeting layer works; the attribution of the coverage drift to the base model is an empirical association for this dataset and these two model families, and the intervals describe uncertainty over days, not over model families. ``Eight base models'' is replaced by ``nine base models from two families'' wherever it appears, and the title now reads ``an evaluation of''.
+
+\where{Section~\ref{M-sec:decomp} (decomposition and inference), Section~\ref{M-sec:simdesign} and \ref{M-app:sim} (simulation design), Section~\ref{M-sec:mecanico} with Tables~\ref{M-tab:mecanico}--\ref{M-tab:inferencia} and Figures~\ref{M-fig:modelos}--\ref{M-fig:pit}, Section~\ref{M-sec:simulacion} with Table~\ref{M-tab:simulacion} and Figure~\ref{M-fig:simulacion}, Section~\ref{M-sec:practica}, Limitations 1--3, Abstract and title.}
+
+\subsection*{R2.2 --- The early-stopped hurdle}
+
+\begin{revcomment}
+At comparable tree budgets, the advantage of the multi-quantile model becomes much smaller. The authors also report that an early-stopped hurdle model improves CRPS by 5.7\%, but the main conformal-calibration experiments were not repeated using this improved base model. Since the central conclusion is that base-model quality dominates calibration-layer complexity, the static, ACI, Transport+ACI, and CQR comparisons should be repeated using the early-stopped hurdle or the limitation should be stated more prominently.
+\end{revcomment}
+
+\resp We have repeated every comparison with the early-stopped hurdle, which is now one of three main base models throughout: the static split, the sliding window, ACI and Transport+ACI in the original and the selected configurations, one-sided CQR on the hurdle's own quantile, the bounded update, the ablations, the operational metrics, the high-curtailment analysis and the sensitivity analysis. The step and window were selected for it by the same rolling-origin protocol. The model was refitted with the published code and reproduces its tree counts (59 + 46) and dispersion (1.83) exactly.
+
+The results strengthen the central conclusion rather than qualifying it:
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item With a plain static split, the early-stopped hurdle has a whole-test interval score of \cf{es_st_tot_IS}~MWh, \cf{es_vs_ref_static_IS_pct}\% below the static split on the reference hurdle, and narrower limits (\cf{es_vs_ref_static_W_pct}\%) at the same coverage. The best calibration layer on the reference hurdle improves it by \cf{ref_best_layer_IS_pct}\%. Fixing the base model, even within the same family, dominates refining the calibration layer.
+\item On the early-stopped hurdle, adaptation adds little: the best online layer improves the static split by \cf{es_best_online_gain_pct}\%, and Transport+ACI with $\gamma=0.05$ makes it worse by \cf{es_tr_g05_vs_st_pct}\%. In the transition window the width change of Transport+ACI is \cf{dw_tr_hurdle_es}\%, in line with its static over-coverage of \cf{oc_tr_hurdle_es} points.
+\item One-sided CQR on the early-stopped hurdle over-covers (\cf{es_cqr_tot_cov}\%) and is worse than its static split. CQR corrects the base model's quantile by one number of MWh pooled over plants of very different size, which here is close to zero (\cf{es_cqr_Q}~MWh) and cannot remove an over-dispersion that the scale-free PIT score removes. The ranking of calibration layers, not only their gains, depends on the base model.
+\end{itemize}
+On the first sentence of the comment: we agree, and the manuscript states it. At a matched budget of about 800 trees the quantile model improves the CRPS by only \cf{qg15_vs_ref_crps_pct}\%; its advantage requires capacity, which the hurdle cannot use (its CRPS worsens with 4{,}000 trees, and early stopping selects 105). The cross-model analysis compares calibration layers within each base model, so the capacity question does not affect the mechanical finding; and the operational recommendation is a flexible base predictive with a static conformal wrapper, not a particular tree budget.
+
+\where{Section~\ref{M-sec:base} (base models), Section~\ref{M-sec:agnostic} with Table~\ref{M-tab:modelos} and Figure~\ref{M-fig:modelos}, Section~\ref{M-sec:escalera} with Table~\ref{M-tab:escalera}, Section~\ref{M-sec:ablaciones} with Table~\ref{M-tab:ablaciones}, Section~\ref{M-sec:operacional} with Tables~\ref{M-tab:operacional}--\ref{M-tab:altos}, \ref{M-app:sens}. The paragraph of the earlier version that asked readers to discount our base model has been removed, since the comparisons it referred to have now been made.}
+
+\subsection*{R2.3 --- Operational relevance}
+
+\begin{revcomment}
+Transport+ACI achieves only 86.7\% coverage on high-curtailment days, compared with 91.9\% for the static split. Furthermore, conformalized quantile regression provides approximately nominal coverage with substantially narrower intervals and a much lower interval score than the proposed pipeline. The authors should report capacity-weighted or curtailed-energy-weighted coverage, tail-focused scores, and a simple operational cost metric. The Abstract and Conclusion should clearly state that the proposed transport-based pipeline is not the preferred operational method based on the reported comparison.
+\end{revcomment}
+
+\resp We have added all the requested quantities and the requested statement.
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item \emph{Weighted coverage.} Coverage weighted by installed capacity and by curtailed energy, the share of curtailed energy left above the limit, and the mean exceedance. Weighted by energy, coverage falls to between \cf{cob_energia_min}\% and \cf{cob_energia_max}\% for all methods, because limits are exceeded mostly on large days. The transport-based variants on the reference hurdle leave \cf{nc_tr_ref_min} to \cf{nc_tr_ref_max}\% of the curtailed energy uncovered, the highest shares among the methods on the three main base models, against \cf{nc_st_ref}\% for the static split on the same model; with every base model Transport+ACI leaves more energy uncovered than the static split.
+\item \emph{High-curtailment days.} The definition used in the first revision, days above the calibration-window 90th percentile of system curtailment, marks \cf{h1_dias} of the 638 test days, because the series rose. We now report it together with the top decile of test days and with a definition that uses only information available at the forecast origin (the trailing seven-day system curtailment ending seven days before the target). The first two condition on the outcome, which favours forecasts that overpredict (the forecaster's dilemma of Lerch et al., now cited); the third is the legitimate test of conditional calibration. On outcome-defined days every method loses coverage and only those that over-cover on average stay at the nominal level: CQR and the static split on the quantile model cover \cf{qg_cqr_h1}\% and \cf{qg_st_h1}\%, close to the \cf{tr_alto_h1}\% of Transport+ACI that the reviewer quotes, with limits less than half as wide. The \cf{st_alto_h1}\% of the static split on the reference hurdle reflects over-coverage everywhere. On days identified at the forecast origin the methods on the quantile model are close to nominal (\cf{qg_st_h3}\% and \cf{qg_cqr_h3}\%).
+\item \emph{Tail-focused scores and a cost metric.} For a plant owner who pays $c_h$ per MWh of curtailment allowance and $c_p$ per MWh curtailed beyond it, the expected cost in units of $c_h$ is exactly the one-sided interval score at the level $1-c_h/c_p$. The 90\% interval score is the cost at $k=c_p/c_h=10$; we add limits calibrated at 95\% and 99\%, the costs at $k=20$ and $k=100$, which are also our tail-focused scores, and the threshold-weighted CRPS of each base predictive. At every cost ratio the methods on the quantile model are the cheapest among those near nominal on average, and much cheaper than the transport-based pipeline on the reference hurdle (at $k=100$, \cf{qg_st_k100} against \cf{ref_tr_k100}). Per-plant empirical quantiles without a base model cost about as much, and the yearly one is the cheapest at $k=100$, but they under-cover at every level; we report this as well.
+\item \emph{The statement.} The Abstract now says that the transport-based scheme, which leaves the most curtailed energy uncovered, is not the method we recommend for operation, and that a static conformal wrapper around a multi-quantile predictive gives near-nominal coverage at the lowest interval score and operational cost. The Conclusion says that the transport-based adaptive pipeline is not the preferred operational method and why, and Section~\ref{M-sec:practica} gives the recommended practice as a list.
+\end{itemize}
+
+\where{Section~\ref{M-sec:evaluacion} (metrics, cost model, high-curtailment definitions), Section~\ref{M-sec:operacional} with Tables~\ref{M-tab:operacional}--\ref{M-tab:altos} and Figure~\ref{M-fig:operacional}, Section~\ref{M-sec:practica}, Section~\ref{M-sec:conclusion}, Abstract, Limitations 5--6.}
+
+\subsection*{Structured questions}
+
+\begin{revcomment}
+Q1. Yes, But there are still fundamental flaws which must be corrected. These points are not superficial changes but strikes the main hypothesis of the work.
+\end{revcomment}
+\resp The hypothesis is now stated precisely and supported by new evidence (R2.1). In the earlier version it read as ``the layer recovers base-model over-dispersion rather than distribution shift''. That dichotomy was imprecise: a static split already absorbs any over-dispersion that is the same in calibration and test, and what produces over-coverage is a change in the base model's calibration between windows. The manuscript now separates a mechanical part (the conversion of the static split's coverage error into width, which any coverage-targeting layer performs) from an empirical part (with the shift held fixed, the coverage error depends on the base model), and supports each with the oracle decomposition, the simulation and the held-out model.
+
+\begin{revcomment}
+Q2. The authors should provide more details and appendix for sensitivity analysis for the parameters used in details.
+\end{revcomment}
+\resp \ref{M-app:sens} is new. It varies, one at a time and for two base models, every parameter of the calibration layer (shrinkage scale, bootstrap size, map grid, refresh period, minimum number of recent scores, window, step, bound on $\alpha_t$), the nominal level (80, 90, 95 and 99\%), the length of the calibration window, the density of the quantile grid, the threshold that defines high-curtailment days, ten seeds of the conformal layer, and the depth, learning rate and training seed of the early-stopped hurdle. The step and the bound change the results materially, and the length of the recent window to a lesser degree; the other parameters of the transport map move the interval score by at most \cf{sens_max_capa_pct}\%, and ten seeds of the conformal layer change coverage by at most \cf{sens_seed_sd_max} points (standard deviation).
+
+\begin{revcomment}
+Q3. I have provided in the comments to the authors.
+\end{revcomment}
+\resp The statistical changes are those of R2.1: intervals that preserve the dependence between cells, fixed- and random-effects estimators, a wild cluster bootstrap suited to few clusters, and an out-of-sample test. The F tests on the 40 cells, which assumed independence, have been removed.
+
+\begin{revcomment}
+Q4. Yes, it needs more clarity and will definitely be improved by in cooperating the comments. The claims are tall but the evidence and data are misfits.
+\end{revcomment}
+\resp We have aligned each claim with its evidence. The main tables now compare the three main base models side by side (Table~\ref{M-tab:modelos}), and decompose and test the cross-model relationship (Tables~\ref{M-tab:mecanico}--\ref{M-tab:simulacion}). Tables whose content is secondary (results by window for one base model, the bound on $\alpha_t$, the window boundaries, the $\gamma\times$window grid, the panel-dependence schemes) are in \ref{M-app:extra}, and a redundant figure was removed. Every number in the text is now read from the result files by a script, so that text and tables cannot diverge.
+
+\begin{revcomment}
+Q5. Partially, needs more justification and rigor to justify the hypothesis used here.
+\end{revcomment}
+\resp See Q1 and R2.1.
+
+\begin{revcomment}
+Q7. No clearly, some are definitely mentioned but still a much better limitations statement is required.
+\end{revcomment}
+\resp Section~\ref{M-sec:limitations} is now a numbered list of ten limitations: one system and data source; two model families; the oracle as a benchmark and not a method; dependence; outcome-conditioned evaluation of high-curtailment days; a stylised cost; a stylised simulation; a short selection window; the scope of the point-forecasting comparison; and what the dataset contains. Each states which conclusion it affects.
+
+\begin{revcomment}
+Q8. A Large Language Model is used to give the finishing touch, however, a thorough human read will definitely start making sense to what authors wants to communicate. Q9 (language editing): Yes.
+\end{revcomment}
+\resp The two authors have re-read and edited the entire manuscript. We removed every reference to earlier versions and to the review process, which made the previous text read as a response letter; replaced figurative expressions with plain statements; unified the terminology (base model, calibration layer, transition window); and shortened the main text. The declaration on the use of generative AI has been updated accordingly.
+
+\end{document}

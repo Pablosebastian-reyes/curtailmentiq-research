@@ -1,0 +1,135 @@
+clave,valor,definicion
+abl_aci_es,19.8,"mejora IS por ACI, ES"
+abl_aci_qg,8.5,"costo IS por ACI, QGBM"
+abl_aci_ref,95.9,"mejora IS por ACI, ref"
+abl_full_qg,19.1,"esquema completo vs estatico, QGBM"
+abl_full_qg_hi,\ensuremath{+}24.2,IC sup
+abl_full_qg_lo,\ensuremath{+}14.1,IC inf
+abl_shrink_runtime_pct,90,% del tiempo de T+ACI que es shrinkage (ref)
+abl_tr_es,\ensuremath{+}30.3,"Delta IS transporte sobre ACI, hurdle_es"
+abl_tr_qg,\ensuremath{+}11.5,"Delta IS transporte sobre ACI, qgbm_54x400"
+abl_tr_ref,\ensuremath{+}68.6,"Delta IS transporte sobre ACI, hurdle_800"
+amin_mec_slope,\ensuremath{-}4.98,"pendiente mecanica, T+ACI acotado"
+amin_r2,0.30,"R2 mecanico, T+ACI acotado"
+amin_resid,\ensuremath{+}11.2,"residuo medio, T+ACI acotado"
+anova_modelo_pct,54,ANOVA: % varianza de OC por modelo base
+anova_ventana_pct,18,ANOVA: % varianza de OC por ventana
+b1_cov_90,87.2,cobertura B1 a alpha 0.1
+b1_cov_95,92.4,cobertura B1 a alpha 0.05
+b1_cov_99,97.2,cobertura B1 a alpha 0.01
+b1_k100,873,costo k=100 de B1
+b2_cov_90,86.5,cobertura B2 a alpha 0.1
+b2_cov_95,91.1,cobertura B2 a alpha 0.05
+b2_cov_99,95.5,cobertura B2 a alpha 0.01
+cob_energia_max,84,"cobertura ponderada por energia, maxima"
+cob_energia_min,63,"cobertura ponderada por energia, minima"
+cond_peor_max,6.2,"peor desvio condicional, maximo"
+cond_peor_min,3.1,"peor desvio condicional, minimo entre metodos principales"
+dw_tr_hurdle_800,\ensuremath{-}33.1,"cambio de ancho T+ACI transicion, hurdle_800"
+dw_tr_hurdle_es,\ensuremath{-}22.5,"cambio de ancho T+ACI transicion, hurdle_es"
+dw_tr_hurdle_sigma_x,\ensuremath{-}4.8,"cambio de ancho T+ACI transicion, hurdle_sigma_x"
+dw_tr_qgbm_54x400,\ensuremath{+}3.6,"cambio de ancho T+ACI transicion, qgbm_54x400"
+es_best_online_gain_pct,3,mejora % de la mejor capa online sobre ES
+es_cqr_Q,\ensuremath{-}1.1,"correccion conformal de CQR (MWh), ES"
+es_cqr_tot_IS,590,"IS CQR test, ES"
+es_cqr_tot_cov,94.2,"cobertura CQR test, ES"
+es_q90_cal_cov,92.8,cobertura del q0.9 propio del hurdle ES en calibracion
+es_qhat,0.880,"qhat PIT estatico, hurdle ES"
+es_st_tot_IS,534,"IS estatico test, hurdle ES"
+es_st_tot_cov,92.0,"cobertura estatica test, ES"
+es_tr_g05_vs_st_pct,3,"empeoramiento % T+ACI 0.05 vs estatico, ES"
+es_tr_sel_vs_st_pct,1,"|diferencia %| T+ACI sel vs estatico, ES"
+es_vs_qg_crps_pct,24,% CRPS ES por encima del QGBM
+es_vs_ref_crps_pct,5.7,mejora % CRPS ES vs ref
+es_vs_ref_static_IS_pct,35,reduccion % de IS estatico ES vs ref
+es_vs_ref_static_W_pct,40,reduccion % de ancho estatico ES vs ref
+h1_dias,254,dias H1
+h2000_vs_ref_crps_pct,6.6,empeoramiento % CRPS hurdle 2000
+mec_r2_pct,84,"R2 observado sobre mecanico (%), T+ACI 0.05, 45 celdas"
+mec_slope_45,\ensuremath{-}4.80,"pendiente mecanica, 45 celdas"
+nc_st_qg,9.8,energia no cubierta estatico QGBM
+nc_st_ref,10.0,energia no cubierta estatico ref
+nc_tr_ref,13.8,energia no cubierta T+ACI 0.05 ref
+nc_tr_ref_max,14.2,"energia no cubierta, variantes de transporte ref, max"
+nc_tr_ref_min,13.3,"energia no cubierta, variantes de transporte ref, min"
+obs_slope_45,\ensuremath{-}4.98,"pendiente observada, T+ACI 0.05, 45 celdas"
+oc_max_transicion,\ensuremath{+}5.3,OC maxima en transicion (9 modelos)
+oc_min_transicion,\ensuremath{-}8.4,OC minima en transicion (9 modelos)
+oc_rango_2025s1,1.4,rango de OC en 2025-S1 (pp)
+oc_rango_transicion,13.8,rango de OC en transicion (pp)
+oc_tr_hurdle_800,\ensuremath{+}5.3,"sobre-cobertura estatica transicion (filas), hurdle_800"
+oc_tr_hurdle_es,\ensuremath{+}4.7,"sobre-cobertura estatica transicion (filas), hurdle_es"
+oc_tr_hurdle_sigma_x,\ensuremath{+}1.7,"sobre-cobertura estatica transicion (filas), hurdle_sigma_x"
+oc_tr_qgbm_54x400,\ensuremath{+}0.6,"sobre-cobertura estatica transicion (filas), qgbm_54x400"
+oos_r,0.96,"r observado-predicho, hurdle ES fuera de muestra"
+oos_rmse,4.9,RMSE fuera de muestra (pp)
+qg100_vs_ref_crps_pct,23.7,mejora % CRPS 54x100 vs ref
+qg15_vs_ref_crps_pct,2.4,mejora % CRPS 54x15 vs ref
+qg_cost_spread_pct,5,"dispersion % del costo entre capas sobre QGBM, max sobre k"
+qg_cqr_h1,85.9,cobertura H1 CQR QGBM
+qg_cqr_h3,90.4,cobertura H3 CQR QGBM
+qg_cqr_tot_IS,438,"IS CQR test, QGBM"
+qg_cqr_tot_cov,89.8,"cobertura CQR test, QGBM"
+qg_st_h1,86.7,cobertura H1 estatico QGBM
+qg_st_h3,91.0,cobertura H3 estatico QGBM
+qg_st_k100,929,costo k=100 estatico QGBM
+qg_st_k20,539,costo k=20 estatico QGBM
+qg_st_tot_IS,433,"IS estatico test, QGBM"
+qg_st_tot_cov,90.2,"cobertura estatica test, QGBM"
+qg_st_tr_cov,90.6,"cobertura estatica transicion, QGBM"
+qg_tr_k100,896,costo k=100 T+ACI sel QGBM
+qg_tr_vs_st_k100_pct,3.5,"T+ACI sel vs estatico, k=100, QGBM (%)"
+qg_vs_ref_static_IS_pct,48,reduccion % de IS estatico QGBM vs ref
+r_40,\ensuremath{-}0.87,r 40 celdas (T+ACI 0.05)
+ref_best_layer_IS,714,IS de la mejor capa sobre el hurdle ref
+ref_best_layer_IS_pct,13,reduccion % de IS de la mejor capa sobre ref
+ref_best_layer_name,one-sided CQR,mejor capa (sin infinitos) sobre el hurdle ref
+ref_cqr_tot_IS,714,"IS CQR test, ref"
+ref_st_tot_IS,826,"IS estatico test, ref"
+ref_st_tot_cov,92.5,"cobertura estatica test, ref"
+ref_st_tr_cov,95.3,"cobertura estatica transicion, hurdle ref"
+ref_st_tr_w,1203,"ancho estatico transicion, hurdle ref"
+ref_tr_k100,4621,costo k=100 T+ACI sel ref
+ref_tr_k20,1302,costo k=20 T+ACI sel ref
+ref_tr_tot_IS,813,"IS finito T+ACI 0.05 test, ref"
+ref_tr_tot_inf,5.9,"% infinitos T+ACI 0.05 test, ref"
+ref_tr_tr_cov,90.9,"cobertura T+ACI 0.05 transicion, ref"
+ref_tr_tr_dw,33,"reduccion de ancho T+ACI transicion, ref (valor absoluto)"
+ref_tr_tr_w,806,"ancho T+ACI 0.05 transicion, ref"
+resid_45,\ensuremath{+}6.9,residuo medio (%)
+resid_45_hi,\ensuremath{+}8.6,"IC residuo, sup"
+resid_45_lo,\ensuremath{+}5.3,"IC residuo, inf"
+resid_aci_45,\ensuremath{+}4.0,residuo medio ACI acotado
+resid_acisel,\ensuremath{-}0.1,residuo ACI seleccionado
+resid_r_45,\ensuremath{-}0.07,"r(residuo, sobre-cobertura)"
+resid_trsel,\ensuremath{+}0.8,residuo T+ACI seleccionado
+sel_r2_max,0.99,"R2 mecanico configuraciones seleccionadas, max"
+sel_r2_min,0.98,"R2 mecanico configuraciones seleccionadas, min"
+sens_es_st_max,558,"IS estatico ES, maximo entre variantes E8"
+sens_es_st_min,517,"IS estatico ES, minimo entre variantes E8"
+sens_max_capa_pct,2.5,"max cambio % de IS en E1 (tau, B, rejilla, refresco, minimo)"
+sens_seed_sd_max,0.04,max DE de cobertura entre 10 semillas conformales
+sens_win30_pct,7,"aumento % de IS con ventana de 30 dias, ES"
+sim_m1_hi,\ensuremath{+}4.0,"OC M1 por ventana, p97.5 (S2)"
+sim_m1_lo,\ensuremath{-}5.7,"OC M1 por ventana, p2.5 (S2)"
+sim_m1_s1,\ensuremath{+}0.6,OC media M1 en S1
+sim_m1_s2,\ensuremath{+}0.1,OC media M1 en S2
+sim_m2_s0,\ensuremath{+}0.1,OC media M2 en S0
+sim_m4_s2,\ensuremath{+}4.7,OC media M4 en S2
+sim_r2_s2,0.90,"mediana R2 mecanico, S2"
+sim_resid_s2,\ensuremath{+}10.7,"mediana residuo, S2 (%)"
+slope_40,\ensuremath{-}4.89,pendiente 40 celdas
+slope_40_hi,\ensuremath{-}3.20,"IC pendiente 40 celdas, sup"
+slope_40_lo,\ensuremath{-}5.60,"IC pendiente 40 celdas, inf"
+slope_45_hi,\ensuremath{-}3.36,"IC pendiente 45 celdas, sup"
+slope_45_lo,\ensuremath{-}5.66,"IC pendiente 45 celdas, inf"
+slope_fe_max,\ensuremath{-}4.50,pendiente maxima (EF/EA)
+slope_fe_min,\ensuremath{-}6.14,pendiente minima (EF/EA)
+st_alto_h1,91.9,cobertura H1 estatico ref
+tr_alto_h1,86.7,cobertura H1 T+ACI 0.05 ref
+tr_ref_h3,89.6,cobertura H3 T+ACI 0.05 ref
+wcb_modelo_p,0.0006,"p-valor Wild cluster bootstrap por modelo, 45 celdas"
+wcb_ventana_p,0.048,"p-valor Wild cluster bootstrap por ventana, 45 celdas"
+within_r_2025s1,\ensuremath{-}0.18,r dentro de 2025-S1
+within_r_4_max,\ensuremath{-}0.80,"r dentro de ventana (4 ventanas sin 2025-S1), maximo"
+within_r_4_min,\ensuremath{-}0.99,"r dentro de ventana (4 ventanas sin 2025-S1), minimo"

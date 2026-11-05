@@ -1,0 +1,59 @@
+\begin{longtable}{p{0.25\textwidth} p{0.27\textwidth} p{0.36\textwidth}}
+\caption{Hyperparameters, constants, selected values and seeds.}\label{tab:hiper}\\
+\toprule
+Item & Value & Detail \\
+\midrule
+\endfirsthead
+\multicolumn{3}{l}{\footnotesize Table~\ref{tab:hiper}, continued.}\\
+\toprule
+Item & Value & Detail \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textit{Base models} &  &  \\
+Forecast horizon & 7 days & direct; every dynamic feature lags the target by at least 7 days \\
+Last training target & 2023-12-31 & no model sees the evaluation period \\
+Trees per model / learning rate / depth & 400 / 0.05 / 6 & fixed a priori; reference models \\
+Min. child weight / subsample / colsample & 5 / 0.9 / 0.9 & all models \\
+Features & 12 & lags 7, 8, 14, 21 d; 7- and 30-d means; occurrence; day of week and year; log capacity; region; technology \\
+Hurdle dispersion & out of fold, 5 folds & $\hat\sigma=1.70$ (reference), $1.83$ (early stopping) \\
+Early stopping of the hurdle & ceiling 4{,}000, patience 50 & validation Jul--Dec 2023; refit on full training period: 59 + 46 trees \\
+Quantile grid & 54 levels, 0.005--0.999 & 0.02--0.98 by 0.02, plus 0.005, 0.01, 0.99, 0.995, 0.999; rearranged \\
+Capacity ladder & 15, 50, 100, 200, 400 & trees per quantile level \\
+\textit{Calibration layers} &  &  \\
+Nominal level & $1-\alpha=0.90$ & one-sided upper limit $[0,U]$; tail levels 0.95 and 0.99 \\
+Score & PIT, $s=F_x(y)$ & atom at zero randomised \\
+Calibration window & 2024-01-01 to 2024-08-31 & 244 days, 26{,}552 plant-days \\
+Horizon embargo & 7 days & online windows end at $t-7$; error feedback delayed 7 steps \\
+Sliding window & 60 days, refreshed every 7 &  \\
+Transport window / refresh & 60 days / 7 days & at least 100 recent scores per refresh \\
+Transport quantile grid & $g=\min(100,\max(20,m/2))$ & $m$ recent scores; two linear interpolations \\
+Bootstrap of the map / shrinkage scale & $B=150$ / $\tau=0.05$ & $\lambda(u)=[1+(\mathrm{sd}_{\mathrm{boot}}(u)/\tau)^2]^{-1}$ \\
+ACI bound & none, or $\alpha_{\min}=0.005$ & both reported \\
+One-sided CQR & $U=\max\{q_{0.9}(x)+\hat Q_{0.9}(y-q_{0.9}(x)),0\}$ & on each base model's own quantile \\
+\textit{Selection by rolling origin} &  &  \\
+Inner calibration / validation & Jan--Apr 2024 / May--Aug 2024 & same refresh and embargo as the test \\
+Grids & step $\gamma$: 0.005, 0.01, 0.02, 0.05, 0.10, 0.20 & windows: 30, 45, 60, 90, 120 days \\
+Criterion & mean one-sided interval score & $+\infty$ if any limit is infinite \\
+Selected, reference hurdle & ACI $\gamma=0.005$ & Transport+ACI $\gamma=0.005$, window 120 d \\
+Selected, early-stopped hurdle & ACI $\gamma=0.005$ & Transport+ACI $\gamma=0.005$, window 120 d \\
+Selected, hurdle with $\sigma(x)$ & ACI $\gamma=0.005$ & Transport+ACI $\gamma=0.005$, window 120 d \\
+Selected, hurdle 2$\times$2000 & ACI $\gamma=0.005$ & Transport+ACI $\gamma=0.005$, window 120 d \\
+Selected, quantile GBM 54$\times$15 & ACI $\gamma=0.005$ & Transport+ACI $\gamma=0.005$, window 45 d \\
+Selected, quantile GBM 54$\times$50 & ACI $\gamma=0.005$ & Transport+ACI $\gamma=0.005$, window 45 d \\
+Selected, quantile GBM 54$\times$100 & ACI $\gamma=0.005$ & Transport+ACI $\gamma=0.005$, window 45 d \\
+Selected, quantile GBM 54$\times$200 & ACI $\gamma=0.005$ & Transport+ACI $\gamma=0.005$, window 45 d \\
+Selected, reference quantile GBM & ACI $\gamma=0.005$ & Transport+ACI $\gamma=0.005$, window 45 d \\
+\textit{Evaluation} &  &  \\
+Primary metric & $U+\alpha^{-1}\max(y-U,0)$ & proper for the $1-\alpha$ quantile; $+\infty$ if $U$ is \\
+Coverage standard error & clustered by date &  \\
+Bootstrap of differences & 2{,}000 replicates of whole days & 95\% percentile interval \\
+CRPS / twCRPS & 300 samples per plant-day & twCRPS threshold: plant's calibration-window 90th percentile \\
+\textit{Seeds} &  &  \\
+Base-model training & 42 & XGBoost hist, 4 threads \\
+PIT atom and map bootstrap & 20260720 & one generator, consumed in a fixed order \\
+CRPS sampling & 11 &  \\
+Day-block bootstrap and wild cluster bootstrap & 20260901 &  \\
+Simulation & 20261103 & seed per scenario and replicate \\
+\end{longtable}

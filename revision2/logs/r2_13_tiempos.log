@@ -1,0 +1,15 @@
+[20:34:21] hurdle_800 static: 0.01 s
+[20:34:22] hurdle_800 aci_g05: 0.23 s
+[20:34:44] hurdle_800 ab_tr_fijo: 7.46 s
+[20:34:47] hurdle_800 ab_tr_sinshrink_g05: 0.68 s
+[20:35:08] hurdle_800 tr_g05: 7.04 s
+[20:35:08] hurdle_es static: 0.00 s
+[20:35:08] hurdle_es aci_g05: 0.21 s
+[20:35:30] hurdle_es ab_tr_fijo: 7.36 s
+[20:35:32] hurdle_es ab_tr_sinshrink_g05: 0.63 s
+[20:35:55] hurdle_es tr_g05: 7.20 s
+[20:35:55] qgbm_54x400 static: 0.01 s
+[20:35:57] qgbm_54x400 aci_g05: 0.54 s
+[20:36:23] qgbm_54x400 ab_tr_fijo: 7.57 s
+[20:36:25] qgbm_54x400 ab_tr_sinshrink_g05: 0.76 s
+[20:36:50] qgbm_54x400 tr_g05: 8.48 s

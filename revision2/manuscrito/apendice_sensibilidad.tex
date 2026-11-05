@@ -1,0 +1,201 @@
+All analyses vary one parameter at a time around a reference configuration, Transport+ACI with $\gamma=0.05$, a 60-day window, weekly refresh, $B=150$, $\tau=0.05$, a map grid of 100 levels, at least 100 recent scores and $\alpha_{\min}=0.005$, and report the whole test period. The embargo is fixed at seven days by the forecast horizon and is not a free parameter. Table~\ref{tab:sens_capa} covers the calibration layer, Table~\ref{tab:sens_nivel} the nominal level, Table~\ref{tab:sens_cal} the calibration window, the quantile grid and the threshold defining high-curtailment days, and Table~\ref{tab:sens_base} the seeds and the base-model hyperparameters. The full $\gamma\times$window grid for the reference hurdle is in Table~\ref{tab:sens_hiper} of \ref{app:extra}.
+
+\begin{table*}[tp]
+\centering
+\footnotesize
+\caption{Sensitivity of Transport+ACI to the parameters of the calibration layer, whole test, for the early-stopped hurdle and the reference quantile GBM. Coverage (\%), mean width (MWh), fraction of infinite limits (\%) and one-sided interval score over finite limits (MWh).}
+\label{tab:sens_capa}
+\begin{tabular}{ll rrrr rrrr}
+\toprule
+ & & \multicolumn{4}{c}{Early-stopped hurdle} & \multicolumn{4}{c}{Reference quantile GBM} \\
+\cmidrule(lr){3-6}\cmidrule(lr){7-10}
+Parameter & Value & Cov. & Width & \% inf. & IS & Cov. & Width & \% inf. & IS \\
+\midrule
+Reference & ref & 89.8 & 375 & 0.0 & 547 & 89.9 & 302 & 1.4 & 455 \\
+Shrinkage scale $\tau$ & 0.01 & 89.8 & 375 & 0.0 & 546 & 89.9 & 302 & 0.9 & 454 \\
+Shrinkage scale $\tau$ & 0.025 & 89.8 & 375 & 0.0 & 547 & 89.9 & 302 & 1.4 & 454 \\
+Shrinkage scale $\tau$ & 0.1 & 89.8 & 375 & 0.0 & 547 & 89.9 & 301 & 1.5 & 454 \\
+Shrinkage scale $\tau$ & 0.25 & 89.8 & 375 & 0.0 & 547 & 89.9 & 301 & 1.5 & 454 \\
+Shrinkage scale $\tau$ & none & 89.8 & 375 & 0.0 & 547 & 89.9 & 301 & 1.5 & 454 \\
+Bootstrap size $B$ & 25 & 89.8 & 376 & 0.0 & 547 & 89.9 & 301 & 1.7 & 454 \\
+Bootstrap size $B$ & 50 & 89.8 & 375 & 0.0 & 547 & 89.9 & 300 & 1.8 & 454 \\
+Bootstrap size $B$ & 300 & 89.8 & 375 & 0.0 & 547 & 89.9 & 302 & 1.4 & 454 \\
+Map grid & 25 & 89.8 & 378 & 0.0 & 550 & 89.9 & 303 & 0.6 & 454 \\
+Map grid & 50 & 89.8 & 377 & 0.0 & 548 & 89.9 & 303 & 0.6 & 455 \\
+Map grid & 200 & 89.8 & 374 & 0.0 & 546 & 89.9 & 303 & 0.9 & 455 \\
+Refresh period (days) & 1 & 89.8 & 380 & 0.0 & 551 & 89.9 & 302 & 1.2 & 455 \\
+Refresh period (days) & 14 & 89.7 & 366 & 0.0 & 540 & 89.9 & 302 & 1.1 & 455 \\
+Refresh period (days) & 28 & 89.7 & 359 & 0.0 & 533 & 89.9 & 302 & 0.2 & 454 \\
+Min. recent scores & 50 & 89.8 & 375 & 0.0 & 547 & 89.9 & 302 & 1.4 & 455 \\
+Min. recent scores & 500 & 89.8 & 375 & 0.0 & 547 & 89.9 & 302 & 1.4 & 455 \\
+Min. recent scores & 2000 & 89.8 & 375 & 0.0 & 547 & 89.9 & 302 & 1.4 & 455 \\
+Window (days) & 30 & 89.8 & 415 & 0.0 & 584 & 89.7 & 308 & 1.8 & 465 \\
+Window (days) & 45 & 89.7 & 389 & 0.0 & 561 & 89.8 & 305 & 1.8 & 459 \\
+Window (days) & 90 & 89.7 & 372 & 0.0 & 545 & 89.9 & 295 & 1.9 & 451 \\
+Window (days) & 120 & 89.8 & 364 & 0.0 & 534 & 90.0 & 298 & 1.5 & 451 \\
+Transport without ACI & gamma=0 & 89.8 & 350 & 0.0 & 517 & 90.0 & 288 & 0.0 & 438 \\
+Step $\gamma$ & 0.005 & 89.9 & 357 & 0.0 & 524 & 90.2 & 293 & 0.0 & 441 \\
+Step $\gamma$ & 0.01 & 90.0 & 362 & 0.0 & 531 & 90.2 & 295 & 0.0 & 443 \\
+Step $\gamma$ & 0.02 & 90.0 & 381 & 0.0 & 551 & 90.2 & 299 & 0.0 & 447 \\
+Step $\gamma$ & 0.1 & 89.5 & 409 & 0.0 & 578 & 89.5 & 293 & 3.7 & 450 \\
+Step $\gamma$ & 0.2 & 88.5 & 498 & 0.0 & 681 & 88.0 & 286 & 9.5 & 470 \\
+Bound $\alpha_{\min}$ & none & 90.0 & 379 & 3.3 & 554 & 90.2 & 304 & 4.4 & 459 \\
+Bound $\alpha_{\min}$ & 0.001 & 89.8 & 400 & 0.0 & 572 & 89.9 & 301 & 1.9 & 454 \\
+Bound $\alpha_{\min}$ & 0.01 & 89.7 & 365 & 0.0 & 537 & 89.9 & 302 & 0.5 & 454 \\
+Bound $\alpha_{\min}$ & 0.02 & 89.7 & 355 & 0.0 & 528 & 89.8 & 299 & 0.0 & 451 \\
+\midrule
+ACI, step $\gamma$ & 0.005 & 90.8 & 377 & 0.0 & 520 & 90.3 & 289 & 0.0 & 434 \\
+ACI, step $\gamma$ & 0.01 & 90.4 & 367 & 0.0 & 517 & 90.2 & 289 & 0.0 & 434 \\
+ACI, step $\gamma$ & 0.02 & 90.2 & 361 & 0.0 & 519 & 90.2 & 290 & 0.0 & 437 \\
+ACI, step $\gamma$ & 0.1 & 89.7 & 386 & 0.0 & 552 & 89.5 & 298 & 0.0 & 452 \\
+ACI, step $\gamma$ & 0.2 & 88.9 & 445 & 0.0 & 619 & 88.8 & 315 & 0.0 & 474 \\
+ACI, step $\gamma$ & 0.05 & 89.8 & 355 & 0.0 & 521 & 90.0 & 294 & 0.0 & 444 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table}[tp]
+\centering
+\footnotesize
+\caption{Sensitivity to the nominal level, whole test. Coverage (\%) and one-sided interval score at the same level (MWh). Adaptive layers use $\gamma=0.05$ and $\alpha_{\min}=\alpha/20$.}
+\label{tab:sens_nivel}
+\begin{tabular}{l l rr rr}
+\toprule
+ & & \multicolumn{2}{c}{Early-stopped hurdle} & \multicolumn{2}{c}{Ref. quantile GBM} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Level & Method & Cov. & IS & Cov. & IS \\
+\midrule
+0.80 & Static split & 83.8 & 380 & 82.1 & 343 \\
+0.80 & ACI & 80.2 & 382 & 80.3 & 348 \\
+0.80 & Transport+ACI & 80.0 & 394 & 80.2 & 356 \\
+0.80 & One-sided CQR & 82.4 & 372 & 81.1 & 348 \\
+0.90 & Static split & 92.0 & 534 & 90.2 & 433 \\
+0.90 & ACI & 89.8 & 521 & 90.0 & 444 \\
+0.90 & Transport+ACI & 89.8 & 547 & 89.9 & 455$^\ast$ \\
+0.90 & One-sided CQR & 94.2 & 590 & 89.8 & 438 \\
+0.95 & Static split & 96.0 & 743 & 94.3 & 539 \\
+0.95 & ACI & 94.8 & 701 & 94.7 & 555$^\ast$ \\
+0.95 & Transport+ACI & 94.9 & 748 & 94.8 & 558$^\ast$ \\
+0.95 & One-sided CQR & 98.0 & 1055 & 94.2 & 546 \\
+0.99 & Static split & 99.1 & 1693 & 98.4 & 929 \\
+0.99 & ACI & 99.0 & 1470 & 98.9 & 913$^\ast$ \\
+0.99 & Transport+ACI & 98.9 & 1566 & 98.9 & 910$^\ast$ \\
+0.99 & One-sided CQR & 99.8 & 3634 & 98.4 & 928 \\
+\bottomrule
+\end{tabular}
+
+\smallskip\parbox{0.95\linewidth}{\scriptsize $^\ast$ the method returns infinite limits; the score is over finite limits.}
+\end{table}
+
+\begin{table}[tp]
+\centering
+\footnotesize
+\caption{Sensitivity to the calibration window (all windows end on 31 August 2024), to the density of the quantile grid of the reference quantile GBM, and to the threshold that defines high-curtailment days (H1). Whole test; coverage (\%) and one-sided interval score over finite limits (MWh).}
+\label{tab:sens_cal}
+\begin{tabular}{l l l rr}
+\toprule
+Analysis & Value & Method & Coverage & IS \\
+\midrule
+Calibration window & 8 months (Jan-Aug) (early-stopped hurdle) & Static split & 92.0 & 534 \\
+Calibration window & 8 months (Jan-Aug) (early-stopped hurdle) & Transport+ACI & 89.8 & 547 \\
+Calibration window & 8 months (Jan-Aug) (early-stopped hurdle) & One-sided CQR & 94.2 & 590 \\
+Calibration window & 6 months (Mar-Aug) (early-stopped hurdle) & Static split & 92.7 & 546 \\
+Calibration window & 6 months (Mar-Aug) (early-stopped hurdle) & Transport+ACI & 89.8 & 548 \\
+Calibration window & 6 months (Mar-Aug) (early-stopped hurdle) & One-sided CQR & 94.3 & 591 \\
+Calibration window & 4 months (May-Aug) (early-stopped hurdle) & Static split & 93.3 & 559 \\
+Calibration window & 4 months (May-Aug) (early-stopped hurdle) & Transport+ACI & 89.8 & 546 \\
+Calibration window & 4 months (May-Aug) (early-stopped hurdle) & One-sided CQR & 94.3 & 591 \\
+Calibration window & 8 months (Jan-Aug) (quantile GBM) & Static split & 90.2 & 433 \\
+Calibration window & 8 months (Jan-Aug) (quantile GBM) & Transport+ACI & 89.9 & 455 \\
+Calibration window & 8 months (Jan-Aug) (quantile GBM) & One-sided CQR & 89.8 & 438 \\
+Calibration window & 6 months (Mar-Aug) (quantile GBM) & Static split & 89.9 & 433 \\
+Calibration window & 6 months (Mar-Aug) (quantile GBM) & Transport+ACI & 89.9 & 455 \\
+Calibration window & 6 months (Mar-Aug) (quantile GBM) & One-sided CQR & 89.6 & 438 \\
+Calibration window & 4 months (May-Aug) (quantile GBM) & Static split & 89.6 & 433 \\
+Calibration window & 4 months (May-Aug) (quantile GBM) & Transport+ACI & 89.9 & 455 \\
+Calibration window & 4 months (May-Aug) (quantile GBM) & One-sided CQR & 89.2 & 439 \\
+\midrule
+Quantile grid & 54 levels (quantile GBM) & Static split & 90.2 & 433 \\
+Quantile grid & 54 levels (quantile GBM) & Transport+ACI & 89.9 & 454 \\
+Quantile grid & 54 levels (quantile GBM) & One-sided CQR & 89.8 & 438 \\
+Quantile grid & 27 levels (quantile GBM) & Static split & 90.2 & 433 \\
+Quantile grid & 27 levels (quantile GBM) & Transport+ACI & 89.9 & 455 \\
+Quantile grid & 27 levels (quantile GBM) & One-sided CQR & 89.8 & 438 \\
+Quantile grid & 14 levels (quantile GBM) & Static split & 90.2 & 433 \\
+Quantile grid & 14 levels (quantile GBM) & Transport+ACI & 89.9 & 455 \\
+Quantile grid & 14 levels (quantile GBM) & One-sided CQR & 89.8 & 438 \\
+\midrule
+High-day threshold & P75 (425 days), reference hurdle & Static split (PIT) & 92.2 & -- \\
+High-day threshold & P75 (425 days), reference hurdle & Transport+ACI (selected) & 88.9 & -- \\
+High-day threshold & P75 (425 days), reference hurdle & Transport+ACI ($\gamma=0.05$) & 88.1 & -- \\
+High-day threshold & P75 (425 days), reference hurdle & One-sided CQR & 90.5 & -- \\
+High-day threshold & P90 (254 days), reference hurdle & Static split (PIT) & 91.9 & -- \\
+High-day threshold & P90 (254 days), reference hurdle & Transport+ACI (selected) & 88.0 & -- \\
+High-day threshold & P90 (254 days), reference hurdle & Transport+ACI ($\gamma=0.05$) & 86.7 & -- \\
+High-day threshold & P90 (254 days), reference hurdle & One-sided CQR & 89.9 & -- \\
+High-day threshold & P95 (197 days), reference hurdle & Static split (PIT) & 92.4 & -- \\
+High-day threshold & P95 (197 days), reference hurdle & Transport+ACI (selected) & 88.4 & -- \\
+High-day threshold & P95 (197 days), reference hurdle & Transport+ACI ($\gamma=0.05$) & 87.0 & -- \\
+High-day threshold & P95 (197 days), reference hurdle & One-sided CQR & 90.4 & -- \\
+High-day threshold & P75 (425 days), early-stopped hurdle & Static split (PIT) & 91.6 & -- \\
+High-day threshold & P75 (425 days), early-stopped hurdle & Transport+ACI (selected) & 88.6 & -- \\
+High-day threshold & P75 (425 days), early-stopped hurdle & Transport+ACI ($\gamma=0.05$) & 88.1 & -- \\
+High-day threshold & P75 (425 days), early-stopped hurdle & One-sided CQR & 93.9 & -- \\
+High-day threshold & P90 (254 days), early-stopped hurdle & Static split (PIT) & 91.4 & -- \\
+High-day threshold & P90 (254 days), early-stopped hurdle & Transport+ACI (selected) & 88.0 & -- \\
+High-day threshold & P90 (254 days), early-stopped hurdle & Transport+ACI ($\gamma=0.05$) & 86.5 & -- \\
+High-day threshold & P90 (254 days), early-stopped hurdle & One-sided CQR & 93.9 & -- \\
+High-day threshold & P95 (197 days), early-stopped hurdle & Static split (PIT) & 92.2 & -- \\
+High-day threshold & P95 (197 days), early-stopped hurdle & Transport+ACI (selected) & 88.8 & -- \\
+High-day threshold & P95 (197 days), early-stopped hurdle & Transport+ACI ($\gamma=0.05$) & 86.7 & -- \\
+High-day threshold & P95 (197 days), early-stopped hurdle & One-sided CQR & 94.6 & -- \\
+High-day threshold & P75 (425 days), reference quantile GBM & Static split (PIT) & 88.0 & -- \\
+High-day threshold & P75 (425 days), reference quantile GBM & Transport+ACI (selected) & 87.3 & -- \\
+High-day threshold & P75 (425 days), reference quantile GBM & Transport+ACI ($\gamma=0.05$) & 87.7 & -- \\
+High-day threshold & P75 (425 days), reference quantile GBM & One-sided CQR & 87.4 & -- \\
+High-day threshold & P90 (254 days), reference quantile GBM & Static split (PIT) & 86.7 & -- \\
+High-day threshold & P90 (254 days), reference quantile GBM & Transport+ACI (selected) & 85.5 & -- \\
+High-day threshold & P90 (254 days), reference quantile GBM & Transport+ACI ($\gamma=0.05$) & 85.8 & -- \\
+High-day threshold & P90 (254 days), reference quantile GBM & One-sided CQR & 85.9 & -- \\
+High-day threshold & P95 (197 days), reference quantile GBM & Static split (PIT) & 87.1 & -- \\
+High-day threshold & P95 (197 days), reference quantile GBM & Transport+ACI (selected) & 85.6 & -- \\
+High-day threshold & P95 (197 days), reference quantile GBM & Transport+ACI ($\gamma=0.05$) & 85.8 & -- \\
+High-day threshold & P95 (197 days), reference quantile GBM & One-sided CQR & 86.1 & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[tp]
+\centering
+\footnotesize
+\caption{Sensitivity to seeds and to base-model hyperparameters. Top: ten seeds of the conformal layer (PIT atom and map bootstrap), mean and standard deviation over seeds. Bottom: early-stopped hurdle refitted with other depths, learning rates and training seeds; trees selected by early stopping, CRPS over the whole test, and whole-test coverage and interval score of the static split and of Transport+ACI.}
+\label{tab:sens_base}
+\begin{tabular}{l l rrrr}
+\toprule
+Analysis & Method & \multicolumn{2}{c}{Coverage} & \multicolumn{2}{c}{IS} \\
+ & & mean & sd & mean & sd \\
+\midrule
+Conformal seeds, early-stopped hurdle & Static split & 92.08 & 0.04 & 533.8 & 0.2 \\
+Conformal seeds, early-stopped hurdle & Transport+ACI & 89.80 & 0.00 & 547.0 & 0.4 \\
+Conformal seeds, reference quantile GBM & Static split & 90.20 & 0.00 & 432.7 & 0.0 \\
+Conformal seeds, reference quantile GBM & Transport+ACI & 89.90 & 0.00 & 454.5 & 0.1 \\
+\midrule
+ & & Trees & CRPS & Static (cov./IS) & T+ACI (cov./IS) \\
+\midrule
+Early-stopped hurdle & depth = 4 & 126 & 83.6 & 92.2 / 526 & 89.8 / 534 \\
+Early-stopped hurdle & depth = 8 & 92 & 86.1 & 91.9 / 558 & 89.8 / 580 \\
+Early-stopped hurdle & learning rate = 0.03 & 190 & 84.2 & 92.2 / 533 & 89.7 / 549 \\
+Early-stopped hurdle & learning rate = 0.1 & 56 & 84.5 & 92.3 / 546 & 89.8 / 554 \\
+Early-stopped hurdle & training seed = 1 & 112 & 84.2 & 92.1 / 541 & 89.7 / 556 \\
+Early-stopped hurdle & training seed = 2 & 115 & 84.2 & 92.2 / 526 & 89.7 / 547 \\
+Early-stopped hurdle & training seed = 3 & 99 & 84.2 & 92.0 / 523 & 89.7 / 541 \\
+Early-stopped hurdle & training seed = 4 & 111 & 84.0 & 92.2 / 541 & 89.7 / 546 \\
+Early-stopped hurdle & training seed = 5 & 119 & 84.2 & 92.3 / 528 & 89.7 / 546 \\
+Early-stopped hurdle & training seed = 6 & 97 & 84.0 & 92.2 / 526 & 89.7 / 535 \\
+Early-stopped hurdle & training seed = 7 & 108 & 84.5 & 91.9 / 532 & 89.7 / 553 \\
+Early-stopped hurdle & training seed = 8 & 129 & 84.5 & 92.2 / 557 & 89.7 / 570 \\
+Early-stopped hurdle & training seed = 9 & 92 & 84.7 & 91.8 / 517 & 89.7 / 536 \\
+Early-stopped hurdle & training seed = 10 & 96 & 84.5 & 92.2 / 525 & 89.7 / 539 \\
+\bottomrule
+\end{tabular}
+\end{table}

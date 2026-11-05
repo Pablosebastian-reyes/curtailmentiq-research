@@ -1,0 +1,121 @@
+config,conjunto,metodo,pendiente,se,nota,t,p_valor,clusters,r,n
+tr_g05,r1_40,OLS combinado,-4.887419026807816,0.4427741307051394,SE OLS ingenuo,,,,,
+tr_g05,r1_40,EF ventana,-5.624777446714298,0.3277356490867846,SE OLS ingenuo,,,,,
+tr_g05,r1_40,EF modelo,-4.234254537575155,0.6761204068250657,SE OLS ingenuo,,,,,
+tr_g05,r1_40,EF bidireccional,-5.995219162615308,0.5487106771786482,SE OLS ingenuo,,,,,
+tr_g05,r1_40,Efectos aleatorios cruzados,-5.581230555198741,0.34936933831651235,"REML, (1|modelo)+(1|ventana)",,,,,
+tr_g05,r1_40,Wild cluster bootstrap por modelo,-4.887419026807818,,"restringido, pesos de Webb, 9999 replicas",-11.036762915448696,0.0027002700270027003,8.0,,
+tr_g05,r1_40,Wild cluster bootstrap por ventana,-4.887419026807818,,"restringido, pesos de Webb, 9999 replicas",-4.704659185641074,0.056005600560056004,5.0,,
+tr_g05,r1_40,dentro de ventana test_pre,-4.047597712290622,,,,,,-0.9628759327333333,8.0
+tr_g05,r1_40,dentro de ventana test_transition,-6.658123368221678,,,,,,-0.9902402937689404,8.0
+tr_g05,r1_40,dentro de ventana 2025-S1,-5.572922081358312,,,,,,-0.5828653206928476,8.0
+tr_g05,r1_40,dentro de ventana 2025-S2,-4.853469114580194,,,,,,-0.9578024473718623,8.0
+tr_g05,r1_40,dentro de ventana 2026-S1,-5.556056234539093,,,,,,-0.7259949400902649,8.0
+tr_g05,r2_45,OLS combinado,-4.976729420011617,0.40524305324261645,SE OLS ingenuo,,,,,
+tr_g05,r2_45,EF ventana,-5.638843553696358,0.3407563098303231,SE OLS ingenuo,,,,,
+tr_g05,r2_45,EF modelo,-4.501470878324895,0.6234581298018872,SE OLS ingenuo,,,,,
+tr_g05,r2_45,EF bidireccional,-6.136426665255255,0.5894220984584198,SE OLS ingenuo,,,,,
+tr_g05,r2_45,Efectos aleatorios cruzados,-5.556865011568441,0.3544780028115477,"REML, (1|modelo)+(1|ventana)",,,,,
+tr_g05,r2_45,Wild cluster bootstrap por modelo,-4.9767294200116154,,"restringido, pesos de Webb, 9999 replicas",-13.494455104766619,0.0006000600060006001,9.0,,
+tr_g05,r2_45,Wild cluster bootstrap por ventana,-4.9767294200116154,,"restringido, pesos de Webb, 9999 replicas",-5.17398410894039,0.0484048404840484,5.0,,
+tr_g05,r2_45,dentro de ventana test_pre,-3.932175104823852,,,,,,-0.9403391753856573,9.0
+tr_g05,r2_45,dentro de ventana test_transition,-6.535800827483809,,,,,,-0.9896245083467168,9.0
+tr_g05,r2_45,dentro de ventana 2025-S1,-1.8626843419072525,,,,,,-0.18358585879715072,9.0
+tr_g05,r2_45,dentro de ventana 2025-S2,-5.199484491968475,,,,,,-0.9393906796532291,9.0
+tr_g05,r2_45,dentro de ventana 2026-S1,-6.792101320268421,,,,,,-0.8020522129274873,9.0
+tr_g05_amin005,r1_40,OLS combinado,-6.279484553058689,0.9223611974661139,SE OLS ingenuo,,,,,
+tr_g05_amin005,r1_40,EF ventana,-5.519206923658101,0.9834872444438219,SE OLS ingenuo,,,,,
+tr_g05_amin005,r1_40,EF modelo,-9.566766211051608,1.2433913941971875,SE OLS ingenuo,,,,,
+tr_g05_amin005,r1_40,EF bidireccional,-9.301573745576697,1.5936517310892822,SE OLS ingenuo,,,,,
+tr_g05_amin005,r1_40,Efectos aleatorios cruzados,-6.668480003412678,,"REML, (1|modelo)+(1|ventana)",,,,,
+tr_g05_amin005,r1_40,Wild cluster bootstrap por modelo,-6.2794845530586905,,"restringido, pesos de Webb, 9999 replicas",-5.6175488281927874,0.029902990299029902,8.0,,
+tr_g05_amin005,r1_40,Wild cluster bootstrap por ventana,-6.2794845530586905,,"restringido, pesos de Webb, 9999 replicas",-10.613529942401756,0.017001700170017002,5.0,,
+tr_g05_amin005,r1_40,dentro de ventana test_pre,-4.047597712290622,,,,,,-0.9628759327333333,8.0
+tr_g05_amin005,r1_40,dentro de ventana test_transition,-6.658123368221678,,,,,,-0.9902402937689404,8.0
+tr_g05_amin005,r1_40,dentro de ventana 2025-S1,44.66670507321496,,,,,,0.7053181019567573,8.0
+tr_g05_amin005,r1_40,dentro de ventana 2025-S2,-6.350954123495577,,,,,,-0.990241340501948,8.0
+tr_g05_amin005,r1_40,dentro de ventana 2026-S1,-5.520052903530204,,,,,,-0.7229094705937386,8.0
+tr_g05_amin005,r2_45,OLS combinado,-6.350999051578474,0.8259083122695755,SE OLS ingenuo,,,,,
+tr_g05_amin005,r2_45,EF ventana,-5.57362456861221,0.8901137610786047,SE OLS ingenuo,,,,,
+tr_g05_amin005,r2_45,EF modelo,-9.296790381625998,1.1153696597759362,SE OLS ingenuo,,,,,
+tr_g05_amin005,r2_45,EF bidireccional,-8.944896995154064,1.4691122667804155,SE OLS ingenuo,,,,,
+tr_g05_amin005,r2_45,Efectos aleatorios cruzados,-7.29786350784619,,"REML, (1|modelo)+(1|ventana)",,,,,
+tr_g05_amin005,r2_45,Wild cluster bootstrap por modelo,-6.350999051578472,,"restringido, pesos de Webb, 9999 replicas",-6.007814634215555,0.0194019401940194,9.0,,
+tr_g05_amin005,r2_45,Wild cluster bootstrap por ventana,-6.350999051578472,,"restringido, pesos de Webb, 9999 replicas",-10.18107517610422,0.013001300130013,5.0,,
+tr_g05_amin005,r2_45,dentro de ventana test_pre,-3.932175104823852,,,,,,-0.9403391753856573,9.0
+tr_g05_amin005,r2_45,dentro de ventana test_transition,-6.535800827483809,,,,,,-0.9896245083467168,9.0
+tr_g05_amin005,r2_45,dentro de ventana 2025-S1,31.44609628049949,,,,,,0.5525718082649012,9.0
+tr_g05_amin005,r2_45,dentro de ventana 2025-S2,-6.48012186175275,,,,,,-0.9886398706717199,9.0
+tr_g05_amin005,r2_45,dentro de ventana 2026-S1,-6.754508483985029,,,,,,-0.7999487477768344,9.0
+aci_g05_amin005,r1_40,OLS combinado,-4.982222080017561,0.4042813864393822,SE OLS ingenuo,,,,,
+aci_g05_amin005,r1_40,EF ventana,-5.124968695194288,0.4452511490209739,SE OLS ingenuo,,,,,
+aci_g05_amin005,r1_40,EF modelo,-4.400000416649487,0.6230282761839077,SE OLS ingenuo,,,,,
+aci_g05_amin005,r1_40,EF bidireccional,-4.4705448064607785,0.8020237094884416,SE OLS ingenuo,,,,,
+aci_g05_amin005,r1_40,Efectos aleatorios cruzados,-4.996683521104403,,"REML, (1|modelo)+(1|ventana)",,,,,
+aci_g05_amin005,r1_40,Wild cluster bootstrap por modelo,-4.9822220800175625,,"restringido, pesos de Webb, 9999 replicas",-9.426583271708996,0.0195019501950195,8.0,,
+aci_g05_amin005,r1_40,Wild cluster bootstrap por ventana,-4.9822220800175625,,"restringido, pesos de Webb, 9999 replicas",-6.132731154311356,0.025302530253025302,5.0,,
+aci_g05_amin005,r1_40,dentro de ventana test_pre,-2.59100822058853,,,,,,-0.9622768078439128,8.0
+aci_g05_amin005,r1_40,dentro de ventana test_transition,-5.674830199571163,,,,,,-0.9784111219072203,8.0
+aci_g05_amin005,r1_40,dentro de ventana 2025-S1,-0.45901360232726846,,,,,,-0.03551225325517463,8.0
+aci_g05_amin005,r1_40,dentro de ventana 2025-S2,-7.11238137497737,,,,,,-0.9390165795806062,8.0
+aci_g05_amin005,r1_40,dentro de ventana 2026-S1,-10.2537979231691,,,,,,-0.9504304677893481,8.0
+aci_g05_amin005,r2_45,OLS combinado,-4.8923444334373425,0.3844540360552586,SE OLS ingenuo,,,,,
+aci_g05_amin005,r2_45,EF ventana,-5.0925814486431,0.4254024456955224,SE OLS ingenuo,,,,,
+aci_g05_amin005,r2_45,EF modelo,-4.153369065432212,0.5818438288318305,SE OLS ingenuo,,,,,
+aci_g05_amin005,r2_45,EF bidireccional,-4.257012817048489,0.7649377588830235,SE OLS ingenuo,,,,,
+aci_g05_amin005,r2_45,Efectos aleatorios cruzados,-4.927200402494176,,"REML, (1|modelo)+(1|ventana)",,,,,
+aci_g05_amin005,r2_45,Wild cluster bootstrap por modelo,-4.892344433437342,,"restringido, pesos de Webb, 9999 replicas",-11.039438697988373,0.005900590059005901,9.0,,
+aci_g05_amin005,r2_45,Wild cluster bootstrap por ventana,-4.892344433437342,,"restringido, pesos de Webb, 9999 replicas",-6.480836740182661,0.020602060206020602,5.0,,
+aci_g05_amin005,r2_45,dentro de ventana test_pre,-2.5629631792071375,,,,,,-0.959098566593983,9.0
+aci_g05_amin005,r2_45,dentro de ventana test_transition,-5.472791867447411,,,,,,-0.9742522966125263,9.0
+aci_g05_amin005,r2_45,dentro de ventana 2025-S1,-5.216799616840361,,,,,,-0.3338371942748624,9.0
+aci_g05_amin005,r2_45,dentro de ventana 2025-S2,-6.9432403351909535,,,,,,-0.9369474999628985,9.0
+aci_g05_amin005,r2_45,dentro de ventana 2026-S1,-10.219528452279928,,,,,,-0.9616699331704879,9.0
+tr_sel,r1_40,OLS combinado,-2.5176118589139658,0.8014046971803732,SE OLS ingenuo,,,,,
+tr_sel,r1_40,EF ventana,-3.802182832109579,0.738599793149563,SE OLS ingenuo,,,,,
+tr_sel,r1_40,EF modelo,0.7191611876996943,1.0397490233584181,SE OLS ingenuo,,,,,
+tr_sel,r1_40,EF bidireccional,-1.103611299182794,1.237522041543745,SE OLS ingenuo,,,,,
+tr_sel,r1_40,Efectos aleatorios cruzados,-3.5193530745264763,,"REML, (1|modelo)+(1|ventana)",,,,,
+tr_sel,r1_40,Wild cluster bootstrap por modelo,-2.517611858913967,,"restringido, pesos de Webb, 9999 replicas",-2.6182507537977386,0.036403640364036406,8.0,,
+tr_sel,r1_40,Wild cluster bootstrap por ventana,-2.517611858913967,,"restringido, pesos de Webb, 9999 replicas",-1.3851701132297907,0.416041604160416,5.0,,
+tr_sel,r1_40,dentro de ventana test_pre,0.2146313390623067,,,,,,0.12977419594282427,8.0
+tr_sel,r1_40,dentro de ventana test_transition,-5.248218286954714,,,,,,-0.9769542264579613,8.0
+tr_sel,r1_40,dentro de ventana 2025-S1,-28.512295919745046,,,,,,-0.8289554700303089,8.0
+tr_sel,r1_40,dentro de ventana 2025-S2,-2.806094328053321,,,,,,-0.8497198375520704,8.0
+tr_sel,r1_40,dentro de ventana 2026-S1,-15.767648173143565,,,,,,-0.9609215781395549,8.0
+tr_sel,r2_45,OLS combinado,-2.2684563495032664,0.7933160866231079,SE OLS ingenuo,,,,,
+tr_sel,r2_45,EF ventana,-3.729302842299627,0.7029461366558142,SE OLS ingenuo,,,,,
+tr_sel,r2_45,EF modelo,1.0975839085860344,1.0255119739386724,SE OLS ingenuo,,,,,
+tr_sel,r2_45,EF bidireccional,-0.9881849011869166,1.18734314719991,SE OLS ingenuo,,,,,
+tr_sel,r2_45,Efectos aleatorios cruzados,-2.725059269447235,,"REML, (1|modelo)+(1|ventana)",,,,,
+tr_sel,r2_45,Wild cluster bootstrap por modelo,-2.268456349503265,,"restringido, pesos de Webb, 9999 replicas",-2.168680318806441,0.18711871187118712,9.0,,
+tr_sel,r2_45,Wild cluster bootstrap por ventana,-2.268456349503265,,"restringido, pesos de Webb, 9999 replicas",-1.252789091286807,0.5262526252625263,5.0,,
+tr_sel,r2_45,dentro de ventana test_pre,0.300192446811197,,,,,,0.16914085818814137,9.0
+tr_sel,r2_45,dentro de ventana test_transition,-4.908323599262994,,,,,,-0.9591904457534787,9.0
+tr_sel,r2_45,dentro de ventana 2025-S1,-28.532407692140417,,,,,,-0.8577619003555372,9.0
+tr_sel,r2_45,dentro de ventana 2025-S2,-2.5749859143979523,,,,,,-0.8070851847689143,9.0
+tr_sel,r2_45,dentro de ventana 2026-S1,-14.987350848393096,,,,,,-0.9633206062584443,9.0
+aci_sel,r1_40,OLS combinado,-1.3813998651345825,0.4377866759508622,SE OLS ingenuo,,,,,
+aci_sel,r1_40,EF ventana,-1.7847097411514634,0.47477835780798083,SE OLS ingenuo,,,,,
+aci_sel,r1_40,EF modelo,1.16221704112104,0.3297065552306742,SE OLS ingenuo,,,,,
+aci_sel,r1_40,EF bidireccional,1.4959713351422064,0.4155214320123211,SE OLS ingenuo,,,,,
+aci_sel,r1_40,Efectos aleatorios cruzados,1.0003316728321503,0.391057077145525,"REML, (1|modelo)+(1|ventana)",,,,,
+aci_sel,r1_40,Wild cluster bootstrap por modelo,-1.381399865134583,,"restringido, pesos de Webb, 9999 replicas",-5.388725978605746,0.0097009700970097,8.0,,
+aci_sel,r1_40,Wild cluster bootstrap por ventana,-1.381399865134583,,"restringido, pesos de Webb, 9999 replicas",-2.753722328382124,0.017201720172017203,5.0,,
+aci_sel,r1_40,dentro de ventana test_pre,-0.3011568829494209,,,,,,-0.938349927495806,8.0
+aci_sel,r1_40,dentro de ventana test_transition,-1.570580178383225,,,,,,-0.9553171311536921,8.0
+aci_sel,r1_40,dentro de ventana 2025-S1,-14.776485436975095,,,,,,-0.604934756781494,8.0
+aci_sel,r1_40,dentro de ventana 2025-S2,-2.911060200085502,,,,,,-0.9410252813631043,8.0
+aci_sel,r1_40,dentro de ventana 2026-S1,-11.8237374871251,,,,,,-0.9727338388518754,8.0
+aci_sel,r2_45,OLS combinado,-1.2997454446861456,0.4160580129613977,SE OLS ingenuo,,,,,
+aci_sel,r2_45,EF ventana,-1.7801278092568007,0.4407098779577561,SE OLS ingenuo,,,,,
+aci_sel,r2_45,EF modelo,1.22180712647886,0.3223747281226836,SE OLS ingenuo,,,,,
+aci_sel,r2_45,EF bidireccional,1.4647062953371297,0.4053538911868413,SE OLS ingenuo,,,,,
+aci_sel,r2_45,Efectos aleatorios cruzados,1.0703557933248198,0.3528126018310018,"REML, (1|modelo)+(1|ventana)",,,,,
+aci_sel,r2_45,Wild cluster bootstrap por modelo,-1.2997454446861452,,"restringido, pesos de Webb, 9999 replicas",-4.178679969451164,0.0167016701670167,9.0,,
+aci_sel,r2_45,Wild cluster bootstrap por ventana,-1.2997454446861452,,"restringido, pesos de Webb, 9999 replicas",-2.5886047025489805,0.023702370237023703,5.0,,
+aci_sel,r2_45,dentro de ventana test_pre,-0.2955413929359973,,,,,,-0.9288549429368071,9.0
+aci_sel,r2_45,dentro de ventana test_transition,-1.4845452024183678,,,,,,-0.9440106213471641,9.0
+aci_sel,r2_45,dentro de ventana 2025-S1,-14.945933947577174,,,,,,-0.6539401391314428,9.0
+aci_sel,r2_45,dentro de ventana 2025-S2,-2.855785334592484,,,,,,-0.9406412363895202,9.0
+aci_sel,r2_45,dentro de ventana 2026-S1,-10.542647143158677,,,,,,-0.9537878643170553,9.0
